@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { supportLanguages } from './shared/utils/constLanguages';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'workii-app';
+  title = 'workii';
+
+  constructor(
+		private translateService: TranslateService
+	) {
+		this.translateService.addLangs(supportLanguages);
+		this.translateService.setDefaultLang('en');
+		this.translateService.use('en');
+
+		/* const browserlang = this.translateService.getBrowserLang();
+	 this.translateService.use(browserlang); */
+	}
 }

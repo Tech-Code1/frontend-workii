@@ -1,26 +1,51 @@
-<nav class="flex flex-row justify-between items-center">
-    <div class="flex flex-row items-center gap-2">
+<nav class="flex flex-row justify-between items-center h-16 border-b-2 border-gray-neutral">
+    <div class="flex flex-row items-center gap-2 cursor-pointer">
         <div class="rounded-full bg-gray-neutral h-12 w-12"></div>
         <p class="font-bold font-title text-2xl text-black-principal">Workii</p>
     </div>
 
-    <div class="flex flex-row gap-4">
+    <div class="flex flex-row gap-6">
         <ul class="flex flex-row gap-4 items-center">
-            <li>
-                <p class="font-bold font-title text-base text-black-principal">Log in</p>
+            <li class="px-4 cursor-pointer rounded-full bg-transparent hover:bg-secondary-lightBlue h-12 flex items-center justify-center">
+                <p class="font-bold font-title text-base text-primary-blueNeutral">{{ "nav.titleOne" | translate }}</p>
             </li>
 
             <button class="btn-solid-yellow h-12">
-                <p>Crear un worki</p>
+                <p>{{ "nav.btnOne" | translate }}</p>
             </button>
         </ul>
 
         <div class="border-2 border-gray-neutral h-12"></div>
 
         <div class="flex gap-2 items-center">
-            <img class="w-6 h-6" src="./../../../../assets/images/svg/icon-support.svg" alt="icon support">
+
+            <div class="flex justify-center items-center px-4 bg-transparent hover:bg-secondary-lightBlue cursor-pointer h-12 rounded-full">
+                <img class="w-6 h-6" src="./../../../../assets/images/svg/icon-support.svg" alt="icon support">
+            </div>
 
 
+            <div class=" select-lang">
+                <div class="selectbox">
+                    <div class="select" #select>
+                        <div id="contentSelect" #contentSelect>
+
+                            <span class="text-[28px]">🌐</span>
+                        </div>
+                        <img class="icon-rotate" src="../../../../assets/images/svg/icon-down-arrow.svg" #arrow alt="icon down arrow">
+                    </div>
+                </div>
+
+                <!-- opciones -->
+                <div class="options" #options>
+                    <a href="#" class="option" (click)="reciveData($event)" *ngFor="let languaje of lang">
+
+                        <div class="content-option d-flex flex-row gap-2" (click)="selectLang(languaje.languaje)">
+                            <img class="icon-flag-translate me-2" src="{{ languaje.img }}" alt=" {{ languaje.description }}">
+                            <h3 class="text-sm font-bold font-title title-lang">{{ languaje.languaje }}</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
 
     </div>

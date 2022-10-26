@@ -18,7 +18,8 @@ module.exports = {
         },
 
         secondary: {
-          lightBlue: '#E8F9FF'
+          lightBlue: '#E8F9FF',
+          strongYellow: '#FFC738'
         },
 
         accent: {

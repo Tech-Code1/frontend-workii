@@ -6,6 +6,7 @@ import { BodyComponent } from './components/body/body.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RouterModule } from '@angular/router';
 import { LandingRoutingModule } from './landing-routing.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -19,7 +20,8 @@ import { LandingRoutingModule } from './landing-routing.module';
   imports: [
     CommonModule,
     RouterModule,
-    LandingRoutingModule
+    LandingRoutingModule,
+    TranslateModule
   ]
 })
 export class LandingModule { }
