@@ -2,7 +2,7 @@
 module.exports = {
   important: true,
   purge: {
-    content: ['./projects/**/*.{html,ts}'],
+    content: ['./src/**/*.{html,ts}'],
   },
   darkMode: 'class', // or 'media' or 'class'
   theme: {

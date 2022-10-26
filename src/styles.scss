@@ -3,3 +3,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.btn-solid-yellow {
+    @apply bg-accent-yellow rounded-md text-black-principal text-base font-bold font-title px-4 flex justify-center items-center border-none outline-none
+}
