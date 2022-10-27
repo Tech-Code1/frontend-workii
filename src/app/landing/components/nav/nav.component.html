@@ -20,7 +20,10 @@
         <div class="flex gap-2 items-center">
 
             <div class="rounded-md bg-gray-lighter dark:bg-black-principal h-12 w-12 flex justify-center items-center cursor-pointer border-2 border-transparent hover:border-primary-blueNeutral" (click)="darkChange()">
-                <img class="h-8 w-auto" [src]="toggled ? moon : sun" alt="icon-sun">
+
+                    <img *ngIf="mode === 'light'" class="h-8 w-auto" [src]="sun" alt="icon-sun">
+                    <img *ngIf="mode === 'dark'" class="h-8 w-auto" [src]="moon" alt="icon-moon">
+
             </div>
 
             <div class="flex justify-center items-center px-4 bg-transparent hover:bg-secondary-lightBlue dark:hover:bg-dark-secondaryColorBlue cursor-pointer h-12 rounded-full">

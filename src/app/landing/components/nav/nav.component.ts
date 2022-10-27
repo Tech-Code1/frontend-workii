@@ -1,4 +1,5 @@
-import { Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, ElementRef, HostListener, Inject, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { supportLanguages } from 'src/app/shared/utils/constLanguages';
 
@@ -16,9 +17,7 @@ export class NavComponent implements OnInit {
 
   sun: string = "../../../../assets/images/svg/icon-sun.svg"
   moon: string = "../../../../assets/images/svg/icon-moon.svg"
-
-  toggled: boolean = false;
-
+  
 	@ViewChild('select') select!: ElementRef;
 	@ViewChild('options') options!: ElementRef;
 	@ViewChild('contentSelect') contentSelect!: ElementRef;
@@ -42,9 +41,25 @@ export class NavComponent implements OnInit {
 	];
 
   constructor(private renderer2: Renderer2,
-    private translateService: TranslateService,) { }
+    private translateService: TranslateService,
+    @Inject(DOCUMENT) private document: Document) { }
 
   ngOnInit(): void {
+    // Whenever the user explicity chooses light mode
+    //localStorage.theme = 'light'
+
+    // Whenever the user explicity chooses dark mode
+    //localStorage.theme = 'dark'
+
+    // Whenever the user explicity chooses the respect the OS preference
+    //localStorage.removeItem('theme')
+
+
+    if (localStorage['theme'] === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
   }
 
 
@@ -120,10 +135,14 @@ export class NavComponent implements OnInit {
       }
     }
 
-/*     @HostListener("document:click", ["$event"]) */
-    darkChange() {
-        this.toggled = !this.toggled;
+    toggleDarkMode: boolean = this.document.documentElement.classList.value === "dark";
+    mode: string | null = localStorage.getItem("theme")
+    
 
-        document.documentElement.classList.toggle("dark")
+    darkChange() {
+        this.toggleDarkMode = this.document.documentElement.classList.toggle("dark")
+        this.mode = this.toggleDarkMode ? localStorage['theme'] ='dark' : localStorage['theme'] ='light'
+        
+        console.log(this.mode)
     }
 }
