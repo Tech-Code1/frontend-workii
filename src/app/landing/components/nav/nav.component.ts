@@ -14,6 +14,11 @@ export class NavComponent implements OnInit {
 	clickCountTwo = 1;
 	clickCountThree = 1;
 
+  sun: string = "../../../../assets/images/svg/icon-sun.svg"
+  moon: string = "../../../../assets/images/svg/icon-moon.svg"
+
+  toggled: boolean = false;
+
 	@ViewChild('select') select!: ElementRef;
 	@ViewChild('options') options!: ElementRef;
 	@ViewChild('contentSelect') contentSelect!: ElementRef;
@@ -113,5 +118,12 @@ export class NavComponent implements OnInit {
         this.clickCount = 1;
         this.renderer2.removeClass(arrow, 'icon-rotate-two') 
       }
+    }
+
+/*     @HostListener("document:click", ["$event"]) */
+    darkChange() {
+        this.toggled = !this.toggled;
+
+        document.documentElement.classList.toggle("dark")
     }
 }

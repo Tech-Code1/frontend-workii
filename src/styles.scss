@@ -5,5 +5,10 @@
 @tailwind utilities;
 
 .btn-solid-yellow {
-    @apply bg-accent-yellow hover:bg-secondary-strongYellow rounded-md text-black-principal text-base font-bold font-title px-4 flex justify-center items-center border-none outline-none
+    @apply bg-accent-yellow dark:bg-dark-accentColor dark:hover:bg-dark-secondaryColorYellow hover:bg-secondary-strongYellow rounded-md text-black-principal text-base font-bold font-title px-4 flex justify-center items-center border-none outline-none
+}
+
+
+.custom-size-windows {
+    height: 100vh;
 }

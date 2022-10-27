@@ -40,6 +40,12 @@ module.exports = {
         black: {
           principal: '#0E0D0D',
           alternative: '#333333'
+        },
+        dark: {
+          prymaryColor: '#217AFF',
+          secondaryColorYellow: '#FFB800',
+          secondaryColorBlue: '#1673FF40',
+          accentColor: '#FDC32E'
         }
       }
     },
