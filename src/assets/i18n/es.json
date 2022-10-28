@@ -3,5 +3,10 @@
         "lang": "Idioma",
         "titleOne": "Ingresar",
         "btnOne": "Crear un worki"
-    }
+    },
+
+    "header": {
+      "titleParagraph": "Crea tu worki y ofrece una recompensa justa para quien pueda realizarlo",
+      "btnTwo": "Crear un worki"
+  }
 }

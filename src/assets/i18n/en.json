@@ -3,5 +3,10 @@
         "lang": "Language",
         "titleOne": "Log In",
         "btnOne": "Create a worki"
-    }
+    },
+
+    "header": {
+      "titleParagraph": "Create your worki and offer a fair reward for those who can do it",
+      "btnTwo": "Create a worki"
+  }
 }
