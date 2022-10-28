@@ -12,4 +12,9 @@ export class BodyComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+  id: any = 'create';
+	tabChange(ids: any) {
+		this.id = ids;
+	}
 }
