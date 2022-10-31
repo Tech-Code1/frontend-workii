@@ -19,7 +19,7 @@
 
         <div class="flex gap-2 items-center">
 
-            <div class="rounded-md bg-gray-lighter dark:bg-black-principal h-12 w-12 flex justify-center items-center cursor-pointer border-2 border-transparent hover:border-primary-blueNeutral" (click)="darkChange()">
+            <div class="rounded-md bg-gray-lighter dark:bg-black-alternative h-12 w-12 flex justify-center items-center cursor-pointer border-2 border-transparent hover:border-primary-blueNeutral" (click)="darkChange()">
 
                     <img *ngIf="mode === 'light'" class="h-8 w-auto" [src]="sun" alt="icon-sun">
                     <img *ngIf="mode === 'dark'" class="h-8 w-auto" [src]="moon" alt="icon-moon">
@@ -36,7 +36,7 @@
 
             <div class=" select-lang">
                 <div class="selectbox">
-                    <div class="select dark:bg-black-principal" #select>
+                    <div class="select dark:bg-black-alternative" #select>
                         <div id="contentSelect" #contentSelect>
 
                             <span class="text-[28px]">🌐</span>
@@ -50,7 +50,7 @@
                 </div>
 
                 <!-- opciones -->
-                <div class="options bg-gray-lighter dark:bg-black-principal" #options>
+                <div class="options bg-gray-lighter dark:bg-black-alternative" #options>
                     <a href="#" class="option" (click)="reciveData($event)" *ngFor="let languaje of lang">
 
                         <div class="content-option d-flex flex-row gap-2" (click)="selectLang(languaje.languaje)">
@@ -63,4 +63,5 @@
         </div>
 
     </div>
+
 </nav>

@@ -38,8 +38,8 @@ module.exports = {
         },
 
         black: {
-          principal: '#0E0D0D',
-          alternative: '#333333'
+          principal: '#111827',
+          alternative: '#1F2937'
         },
         dark: {
           prymaryColor: '#217AFF',
