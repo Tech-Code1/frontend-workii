@@ -1,4 +1,6 @@
-/* Custos styles */
+.custom-size-nav {
+    width: calc(100% - 48px);
+}
 
 .icon-flag-translate {
     width: 24px;
@@ -132,17 +134,17 @@
     transition: 0.2s;
 }
 
-.parent-menu-hover:hover .menu-hover:first-child {
+.parent-menu-hover .menu-hover:first-child {
     transform: rotate(45deg);
     position: absolute;
     top: 20.5px;
 }
 
-.parent-menu-hover:hover .menu-hover:nth-child(2) {
+.parent-menu-hover .menu-hover:nth-child(2) {
     opacity: 0;
 }
 
-.parent-menu-hover:hover .menu-hover:last-child {
+.parent-menu-hover .menu-hover:last-child {
     transform: rotate(-45deg);
     position: absolute;
     bottom: 20.5px;

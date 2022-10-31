@@ -1,19 +1,20 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, ElementRef, HostListener, Inject, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Inject, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { supportLanguages } from 'src/app/shared/utils/constLanguages';
 
 @Component({
-  selector: 'app-nav',
-  templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.scss']
+  selector: 'app-mobile-menu',
+  templateUrl: './mobile-menu.component.html',
+  styleUrls: ['./mobile-menu.component.scss']
 })
-export class NavComponent implements OnInit {
+export class MobileMenuComponent implements OnInit {
 
   langs = supportLanguages;
 	clickCount = 1;
 	clickCountTwo = 1;
-	clickCountThree = 1;
+
+  isMenuOpened: boolean = false;
 
   sun: string = "../../../../assets/images/svg/icon-sun.svg"
   moon: string = "../../../../assets/images/svg/icon-moon.svg"
@@ -22,9 +23,6 @@ export class NavComponent implements OnInit {
 	@ViewChild('options') options!: ElementRef;
 	@ViewChild('contentSelect') contentSelect!: ElementRef;
 	@ViewChild('inputSelect') inputSelect!: ElementRef;
-	@ViewChild('notification') notification!: ElementRef;
-	@ViewChild('btnNotification') btnNotification!: ElementRef;
-	@ViewChild('contentProfile') contentProfile!: ElementRef;
 	@ViewChild('arrow') arrow!: ElementRef;
 
   lang = [
@@ -40,20 +38,14 @@ export class NavComponent implements OnInit {
 		},
 	];
 
-  constructor(private renderer2: Renderer2,
+  constructor(
+    private renderer2: Renderer2,
     private translateService: TranslateService,
-    @Inject(DOCUMENT) private document: Document) { }
+    @Inject(DOCUMENT) private document: Document
+  ) { }
+
 
   ngOnInit(): void {
-    // Whenever the user explicity chooses light mode
-    //localStorage.theme = 'light'
-
-    // Whenever the user explicity chooses dark mode
-    //localStorage.theme = 'dark'
-
-    // Whenever the user explicity chooses the respect the OS preference
-    //localStorage.removeItem('theme')
-
 
     if (localStorage['theme'] === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
       document.documentElement.classList.add('dark')
@@ -62,7 +54,6 @@ export class NavComponent implements OnInit {
     }
   }
 
-  
 
   selectLang(lang: any) {
     this.translateService.use(lang);
@@ -79,6 +70,14 @@ export class NavComponent implements OnInit {
       let inputSelect = this.inputSelect.nativeElement;
       inputSelect.value =
         e.currentTarget.querySelector('.title-lang').innerText;
+    }
+
+    toggleMenu() {
+      this.isMenuOpened = !this.isMenuOpened
+    }
+
+    clickedOutside(): void {
+      this.isMenuOpened = false;
     }
   
     @HostListener("document:click", ["$event"])
