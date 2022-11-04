@@ -8,5 +8,25 @@
     "header": {
       "titleParagraph": "Create your worki and offer a fair reward for those who can do it",
       "btnTwo": "Create a worki"
+  },
+
+  "body":{
+    "titleText1":"Creates",
+    "titleParagraph1": "Create your workie and start looking for your ideal talent.",
+    "titleText2":"Apply",
+    "titleParagraph2":"Apply to a workie and wait to be chosen.",
+    "titleText3":"Quality",
+    "titleParagraph3": "It depends on your quality in each delivery to continue getting workies easily.",
+    "titleText4":"Reputation",
+    "titleParagraph4": "Your reputation will also be decisive to be able to be chosen more easily when making a workie.",
+    "btnThree": "Start",
+    "title1": "Create your worki",
+    "paragraph1": "Register and start creating your workie in a few clicks, searching for a talent has never been so easy!",
+    "title2":"Apply to a job",
+    "paragraph2":"If you have the talent that the job requires, don't hesitate to apply. Remember to fill out your profile well to make it easier to be accepted.",
+    "title3":"Quality in execution",
+    "paragraph3":"Do a good job delivering each of your workies to ensure they recommend you for the next workie.",
+    "title4":"take care of your reputation",
+    "paragraph4":"Other people will be able to see the comments and GPA you have, make sure you leave the best impression."
   }
 }
