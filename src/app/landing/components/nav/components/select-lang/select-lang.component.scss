@@ -7,10 +7,6 @@
     height: auto;
 }
 
-.select-lang {
-    margin-right: 8px;
-}
-
 @media (max-width: 991px) {
    .select-lang {
     margin-left: 0;
@@ -61,7 +57,7 @@
     border-left: 8px solid transparent;
     position: absolute;
     left: calc(50% - 8px);
-    top: 46px;
+    top: 45px;
 }
 
 .icon-select-nav-principal {
@@ -75,14 +71,13 @@
 	overflow: auto;
 	z-index: 10;
 	width: 100px;
-	margin-top: 12px;
 	position: absolute;
 	display: none;
 }
 
 .options.active {
 	display: flex;
-    flex-direction: column;
+  flex-direction: column;
 	animation: fadeIn .3s forwards;
 }
 
@@ -125,38 +120,38 @@
 }
 
 .icon-rotate {
-    transform: rotate(0deg);
-    transition: 0.5s;
+  transform: rotate(0deg);
+  transition: 0.5s;
 }
 
 .icon-rotate-two {
-    transform: rotate(180deg);
-    transition: 0.2s;
+  transform: rotate(180deg);
+  transition: 0.2s;
 }
 
 .parent-menu-hover .menu-hover:first-child {
-    transform: rotate(45deg);
-    position: absolute;
-    top: 20.5px;
+  transform: rotate(45deg);
+  position: absolute;
+  top: 20.5px;
 }
 
 .parent-menu-hover .menu-hover:nth-child(2) {
-    opacity: 0;
+  opacity: 0;
 }
 
 .parent-menu-hover .menu-hover:last-child {
-    transform: rotate(-45deg);
-    position: absolute;
-    bottom: 20.5px;
-    width: 30px;
+  transform: rotate(-45deg);
+  position: absolute;
+  bottom: 20.5px;
+  width: 30px;
 }
 
 .menu-hover {
-    transition: all 0.5s;
+  transition: all 0.5s;
 }
 
 .parent-menu-hover {
-    width: 100%;
-    height: auto;
-    margin: auto;
+  width: 100%;
+  height: auto;
+  margin: auto;
 }

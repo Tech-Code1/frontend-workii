@@ -1,125 +1,7 @@
 /* Custos styles */
 
-.icon-flag-translate {
-    width: 24px;
-    height: auto;
-}
-
-.select-lang {
-    margin-right: 8px;
-}
-
-@media (max-width: 991px) {
-   .select-lang {
-    margin-left: 0;
-    margin-top: 8px;
-    width: 90%;
-    margin-bottom:8px;
-    display: flex;
-    justify-content: center;
-   }
-}
-
-.selectbox {
-    width: 100px;
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.select {
-    background: #F4F4F4;
-    width: 100%;
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: .2s ease all;
-    padding: 8px;
-    position: relative;
-    z-index: 10px;
-    border: 2px solid transparent;
-    height: 48px;
-}
-
-.select.active,
-.select:hover {
-   border: 2px solid #278CEA;
-}
-
-.select.active::before {
-    content: "";
-    display: flex;
-    height: 0;
-    width: 0;
-    border-top: 8px solid #278CEA;
-    border-right: 8px solid transparent;
-    border-bottom: 8px solid transparent;
-    border-left: 8px solid transparent;
-    position: absolute;
-    left: calc(50% - 8px);
-    top: 46px;
-}
-
-.icon-select-nav-principal {
-    color: #278CEA;
-    font-size: 18px;
-}
-
-.options {
-	border-radius: 5px;
-	max-height: 400px;
-	overflow: auto;
-	z-index: 10;
-	width: 100px;
-	margin-top: 12px;
-	position: absolute;
-	display: none;
-}
-
-.options.active {
-	display: flex;
-    flex-direction: column;
-	animation: fadeIn .3s forwards;
-}
-
-@media (max-width: 991px) {
-	.options.active {
-	 top: 120px;
-	}
- }
-
-@keyframes fadeIn {
-	from {
-		transform: translateY(-30px) scale(.5);
-	}
-	to {
-		transform: translateY(0px) scale(1);
-	}
-}
-
-.content-option {
-	width: 100%;
-	display: flex;
-	align-items: center;
-	transition: .2s ease all;
-}
-
-.options .content-option:hover {
-	background: #278CEA;
-}
-
-.options .content-option {
-	padding: 8px;
-}
-
-.title-lang {
-    color: #111827;
-}
-
-.options .content-option:hover .title-lang {
-    color: #fff;
+.custom-size-nav {
+  width: calc(100% - 48px);
 }
 
 .icon-rotate {
@@ -132,17 +14,17 @@
     transition: 0.2s;
 }
 
-.parent-menu-hover:hover .menu-hover:first-child {
+.parent-menu-hover .menu-hover:first-child {
     transform: rotate(45deg);
     position: absolute;
     top: 20.5px;
 }
 
-.parent-menu-hover:hover .menu-hover:nth-child(2) {
+.parent-menu-hover .menu-hover:nth-child(2) {
     opacity: 0;
 }
 
-.parent-menu-hover:hover .menu-hover:last-child {
+.parent-menu-hover .menu-hover:last-child {
     transform: rotate(-45deg);
     position: absolute;
     bottom: 20.5px;

@@ -4,69 +4,51 @@
         <p class="font-bold font-title text-2xl text-black-principal dark:text-white-principal">Workii</p>
     </div>
 
-    <div class="flex flex-row gap-6">
-        <ul class="gap-4 items-center lg:flex lg:flex-row hidden">
-            <li class="px-4 cursor-pointer rounded-full bg-transparent hover:bg-secondary-lightBlue dark:hover:bg-dark-secondaryColorBlue h-12 flex items-center justify-center">
-                <p class="font-bold font-title text-base text-primary-blueNeutral dark:text-dark-prymaryColor">{{ "nav.titleOne" | translate }}</p>
-            </li>
+    <div class="flex flex-row">
 
-            <button class="btn-solid-yellow h-12">
-                <p>{{ "nav.btnOne" | translate }}</p>
-            </button>
-        </ul>
+      <div class="flex flex-row gap-6">
+        <app-btn-login class="hidden lg:flex"></app-btn-login>
 
         <div class="border-2 border-gray-neutral h-12 lg:flex hidden"></div>
 
         <div class="flex gap-2 items-center">
 
-            <div class="rounded-md bg-gray-lighter dark:bg-black-alternative h-12 w-12 flex justify-center items-center cursor-pointer border-2 border-transparent hover:border-primary-blueNeutral" (click)="darkChange()">
+            <div class="rounded-md bg-gray-lighter mr-2 lg:ml-0 dark:bg-black-alternative h-12 w-12 flex justify-center items-center cursor-pointer border-2 border-transparent hover:border-primary-blueNeutral" (click)="darkChange()">
 
-                    <img *ngIf="mode === 'light'" class="h-8 w-auto" [src]="sun" alt="icon-sun">
-                    <img *ngIf="mode === 'dark'" class="h-8 w-auto" [src]="moon" alt="icon-moon">
+                    <img class="h-8 w-auto" [src]="mode === 'dark' ? moon : sun" [alt]="mode === 'dark' ? 'icon-moon' : 'icon-soon'">
 
             </div>
 
-            <div class="justify-center items-center px-4 bg-transparent hover:bg-secondary-lightBlue dark:hover:bg-dark-secondaryColorBlue cursor-pointer h-12 rounded-full lg:flex hidden">
-
-                <svg class="w-6 h-6 fill-primary-blueNeutral dark:fill-dark-prymaryColor" width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M13.5 0C6.0561 0 0 6.0561 0 13.5V19.0931C0 20.4755 1.21095 21.6 2.7 21.6H4.05C4.40804 21.6 4.75142 21.4578 5.00459 21.2046C5.25777 20.9514 5.4 20.608 5.4 20.25V13.307C5.4 12.9489 5.25777 12.6055 5.00459 12.3524C4.75142 12.0992 4.40804 11.957 4.05 11.957H2.8242C3.5748 6.73245 8.0703 2.7 13.5 2.7C18.9297 2.7 23.4252 6.73245 24.1758 11.957H22.95C22.592 11.957 22.2486 12.0992 21.9954 12.3524C21.7422 12.6055 21.6 12.9489 21.6 13.307V21.6C21.6 23.0891 20.389 24.3 18.9 24.3H16.2V22.95H10.8V27H18.9C21.8781 27 24.3 24.5781 24.3 21.6C25.7891 21.6 27 20.4755 27 19.0931V13.5C27 6.0561 20.9439 0 13.5 0Z"/>
-                </svg>
-            </div>
+            <app-btn-support class="hidden lg:flex"></app-btn-support>
 
 
-            <div class=" select-lang lg:flex hidden">
-                <div class="selectbox">
-                    <div class="select dark:bg-black-alternative" #select>
-                        <div id="contentSelect" #contentSelect>
-
-                            <span class="text-[28px]">🌐</span>
-                        </div>
-
-                        <svg class="icon-rotate fill-primary-blueNeutral dark:fill-dark-prymaryColor" width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg" #arrow>
-                            <path d="M8.71971 10.5773C7.94473 11.8825 6.05527 11.8825 5.28029 10.5773L0.793768 3.02103C0.00218971 1.68785 0.963001 -4.89109e-05 2.51348 -4.87753e-05L11.4865 -4.79909e-05C13.037 -4.78553e-05 13.9978 1.68785 13.2062 3.02103L8.71971 10.5773Z"/>
-                        </svg>
-
-                    </div>
-                </div>
-
-                <!-- opciones -->
-                <div class="options bg-gray-lighter dark:bg-black-alternative" #options>
-                    <a href="#" class="option" (click)="reciveData($event)" *ngFor="let languaje of lang">
-
-                        <div class="content-option d-flex flex-row gap-2" (click)="selectLang(languaje.languaje)">
-                            <img class="icon-flag-translate me-2" src="{{ languaje.img }}" alt=" {{ languaje.description }}">
-                            <h3 class="text-sm font-bold font-title title-lang dark:text-white-principal">{{ languaje.languaje }}</h3>
-                        </div>
-                    </a>
-                </div>
-            </div>
+            <app-select-lang class="hidden lg:flex w-fit"></app-select-lang>
         </div>
+      </div>
 
         <!-- mobile options -->
-        <div>
-            <app-mobile-menu></app-mobile-menu>
-        </div>
-        
+          <div clickOutside (clickOutside)="clickedOutside()">
+            <button [ngClass]="{'parent-menu-hover' : isMenuOpened === true}" class="bg-white-principal dark:bg-black-alternative h-12 w-12 rounded-md outline-none border-2 border-transparent hover:border-primary-blueNeutral dark:hover:border-dark-prymaryColor lg:hidden gap-2 flex flex-col justify-center items-center relative px-2" (click)="toggleMenu()">
+                <div class="bg-white-principal h-[2.5px] w-full rounded-md origin-center menu-hover"></div>
+                <div class="bg-white-principal h-[2.5px] w-full rounded-md origin-center menu-hover"></div>
+                <div class="bg-white-principal h-[2.5px] w-full rounded-md origin-center menu-hover"></div>
+            </button>
+
+            <nav *ngIf="isMenuOpened" class="absolute custom-size-nav flex-col top-24 left-[24px] h-auto lg:hidden">
+                <div class="flex md:flex-row-reverse flex-col justify-between gap-2 items-center bg-black-alternative w-full mr-6 p-4 rounded-md">
+
+                    <app-btn-login></app-btn-login>
+
+                    <div class="flex items-center gap-2">
+                        <app-btn-support></app-btn-support>
+
+                        <app-select-lang></app-select-lang>
+                    </div>
+                </div>
+            </nav>
+          </div>
+
+
     </div>
 
 </nav>

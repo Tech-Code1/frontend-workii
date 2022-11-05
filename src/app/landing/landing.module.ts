@@ -8,8 +8,10 @@ import { HomeComponent } from './pages/home/home.component';
 import { RouterModule } from '@angular/router';
 import { LandingRoutingModule } from './landing-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { MobileMenuComponent } from './components/nav/components/mobile-menu/mobile-menu.component';
 import { ClickOutsideDirective } from '../shared/directives/clickOutside.directive';
+import { SelectLangComponent } from './components/nav/components/select-lang/select-lang.component';
+import { BtnLoginComponent } from './components/nav/components/btn-login/btn-login.component';
+import { BtnSupportComponent } from './components/nav/components/btn-support/btn-support.component';
 
 
 
@@ -19,14 +21,16 @@ import { ClickOutsideDirective } from '../shared/directives/clickOutside.directi
     HeaderComponent,
     BodyComponent,
     HomeComponent,
-    MobileMenuComponent,
-    ClickOutsideDirective
+    ClickOutsideDirective,
+    SelectLangComponent,
+    BtnLoginComponent,
+    BtnSupportComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     LandingRoutingModule,
-    TranslateModule
+    TranslateModule,
   ]
 })
 export class LandingModule { }

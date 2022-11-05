@@ -1,0 +1,26 @@
+<div class="select-lang flex relative">
+  <div class="selectbox">
+      <div class="select dark:bg-black-principal lg:dark:bg-black-alternative" #select>
+          <div id="contentSelect" #contentSelect>
+
+              <span class="text-[28px]">🌐</span>
+          </div>
+
+          <svg class="icon-rotate fill-primary-blueNeutral dark:fill-dark-prymaryColor" width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg" #arrow>
+              <path d="M8.71971 10.5773C7.94473 11.8825 6.05527 11.8825 5.28029 10.5773L0.793768 3.02103C0.00218971 1.68785 0.963001 -4.89109e-05 2.51348 -4.87753e-05L11.4865 -4.79909e-05C13.037 -4.78553e-05 13.9978 1.68785 13.2062 3.02103L8.71971 10.5773Z"/>
+          </svg>
+
+      </div>
+  </div>
+
+  <!-- opciones -->
+  <div class="options bg-gray-lighter dark:bg-black-alternative top-[60px]" #optionsLang>
+      <a href="#" class="option" (click)="reciveData($event)" *ngFor="let languaje of lang">
+
+          <div class="content-option d-flex flex-row gap-2" (click)="selectLang(languaje.languaje)">
+              <img class="icon-flag-translate me-2" src="{{ languaje.img }}" alt=" {{ languaje.description }}">
+              <h3 class="text-sm font-bold font-title title-lang dark:text-white-principal">{{ languaje.languaje }}</h3>
+          </div>
+      </a>
+  </div>
+</div>
