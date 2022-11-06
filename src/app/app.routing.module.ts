@@ -3,8 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 const routes: Routes = [
-  { path: 'home', loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule) },
-  { path: '**', redirectTo: 'home' }
+
+    { path: '', loadChildren: () => import('./modules/auth-module/auth-module.module').then(m => m.AuthModuleModule) },
+    { path: '**', redirectTo: '/' }
+
 ];
 
 @NgModule({
