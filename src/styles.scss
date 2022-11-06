@@ -8,7 +8,26 @@
     @apply bg-accent-yellow dark:bg-dark-accentColor dark:hover:bg-dark-secondaryColorYellow hover:bg-secondary-strongYellow rounded-md text-black-principal text-base font-bold font-title px-4 flex justify-center items-center border-none outline-none
 }
 
+.btn-solid-blue {
+  @apply bg-primary-blueNeutral dark:bg-dark-prymaryColor dark:hover:bg-primary-blueNeutral hover:bg-dark-prymaryColor rounded-md text-white-principal text-base font-bold font-title px-4 flex justify-center items-center border-none outline-none
+}
+
+.btn-light-red {
+  @apply bg-error-redLight border-2 border-error-redDark hover:border-error-redLight rounded-md outline-none text-error-redDark font-bold text-base font-title px-4 hover:bg-error-redDark hover:text-error-redLight
+}
+
+.btn-ghost-neutral {
+  @apply bg-transparent border-2 border-primary-blueNeutral dark:border-dark-prymaryColor hover:bg-primary-blueNeutral dark:hover:bg-dark-prymaryColor rounded-md text-black-principal dark:text-white-principal text-base font-bold font-title px-4 flex justify-center items-center outline-none hover:text-white-principal
+}
 
 .custom-size-windows {
     height: 100vh;
+}
+
+.input-regular {
+  @apply bg-gray-light dark:bg-black-alternative outline-none border-none rounded-md text-base font-normal text-black-principal dark:text-white-principal px-4
+}
+
+::placeholder {
+  @apply font-body text-sm text-gray-neutral font-normal
 }

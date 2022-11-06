@@ -46,6 +46,11 @@ module.exports = {
           secondaryColorYellow: '#FFB800',
           secondaryColorBlue: '#1673FF40',
           accentColor: '#FDC32E'
+        },
+
+        error: {
+          redLight: '#FFDACE',
+          redDark: '#C20707'
         }
       }
     },
