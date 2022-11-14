@@ -2,6 +2,17 @@ import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { supportLanguages } from './shared/utils/constLanguages';
 
+import * as SuperTokens from "supertokens-web-js";
+import * as Session from "supertokens-web-js/recipe/session";
+
+SuperTokens.init({
+  appInfo: {
+      appName: "workii",
+      apiDomain: "http://localhost:3000",
+  },
+  recipeList: [Session.init()],
+});
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
