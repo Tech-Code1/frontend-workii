@@ -7,6 +7,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { SigninComponent } from './components/signin/signin.component';
 import { ModalTutorialWorkiisComponent } from './components/modal-tutorial-workiis/modal-tutorial-workiis.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModuleComponents } from 'src/app/shared/components/shared.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { ModalTutorialWorkiisComponent } from './components/modal-tutorial-worki
     AuthRoutingModule,
     TranslateModule,
     RouterModule,
+    ReactiveFormsModule,
+    SharedModuleComponents
   ]
 })
 export class AuthModule { }

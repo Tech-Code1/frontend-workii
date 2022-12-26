@@ -9,6 +9,10 @@
   @apply text-white-principal text-lg font-bold font-title
 }
 
+.title-error-small {
+  @apply font-bold font-title text-sm text-error-redDark
+}
+
 .body-base-black {
   @apply text-black-principal text-base font-normal font-body
 }
@@ -26,6 +30,10 @@
   @apply bg-error-redLight border-2 border-error-redDark hover:border-error-redLight rounded-md outline-none text-error-redDark font-bold text-base font-title px-4 hover:bg-error-redDark hover:text-error-redLight
 }
 
+.btn-ghost-solid-success {
+  @apply bg-success-greenLight border-2 border-success-greenDark hover:border-success-greenLight rounded-md outline-none text-success-greenDark font-bold text-base font-title px-4 hover:bg-success-greenDark hover:text-success-greenLight
+}
+
 .btn-ghost-neutral {
   @apply bg-transparent border-2 border-primary-blueNeutral dark:border-dark-prymaryColor hover:bg-primary-blueNeutral dark:hover:bg-dark-prymaryColor rounded-md text-black-principal dark:text-white-principal text-base font-bold font-title px-4 flex justify-center items-center outline-none hover:text-white-principal
 }
@@ -38,8 +46,16 @@
     height: 100vh;
 }
 
+.input-standard {
+  @apply outline-none border-none px-4 ring-0 focus:ring-2 focus:ring-primary-blueNeutral ring-dark-prymaryColor w-full h-full
+}
+
 .input-regular {
   @apply bg-gray-light dark:bg-black-alternative outline-none border-none rounded-md text-base font-normal text-black-principal dark:text-white-principal px-4
+}
+
+.input-error {
+  @apply ring-1 ring-error-redDark bg-error-redLight focus:ring-2 focus:ring-error-redDark text-error-redDark
 }
 
 ::placeholder {

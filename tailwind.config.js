@@ -51,6 +51,11 @@ module.exports = {
         error: {
           redLight: '#FFDACE',
           redDark: '#C20707'
+        },
+
+        success: {
+          greenLight: '#E4FFD8',
+          greenDark: '#42B462'
         }
       }
     },
