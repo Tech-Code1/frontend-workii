@@ -6,13 +6,14 @@ import { LoginComponent } from './pages/login/login.component';
 import { InputEmailComponent } from './components/input-email/input-email.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
-import { AuthComponent } from './components/signin/signin.component';
+import { SigninComponent } from './components/signin/signin.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
-    AuthComponent,
-    InputEmailComponent,
+    //AuthComponent,
+    SigninComponent
+    //InputEmailComponent,
   ],
   imports: [
     CommonModule,
