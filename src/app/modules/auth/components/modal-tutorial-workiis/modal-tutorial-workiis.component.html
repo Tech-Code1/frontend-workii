@@ -1,0 +1,79 @@
+<div class="left-0 top-0 fixed w-full h-full modal z-20 flex justify-center items-center cursor-pointer" (click)="closeModal()">
+
+
+  <div class="flex flex-row cursor-default rounded-md h-[400px] w-[600px] animate__animated animate__fadeInDown animate__faster" (click)="stopPropagation($event)">
+
+
+    <button (click)="minusStep()" [disabled]="step === 1" [ngClass]="{'btn-disabled' : step === 1, 'btn-solid-blue' : step !== 1, 'h-full rounded-l-md w-12': true}">
+      <svg width="16" height="30" viewBox="0 0 16 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13 3L2.98899 13.011C1.8905 14.1095 1.8905 15.8905 2.98899 16.989L13 27" stroke="white" stroke-width="4.21929" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <body class="flex bg-white-principal items-center flex-col relative gap-4 w-full h-full">
+
+
+      <ng-container [ngSwitch]="step">
+        <div *ngSwitchCase="1">
+          <div class="background-img-tuto-one">
+            <div class="custom-background-title w-full h-16">
+              <h2 class="title-lg-white text-center pt-4">Pequeñas tareas</h2>
+            </div>
+          </div>
+          <div class="pb-8 px-4 pt-4 animate__animated animate__fadeIn animate__faster">
+            <p class="body-base-black">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ad, quod maiores! Consequatur quae doloremque quidem earum! Vel dolore quo suscipit deserunt molestias impedit accusantium sapiente? Maxime impedit non ducimus ipsum.</p>
+          </div>
+        </div>
+
+        <div *ngSwitchCase="2">
+          <div class="background-img-tuto-two">
+            <div class="custom-background-title w-full h-16">
+              <h2 class="title-lg-white text-center pt-4">Gana dinero con tu talento</h2>
+            </div>
+          </div>
+          <div class="pb-8 px-4 pt-4 animate__animated animate__fadeIn animate__faster">
+            <p class="body-base-black">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ad, quod maiores! Consequatur quae doloremque quidem earum! Vel dolore quo suscipit deserunt molestias impedit accusantium sapiente? Maxime impedit non ducimus ipsum.</p>
+          </div>
+        </div>
+
+        <div *ngSwitchCase="3">
+          <div class="background-img-tuto-three">
+            <div class="custom-background-title w-full h-16">
+              <h2 class="title-lg-white text-center pt-4">Gana prestigio</h2>
+            </div>
+          </div>
+          <div class="pb-8 px-4 pt-4 animate__animated animate__fadeIn animate__faster">
+            <p class="body-base-black">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ad, quod maiores! Consequatur quae doloremque quidem earum! Vel dolore quo suscipit deserunt molestias impedit accusantium sapiente? Maxime impedit non ducimus ipsum.</p>
+          </div>
+        </div>
+
+        <div *ngSwitchCase="4">
+          <div class="background-img-tuto-four">
+            <div class="custom-background-title w-full h-16">
+              <h2 class="title-lg-white text-center pt-4">Crea workiis o solucionalos</h2>
+            </div>
+          </div>
+          <div class="pb-8 px-4 pt-4 animate__animated animate__fadeIn animate__faster">
+            <p class="body-base-black">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ad, quod maiores! Consequatur quae doloremque quidem earum! Vel dolore quo suscipit deserunt molestias impedit accusantium sapiente? Maxime impedit non ducimus ipsum.</p>
+          </div>
+        </div>
+
+      </ng-container>
+
+      <div class="h-10 w-full bg-gray-lighter flex flex-row gap-4 absolute bottom-0 justify-center items-center">
+        <button (click)="currencyStep(1)" [ngClass]="{'bg-primary-blueNeutral' : step === 1, 'bg-secondary-lightBlue' : step !== 1, 'border border-primary-blueNeutral rounded-full h-4 w-4': true}"></button>
+        <button (click)="currencyStep(2)" [ngClass]="{'bg-primary-blueNeutral' : step === 2, 'bg-secondary-lightBlue' : step !== 2, 'border border-primary-blueNeutral rounded-full h-4 w-4': true}"></button>
+        <button (click)="currencyStep(3)" [ngClass]="{'bg-primary-blueNeutral' : step === 3, 'bg-secondary-lightBlue' : step !== 3, 'border border-primary-blueNeutral rounded-full h-4 w-4': true}"></button>
+        <button (click)="currencyStep(4)" [ngClass]="{'bg-primary-blueNeutral' : step === 4, 'bg-secondary-lightBlue' : step !== 4, 'border border-primary-blueNeutral rounded-full h-4 w-4': true}"></button>
+      </div>
+
+    </body>
+    <button (click)="plusStep()" [disabled]="step === 4" [ngClass]="{'btn-disabled' : step === 4, 'btn-solid-blue' : step !== 4, 'h-full rounded-r-md w-12': true}">
+
+      <svg width="16" height="30" viewBox="0 0 16 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2.47266 27L12.4837 16.989C13.5822 15.8905 13.5822 14.1095 12.4837 13.011L2.47266 3" stroke="white" stroke-width="4.21929" stroke-linecap="round"/>
+      </svg>
+
+    </button>
+
+  </div>
+</div>

@@ -4,12 +4,22 @@
 @tailwind components;
 @tailwind utilities;
 
+/* titles */
+.title-lg-white {
+  @apply text-white-principal text-lg font-bold font-title
+}
+
+.body-base-black {
+  @apply text-black-principal text-base font-normal font-body
+}
+
+/* buttons */
 .btn-solid-yellow {
     @apply bg-accent-yellow dark:bg-dark-accentColor dark:hover:bg-dark-secondaryColorYellow hover:bg-secondary-strongYellow rounded-md text-black-principal text-base font-bold font-title px-4 flex justify-center items-center border-none outline-none
 }
 
 .btn-solid-blue {
-  @apply bg-primary-blueNeutral dark:bg-dark-prymaryColor dark:hover:bg-primary-blueNeutral hover:bg-dark-prymaryColor rounded-md text-white-principal text-base font-bold font-title px-4 flex justify-center items-center border-none outline-none
+  @apply bg-primary-blueNeutral dark:bg-dark-prymaryColor dark:hover:bg-primary-blueNeutral hover:bg-dark-prymaryColor text-white-principal text-base font-bold font-title flex justify-center items-center border-none outline-none
 }
 
 .btn-light-red {
@@ -18,6 +28,10 @@
 
 .btn-ghost-neutral {
   @apply bg-transparent border-2 border-primary-blueNeutral dark:border-dark-prymaryColor hover:bg-primary-blueNeutral dark:hover:bg-dark-prymaryColor rounded-md text-black-principal dark:text-white-principal text-base font-bold font-title px-4 flex justify-center items-center outline-none hover:text-white-principal
+}
+
+.btn-disabled {
+  @apply bg-gray-neutral opacity-50 dark:bg-dark-prymaryColor text-white-principal text-base font-bold font-title flex justify-center items-center border-none outline-none
 }
 
 .custom-size-windows {

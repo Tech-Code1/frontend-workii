@@ -5,9 +5,14 @@
     >
       Crea una cuenta para empezar a realizar o crear workiis
     </h1>
-    <button class="btn-solid-blue h-12 w-fit">¿Que son los Workies?</button>
+    <button (click)="openModal()" class="btn-solid-blue h-12 w-fit px-4 rounded-md">¿Que son los Workiis?</button>
+
+
   </div>
 
   <signin></signin>
 
+  <div *ngIf="modalSwith">
+    <modal-tutorial-workiis></modal-tutorial-workiis>
+  </div>
 </div>

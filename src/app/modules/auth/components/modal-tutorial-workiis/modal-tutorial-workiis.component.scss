@@ -1,0 +1,40 @@
+.modal {
+    background: rgba(0, 0, 0, 0.479);
+}
+
+.child-hover-one {
+  stroke: #fff;
+}
+
+.custom-background-title {
+  background: linear-gradient(180deg, #000000 -30%, rgba(0, 0, 0, 0) 90%);
+}
+
+.background-img-tuto-one {
+  background: url(../../../../../assets/images/jpg/img-modal-tutorial-workii-one.jpg);
+}
+
+.background-img-tuto-two {
+  background: url(../../../../../assets/images/jpg/img-modal-tutorial-workii-two.jpg);
+}
+
+.background-img-tuto-three {
+  background: url(../../../../../assets/images/jpg/img-modal-tutorial-workii-three.jpg);
+}
+
+.background-img-tuto-four {
+  background: url(../../../../../assets/images/jpg/img-modal-tutorial-workii-four.jpg);
+}
+
+.background-img-tuto-two,
+.background-img-tuto-one,
+.background-img-tuto-three,
+.background-img-tuto-four {
+  width: 100%;
+  height: 200px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+
