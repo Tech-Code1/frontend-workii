@@ -8,6 +8,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LayoutCoreModule } from './core/layouts/layout-core/layout-core.module';
+import { DashboardModule } from './modules/dashboard/dashboard.module';
 
 export function createTranslateLoader(http: HttpClient) {
 	return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -22,6 +23,7 @@ export function createTranslateLoader(http: HttpClient) {
     LayoutCoreModule,
     RouterModule,
     AppRoutingModule,
+    DashboardModule,
     HttpClientModule,
     TranslateModule.forRoot({
     loader: {

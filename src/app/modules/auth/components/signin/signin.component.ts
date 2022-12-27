@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidatorsService } from 'src/app/shared/validators/validators.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'signin',
@@ -16,12 +19,10 @@ export class SigninComponent {
   })
 
   constructor(private formBuilder: FormBuilder,
-    private validatorsService: ValidatorsService) {}
+    private validatorsService: ValidatorsService,
+    private router: Router,
+    private authService: AuthService) {}
 
-
-  ngAfterViewChecked(){
-    console.log(this.loginForm.get('email')?.valid)
-  }
 
   isValid(inputName: string): boolean | undefined | void {
     if (this.loginForm.get(inputName)?.touched) {
@@ -35,6 +36,21 @@ export class SigninComponent {
     if(!this.loginForm.valid) {
       this.loginForm.markAllAsTouched();
     }
+
+    const {email, password} = this.loginForm.value
+
+    this.authService.login(email, password)
+    .subscribe( ok => {
+
+      console.log(ok);
+
+      if(ok === true) {
+        this.router.navigateByUrl('/dashboard')
+      } else {
+        Swal.fire('Error', ok, 'error')
+      }
+    })
+
   }
 
 

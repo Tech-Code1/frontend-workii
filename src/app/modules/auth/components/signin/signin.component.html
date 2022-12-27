@@ -31,7 +31,7 @@
      </custom-errors-message>
     </label>
 
-    <button [ngClass]="{'btn-light-red' : !loginForm.valid, 'btn-ghost-solid-success' : loginForm.valid}" class="h-10 w-full">Continuar con email</button>
+    <button [ngClass]="{'btn-light-red hover:bg-error-redLight text-error-redDark border-error-redDark opacity-50' : !loginForm.valid, 'btn-ghost-solid-success' : loginForm.valid}" class="h-10 w-full" type="submit" [disabled]="!loginForm.valid">Continuar con email</button>
   </div>
 
   <div class="h-0.5 bg-gray-neutral w-full my-6"></div>

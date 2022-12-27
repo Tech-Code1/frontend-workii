@@ -10,7 +10,12 @@ const routes: Routes = [
     children: [
       { path: '', loadChildren: () => import('./modules/landing/landing.module').then(m => m.LandingModule) },
       { path: 'auth', loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule) },
-    ]
+    ],
+  },
+  { path: 'dashboard', loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule) },
+  {
+    path: '**',
+    redirectTo: '/'
   }
 ];
 
