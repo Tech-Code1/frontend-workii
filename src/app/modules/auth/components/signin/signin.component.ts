@@ -33,6 +33,11 @@ export class SigninComponent {
   }
 
   login() {
+
+    /* this.authService.validateToken()
+    .subscribe( resp => console.log(resp)
+    ) */
+
     if(!this.loginForm.valid) {
       this.loginForm.markAllAsTouched();
     }
