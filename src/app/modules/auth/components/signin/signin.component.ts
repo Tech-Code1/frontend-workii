@@ -34,10 +34,6 @@ export class SigninComponent {
 
   login() {
 
-    /* this.authService.validateToken()
-    .subscribe( resp => console.log(resp)
-    ) */
-
     if(!this.loginForm.valid) {
       this.loginForm.markAllAsTouched();
     }
@@ -50,7 +46,7 @@ export class SigninComponent {
       console.log(ok);
 
       if(ok === true) {
-        this.router.navigateByUrl('/dashboard')
+        this.router.navigateByUrl('/dashboard/workiis')
       } else {
         Swal.fire('Error', ok, 'error')
       }

@@ -17,7 +17,7 @@ import { TemplateRootComponent } from './template-root/template-root.component';
     BtnLoginComponent,
     BtnSupportComponent,
     NavComponent,
-    TemplateRootComponent
+    TemplateRootComponent,
   ],
   imports: [
     CommonModule,
@@ -25,7 +25,9 @@ import { TemplateRootComponent } from './template-root/template-root.component';
     TranslateModule,
   ],
   exports: [
-    TemplateRootComponent
+    TemplateRootComponent,
+    BtnSupportComponent,
+    SelectLangComponent,
   ]
 })
 export class LayoutCoreModule { }

@@ -9,6 +9,14 @@
   @apply text-white-principal text-lg font-bold font-title
 }
 
+.title-xl-black {
+  @apply text-black-principal text-xl font-bold font-title
+}
+
+.title-base-black {
+  @apply text-black-principal text-base font-bold font-title
+}
+
 .title-error-small {
   @apply font-bold font-title text-sm text-error-redDark
 }
