@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from 'src/app/shared/components/shared.module';
 import { ClickOutsideDirective } from 'src/app/shared/directives/clickOutside.directive';
 import { BtnLoginComponent } from './components/btn-login/btn-login.component';
 import { BtnSupportComponent } from './components/btn-support/btn-support.component';
@@ -23,6 +24,7 @@ import { TemplateRootComponent } from './template-root/template-root.component';
     CommonModule,
     RouterModule,
     TranslateModule,
+    SharedModule
   ],
   exports: [
     TemplateRootComponent,

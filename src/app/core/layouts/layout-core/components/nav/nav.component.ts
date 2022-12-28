@@ -16,16 +16,12 @@ export class NavComponent implements OnInit {
 	clickCountThree = 1;
   isMenuOpened: boolean = false;
 
-  sun: string = "../../../../assets/images/svg/icon-sun.svg"
-  moon: string = "../../../../assets/images/svg/icon-moon.svg"
-
 	@ViewChild('inputSelect') inputSelect!: ElementRef;
 	@ViewChild('contentProfile') contentProfile!: ElementRef;
 
 
   constructor(private renderer2: Renderer2,
-    private translateService: TranslateService,
-    @Inject(DOCUMENT) private document: Document) { }
+    private translateService: TranslateService) { }
 
   ngOnInit(): void {
     // Whenever the user explicity chooses light mode
@@ -36,13 +32,6 @@ export class NavComponent implements OnInit {
 
     // Whenever the user explicity chooses the respect the OS preference
     //localStorage.removeItem('theme')
-
-
-    if (localStorage['theme'] === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
   }
 
   toggleMenu() {
@@ -52,15 +41,4 @@ export class NavComponent implements OnInit {
   clickedOutside(): void {
     this.isMenuOpened = false;
   }
-
-    toggleDarkMode: boolean = this.document.documentElement.classList.value === "dark";
-    mode: string | null = localStorage.getItem("theme")
-
-
-    darkChange() {
-        this.toggleDarkMode = this.document.documentElement.classList.toggle("dark")
-        this.mode = this.toggleDarkMode ? localStorage['theme'] ='dark' : localStorage['theme'] ='light'
-
-        console.log(this.mode)
-    }
 }

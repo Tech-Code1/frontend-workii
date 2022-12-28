@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CustomErrorsComponent } from './customerrors.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DarkModeComponent } from './darkMode.component';
 
 
 @NgModule({
   declarations: [
-    CustomErrorsComponent
+    CustomErrorsComponent,
+    DarkModeComponent
   ],
   imports: [
     CommonModule,
@@ -15,7 +17,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   exports: [
     CustomErrorsComponent,
+    DarkModeComponent
   ]
 })
 
-export class SharedModuleComponents {}
+export class SharedModule {}

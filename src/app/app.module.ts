@@ -9,6 +9,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LayoutCoreModule } from './core/layouts/layout-core/layout-core.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
+import { SharedModule } from './shared/components/shared.module';
 
 export function createTranslateLoader(http: HttpClient) {
 	return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -31,7 +32,7 @@ export function createTranslateLoader(http: HttpClient) {
       useFactory: (createTranslateLoader),
       deps: [HttpClient]
     }
-  })
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

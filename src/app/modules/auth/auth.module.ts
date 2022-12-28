@@ -8,13 +8,15 @@ import { RouterModule } from '@angular/router';
 import { SigninComponent } from './components/signin/signin.component';
 import { ModalTutorialWorkiisComponent } from './components/modal-tutorial-workiis/modal-tutorial-workiis.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SharedModuleComponents } from 'src/app/shared/components/shared.module';
+import { SharedModule } from 'src/app/shared/components/shared.module';
+import { Step2Component } from './pages/step2/step2.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     SigninComponent,
-    ModalTutorialWorkiisComponent
+    ModalTutorialWorkiisComponent,
+    Step2Component
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,7 @@ import { SharedModuleComponents } from 'src/app/shared/components/shared.module'
     TranslateModule,
     RouterModule,
     ReactiveFormsModule,
-    SharedModuleComponents
+    SharedModule
   ]
 })
 export class AuthModule { }

@@ -10,11 +10,15 @@
 }
 
 .title-xl-black {
-  @apply text-black-principal text-xl font-bold font-title
+  @apply text-black-principal dark:text-white-principal text-xl font-bold font-title
+}
+
+.title-3xl-black {
+  @apply text-black-principal dark:text-white-principal text-3xl font-bold font-title
 }
 
 .title-base-black {
-  @apply text-black-principal text-base font-bold font-title
+  @apply text-black-principal dark:text-white-principal text-base font-bold font-title
 }
 
 .title-error-small {
@@ -22,7 +26,11 @@
 }
 
 .body-base-black {
-  @apply text-black-principal text-base font-normal font-body
+  @apply text-black-principal dark:text-white-principal text-base font-normal font-body
+}
+
+.body-sm-black {
+  @apply text-black-principal dark:text-white-principal text-sm font-normal font-body
 }
 
 /* buttons */

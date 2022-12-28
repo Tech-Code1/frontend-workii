@@ -13,9 +13,7 @@
 
         <div class="flex gap-2 items-center">
 
-            <div class="rounded-md bg-gray-lighter mr-2 lg:ml-0 dark:bg-black-alternative h-12 w-12 flex justify-center items-center cursor-pointer border-2 border-transparent hover:border-primary-blueNeutral" (click)="darkChange()">
-                <img class="h-8 w-auto" [src]="mode === 'dark' ? moon : sun" [alt]="mode === 'dark' ? 'icon-moon' : 'icon-soon'">
-            </div>
+            <dark-mode></dark-mode>
 
             <app-btn-support class="hidden lg:flex"></app-btn-support>
 
