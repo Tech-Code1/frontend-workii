@@ -10,13 +10,15 @@ import { ModalTutorialWorkiisComponent } from './components/modal-tutorial-worki
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/components/shared.module';
 import { Step2Component } from './pages/step2/step2.component';
+import { Step3Component } from './pages/step3/step3.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     SigninComponent,
     ModalTutorialWorkiisComponent,
-    Step2Component
+    Step2Component,
+    Step3Component
   ],
   imports: [
     CommonModule,
