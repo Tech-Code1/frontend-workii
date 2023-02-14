@@ -1,62 +1,111 @@
 <div class="flex w-full custom-heigh justify-center items-center flex-grow">
-  <form (ngSubmit)="login()" [formGroup]="registerStep2" action="" class="w-[450px]">
+  <form
+    (ngSubmit)="login()"
+    [formGroup]="registerStep2"
+    action=""
+    class="w-[450px]"
+  >
     <div class="flex flex-col gap-4 mt-16">
-      <h1
-        class="title-3xl-black text-center"
-      >
-        Bienvenido a Worki
-      </h1>
+      <h1 class="title-3xl-black text-center">Bienvenido a Worki</h1>
       <h2 class="title-base-black text-center">Queremos conocerte</h2>
     </div>
 
     <div class="flex flex-col gap-4 my-8 items-center">
-      <div class="h-24 w-24 bg-gray-neutral rounded-full flex justify-center items-center">
-        <img src="../../../../../assets/images/svg/icon-avatar.svg" alt="icon avatar">
+      <div
+        class="h-24 w-24 bg-gray-neutral rounded-full flex justify-center items-center"
+      >
+        <img
+          src="../../../../../assets/images/svg/icon-avatar.svg"
+          alt="icon avatar"
+        />
       </div>
 
-      <label for="upload" class="title-base-black underline flex relative w-fit cursor-pointer">  Subir foto
-        <input type="file" id="upload" class="absolute hidden">
+      <label
+        for="upload"
+        class="title-base-black underline flex relative w-fit cursor-pointer"
+      >
+        Subir foto
+        <input type="file" id="upload" class="absolute hidden" />
       </label>
     </div>
 
     <div class="flex flex-col gap-4">
-
       <label for="nick" class="flex flex-col gap-1">
-        <p class="font-bold text-black-principal dark:text-white-principal text-base font-title">Nick</p>
-      <input formControlName="nick" [ngClass]="{'input-standard h-10 w-full rounded-md' : true,
-      'input-error' : !isValid('nick'),
-      'input-regular' : isValid('nick')}" type="text" placeholder="John Doe" autocomplete="nickname">
+        <p
+          class="font-bold text-black-principal dark:text-white-principal text-base font-title"
+        >
+          Nick
+        </p>
+        <input
+          formControlName="nick"
+          [ngClass]="{
+            'input-standard h-10 w-full rounded-md': true,
+            'input-error': !isValid('nick'),
+            'input-regular': isValid('nick')
+          }"
+          type="text"
+          placeholder="John Doe"
+          autocomplete="nickname"
+        />
 
-      <custom-errors-message *ngIf="!isValid('email')"
-        [formGroup]="registerStep2" controlName="email"
-        class="title-error-small">
-      </custom-errors-message>
+        <custom-errors-message
+          *ngIf="!isValid('email')"
+          [formGroup]="registerStep2"
+          controlName="email"
+          class="title-error-small"
+        >
+        </custom-errors-message>
       </label>
 
       <label for="repeatPass" class="flex flex-col gap-1">
-        <p class="font-bold text-black-principal dark:text-white-principal text-base font-title">Repetir contraseña</p>
-      <input formControlName="repeatPass" [ngClass]="{'input-standard h-10 w-full rounded-md' : true,
-      'input-error' : !isValid('repeatPass'),
-      'input-regular' : isValid('repeatPass')}" type="password" placeholder="******" autocomplete="new-password">
+        <p
+          class="font-bold text-black-principal dark:text-white-principal text-base font-title"
+        >
+          Repetir contraseña
+        </p>
+        <input
+          formControlName="repeatPass"
+          [ngClass]="{
+            'input-standard h-10 w-full rounded-md': true,
+            'input-error': !isValid('repeatPass'),
+            'input-regular': isValid('repeatPass')
+          }"
+          type="password"
+          placeholder="******"
+          autocomplete="new-password"
+        />
 
-      <custom-errors-message *ngIf="!isValid('repeatPass')"
-        [formGroup]="registerStep2" controlName="repeatPass"
-        class="title-error-small">
-      </custom-errors-message>
+        <custom-errors-message
+          *ngIf="!isValid('repeatPass')"
+          [formGroup]="registerStep2"
+          controlName="repeatPass"
+          class="title-error-small"
+        >
+        </custom-errors-message>
       </label>
 
-      <button [ngClass]="{'btn-solid-blue rounded-md opacity-50' : !registerStep2.valid, 'btn-ghost-solid-success' : registerStep2.valid}" class="h-10 w-full" type="submit" [disabled]="!registerStep2.valid">Continuar</button>
+      <button
+        [ngClass]="{
+          'btn-solid-blue rounded-md opacity-50': !registerStep2.valid,
+          'btn-ghost-solid-success': registerStep2.valid
+        }"
+        class="h-10 w-full"
+        type="submit"
+        [disabled]="!registerStep2.valid"
+      >
+        Continuar
+      </button>
     </div>
 
     <div class="h-0.5 bg-gray-neutral w-full my-6"></div>
 
-
     <div class="flex gap-2 justify-center mt-9">
-
-      <p class="body-sm-black text-center">Estas creando una cuenta con el correo <span class="text-primary-blueNeutral">example@gmail.com.</span>
-        Si quieres crearla con otro, <a href="#" class="underline"> ingresa con otro correo.</a>
+      <p class="body-sm-black text-center">
+        Estas creando una cuenta con el correo
+        <span class="text-primary-blueNeutral">{{ email }}</span> Si quieres
+        crearla con otro,
+        <a href="/auth" class="underline"> ingresa con otro correo.</a>
       </p>
     </div>
-
   </form>
 </div>

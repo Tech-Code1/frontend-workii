@@ -4,21 +4,15 @@ import { ValidatorsService } from 'src/app/shared/validators/validators.service'
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
-import { loginDTO } from '../../DTOs/loginDTO';
 
 @Component({
-  selector: 'signin',
-  templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.scss']
+  selector: 'validate-otp',
+  templateUrl: './validate-otp.component.html',
+  styleUrls: ['./validate-otp.component.scss']
 })
-export class SigninComponent {
+export class ValidateOtpComponent {
 
-  validForm!: boolean;
   userExists: boolean = true;
-  loginForm:FormGroup  = this.formBuilder.group({
-    email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern), Validators.maxLength(100)]],
-    password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]],
-  })
   otpForm:FormGroup  = this.formBuilder.group({
     otp: ['', [Validators.required, Validators.maxLength(100)]],
   })
@@ -30,35 +24,11 @@ export class SigninComponent {
 
 
   isValid(inputName: string): boolean | undefined | void {
-    if (this.loginForm.get(inputName)?.touched) {
+    if (this.otpForm.get(inputName)?.touched) {
 
-      return this.loginForm.get(inputName)?.valid
+      return this.otpForm.get(inputName)?.valid
     }
     return true
-  }
-
-  login() {
-
-    if(!this.loginForm.valid) {
-      this.loginForm.markAllAsTouched();
-    }
-
-    const {email, password} = this.loginForm.value
-
-    this.authService.login({email, password})
-    .subscribe( ok => {
-
-      console.log(ok);
-
-      if(ok === true) {
-        this.router.navigateByUrl('/dashboard/workiis')
-        this.userExists = true;
-      } else {
-        //Swal.fire('Error', ok, 'error')
-        this.userExists = false;
-      }
-    })
-
   }
 
   validateOtp() {

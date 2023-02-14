@@ -13,6 +13,10 @@
   @apply text-black-principal dark:text-white-principal text-xl font-bold font-title
 }
 
+.title-xl-green {
+  @apply text-success-greenDark dark:text-success-greenDark text-xl font-bold font-title
+}
+
 .title-3xl-black {
   @apply text-black-principal dark:text-white-principal text-3xl font-bold font-title
 }
@@ -64,6 +68,10 @@
 
 .input-standard {
   @apply outline-none border-none px-4 ring-0 focus:ring-2 focus:ring-primary-blueNeutral ring-dark-prymaryColor w-full h-full
+}
+
+.input-special-green {
+  @apply outline-none border-2 border-success-greenDark px-4 ring-0 focus:ring-2 focus:ring-success-greenDark ring-success-greenDark w-full h-full
 }
 
 .input-regular {

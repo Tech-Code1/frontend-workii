@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/components/shared.module';
 import { Step2Component } from './pages/step2/step2.component';
 import { Step3Component } from './pages/step3/step3.component';
+import { ValidateOtpComponent } from './components/validate-otp/validate-otp.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { Step3Component } from './pages/step3/step3.component';
     SigninComponent,
     ModalTutorialWorkiisComponent,
     Step2Component,
-    Step3Component
+    Step3Component,
+    ValidateOtpComponent
   ],
   imports: [
     CommonModule,

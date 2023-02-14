@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 
-import { IAuthResponse, IUser } from '../interfaces/auth.interface';
+import { IAuthResponse, IOtp, IUser } from '../interfaces/auth.interface';
 import { catchError, map, of, tap, Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { loginDTO } from '../DTOs/loginDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +14,13 @@ export class AuthService {
 
   private baseUrl: string = environment.baseUrl;
   private _user!: IUser;
+  loginEmail!: string | undefined;
 
   get user() {
     return { ...this._user }
   }
 
-  constructor( private http: HttpClient ) { }
+  constructor( private http: HttpClient, private router: Router, ) { }
 
   setUserData(token: string, id: string, email: string) {
     localStorage.setItem('token', token!);
@@ -28,7 +31,7 @@ export class AuthService {
     }
   }
 
-  login(email: string, password: string) {
+  login({email, password} : loginDTO) {
 
     const url = `${this.baseUrl}/auth/login`;
     const body = { email, password };
@@ -39,10 +42,23 @@ export class AuthService {
         if(resp.ok ) {
           this.setUserData(resp.token!, resp.id!, resp.email!)
         }
-
       }),
-      map(resp => resp.ok),
+      map(resp => {
+        this.loginEmail = resp.email
+      }
+      ),
       catchError(err => of(err.error.message))
+    )
+  }
+
+  validateOtp(otp: string) {
+    const url = `${this.baseUrl}/auth/validate/otp`;
+    const body = { otp };
+
+    return this.http.post<IOtp>(url, body)
+    .pipe(
+      map(resp => resp.ok),
+      catchError(err => of(false))
     )
   }
 

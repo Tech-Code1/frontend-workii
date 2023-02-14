@@ -1,0 +1,42 @@
+<form (ngSubmit)="validateOtp()" [formGroup]="otpForm" action="" class="mt-16">
+  <div class="flex flex-col gap-4">
+    <label for="otp" class="flex flex-col gap-1">
+      <p
+        class="font-bold text-black-principal dark:text-white-principal text-base font-title"
+      >
+        OTP
+      </p>
+      <input
+        formControlName="otp"
+        [ngClass]="{
+          'input-special-green bg-success-greenLight border-dashed h-16 text-center text-xl font-bold text-success-greenDark w-full rounded-md': true,
+          'input-error': !isValid('otp'),
+          'input-regular': isValid('otp')
+        }"
+        type="otp"
+        placeholder="etht6-56ref-ufgj8-yh8bd"
+      />
+
+      <custom-errors-message
+        *ngIf="!isValid('otp')"
+        [formGroup]="otpForm"
+        controlName="otp"
+        class="title-error-small"
+      >
+      </custom-errors-message>
+    </label>
+
+    <button
+      [ngClass]="{
+        'btn-light-red hover:bg-error-redLight text-error-redDark border-error-redDark opacity-50':
+          !otpForm.valid,
+        'btn-ghost-solid-success': otpForm.valid
+      }"
+      class="h-10 w-full"
+      type="submit"
+      [disabled]="!otpForm.valid"
+    >
+      Validar OTP
+    </button>
+  </div>
+</form>
