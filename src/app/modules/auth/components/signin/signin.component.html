@@ -3,7 +3,7 @@
     (ngSubmit)="login()"
     [formGroup]="loginForm"
     action=""
-    *ngIf="userExists"
+    *ngIf="userExists === true"
   >
     <h2
       class="font-bold text-3xl font-title dark:text-white-principal text-black-principal my-16 text-center"
@@ -100,7 +100,12 @@
     </div>
   </form>
 
-  <validate-otp *ngIf="userExists === false" class="w-[450px]"></validate-otp>
+  <validate-otp
+    *ngIf="userExists === false"
+    class="w-[450px]"
+    [userExists]="userExists"
+    (cancel)="userExists = true"
+  ></validate-otp>
 
   <div
     class="flex font-title text-sm text-black-principal dark:text-white-principal gap-2 justify-center mt-9"

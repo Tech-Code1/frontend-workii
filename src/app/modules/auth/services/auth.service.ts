@@ -14,7 +14,8 @@ export class AuthService {
 
   private baseUrl: string = environment.baseUrl;
   private _user!: IUser;
-  loginEmail!: string | undefined;
+  loginEmail!: string;
+  loginPassword!: string;
 
   get user() {
     return { ...this._user }
@@ -41,10 +42,15 @@ export class AuthService {
       tap( resp => {
         if(resp.ok ) {
           this.setUserData(resp.token!, resp.id!, resp.email!)
+          this.router.navigate(['/dashboard/workiis']);
         }
       }),
       map(resp => {
-        this.loginEmail = resp.email
+        if(resp.email && resp.password)
+        this.loginEmail = resp.email,
+        this.loginPassword = resp.password
+        console.log(this.loginPassword);
+
       }
       ),
       catchError(err => of(err.error.message))

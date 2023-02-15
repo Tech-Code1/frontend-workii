@@ -33,10 +33,16 @@
         'btn-ghost-solid-success': otpForm.valid
       }"
       class="h-10 w-full"
-      type="submit"
       [disabled]="!otpForm.valid"
     >
       Validar OTP
+    </button>
+    <button
+      (click)="cancelOtp()"
+      class="text-error-redDark border-error-redDark border-2 rounded-md bg-transparent hover:bg-error-redDark hover:text-white-principal h-10 w-full font-title"
+      type="button"
+    >
+      Cancelar
     </button>
   </div>
 </form>

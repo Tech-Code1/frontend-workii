@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidatorsService } from 'src/app/shared/validators/validators.service';
 import { Router } from '@angular/router';
@@ -12,7 +12,12 @@ import Swal from 'sweetalert2';
 })
 export class ValidateOtpComponent {
 
-  userExists: boolean = true;
+  @Input()
+  userExists!: boolean;
+
+  @Output()
+  cancel: EventEmitter<void> = new EventEmitter<void>();
+
   otpForm:FormGroup  = this.formBuilder.group({
     otp: ['', [Validators.required, Validators.maxLength(100)]],
   })
@@ -20,7 +25,8 @@ export class ValidateOtpComponent {
   constructor(private formBuilder: FormBuilder,
     private validatorsService: ValidatorsService,
     private router: Router,
-    private authService: AuthService) {}
+    private authService: AuthService,
+    ) {}
 
 
   isValid(inputName: string): boolean | undefined | void {
@@ -50,4 +56,8 @@ export class ValidateOtpComponent {
   }
 
 
+  cancelOtp() {
+    this.cancel.emit()
+    console.log(this.userExists);
+  }
 }

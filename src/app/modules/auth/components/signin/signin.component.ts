@@ -19,9 +19,6 @@ export class SigninComponent {
     email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern), Validators.maxLength(100)]],
     password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]],
   })
-  otpForm:FormGroup  = this.formBuilder.group({
-    otp: ['', [Validators.required, Validators.maxLength(100)]],
-  })
 
   constructor(private formBuilder: FormBuilder,
     private validatorsService: ValidatorsService,
@@ -41,6 +38,7 @@ export class SigninComponent {
 
     if(!this.loginForm.valid) {
       this.loginForm.markAllAsTouched();
+      return;
     }
 
     const {email, password} = this.loginForm.value
@@ -60,24 +58,4 @@ export class SigninComponent {
     })
 
   }
-
-  validateOtp() {
-    if(!this.otpForm.valid) {
-      this.otpForm.markAllAsTouched();
-    }
-
-    const {otp} = this.otpForm.value
-
-    this.authService.validateOtp(otp)
-    .subscribe(ok => {
-
-      if (ok) {
-        this.router.navigateByUrl('/auth/step2')
-      } else {
-        Swal.fire('Error', "OTP inválido. Por favor, vuelva a intentarlo.", 'error')
-      }
-    })
-  }
-
-
 }

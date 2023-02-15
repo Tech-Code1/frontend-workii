@@ -29,6 +29,6 @@ import { ValidateOtpComponent } from './components/validate-otp/validate-otp.com
     RouterModule,
     ReactiveFormsModule,
     SharedModule
-  ]
+  ],
 })
 export class AuthModule { }

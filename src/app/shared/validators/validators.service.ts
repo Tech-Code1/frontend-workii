@@ -21,7 +21,7 @@ export class ValidatorsService {
 
     return (formGroup: AbstractControl): ValidationErrors | null => {
 
-      const pass1 = formGroup.get(input1)?.value;
+      const pass1 = input1;
       const pass2 = formGroup.get(input2)?.value;
 
       if (pass1 === pass2) {

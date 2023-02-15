@@ -1,6 +1,6 @@
 <div class="flex w-full custom-heigh justify-center items-center flex-grow">
   <form
-    (ngSubmit)="login()"
+    (ngSubmit)="onSubmit()"
     [formGroup]="registerStep2"
     action=""
     class="w-[450px]"
@@ -12,21 +12,48 @@
 
     <div class="flex flex-col gap-4 my-8 items-center">
       <div
-        class="h-24 w-24 bg-gray-neutral rounded-full flex justify-center items-center"
+        class="h-24 w-24 bg-gray-neutral rounded-full flex justify-center items-center cursor-pointer"
+        (click)="avatarInput.click()"
       >
+        <div *ngIf="images['avatar']" class="h-24 w-24">
+          <img
+            loading="lazy"
+            class="h-full w-full rounded-full object-cover"
+            [src]="images['avatar']"
+          />
+        </div>
+
+        <input
+          #avatarInput
+          hidden
+          (change)="showImgPreview($event, 'avatar')"
+          type="file"
+        />
+
         <img
+          *ngIf="!images['avatar']"
           src="../../../../../assets/images/svg/icon-avatar.svg"
           alt="icon avatar"
         />
       </div>
 
-      <label
+      <custom-errors-message
+        *ngIf="!isValid('avatar')"
+        [formGroup]="registerStep2"
+        controlName="avatar"
+        class="title-error-small"
+      >
+      </custom-errors-message>
+
+      <button
+        type="button"
+        (click)="avatarInput.click()"
         for="upload"
         class="title-base-black underline flex relative w-fit cursor-pointer"
       >
         Subir foto
         <input type="file" id="upload" class="absolute hidden" />
-      </label>
+      </button>
     </div>
 
     <div class="flex flex-col gap-4">
@@ -57,18 +84,18 @@
         </custom-errors-message>
       </label>
 
-      <label for="repeatPass" class="flex flex-col gap-1">
+      <label for="password" class="flex flex-col gap-1">
         <p
           class="font-bold text-black-principal dark:text-white-principal text-base font-title"
         >
           Repetir contraseña
         </p>
         <input
-          formControlName="repeatPass"
+          formControlName="password"
           [ngClass]="{
             'input-standard h-10 w-full rounded-md': true,
-            'input-error': !isValid('repeatPass'),
-            'input-regular': isValid('repeatPass')
+            'input-error': !isValid('password'),
+            'input-regular': isValid('password')
           }"
           type="password"
           placeholder="******"
@@ -76,9 +103,9 @@
         />
 
         <custom-errors-message
-          *ngIf="!isValid('repeatPass')"
+          *ngIf="!isValid('password')"
           [formGroup]="registerStep2"
-          controlName="repeatPass"
+          controlName="password"
           class="title-error-small"
         >
         </custom-errors-message>
