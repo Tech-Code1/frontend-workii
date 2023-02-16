@@ -1,0 +1,108 @@
+<div
+  class="left-0 top-0 fixed w-full h-full modal z-20 flex justify-center items-center cursor-pointer"
+  (click)="closeModal()"
+>
+  <div
+    class="flex flex-row cursor-default h-[743px] w-[967px] animate__animated animate__fadeInDown animate__faster"
+    (click)="stopPropagation($event)"
+  >
+    <body
+      class="flex bg-gray-lighter items-center flex-col relative gap-4 w-full h-full rounded-lg relative"
+    >
+      <div
+        class="w-full bg-accent-yellow rounded-t-lg h-[62px] flex flex-row justify-between items-center px-4"
+      >
+        <p class="title-base-black">Crear workii</p>
+        <label class="title-base-black flex flex-row items-center gap-2" for=""
+          >Estoy dispuesto a pagar:
+          <input
+            type="text"
+            placeholder="100 USD"
+            class="input-standard rounded-md w-[170px]"
+          />
+        </label>
+      </div>
+      <div
+        class="pb-8 px-4 pt-4 w-full animate__animated animate__fadeIn animate__faster flex flex-col gap-4"
+      >
+        <div class="flex flex-row w-full gap-4">
+          <label class="flex flex-col gap-2 w-1/2" for="target">
+            <p class="title-base-black text-start">Target</p>
+            <select
+              name=""
+              id="target"
+              class="input-standard rounded-md w-full"
+            >
+              <option value="target1" selected>
+                Elegir área a la que va dirgida
+              </option>
+              <option value="target1">target1</option>
+              <option value="target2">target2</option>
+              <option value="target3">target3</option>
+            </select>
+          </label>
+          <label class="flex flex-col gap-2 w-1/2" for="time"
+            ><p class="title-base-black text-start">Tiempo de ejecución</p>
+            <select name="" id="time" class="input-standard rounded-md w-full">
+              <option value="target1" selected>
+                Tiempo en el que necesitas el workii listo
+              </option>
+              <option value="3 días">3 días</option>
+              <option value="5 días">5 días</option>
+              <option value="10 días">10 días</option>
+              <option value="15 días">15 días</option>
+            </select>
+          </label>
+        </div>
+        <label class="flex flex-col gap-2 w-full" for="time"
+          ><p class="title-base-black text-start">Descripción</p>
+          <textarea
+            name=""
+            id=""
+            cols="30"
+            rows="10"
+            placeholder="Escribe una descripción general breve de lo que la persona tiene que hacer..."
+            class="body-base-black w-full h-[150px] input-standard"
+          ></textarea>
+        </label>
+
+        <div class="flex flex-col gap-2">
+          <label class="flex flex-col gap-2 w-full" for="time"
+            ><p class="title-base-black text-start">
+              Tareas especificas (Lista de tareas)
+            </p>
+            <input
+              type="text"
+              placeholder="Especifica que quieres que haga exactamente"
+              class="input-standard rounded-md w-full"
+            />
+          </label>
+          <div class="flex justify-end">
+            <button class="btn-ghost-neutral w-fit h-10 hover-parent gap-2">
+              <svg
+                class="dark:stroke-dark-prymaryColor hover-child"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 22V12M12 12V2M12 12H22M12 12H2"
+                  stroke-width="4"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <p class="">Agregar tarea</p>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="w-full bg-gray-light rounded-b-lg h-[62px] flex flex-row justify-end items-center px-4 absolute bottom-0"
+      >
+        <button class="btn-solid-blue p-4 h-12 rounded-md">Crear</button>
+      </div>
+    </body>
+  </div>
+</div>

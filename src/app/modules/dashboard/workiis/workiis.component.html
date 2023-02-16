@@ -1,1 +1,12 @@
-<div></div>
+<div class="flex flex-row justify-between gap-2 mt-4 items-end mb-2">
+  <p class="title-xl-black">Empezar</p>
+  <button (click)="openModal()" class="btn-solid-blue rounded-md px-4 h-12">
+    Crear Workii
+  </button>
+</div>
+
+<div *ngIf="modalSwitch">
+  <modal-create-workii></modal-create-workii>
+</div>
+
+<div class="h-[1px] w-full bg-black-principal"></div>

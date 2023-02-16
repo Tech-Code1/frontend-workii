@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SwitchService } from '../../auth/services/switch.service';
 
 @Component({
   selector: 'app-workiis',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorkiisComponent implements OnInit {
 
-  constructor() { }
+  modalSwitch: boolean = false;
+  constructor(private modalService: SwitchService) { }
 
   ngOnInit(): void {
+    this.modalService.$modal.subscribe((valor) => {
+      this.modalSwitch = valor
+    })
   }
 
+  openModal(): void {
+    this.modalSwitch = true
+  }
+
+  closeModal() {
+    this.modalService.$modal.emit(false)
+  }
 }

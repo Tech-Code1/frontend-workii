@@ -2,6 +2,7 @@ import { NgModule, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WorkiisComponent } from './workiis.component';
 import { RouterModule, Routes } from '@angular/router';
+import { ModalCreateWorkiiComponent } from './components/modal-create-workii/modal-create-workii.component';
 
 const routes: Routes = [
   {
@@ -12,7 +13,8 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    WorkiisComponent
+    WorkiisComponent,
+    ModalCreateWorkiiComponent
   ],
   imports: [
     CommonModule,

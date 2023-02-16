@@ -21,8 +21,12 @@
   @apply text-black-principal dark:text-white-principal text-3xl font-bold font-title
 }
 
-.title-base-black, .title-sm-black {
+.title-base-black, .title-sm-black, .title-xl-black {
   @apply text-black-principal dark:text-white-principal text-base font-bold font-title
+}
+
+.title-xl-black {
+  @apply text-xl
 }
 
 .title-base-black {
@@ -63,7 +67,7 @@
 }
 
 .btn-ghost-neutral {
-  @apply bg-transparent border-2 border-primary-blueNeutral dark:border-dark-prymaryColor hover:bg-primary-blueNeutral dark:hover:bg-dark-prymaryColor rounded-md text-black-principal dark:text-white-principal text-base font-bold font-title px-4 flex justify-center items-center outline-none hover:text-white-principal
+  @apply bg-transparent border-2 border-primary-blueNeutral dark:border-dark-prymaryColor hover:bg-primary-blueNeutral dark:hover:bg-dark-prymaryColor rounded-md text-primary-blueNeutral dark:text-white-principal text-base font-bold font-title px-4 flex justify-center items-center outline-none hover:text-white-principal
 }
 
 .btn-disabled {
