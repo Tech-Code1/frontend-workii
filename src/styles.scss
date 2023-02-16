@@ -21,8 +21,16 @@
   @apply text-black-principal dark:text-white-principal text-3xl font-bold font-title
 }
 
-.title-base-black {
+.title-base-black, .title-sm-black {
   @apply text-black-principal dark:text-white-principal text-base font-bold font-title
+}
+
+.title-base-black {
+  @apply text-base
+}
+
+.title-sm-black {
+  @apply text-sm
 }
 
 .title-error-small {

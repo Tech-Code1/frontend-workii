@@ -4,13 +4,15 @@ import { TemplateDashboardComponent } from './template-dashboard/template-dashbo
 import { RouterModule } from '@angular/router';
 import { MenuComponent } from './components/menu/menu.component';
 import { LayoutCoreModule } from '../layout-core/layout-core.module';
+import { HeaderDashboard } from './components/header-dashboard/header-dashboard.component';
 
 
 
 @NgModule({
   declarations: [
     TemplateDashboardComponent,
-    MenuComponent
+    MenuComponent,
+    HeaderDashboard
   ],
   imports: [
     CommonModule,
