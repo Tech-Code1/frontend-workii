@@ -10,6 +10,7 @@ import { IWorkii } from '../../interfaces/workii.interface';
 })
 export class WorkiisCardsComponent {
 
+  modalSwitch: boolean = false;
   workiis: IWorkii[] = [
     {
       name: "Hacer un diseño web",
@@ -79,6 +80,15 @@ export class WorkiisCardsComponent {
     },
   ]
 
-  constructor() {}
+  constructor(private modalService: SwitchService) {}
 
+  ngOnInit(): void {
+    this.modalService.$modal.subscribe((valor) => {
+      this.modalSwitch = valor
+    })
+  }
+
+  openModal(): void {
+    this.modalSwitch = true
+  }
 }

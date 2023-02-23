@@ -1,0 +1,218 @@
+<div
+  class="left-0 top-0 fixed w-full h-full modal z-20 flex justify-center items-center cursor-pointer"
+  (click)="closeModal()"
+>
+  <div
+    class="flex flex-row cursor-default h-[743px] w-[967px] animate__animated animate__fadeInDown animate__faster"
+    (click)="stopPropagation($event)"
+  >
+    <body
+      class="flex bg-gray-lighter items-center flex-col relative gap-4 w-full h-full rounded-lg"
+    >
+      <div
+        class="w-full bg-gray-light rounded-t-lg h-12 flex flex-row justify-between items-center px-4"
+      >
+        <div
+          class="h-10 w-10 hover:bg-gray-neutral rounded-md flex justify-center items-center cursor-pointer"
+        >
+          <img
+            class="h-6 w-auto"
+            src="../../../../../../assets/images/svg/icon-expand.svg"
+            alt="icon expand"
+          />
+        </div>
+
+        <div class="flex flex-row items-center gap-2" for="">
+          <div
+            class="h-10 w-10 hover:bg-gray-neutral rounded-md flex justify-center items-center cursor-pointer"
+          >
+            <img
+              class="h-6 w-auto"
+              src="../../../../../../assets/images/svg/icon-share.svg"
+              alt="icon share"
+            />
+          </div>
+          <div
+            class="h-10 w-10 hover:bg-gray-neutral rounded-md flex justify-center items-center cursor-pointer"
+          >
+            <img
+              class="h-6 w-auto"
+              src="../../../../../../assets/images/svg/icon-messages.svg"
+              alt="icon messages"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="pb-8 px-4 pt-4 w-full animate__animated animate__fadeIn animate__faster flex flex-col gap-8"
+      >
+        <div class="flex flex-row w-full gap-4 items-center">
+          <div class="w-16 h-16 rounded-full bg-gray-neutral"></div>
+
+          <div class="flex flex-col justify-between h-full">
+            <p class="title-lg-black">Diseño de logo</p>
+            <div class="flex flex-row gap-2">
+              <div class="flex flex-row gap-1 items-center">
+                <img
+                  class="w-4 h-4"
+                  src="../../../../../../assets/images/svg/icon-target.svg"
+                  alt="icon target"
+                />
+                <p>Diseñador</p>
+              </div>
+              <div class="flex flex-row gap-1 items-center">
+                <img
+                  class="w-4 h-4"
+                  src="../../../../../../assets/images/svg/icon-time.svg"
+                  alt="icon time"
+                />
+                <p>3 días</p>
+              </div>
+              <div class="flex flex-row gap-1 items-center">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M9.13179 0.470073C8.98337 0.321079 8.80699 0.202858 8.61277 0.122191C8.41854 0.0415245 8.21031 0 8 0C7.78969 0 7.58146 0.0415245 7.38723 0.122191C7.19301 0.202858 7.01663 0.321079 6.86821 0.470073L0.470073 6.86821C0.321079 7.01663 0.202858 7.19301 0.122191 7.38723C0.0415245 7.58146 0 7.78969 0 8C0 8.21031 0.0415245 8.41854 0.122191 8.61277C0.202858 8.80699 0.321079 8.98337 0.470073 9.13179L6.86821 15.5299C7.01663 15.6789 7.19301 15.7971 7.38723 15.8778C7.58146 15.9585 7.78969 16 8 16C8.21031 16 8.41854 15.9585 8.61277 15.8778C8.80699 15.7971 8.98337 15.6789 9.13179 15.5299L15.5299 9.13179C15.6789 8.98337 15.7971 8.80699 15.8778 8.61277C15.9585 8.41854 16 8.21031 16 8C16 7.78969 15.9585 7.58146 15.8778 7.38723C15.7971 7.19301 15.6789 7.01663 15.5299 6.86821L9.13179 0.470073Z"
+                    fill="#2FA725"
+                  />
+                </svg>
+
+                <p>Disponible</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-4">
+          <p class="title-base-black">Descripción</p>
+          <p class="body-base-black">
+            Se requiere diseñador con experiencia en branding para hacer logo
+            corporativo, lo necesitamos urgente ya que en pocos días tenemos una
+            presentación y queremos que se vea lo mas profesional posible.
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-4">
+          <p class="title-base-black">Tareas especificas</p>
+
+          <div class="flex flex-col gap-4 overflow-auto h-[340px]">
+            <label
+              class="flex flex-row gap-2 items-center cursor-pointer w-full p-2 h-auto hover:bg-gray-neutral rounded-md"
+              for="check"
+            >
+              <input
+                id="check"
+                type="checkbox"
+                class="border-[2px] rounded-md h-6 w-6 ring-0 cursor-pointer"
+              />
+              <p class="body-base-black">
+                Diseño de logo corporativo en formato svg
+              </p>
+            </label>
+            <label
+              class="flex flex-row gap-2 items-center cursor-pointer w-full p-2 h-auto hover:bg-gray-neutral rounded-md"
+              for="check1"
+            >
+              <input
+                id="check1"
+                type="checkbox"
+                class="border-[2px] rounded-md h-6 w-6 ring-0 cursor-pointer"
+              />
+              <p class="body-base-black">
+                Diseño de logo corporativo en formato svg
+              </p>
+            </label>
+            <label
+              class="flex flex-row gap-2 items-center cursor-pointer w-full p-2 h-auto hover:bg-gray-neutral rounded-md"
+              for="check2"
+            >
+              <input
+                id="check2"
+                type="checkbox"
+                class="border-[2px] rounded-md h-6 w-6 ring-0 cursor-pointer"
+              />
+              <p class="body-base-black">
+                Diseño de logo corporativo en formato svg
+              </p>
+            </label>
+            <label
+              class="flex flex-row gap-2 items-center cursor-pointer w-full p-2 h-auto hover:bg-gray-neutral rounded-md"
+              for="check3"
+            >
+              <input
+                id="check3"
+                type="checkbox"
+                class="border-[2px] rounded-md h-6 w-6 ring-0 cursor-pointer"
+              />
+              <p class="body-base-black">
+                Diseño de logo corporativo en formato svg
+              </p>
+            </label>
+            <label
+              class="flex flex-row gap-2 items-center cursor-pointer w-full p-2 h-auto hover:bg-gray-neutral rounded-md"
+              for="check4"
+            >
+              <input
+                id="check4"
+                type="checkbox"
+                class="border-[2px] rounded-md h-6 w-6 ring-0 cursor-pointer"
+              />
+              <p class="body-base-black">
+                Diseño de logo corporativo en formato svg
+              </p>
+            </label>
+            <label
+              class="flex flex-row gap-2 items-center cursor-pointer w-full p-2 h-auto hover:bg-gray-neutral rounded-md"
+              for="check5"
+            >
+              <input
+                id="check5"
+                type="checkbox"
+                class="border-[2px] rounded-md h-6 w-6 ring-0 cursor-pointer"
+              />
+              <p class="body-base-black">
+                Diseño de logo corporativo en formato svg
+              </p>
+            </label>
+            <label
+              class="flex flex-row gap-2 items-center cursor-pointer w-full p-2 h-auto hover:bg-gray-neutral rounded-md"
+              for="check6"
+            >
+              <input
+                id="check6"
+                type="checkbox"
+                class="border-[2px] rounded-md h-6 w-6 ring-0 cursor-pointer"
+              />
+              <p class="body-base-black">
+                Diseño de logo corporativo en formato svg
+              </p>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div
+        class="w-full bg-gray-light rounded-b-lg h-[62px] flex flex-row justify-between items-center px-4 absolute bottom-0"
+      >
+        <div
+          class="h-10 w-10 hover:bg-gray-neutral rounded-md flex flex-row gap-2 justify-center items-center cursor-pointer"
+        >
+          <img
+            class="h-6 w-auto"
+            src="../../../../../../assets/images/svg/icon-person.svg"
+            alt="icon person"
+          />
+          <p class="title-base-black">2</p>
+        </div>
+        <button class="btn-solid-blue p-4 h-12 rounded-md">Aplicar</button>
+      </div>
+    </body>
+  </div>
+</div>
