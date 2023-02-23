@@ -21,12 +21,16 @@
   @apply text-black-principal dark:text-white-principal text-3xl font-bold font-title
 }
 
-.title-base-black, .title-sm-black, .title-xl-black {
+.title-base-black, .title-sm-black, .title-xl-black, .title-lg-black {
   @apply text-black-principal dark:text-white-principal text-base font-bold font-title
 }
 
 .title-xl-black {
   @apply text-xl
+}
+
+.title-lg-black {
+  @apply text-lg
 }
 
 .title-base-black {

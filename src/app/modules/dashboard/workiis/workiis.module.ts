@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { WorkiisComponent } from './workiis.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ModalCreateWorkiiComponent } from './components/modal-create-workii/modal-create-workii.component';
+import { WorkiisCardsComponent } from './components/workiis-cards/workiis-cards.component';
 
 const routes: Routes = [
   {
@@ -14,7 +15,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     WorkiisComponent,
-    ModalCreateWorkiiComponent
+    ModalCreateWorkiiComponent,
+    WorkiisCardsComponent
   ],
   imports: [
     CommonModule,

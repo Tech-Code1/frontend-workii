@@ -1,0 +1,54 @@
+<section class="grid grid-flow-row grid-cols-5 pt-16 gap-y-16 gap-x-4">
+  <div class="flex justify-center" *ngFor="let workii of workiis">
+    <div
+      class="w-[242px] flex flex-col cursor-pointer hover:scale-110 transition"
+    >
+      <div
+        class="bg-gray-lighter rounded-t-xl h-[150px] flex justify-between flex-col px-4 pt-2 relative"
+      >
+        <div
+          class="w-16 h-16 bg-gray-light absolute rounded-full -top-[24px]"
+        ></div>
+
+        <div class="pt-10 gap-2 flex flex-col">
+          <h3 class="title-lg-black">{{ workii.name }}</h3>
+          <div class="gap-2 flex flex-row items-center">
+            <img
+              src="../../../../../../assets/images/svg/icon-target.svg"
+              alt="icon target"
+            />
+            <p class="body-sm-black">{{ workii.target }}</p>
+          </div>
+          <div class="gap-2 flex flex-row items-center">
+            <img
+              src="../../../../../../assets/images/svg/icon-time.svg"
+              alt="icon target"
+            />
+            <p class="body-sm-black">{{ workii.executionTime }} días</p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bg-accent-yellow h-12 w-full rounded-b-xl flex flex-col items-center px-4 py-1"
+      >
+        <div class="flex flex-row items-center gap-1 w-full">
+          <img
+            src="../../../../../../assets/images/svg/icon-decorator-card-workii.svg"
+            alt="icon decorator card workii"
+          />
+          <div class="h-[1px] bg-black-principal flex-grow"></div>
+
+          <p class="title-sm-black">Recompensa</p>
+
+          <div class="h-[1px] bg-black-principal flex-grow"></div>
+          <img
+            src="../../../../../../assets/images/svg/icon-decorator-card-workii.svg"
+            alt="icon decorator card workii"
+          />
+        </div>
+
+        <p class="title-lg-black">{{ workii.cost }} USD</p>
+      </div>
+    </div>
+  </div>
+</section>
