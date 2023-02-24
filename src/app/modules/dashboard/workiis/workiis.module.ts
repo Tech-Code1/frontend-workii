@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ModalCreateWorkiiComponent } from './components/modal-create-workii/modal-create-workii.component';
 import { WorkiisCardsComponent } from './components/workiis-cards/workiis-cards.component';
 import { ModalInfoWorkiiComponent } from './components/modal-info-workii/modal-info-workii.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -22,7 +23,8 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    ReactiveFormsModule,
   ]
 })
 export class WorkiisModule { }

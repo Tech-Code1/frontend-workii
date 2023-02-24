@@ -6,8 +6,9 @@
     class="flex flex-row cursor-default h-[743px] w-[967px] animate__animated animate__fadeInDown animate__faster"
     (click)="stopPropagation($event)"
   >
-    <body
-      class="flex bg-gray-lighter items-center flex-col relative gap-4 w-full h-full rounded-lg relative"
+    <form
+      [formGroup]="createWorkii"
+      class="flex bg-gray-lighter items-center flex-col relative gap-4 w-full h-full rounded-lg"
     >
       <div
         class="w-full bg-accent-yellow rounded-t-lg h-[62px] flex flex-row justify-between items-center px-4"
@@ -16,9 +17,14 @@
         <label class="title-base-black flex flex-row items-center gap-2" for=""
           >Estoy dispuesto a pagar:
           <input
+            formControlName="cost"
+            [ngClass]="{
+              'input-standard h-10 rounded-md w-[170px]': true,
+              'input-error': !isValid('cost'),
+              'input-standard': isValid('cost')
+            }"
             type="text"
             placeholder="100 USD"
-            class="input-standard rounded-md w-[170px]"
           />
         </label>
       </div>
@@ -29,13 +35,16 @@
           <label class="flex flex-col gap-2 w-1/2" for="target">
             <p class="title-base-black text-start">Target</p>
             <select
+              formControlName="target"
+              [ngClass]="{
+                'input-standard rounded-md w-full': true,
+                'input-error': !isValid('target'),
+                'input-standard': isValid('target')
+              }"
               name=""
               id="target"
-              class="input-standard rounded-md w-full"
             >
-              <option value="target1" selected>
-                Elegir área a la que va dirgida
-              </option>
+              <option value="" selected>Elegir área a la que va dirgida</option>
               <option value="target1">target1</option>
               <option value="target2">target2</option>
               <option value="target3">target3</option>
@@ -43,8 +52,17 @@
           </label>
           <label class="flex flex-col gap-2 w-1/2" for="time"
             ><p class="title-base-black text-start">Tiempo de ejecución</p>
-            <select name="" id="time" class="input-standard rounded-md w-full">
-              <option value="target1" selected>
+            <select
+              formControlName="time"
+              [ngClass]="{
+                'input-standard rounded-md w-full': true,
+                'input-error': !isValid('time'),
+                'input-standard': isValid('time')
+              }"
+              name=""
+              id="time"
+            >
+              <option value="" selected>
                 Tiempo en el que necesitas el workii listo
               </option>
               <option value="3 días">3 días</option>
@@ -54,31 +72,44 @@
             </select>
           </label>
         </div>
-        <label class="flex flex-col gap-2 w-full" for="time"
+        <label class="flex flex-col gap-2 w-ful" for="time"
           ><p class="title-base-black text-start">Descripción</p>
           <textarea
+            formControlName="description"
+            [ngClass]="{
+              'input-standard rounded-md w-full h-[150px] body-base-black': true,
+              'input-error': !isValid('description'),
+              'input-standard': isValid('description')
+            }"
             name=""
             id=""
             cols="30"
             rows="10"
             placeholder="Escribe una descripción general breve de lo que la persona tiene que hacer..."
-            class="body-base-black w-full h-[150px] input-standard"
           ></textarea>
         </label>
 
         <div class="flex flex-col gap-2">
-          <label class="flex flex-col gap-2 w-full" for="time"
+          <label #taskInput class="flex flex-col gap-2 w-full" for="time"
             ><p class="title-base-black text-start">
               Tareas especificas (Lista de tareas)
             </p>
             <input
+              formControlName="tasks"
+              [ngClass]="{
+                'input-standard rounded-md w-full': true,
+                'input-error': !isValid('tasks'),
+                'input-standard': isValid('tasks')
+              }"
               type="text"
               placeholder="Especifica que quieres que haga exactamente"
-              class="input-standard rounded-md w-full"
             />
           </label>
           <div class="flex justify-end">
-            <button class="btn-ghost-neutral w-fit h-10 hover-parent gap-2">
+            <button
+              (click)="addInput()"
+              class="btn-ghost-neutral w-fit h-10 hover-parent gap-2"
+            >
               <svg
                 class="dark:stroke-dark-prymaryColor hover-child"
                 width="24"
@@ -103,6 +134,6 @@
       >
         <button class="btn-solid-blue p-4 h-12 rounded-md">Crear</button>
       </div>
-    </body>
+    </form>
   </div>
 </div>
