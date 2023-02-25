@@ -15,6 +15,8 @@ export class WorkiisCardsComponent {
 
   modalSwitch: boolean = false;
   workiis: IWorkii[] = []
+  slug!: IWorkii;
+  selectedWorkii: any;
 
   constructor(private modalService: SwitchService,
     private workiisService: WorkiisService) {}
@@ -33,8 +35,9 @@ export class WorkiisCardsComponent {
     });
   }
 
-  openModal(): void {
+  openModal(workii: IWorkii): void {
     this.modalSwitch = true
+    this.selectedWorkii = workii;
   }
 
   getWorkiis(limit: number, offset: number): Observable<IWorkii[]> {
@@ -51,4 +54,15 @@ export class WorkiisCardsComponent {
 
 
   }
+
+  /* getWorkii(slug: string): Observable<IWorkii[]> {
+
+    // Obtener id del workii
+    const idWorkii = this.workiisService
+
+
+    return this.workiisService.getWorkiis(limit, offset, headers)
+
+  } */
+
 }

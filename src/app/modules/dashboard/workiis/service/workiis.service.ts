@@ -25,6 +25,12 @@ export class WorkiisService {
     return this.http.get<IWorkii[]>(url, {headers, params})
   }
 
+  getWorkii(slug: string, headers: HttpHeaders): Observable<IWorkii> {
+    const url = `${this.baseUrl}/workiis/${slug}`;
+
+    return this.http.get<IWorkii>(url)
+  }
+
 
   createWorkiis( { name, target, description, toDoList, cost, executionTime, userId, ...rest } : IWorkii, headers: HttpHeaders) {
     const url = `${this.baseUrl}/workiis`;

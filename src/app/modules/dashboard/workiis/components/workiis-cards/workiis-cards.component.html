@@ -1,7 +1,10 @@
 <section class="grid grid-flow-row grid-cols-5 pt-16 gap-y-16 gap-x-4">
-  <div class="flex justify-center" *ngFor="let workii of workiis">
+  <div
+    class="flex justify-center"
+    *ngFor="let workii of workiis; let i = index"
+  >
     <div
-      (click)="openModal()"
+      (click)="openModal(workii)"
       class="w-[242px] flex flex-col cursor-pointer hover:scale-110 transition"
     >
       <div
@@ -51,9 +54,8 @@
         <p class="title-lg-black">{{ workii.cost }} USD</p>
       </div>
     </div>
+    <div *ngIf="modalSwitch">
+      <modal-info-workii [workii]="selectedWorkii"></modal-info-workii>
+    </div>
   </div>
 </section>
-
-<div *ngIf="modalSwitch">
-  <modal-info-workii></modal-info-workii>
-</div>

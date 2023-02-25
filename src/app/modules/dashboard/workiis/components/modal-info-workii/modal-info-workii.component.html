@@ -51,7 +51,9 @@
           <div class="w-16 h-16 rounded-full bg-gray-neutral"></div>
 
           <div class="flex flex-col justify-between h-full">
-            <p class="title-lg-black">Diseño de logo</p>
+            <p class="title-lg-black">
+              {{ workii.name }}
+            </p>
             <div class="flex flex-row gap-2">
               <div class="flex flex-row gap-1 items-center">
                 <img
@@ -59,7 +61,7 @@
                   src="../../../../../../assets/images/svg/icon-target.svg"
                   alt="icon target"
                 />
-                <p>Diseñador</p>
+                <p>{{ workii.target }}</p>
               </div>
               <div class="flex flex-row gap-1 items-center">
                 <img
@@ -67,7 +69,7 @@
                   src="../../../../../../assets/images/svg/icon-time.svg"
                   alt="icon time"
                 />
-                <p>3 días</p>
+                <p>{{ workii.executionTime }} días</p>
               </div>
               <div class="flex flex-row gap-1 items-center">
                 <svg
@@ -85,7 +87,7 @@
                   />
                 </svg>
 
-                <p>Disponible</p>
+                <p>{{ workii.status }}</p>
               </div>
             </div>
           </div>
@@ -94,9 +96,7 @@
         <div class="flex flex-col gap-4">
           <p class="title-base-black">Descripción</p>
           <p class="body-base-black">
-            Se requiere diseñador con experiencia en branding para hacer logo
-            corporativo, lo necesitamos urgente ya que en pocos días tenemos una
-            presentación y queremos que se vea lo mas profesional posible.
+            {{ workii.description }}
           </p>
         </div>
 
@@ -104,100 +104,26 @@
           <p class="title-base-black">Tareas especificas</p>
 
           <div class="flex flex-col gap-4 overflow-auto h-[340px]">
-            <label
-              class="flex flex-row gap-2 items-center cursor-pointer w-full p-2 h-auto hover:bg-gray-neutral rounded-md"
-              for="check"
-            >
-              <input
-                id="check"
-                type="checkbox"
-                class="border-[2px] rounded-md h-6 w-6 ring-0 cursor-pointer"
-              />
-              <p class="body-base-black">
-                Diseño de logo corporativo en formato svg
-              </p>
-            </label>
-            <label
-              class="flex flex-row gap-2 items-center cursor-pointer w-full p-2 h-auto hover:bg-gray-neutral rounded-md"
-              for="check1"
-            >
-              <input
-                id="check1"
-                type="checkbox"
-                class="border-[2px] rounded-md h-6 w-6 ring-0 cursor-pointer"
-              />
-              <p class="body-base-black">
-                Diseño de logo corporativo en formato svg
-              </p>
-            </label>
-            <label
-              class="flex flex-row gap-2 items-center cursor-pointer w-full p-2 h-auto hover:bg-gray-neutral rounded-md"
-              for="check2"
-            >
-              <input
-                id="check2"
-                type="checkbox"
-                class="border-[2px] rounded-md h-6 w-6 ring-0 cursor-pointer"
-              />
-              <p class="body-base-black">
-                Diseño de logo corporativo en formato svg
-              </p>
-            </label>
-            <label
-              class="flex flex-row gap-2 items-center cursor-pointer w-full p-2 h-auto hover:bg-gray-neutral rounded-md"
-              for="check3"
-            >
-              <input
-                id="check3"
-                type="checkbox"
-                class="border-[2px] rounded-md h-6 w-6 ring-0 cursor-pointer"
-              />
-              <p class="body-base-black">
-                Diseño de logo corporativo en formato svg
-              </p>
-            </label>
-            <label
-              class="flex flex-row gap-2 items-center cursor-pointer w-full p-2 h-auto hover:bg-gray-neutral rounded-md"
-              for="check4"
-            >
-              <input
-                id="check4"
-                type="checkbox"
-                class="border-[2px] rounded-md h-6 w-6 ring-0 cursor-pointer"
-              />
-              <p class="body-base-black">
-                Diseño de logo corporativo en formato svg
-              </p>
-            </label>
-            <label
-              class="flex flex-row gap-2 items-center cursor-pointer w-full p-2 h-auto hover:bg-gray-neutral rounded-md"
-              for="check5"
-            >
-              <input
-                id="check5"
-                type="checkbox"
-                class="border-[2px] rounded-md h-6 w-6 ring-0 cursor-pointer"
-              />
-              <p class="body-base-black">
-                Diseño de logo corporativo en formato svg
-              </p>
-            </label>
-            <label
-              class="flex flex-row gap-2 items-center cursor-pointer w-full p-2 h-auto hover:bg-gray-neutral rounded-md"
-              for="check6"
-            >
-              <input
-                id="check6"
-                type="checkbox"
-                class="border-[2px] rounded-md h-6 w-6 ring-0 cursor-pointer"
-              />
-              <p class="body-base-black">
-                Diseño de logo corporativo en formato svg
-              </p>
-            </label>
+            <ng-container *ngFor="let task of workii.toDoList">
+              <label
+                class="flex flex-row gap-2 items-center cursor-pointer w-full p-2 h-auto hover:bg-gray-neutral rounded-md"
+                for="check"
+              >
+                <input
+                  disabled
+                  id="check"
+                  type="checkbox"
+                  class="border-[2px] rounded-md h-6 w-6 ring-0 cursor-pointer"
+                />
+                <p class="body-base-black">
+                  {{ task }}
+                </p>
+              </label>
+            </ng-container>
           </div>
         </div>
       </div>
+
       <div
         class="w-full bg-gray-light rounded-b-lg h-[62px] flex flex-row justify-between items-center px-4 absolute bottom-0"
       >

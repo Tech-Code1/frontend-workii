@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, Input } from '@angular/core';
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
+import { IWorkii } from '../../interfaces/workii.interface';
 
 @Component({
   selector: 'modal-info-workii',
@@ -9,10 +9,8 @@ import { SwitchService } from 'src/app/modules/auth/services/switch.service';
 })
 export class ModalInfoWorkiiComponent {
 
-  initialValue: string = "";
-  inputChanged = false;
-
-  changeEmail!: FormGroup;
+  @Input()
+  workii!: IWorkii;
 
   constructor(private modalService: SwitchService) {}
 
