@@ -7,6 +7,7 @@
     (click)="stopPropagation($event)"
   >
     <form
+      (ngSubmit)="createNewWorkii()"
       [formGroup]="createWorkii"
       class="flex bg-gray-lighter items-center flex-col relative gap-4 w-full h-full rounded-lg"
     >
@@ -31,6 +32,20 @@
       <div
         class="pb-8 px-4 pt-4 w-full animate__animated animate__fadeIn animate__faster flex flex-col gap-4"
       >
+        <label class="flex flex-col gap-2 w-full" for="time"
+          ><p class="title-base-black text-start">Nombre del workii</p>
+          <input
+            formControlName="name"
+            [ngClass]="{
+              'input-standard rounded-md w-full': true,
+              'input-error': !isValid('name'),
+              'input-standard': isValid('name')
+            }"
+            type="text"
+            placeholder="Nombre del workii"
+          />
+        </label>
+
         <div class="flex flex-row w-full gap-4">
           <label class="flex flex-col gap-2 w-1/2" for="target">
             <p class="title-base-black text-start">Target</p>
@@ -44,10 +59,12 @@
               name=""
               id="target"
             >
-              <option value="" selected>Elegir área a la que va dirgida</option>
-              <option value="target1">target1</option>
-              <option value="target2">target2</option>
-              <option value="target3">target3</option>
+              <option value="" selected disabled>
+                Elegir área a la que va dirgida
+              </option>
+              <option *ngFor="let target of targets" [value]="target">
+                {{ target }}
+              </option>
             </select>
           </label>
           <label class="flex flex-col gap-2 w-1/2" for="time"
@@ -62,13 +79,15 @@
               name=""
               id="time"
             >
-              <option value="" selected>
+              <option value="" selected disabled>
                 Tiempo en el que necesitas el workii listo
               </option>
-              <option value="3 días">3 días</option>
-              <option value="5 días">5 días</option>
-              <option value="10 días">10 días</option>
-              <option value="15 días">15 días</option>
+              <option
+                *ngFor="let executionTime of executionTimes"
+                value="3 días"
+              >
+                {{ executionTime }} días
+              </option>
             </select>
           </label>
         </div>
@@ -90,49 +109,104 @@
         </label>
 
         <div class="flex flex-col gap-2">
-          <label #taskInput class="flex flex-col gap-2 w-full" for="time"
-            ><p class="title-base-black text-start">
-              Tareas especificas (Lista de tareas)
-            </p>
-            <input
-              formControlName="tasks"
-              [ngClass]="{
-                'input-standard rounded-md w-full': true,
-                'input-error': !isValid('tasks'),
-                'input-standard': isValid('tasks')
-              }"
-              type="text"
-              placeholder="Especifica que quieres que haga exactamente"
-            />
-          </label>
-          <div class="flex justify-end">
-            <button
-              (click)="addInput()"
-              class="btn-ghost-neutral w-fit h-10 hover-parent gap-2"
-            >
-              <svg
-                class="dark:stroke-dark-prymaryColor hover-child"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M12 22V12M12 12V2M12 12H22M12 12H2"
-                  stroke-width="4"
-                  stroke-linecap="round"
+          <div class="flex flex-col gap-2 justify-end" formArrayName="tasks">
+            <div *ngFor="let task of tasksArr.controls; let i = index">
+              <div class="flex flex-row gap-2">
+                <input
+                  [formControlName]="i"
+                  [ngClass]="{
+                    'input-standard rounded-md w-full': true,
+                    'input-error': !isValidArray(i),
+                    'input-standard': isValidArray(i)
+                  }"
+                  type="text"
+                  placeholder="Especifica que quieres que haga exactamente"
                 />
-              </svg>
-              <p class="">Agregar tarea</p>
-            </button>
+                <button
+                  (click)="deleteInput(i)"
+                  type="button"
+                  *ngIf="i > 0"
+                  class="h-10 btn-light-red rounded-md w-10 p-0 flex justify-center items-center border-0 bg-transparent hover:bg-error-redLight hover:border-2 hover:border-error-redDark"
+                >
+                  <svg
+                    class="size-svg"
+                    width="26"
+                    height="26"
+                    viewBox="0 0 26 26"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.39941 5.7998H22.5994L20.7034 22.8638C20.6384 23.4511 20.3591 23.9937 19.9189 24.3878C19.4787 24.7819 18.9087 24.9998 18.3178 24.9998H7.68101C7.09018 24.9998 6.52009 24.7819 6.07991 24.3878C5.63973 23.9937 5.36041 23.4511 5.29541 22.8638L3.39941 5.7998Z"
+                      stroke="#D83010"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M7.4138 2.37616C7.60791 1.96452 7.91505 1.61655 8.29941 1.37285C8.68377 1.12915 9.1295 0.999751 9.58461 0.999756H16.415C16.8703 0.999523 17.3163 1.12881 17.7009 1.37253C18.0855 1.61624 18.3928 1.96433 18.587 2.37616L20.1998 5.79976H5.7998L7.4138 2.37616Z"
+                      stroke="#D83010"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M1 5.7998H25"
+                      stroke="#D83010"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M10.6006 11.7997V17.7997"
+                      stroke="#D83010"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M15.4004 11.7997V17.7997"
+                      stroke="#D83010"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="flex flex-row justify-end">
+              <button
+                type="button"
+                (click)="addInput()"
+                class="btn-ghost-neutral w-fit h-10 hover-parent gap-2"
+              >
+                <svg
+                  class="dark:stroke-dark-prymaryColor hover-child"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 22V12M12 12V2M12 12H22M12 12H2"
+                    stroke-width="4"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                <p class="">Agregar tarea</p>
+              </button>
+            </div>
           </div>
         </div>
       </div>
       <div
         class="w-full bg-gray-light rounded-b-lg h-[62px] flex flex-row justify-end items-center px-4 absolute bottom-0"
       >
-        <button class="btn-solid-blue p-4 h-12 rounded-md">Crear</button>
+        <button type="submit" class="btn-solid-blue p-4 h-12 rounded-md">
+          Crear
+        </button>
       </div>
     </form>
   </div>

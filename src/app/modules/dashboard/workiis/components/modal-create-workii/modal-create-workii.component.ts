@@ -1,31 +1,55 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, AbstractFormGroupDirective, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
+import { UserService } from 'src/app/modules/auth/services/user.service';
+import { WorkiisService } from '../../service/workiis.service';
+import { IWorkii } from '../../interfaces/workii.interface';
+import Swal from 'sweetalert2';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'modal-create-workii',
   templateUrl: './modal-create-workii.component.html',
   styleUrls: ['./modal-create-workii.component.scss']
 })
-export class ModalCreateWorkiiComponent {
+export class ModalCreateWorkiiComponent implements OnInit {
 
   @ViewChild('taskInput', {static: true}) taskInput!: ElementRef<HTMLInputElement>;
   initialValue: string = "";
   inputChanged = false;
-
+  targets = ['Arte', 'Informatica', 'Humanidades', 'Ciencias', 'Ingenieria', 'Entretenimiento', 'Comunicaciones', 'Marketing', 'Otro']
+  executionTimes: number[] = [3,5,7,10,15]
+  createWorkii!: FormGroup;
   changeEmail!: FormGroup;
-  createWorkii:FormGroup  = this.formBuilder.group({
-    cost: ["", [Validators.required]],
-    target: ["", [Validators.required]],
-    time: ["", [Validators.required]],
-    description: ["", [Validators.required]],
-    tasks: [[], [Validators.required]],
-  })
+
 
   constructor(
     private modalService: SwitchService,
-    private formBuilder: FormBuilder, ) {}
+    private formBuilder: FormBuilder,
+    private workiisService: WorkiisService,
+    private userService: UserService,
+    private changeDetectorRef: ChangeDetectorRef ) {
+    }
 
+    ngOnInit(): void {
+      this.createWorkii = this.formBuilder.group({
+        name: ["", [Validators.required]],
+        cost: ["", [Validators.required]],
+        target: ["", [Validators.required]],
+        time: [ '', [Validators.required]],
+        description: ["", [Validators.required]],
+        tasks: this.formBuilder.array([
+          this.formBuilder.control('', Validators.required),
+        ], [Validators.required]),
+      })
+
+
+    }
+
+    get tasksArr() {
+
+      return this.createWorkii.get("tasks") as FormArray;
+    }
 
   closeModal() {
     this.modalService.$modal.emit(false)
@@ -43,33 +67,55 @@ export class ModalCreateWorkiiComponent {
     return true
   }
 
-  deleteInput(input: HTMLInputElement, button: HTMLButtonElement, content: HTMLDivElement) {
-    const parent = content.parentNode
-    if(parent) {
-      parent.removeChild(content)
+  isValidArray(i: number): boolean | undefined | void {
+
+    if (this.tasksArr.controls[i]?.touched) {
+
+      return this.tasksArr.controls[i].valid
     }
+    return true
+  }
+
+  deleteInput(i: number) {
+     this.tasksArr.removeAt(i)
   }
 
   addInput() {
-    const content = document.createElement('div')
-    content.classList.add('flex', 'gap-2', 'flex-row')
-    this.taskInput.nativeElement.appendChild(content);
+    this.tasksArr.push( this.formBuilder.control('', [Validators.required]));
+  }
 
-    const addInput = document.createElement('input');
-    addInput.type = 'text';
-    addInput.classList.add('input-standard', 'rounded-md', 'w-full')
-    addInput.placeholder = 'Especifica que quieres que haga exactamente'
-    content.appendChild(addInput)
+  createNewWorkii() {
+    const userId = this.userService.getCurrentUser()
 
-    const deleteButton = document.createElement('button');
-    deleteButton.type = 'button';
-    deleteButton.classList.add('h-10', 'btn-light-red', 'rounded-md', 'w-10', 'p-0', 'flex', 'justify-center', 'items-center', 'border-0', 'bg-transparent', 'hover:bg-error-redLight', 'hover:border-2', 'hover:border-error-redDark')
-    deleteButton.addEventListener('click', () => this.deleteInput(addInput, deleteButton, content))
-    content.appendChild(deleteButton)
+    // Obtener el token de autorización
+    const token = localStorage.getItem('token');
 
-    const iconButton = document.createElement('img')
-    iconButton.src = '../../../../../../assets/images/svg/icon-trash.svg'
-    iconButton.classList.add('size-svg')
-    deleteButton.appendChild(iconButton)
+    // Crear el encabezado de la solicitud HTTP
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    const newWorkii: IWorkii = {
+      name: this.createWorkii.get('name')?.value,
+      cost: parseInt(this.createWorkii.get('cost')?.value),
+      target: this.createWorkii.get('target')?.value,
+      executionTime: parseInt(this.createWorkii.get('time')?.value),
+      description: this.createWorkii.get('description')?.value,
+      toDoList: this.createWorkii.get('tasks')?.value,
+      userId: userId,
+    }
+
+    this.workiisService.createWorkiis( newWorkii, headers ).subscribe({
+      next: (createdWorkii: IWorkii) => {
+        console.log(createdWorkii);
+        location.reload();
+        this.closeModal();
+        Swal.fire('Se ha creado el workii correctamente');
+      },
+      error: (error) => {
+        console.log(error);
+        Swal.fire('Error',`No se ha podido crear el workii correctamente`,'error');
+      }
+    })
   }
 }
