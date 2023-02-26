@@ -13,6 +13,7 @@ const routes: Routes = [
       { path: 'messages', loadChildren: () => import('./messages/messages.module').then(m => m.MessagesModule) },
       { path: 'progress', loadChildren: () => import('./progress/progress.module').then(m => m.ProgressModule) },
       { path: 'settings', loadChildren: () => import('./setting/setting.module').then(m => m.SettingModule) },
+      { path: 'workiis/:slug', loadChildren: () => import('./workii-detail/workii-detail.module').then(m => m.WorkiDetailModule) },
       { path: '**', redirectTo: '/dashboard/workiis' }
     ]
   }

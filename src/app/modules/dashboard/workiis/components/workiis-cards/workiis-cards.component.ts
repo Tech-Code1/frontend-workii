@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { catchError, filter, Observable, of, tap } from 'rxjs';
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
 import { IWorkii } from '../../interfaces/workii.interface';
+import { SharedWorkiiService } from '../../service/shareWorkii.service';
 import { WorkiisService } from '../../service/workiis.service';
 
 @Component({
@@ -15,11 +16,11 @@ export class WorkiisCardsComponent {
 
   modalSwitch: boolean = false;
   workiis: IWorkii[] = []
-  slug!: IWorkii;
   selectedWorkii: any;
 
   constructor(private modalService: SwitchService,
-    private workiisService: WorkiisService) {}
+    private workiisService: WorkiisService,
+    private sharedWorkiiService: SharedWorkiiService) {}
 
   ngOnInit(): void {
     this.modalService.$modal.subscribe((valor) => {
@@ -54,15 +55,4 @@ export class WorkiisCardsComponent {
 
 
   }
-
-  /* getWorkii(slug: string): Observable<IWorkii[]> {
-
-    // Obtener id del workii
-    const idWorkii = this.workiisService
-
-
-    return this.workiisService.getWorkiis(limit, offset, headers)
-
-  } */
-
 }

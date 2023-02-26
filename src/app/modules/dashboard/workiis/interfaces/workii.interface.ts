@@ -1,5 +1,4 @@
 export interface IWorkii {
-
     name: string,
     target: string[],
     description: string,
@@ -7,6 +6,7 @@ export interface IWorkii {
     cost: number,
     slug?: string,
     status?: string,
+    applications?: number;
     userId: string,
     executionTime: number,
 }

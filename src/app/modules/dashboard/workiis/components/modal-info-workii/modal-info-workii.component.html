@@ -12,7 +12,9 @@
       <div
         class="w-full bg-gray-light rounded-t-lg h-12 flex flex-row justify-between items-center px-4"
       >
-        <div
+        <button
+          (click)="detailsWorkiiNavigate()"
+          type="button"
           class="h-10 w-10 hover:bg-gray-neutral rounded-md flex justify-center items-center cursor-pointer"
         >
           <img
@@ -20,7 +22,7 @@
             src="../../../../../../assets/images/svg/icon-expand.svg"
             alt="icon expand"
           />
-        </div>
+        </button>
 
         <div class="flex flex-row items-center gap-2" for="">
           <div
@@ -135,7 +137,7 @@
             src="../../../../../../assets/images/svg/icon-person.svg"
             alt="icon person"
           />
-          <p class="title-base-black">2</p>
+          <p class="title-base-black">{{ workii.applications }}</p>
         </div>
         <button class="btn-solid-blue p-4 h-12 rounded-md">Aplicar</button>
       </div>
