@@ -1,5 +1,5 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { catchError, filter, Observable, of, tap } from 'rxjs';
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
@@ -35,6 +35,10 @@ export class WorkiisCardsComponent {
       this.workiis = workiis;
     });
   }
+
+  /* onWorkiiSelected(workiiId: string) {
+    this.workiiSelected.emit(workiiId);
+  } */
 
   openModal(workii: IWorkii): void {
     this.modalSwitch = true

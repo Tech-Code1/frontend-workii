@@ -3,7 +3,7 @@ import { AbstractControl, AbstractFormGroupDirective, FormArray, FormBuilder, Fo
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
 import { UserService } from 'src/app/modules/auth/services/user.service';
 import { WorkiisService } from '../../service/workiis.service';
-import { IWorkii } from '../../interfaces/workii.interface';
+import { IApplication, IWorkii } from '../../interfaces/workii.interface';
 import Swal from 'sweetalert2';
 import { HttpHeaders } from '@angular/common/http';
 
@@ -84,8 +84,8 @@ export class ModalCreateWorkiiComponent implements OnInit {
     this.tasksArr.push( this.formBuilder.control('', [Validators.required]));
   }
 
-  createNewWorkii() {
-    const userId = this.userService.getCurrentUser()
+  async createNewWorkii() {
+    const userId = await this.userService.getCurrentUser()
 
     // Obtener el token de autorización
     const token = localStorage.getItem('token');

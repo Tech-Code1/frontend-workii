@@ -139,7 +139,13 @@
           />
           <p class="title-base-black">{{ workii.applications }}</p>
         </div>
-        <button class="btn-solid-blue p-4 h-12 rounded-md">Aplicar</button>
+        <button
+          type="button"
+          (click)="appyWorkii(workii.id)"
+          class="btn-solid-blue p-4 h-12 rounded-md"
+        >
+          Aplicar
+        </button>
       </div>
     </body>
   </div>

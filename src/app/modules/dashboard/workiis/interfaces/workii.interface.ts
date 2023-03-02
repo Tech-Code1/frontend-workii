@@ -1,4 +1,5 @@
 export interface IWorkii {
+    id?: string;
     name: string,
     target: string[],
     description: string,
@@ -14,6 +15,31 @@ export interface IWorkii {
 export interface IStatus {
   id: number,
   status: string
+}
+
+/* export interface IResponseSuccess {
+  ok?:              boolean;
+  statusCode?:      number;
+  message?:         string;
+  id?:              string;
+  applicationDate?: number;
+  workii?:          string;
+  user?:            string;
+  responseDate?:    null;
+  responseMessage?: string;
+  selected?:        boolean;
+  status?:          string;
+} */
+
+export interface IApplicationResponse {
+  id: number,
+  ok: boolean;
+  statusCode: number;
+  message: string;
+}
+export interface IApplication {
+  workii:          string;
+  user:            string;
 }
 
 /* export interface ITime {
