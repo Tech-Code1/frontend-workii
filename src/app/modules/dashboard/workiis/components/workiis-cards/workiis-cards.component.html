@@ -1,4 +1,6 @@
-<section class="grid grid-flow-row grid-cols-5 pt-16 gap-y-16 gap-x-4">
+<section
+  class="grid grid-flow-row pt-16 gap-y-16 gap-x-4 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3"
+>
   <div
     class="flex justify-center"
     *ngFor="let workii of workiis; let i = index"
@@ -15,7 +17,11 @@
         ></div>
 
         <div class="pt-10 gap-2 flex flex-col">
-          <h3 class="title-lg-black">{{ workii.name }}</h3>
+          <h3
+            class="title-lg-black w-11/12 h-7 text-ellipsis overflow-hidden whitespace-nowrap"
+          >
+            {{ workii.name }}
+          </h3>
           <div class="gap-2 flex flex-row items-center">
             <img
               src="../../../../../../assets/images/svg/icon-target.svg"

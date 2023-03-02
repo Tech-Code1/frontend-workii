@@ -27,7 +27,7 @@ export class WorkiisCardsComponent {
       this.modalSwitch = valor
     })
 
-    this.getWorkiis(2, 0).pipe
+    this.getWorkiis(10, 0).pipe
     (filter((workiis: IWorkii[]) => workiis.length > 0))
     .subscribe(workiis => {
       console.log(workiis);

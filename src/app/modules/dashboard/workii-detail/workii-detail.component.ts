@@ -28,11 +28,9 @@ export class WorkiiDetailComponent {
     .pipe()
     .subscribe( {
       next: body => {
-        console.log(body);
 
       if(body)
       this.workii = body
-      console.log(this.workii);
 
     },
     error: error => console.log(error)

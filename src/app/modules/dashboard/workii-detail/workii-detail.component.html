@@ -2,6 +2,21 @@
   <div
     class="pb-8 px-4 pt-4 w-full animate__animated animate__fadeIn animate__faster flex flex-col gap-8"
   >
+    <div class="flex flex-row gap-1">
+      <p
+        routerLink="/dashboard/workiis"
+        class="body-base-black underline cursor-pointer"
+      >
+        workiis
+      </p>
+      <span>/</span>
+      <p
+        [routerLink]="'/dashboard/workiis/' + workii?.slug"
+        class="body-base-black underline cursor-pointer"
+      >
+        {{ "workii-" + workii?.slug }}
+      </p>
+    </div>
     <div class="flex flex-row w-full gap-4 items-center">
       <div class="w-16 h-16 rounded-full bg-gray-neutral"></div>
 
