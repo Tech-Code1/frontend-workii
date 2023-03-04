@@ -3,9 +3,10 @@ import { AbstractControl, AbstractFormGroupDirective, FormArray, FormBuilder, Fo
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
 import { UserService } from 'src/app/modules/auth/services/user.service';
 import { WorkiisService } from '../../service/workiis.service';
-import { IApplication, IWorkii } from '../../interfaces/workii.interface';
+import { IApplication, IWorkii, IWorkiiCreate } from '../../interfaces/workii.interface';
 import Swal from 'sweetalert2';
 import { HttpHeaders } from '@angular/common/http';
+import { validate as uuidValidate } from 'uuid';
 
 @Component({
   selector: 'modal-create-workii',
@@ -95,14 +96,14 @@ export class ModalCreateWorkiiComponent implements OnInit {
       'Authorization': `Bearer ${token}`
     });
 
-    const newWorkii: IWorkii = {
+    const newWorkii: IWorkiiCreate = {
       name: this.createWorkii.get('name')?.value,
       cost: parseInt(this.createWorkii.get('cost')?.value),
       target: this.createWorkii.get('target')?.value,
       executionTime: parseInt(this.createWorkii.get('time')?.value),
       description: this.createWorkii.get('description')?.value,
       toDoList: this.createWorkii.get('tasks')?.value,
-      userId: userId,
+      userId: userId
     }
 
     this.workiisService.createWorkiis( newWorkii, headers ).subscribe({

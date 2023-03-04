@@ -1,15 +1,33 @@
 export interface IWorkii {
+    cost: number,
+    description: string,
+    executionTime: number,
     id?: string;
     name: string,
-    target: string[],
-    description: string,
-    toDoList: string[],
-    cost: number,
     slug?: string,
     status?: string,
+    target: string,
+    timeOfCreation?: number;
+    timeOfFinished?: string;
+    toDoList: string[],
+    applications?: number;
+    user: IUser,
+}
+
+export interface IWorkiiCreate {
+    cost: number,
+    description: string,
+    executionTime: number,
+    id?: string;
+    name: string,
+    slug?: string,
+    status?: string,
+    target: string,
+    timeOfCreation?: number;
+    timeOfFinished?: string;
+    toDoList: string[],
     applications?: number;
     userId: string,
-    executionTime: number,
 }
 
 export interface IStatus {
@@ -17,19 +35,20 @@ export interface IStatus {
   status: string
 }
 
-/* export interface IResponseSuccess {
-  ok?:              boolean;
-  statusCode?:      number;
-  message?:         string;
-  id?:              string;
-  applicationDate?: number;
-  workii?:          string;
-  user?:            string;
-  responseDate?:    null;
-  responseMessage?: string;
-  selected?:        boolean;
-  status?:          string;
-} */
+export interface IApplicationUser {
+  id: string;
+  found: boolean;
+  user: IUser
+  workii: IWorkiiApllication
+}
+
+export interface IWorkiiApllication {
+  id: string
+}
+
+export interface IUser {
+  id: string;
+}
 
 export interface IApplicationResponse {
   id: number,

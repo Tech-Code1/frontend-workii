@@ -21,6 +21,9 @@ export class ModalInfoWorkiiComponent {
   workii!: IWorkii;
 
   @Input()
+  found!: boolean[];
+
+  @Input()
   index!: number;
 
   constructor(private modalService: SwitchService,
@@ -48,7 +51,7 @@ export class ModalInfoWorkiiComponent {
       description: this.workii.description,
       target: this.workii.target,
       toDoList: this.workii.toDoList,
-      userId: this.workii.userId,
+      user: this.workii.user,
       applications: this.workii.applications,
       slug: this.workii.slug,
       executionTime: this.workii.executionTime,
@@ -63,7 +66,7 @@ export class ModalInfoWorkiiComponent {
     this.router.navigate([ruta]);
   }
 
-  async appyWorkii(workii: string | undefined) {
+  async applyWorkii(workii: string | undefined) {
     const user = await this.userService.getCurrentUser()
 
     // Obtener el token de autorización

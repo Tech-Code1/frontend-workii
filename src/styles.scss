@@ -25,6 +25,10 @@
   @apply text-black-principal dark:text-white-principal text-base font-bold font-title
 }
 
+.title-sm-white {
+  @apply text-white-principal dark:text-black-principal text-base font-bold font-title
+}
+
 .title-xl-black {
   @apply text-xl
 }
@@ -37,7 +41,7 @@
   @apply text-base
 }
 
-.title-sm-black {
+.title-sm-black, .title-sm-white {
   @apply text-sm
 }
 

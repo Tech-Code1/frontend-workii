@@ -140,8 +140,9 @@
           <p class="title-base-black">{{ workii.applications }}</p>
         </div>
         <button
+          *ngIf="found[index]"
           type="button"
-          (click)="appyWorkii(workii.id)"
+          (click)="applyWorkii(workii.id)"
           class="btn-solid-blue p-4 h-12 rounded-md"
         >
           Aplicar

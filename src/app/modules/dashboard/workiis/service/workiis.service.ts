@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { catchError, map, of, tap, Observable, Subject } from 'rxjs';
-import { IApplication, IApplicationResponse, IWorkii } from '../interfaces/workii.interface';
+import { IApplication, IApplicationResponse, IApplicationUser, IWorkii, IWorkiiCreate } from '../interfaces/workii.interface';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -33,7 +33,7 @@ export class WorkiisService {
   }
 
 
-  createWorkiis( { name, target, description, toDoList, cost, executionTime, userId, ...rest } : IWorkii, headers: HttpHeaders) {
+  createWorkiis( { name, target, description, toDoList, cost, executionTime, userId, ...rest } : IWorkiiCreate, headers: HttpHeaders) {
     const url = `${this.baseUrl}/workiis`;
     const body = { name, target, description, toDoList, cost, executionTime, userId }
 
@@ -48,5 +48,11 @@ export class WorkiisService {
     };
 
     return this.http.post<IApplicationResponse>(url, body, {headers})
+  }
+
+  findAllApplicationsWorkiiByUser(id: string): Observable<IApplicationUser[]> {
+    const url = `${this.baseUrl}/applications/user/${id}`;
+
+    return this.http.get<IApplicationUser[]>(url)
   }
 }

@@ -30,6 +30,7 @@
     "supertokens-auth-react": "^0.27.1",
     "sweetalert2": "^11.6.16",
     "tslib": "^2.3.0",
+    "uuid": "^9.0.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
@@ -39,6 +40,7 @@
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/typography": "^0.5.7",
     "@types/jasmine": "~4.0.0",
+    "@types/uuid": "^9.0.1",
     "autoprefixer": "^10.4.12",
     "jasmine-core": "~4.1.0",
     "karma": "~6.3.0",

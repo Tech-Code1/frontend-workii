@@ -6,7 +6,7 @@
     *ngFor="let workii of workiis; let i = index"
   >
     <div
-      (click)="openModal(workii)"
+      (click)="openModal(workii, i)"
       class="w-[242px] flex flex-col cursor-pointer hover:scale-110 transition"
     >
       <div
@@ -18,7 +18,7 @@
 
         <div class="pt-10 gap-2 flex flex-col">
           <h3
-            class="title-lg-black w-11/12 h-7 text-ellipsis overflow-hidden whitespace-nowrap"
+            class="title-lg-black w-[190px] h-7 text-ellipsis overflow-hidden whitespace-nowrap"
           >
             {{ workii.name }}
           </h3>
@@ -38,30 +38,69 @@
           </div>
         </div>
       </div>
-      <div
-        class="bg-accent-yellow h-12 w-full rounded-b-xl flex flex-col items-center px-4 py-1"
+
+      <ng-container
+        *ngIf="
+          !isApply.includes(workii.id!) && userCurrentId !== workii.user.id
+        "
       >
-        <div class="flex flex-row items-center gap-1 w-full">
-          <img
-            src="../../../../../../assets/images/svg/icon-decorator-card-workii.svg"
-            alt="icon decorator card workii"
-          />
-          <div class="h-[1px] bg-black-principal flex-grow"></div>
+        <div
+          class="h-12 w-full rounded-b-xl flex flex-col items-center px-4 py-1 bg-accent-yellow title-sm-black"
+        >
+          <div class="flex flex-row items-center gap-1 w-full">
+            <img
+              src="../../../../../../assets/images/svg/icon-decorator-card-workii.svg"
+              alt="icon decorator card workii"
+            />
+            <div class="h-[1px] bg-black-principal flex-grow"></div>
 
-          <p class="title-sm-black">Recompensa</p>
+            <p>Recompensa</p>
 
-          <div class="h-[1px] bg-black-principal flex-grow"></div>
-          <img
-            src="../../../../../../assets/images/svg/icon-decorator-card-workii.svg"
-            alt="icon decorator card workii"
-          />
+            <div class="h-[1px] bg-black-principal flex-grow"></div>
+            <img
+              src="../../../../../../assets/images/svg/icon-decorator-card-workii.svg"
+              alt="icon decorator card workii"
+            />
+          </div>
+
+          <p>{{ workii.cost }} USD</p>
         </div>
-
-        <p class="title-lg-black">{{ workii.cost }} USD</p>
-      </div>
+      </ng-container>
+      <ng-container *ngIf="isApply.includes(workii.id!)">
+        <div
+          class="h-12 w-full rounded-b-xl flex flex-col items-center px-4 py-1 bg-success-greenLight border-success-greenDark border-b-4"
+        >
+          <div class="flex flex-col gap-1 items-center justify-center pt-1">
+            <img
+              src="../../../../../../assets/images/svg/icon-check.svg"
+              alt="icon check"
+            />
+            <p class="text-success-greenDark title-sm-white">Has aplicado</p>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="userCurrentId === workii.user.id">
+        <div
+          class="h-12 w-full rounded-b-xl flex flex-col items-center px-4 py-1 bg-secondary-lightBlue border-primary-blueNeutral border-b-4"
+        >
+          <div class="flex flex-col gap-1 items-center justify-center pt-1">
+            <img
+              src="../../../../../../assets/images/svg/icon-time.svg"
+              alt="icon time"
+            />
+            <p class="text-primary-blueNeutral title-sm-white">
+              Buscando talentos
+            </p>
+          </div>
+        </div>
+      </ng-container>
     </div>
   </div>
   <div *ngIf="modalSwitch">
-    <modal-info-workii [workii]="selectedWorkii"></modal-info-workii>
+    <modal-info-workii
+      [workii]="selectedWorkii"
+      [found]="isOwner"
+      [index]="index"
+    ></modal-info-workii>
   </div>
 </section>
