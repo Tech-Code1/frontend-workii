@@ -6,7 +6,7 @@ import { IResponseError } from 'src/app/core/interfaces/responseError.inteface';
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
 import { UserService } from 'src/app/modules/auth/services/user.service';
 import Swal from 'sweetalert2';
-import { IApplication, IApplicationResponse, IWorkii } from '../../interfaces/workii.interface';
+import { IApplication, IApplicationResponse, IApplicationUser, IWorkii } from '../../interfaces/workii.interface';
 import { SharedWorkiiService } from '../../service/shareWorkii.service';
 import { WorkiisService } from '../../service/workiis.service';
 
@@ -24,7 +24,10 @@ export class ModalInfoWorkiiComponent {
   isOwner!: boolean[];
 
   @Input()
-  isApply!: string[];
+  isApplyWorkiiId!: string[];
+
+  @Input()
+  apply!: string;
 
   @Input()
   index!: number;
@@ -36,7 +39,8 @@ export class ModalInfoWorkiiComponent {
     private sharedWorkiiService: SharedWorkiiService) {}
 
   ngOnInit() {
-    console.log(this.workii.id)
+
+
   }
 
   closeModal() {
@@ -90,9 +94,9 @@ export class ModalInfoWorkiiComponent {
 
     return this.workiisService.applyToWorkii(apply, headers)
     .subscribe({
-      next: (resp: IApplicationResponse) => {
+      next:(resp: IApplicationResponse) => {
         console.log(resp.message);
-
+        location.reload();
         Swal.fire({
           icon: 'success',
           text: resp.message,
@@ -108,6 +112,39 @@ export class ModalInfoWorkiiComponent {
           title: resp.status,
           text: resp.error?.message
         });
+      }
+    })
+  }
+
+  async removeApplication (id: string) {
+
+    console.log(id);
+
+    // Obtener el token de autorización
+    const token = localStorage.getItem('token');
+
+    // Crear el encabezado de la solicitud HTTP
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.workiisService.removeApplication(id, headers)
+    .subscribe({
+      next: ( response ) => {
+
+        console.log(response);
+        this.closeModal();
+        location.reload();
+        Swal.fire({
+          icon: 'success',
+          text: 'has abandonado',
+          showConfirmButton: false,
+          timer: 1500
+        });
+
+      },
+      error: (resp: IResponseError) => {
+
       }
     })
   }

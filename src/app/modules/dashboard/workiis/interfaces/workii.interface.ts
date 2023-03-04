@@ -37,7 +37,6 @@ export interface IStatus {
 
 export interface IApplicationUser {
   id: string;
-  found: boolean;
   user: IUser
   workii: IWorkiiApllication
 }
@@ -51,9 +50,9 @@ export interface IUser {
 }
 
 export interface IApplicationResponse {
-  id: number,
-  ok: boolean;
-  statusCode: number;
+  id?: number,
+  ok?: boolean;
+  statusCode?: number;
   message: string;
 }
 export interface IApplication {

@@ -55,4 +55,10 @@ export class WorkiisService {
 
     return this.http.get<IApplicationUser[]>(url)
   }
+
+  removeApplication(id: string, headers: HttpHeaders) {
+    const url = `${this.baseUrl}/workiis/apply/${id}`;
+
+    return this.http.delete(url, {headers})
+  }
 }

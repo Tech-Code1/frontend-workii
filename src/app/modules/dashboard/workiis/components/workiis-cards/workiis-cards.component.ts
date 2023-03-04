@@ -1,5 +1,5 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { catchError, filter, forkJoin, map, Observable, of, tap, switchMap } from 'rxjs';
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
@@ -15,13 +15,17 @@ import { UserService } from '../../../../auth/services/user.service';
 })
 export class WorkiisCardsComponent {
 
+  @Input()
+  isApplyWorkiiId!: string[];
+
+  applies!: IApplicationUser[];
   modalSwitch: boolean = false;
   workiis: IWorkii[] = []
   selectedWorkii: any;
-  isApply!: string[];
   userCurrentId!: string;
   index!: number;
   isOwner!: boolean[];
+  apply!: string;
 
   constructor(private modalService: SwitchService,
     private workiisService: WorkiisService,
@@ -57,27 +61,37 @@ export class WorkiisCardsComponent {
     this.findAllApplicationsWorkiiByUser(this.userCurrentId)
     .pipe(
       map(applies => {
+        console.log(applies);
+        //const applyId = applies.map(apply => apply.id);
         const userApplies = applies.map(apply => apply.workii.id)
 
-        return userApplies
+        return {userApplies, applies}
       })
-    ).subscribe((userApplies) => {
+    ).subscribe(({userApplies, applies}) => {
 
-      this.isApply = userApplies
-      console.log(userApplies);
+      this.isApplyWorkiiId = userApplies
+      this.applies = applies
     })
-
-
   }
 
   /* onWorkiiSelected(workiiId: string) {
     this.workiiSelected.emit(workiiId);
   } */
 
-  openModal(workii: IWorkii, index: number): void {
+  openModal(workii: IWorkii, index: number, applies: IApplicationUser[]): void {
+
+
     this.modalSwitch = true
     this.selectedWorkii = workii;
     this.index = index;
+
+    applies.forEach(apply => {
+      if (apply.workii.id.match(workii?.id!)) {
+        this.apply = apply.id
+        console.log(this.apply);
+      }
+    })
+
   }
 
   getWorkiis(limit: number, offset: number): Observable<IWorkii[]> {

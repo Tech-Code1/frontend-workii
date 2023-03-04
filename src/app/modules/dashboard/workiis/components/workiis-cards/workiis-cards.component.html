@@ -6,7 +6,7 @@
     *ngFor="let workii of workiis; let i = index"
   >
     <div
-      (click)="openModal(workii, i)"
+      (click)="openModal(workii, i, applies)"
       class="w-[242px] flex flex-col cursor-pointer hover:scale-110 transition"
     >
       <div
@@ -42,10 +42,10 @@
       <div
         [ngClass]="{
           'bg-accent-yellow title-sm-black border-b-0':
-            !isApply.includes(workii.id!) && userCurrentId !== workii.user.id,
-          'bg-success-greenLight border-success-greenDark': isApply.includes(
-            workii.id!
-          ),
+            !isApplyWorkiiId.includes(workii.id!) &&
+            userCurrentId !== workii.user.id,
+          'bg-success-greenLight border-success-greenDark':
+            isApplyWorkiiId.includes(workii.id!),
           'bg-secondary-lightBlue border-primary-blueNeutral':
             userCurrentId === workii.user.id,
           'h-12 w-full rounded-b-xl flex flex-col items-center px-4 py-1 border-b-4': true
@@ -53,7 +53,8 @@
       >
         <ng-container
           *ngIf="
-            !isApply.includes(workii.id!) && userCurrentId !== workii.user.id
+            !isApplyWorkiiId.includes(workii.id!) &&
+            userCurrentId !== workii.user.id
           "
         >
           <div class="flex flex-row items-center gap-1 w-full">
@@ -75,7 +76,7 @@
           <p>{{ workii.cost }} USD</p>
         </ng-container>
 
-        <ng-container *ngIf="isApply.includes(workii.id!)">
+        <ng-container *ngIf="isApplyWorkiiId.includes(workii.id!)">
           <div class="flex flex-col gap-1 items-center justify-center pt-1">
             <img
               src="../../../../../../assets/images/svg/icon-check.svg"
@@ -104,7 +105,8 @@
       [workii]="selectedWorkii"
       [isOwner]="isOwner"
       [index]="index"
-      [isApply]="isApply"
+      [isApplyWorkiiId]="isApplyWorkiiId"
+      [apply]="apply"
     ></modal-info-workii>
   </div>
 </section>

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, AbstractFormGroupDirective, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
 import { UserService } from 'src/app/modules/auth/services/user.service';
@@ -14,6 +14,9 @@ import { validate as uuidValidate } from 'uuid';
   styleUrls: ['./modal-create-workii.component.scss']
 })
 export class ModalCreateWorkiiComponent implements OnInit {
+
+  @Input()
+  isApply!: string[];
 
   @ViewChild('taskInput', {static: true}) taskInput!: ElementRef<HTMLInputElement>;
   initialValue: string = "";
@@ -119,4 +122,6 @@ export class ModalCreateWorkiiComponent implements OnInit {
       }
     })
   }
+
+
 }
