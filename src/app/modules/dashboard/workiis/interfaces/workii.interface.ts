@@ -60,6 +60,10 @@ export interface IApplication {
   user:            string;
 }
 
+export interface IResponseSuccess {
+  message:          string;
+}
+
 /* export interface ITime {
   id: number,
   time: number

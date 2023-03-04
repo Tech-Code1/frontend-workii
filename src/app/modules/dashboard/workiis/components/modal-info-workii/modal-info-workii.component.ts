@@ -6,7 +6,7 @@ import { IResponseError } from 'src/app/core/interfaces/responseError.inteface';
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
 import { UserService } from 'src/app/modules/auth/services/user.service';
 import Swal from 'sweetalert2';
-import { IApplication, IApplicationResponse, IApplicationUser, IWorkii } from '../../interfaces/workii.interface';
+import { IApplication, IApplicationResponse, IApplicationUser, IResponseSuccess, IWorkii } from '../../interfaces/workii.interface';
 import { SharedWorkiiService } from '../../service/shareWorkii.service';
 import { WorkiisService } from '../../service/workiis.service';
 
@@ -94,15 +94,25 @@ export class ModalInfoWorkiiComponent {
 
     return this.workiisService.applyToWorkii(apply, headers)
     .subscribe({
-      next:(resp: IApplicationResponse) => {
+      next: async(resp: IApplicationResponse) => {
+
         console.log(resp.message);
-        location.reload();
+
+        this.closeModal()
+
+        setTimeout(() => {
+          location.reload();
+        }, 800)
+
         Swal.fire({
           icon: 'success',
           text: resp.message,
           showConfirmButton: false,
-          timer: 1500
+          timer: 2000
         });
+
+
+
       },
       error: (resp: IResponseError) => {
         console.log(resp.error?.message);
@@ -112,7 +122,7 @@ export class ModalInfoWorkiiComponent {
           title: resp.status,
           text: resp.error?.message
         });
-      }
+      },
     })
   }
 
@@ -130,21 +140,28 @@ export class ModalInfoWorkiiComponent {
 
     this.workiisService.removeApplication(id, headers)
     .subscribe({
-      next: ( response ) => {
+      next: ( response: IApplicationResponse ) => {
 
-        console.log(response);
         this.closeModal();
-        location.reload();
+
+        setTimeout(() => {
+          location.reload();
+        }, 800)
+
         Swal.fire({
           icon: 'success',
-          text: 'has abandonado',
+          text: response.message,
           showConfirmButton: false,
-          timer: 1500
+          timer: 2000
         });
 
       },
       error: (resp: IResponseError) => {
-
+        Swal.fire({
+          icon: 'error',
+          text: resp.error?.message,
+          title: resp.status
+        });
       }
     })
   }
