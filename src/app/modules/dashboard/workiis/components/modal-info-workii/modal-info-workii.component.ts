@@ -21,7 +21,10 @@ export class ModalInfoWorkiiComponent {
   workii!: IWorkii;
 
   @Input()
-  found!: boolean[];
+  isOwner!: boolean[];
+
+  @Input()
+  isApply!: string[];
 
   @Input()
   index!: number;

@@ -39,13 +39,22 @@
         </div>
       </div>
 
-      <ng-container
-        *ngIf="
-          !isApply.includes(workii.id!) && userCurrentId !== workii.user.id
-        "
+      <div
+        [ngClass]="{
+          'bg-accent-yellow title-sm-black border-b-0':
+            !isApply.includes(workii.id!) && userCurrentId !== workii.user.id,
+          'bg-success-greenLight border-success-greenDark': isApply.includes(
+            workii.id!
+          ),
+          'bg-secondary-lightBlue border-primary-blueNeutral':
+            userCurrentId === workii.user.id,
+          'h-12 w-full rounded-b-xl flex flex-col items-center px-4 py-1 border-b-4': true
+        }"
       >
-        <div
-          class="h-12 w-full rounded-b-xl flex flex-col items-center px-4 py-1 bg-accent-yellow title-sm-black"
+        <ng-container
+          *ngIf="
+            !isApply.includes(workii.id!) && userCurrentId !== workii.user.id
+          "
         >
           <div class="flex flex-row items-center gap-1 w-full">
             <img
@@ -64,12 +73,9 @@
           </div>
 
           <p>{{ workii.cost }} USD</p>
-        </div>
-      </ng-container>
-      <ng-container *ngIf="isApply.includes(workii.id!)">
-        <div
-          class="h-12 w-full rounded-b-xl flex flex-col items-center px-4 py-1 bg-success-greenLight border-success-greenDark border-b-4"
-        >
+        </ng-container>
+
+        <ng-container *ngIf="isApply.includes(workii.id!)">
           <div class="flex flex-col gap-1 items-center justify-center pt-1">
             <img
               src="../../../../../../assets/images/svg/icon-check.svg"
@@ -77,12 +83,9 @@
             />
             <p class="text-success-greenDark title-sm-white">Has aplicado</p>
           </div>
-        </div>
-      </ng-container>
-      <ng-container *ngIf="userCurrentId === workii.user.id">
-        <div
-          class="h-12 w-full rounded-b-xl flex flex-col items-center px-4 py-1 bg-secondary-lightBlue border-primary-blueNeutral border-b-4"
-        >
+        </ng-container>
+
+        <ng-container *ngIf="userCurrentId === workii.user.id">
           <div class="flex flex-col gap-1 items-center justify-center pt-1">
             <img
               src="../../../../../../assets/images/svg/icon-time.svg"
@@ -92,15 +95,16 @@
               Buscando talentos
             </p>
           </div>
-        </div>
-      </ng-container>
+        </ng-container>
+      </div>
     </div>
   </div>
   <div *ngIf="modalSwitch">
     <modal-info-workii
       [workii]="selectedWorkii"
-      [found]="isOwner"
+      [isOwner]="isOwner"
       [index]="index"
+      [isApply]="isApply"
     ></modal-info-workii>
   </div>
 </section>

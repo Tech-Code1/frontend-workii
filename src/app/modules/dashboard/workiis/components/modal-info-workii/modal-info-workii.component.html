@@ -140,12 +140,19 @@
           <p class="title-base-black">{{ workii.applications }}</p>
         </div>
         <button
-          *ngIf="found[index]"
+          *ngIf="!isApply.includes(workii.id!) && !isOwner[index]"
           type="button"
           (click)="applyWorkii(workii.id)"
           class="btn-solid-blue p-4 h-12 rounded-md"
         >
           Aplicar
+        </button>
+        <button
+          type="button"
+          *ngIf="isApply.includes(workii.id!) && !isOwner[index]"
+          class="btn-light-red px-4 h-12 rounded-md"
+        >
+          Abandonar
         </button>
       </div>
     </body>
