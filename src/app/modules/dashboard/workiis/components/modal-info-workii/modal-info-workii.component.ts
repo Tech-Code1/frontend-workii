@@ -32,6 +32,9 @@ export class ModalInfoWorkiiComponent {
   @Input()
   index!: number;
 
+  @Input()
+  userCurrentId!: string;
+
   constructor(private modalService: SwitchService,
     private workiisService: WorkiisService,
     private userService: UserService,
@@ -126,10 +129,7 @@ export class ModalInfoWorkiiComponent {
     })
   }
 
-  async removeApplication (id: string) {
-
-    console.log(id);
-
+  async removeApplication(id: string) {
     // Obtener el token de autorización
     const token = localStorage.getItem('token');
 
@@ -143,6 +143,45 @@ export class ModalInfoWorkiiComponent {
       next: ( response: IApplicationResponse ) => {
 
         this.closeModal();
+
+        setTimeout(() => {
+          location.reload();
+        }, 800)
+
+        Swal.fire({
+          icon: 'success',
+          text: response.message,
+          showConfirmButton: false,
+          timer: 2000
+        });
+
+      },
+      error: (resp: IResponseError) => {
+        Swal.fire({
+          icon: 'error',
+          text: resp.error?.message,
+          title: resp.status
+        });
+      }
+    })
+  }
+
+  async deleteWorkii(id: string) {
+    // Obtener el token de autorización
+    const token = localStorage.getItem('token');
+
+    // Crear el encabezado de la solicitud HTTP
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.workiisService.deleteWorkii(id, headers)
+    .subscribe({
+      next: ( response: IApplicationResponse ) => {
+
+        this.closeModal();
+
+        console.log(response);
 
         setTimeout(() => {
           location.reload();

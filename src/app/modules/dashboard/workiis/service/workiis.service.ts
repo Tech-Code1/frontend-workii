@@ -61,4 +61,10 @@ export class WorkiisService {
 
     return this.http.delete<IApplicationResponse>(url, {headers})
   }
+
+  deleteWorkii(id: string, headers: HttpHeaders) {
+    const url = `${this.baseUrl}/workiis/${id}`;
+
+    return this.http.delete<IApplicationResponse>(url, {headers})
+  }
 }

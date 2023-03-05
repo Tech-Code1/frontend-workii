@@ -155,6 +155,14 @@
         >
           Abandonar
         </button>
+        <button
+          type="button"
+          (click)="deleteWorkii(workii.id!)"
+          *ngIf="userCurrentId === workii.user.id"
+          class="btn-light-red px-4 h-12 rounded-md"
+        >
+          Eliminar
+        </button>
       </div>
     </body>
   </div>
