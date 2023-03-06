@@ -53,15 +53,14 @@ export class WorkiisCardsComponent {
     ).subscribe(({found, workiis}) => {
       this.isOwner = found;
       this.workiis = workiis;
-      console.log(this.isOwner);
-      console.log(this.workiis);
     });
+
+
 
 
     this.findAllApplicationsWorkiiByUser(this.userCurrentId)
     .pipe(
       map(applies => {
-        console.log(applies);
         //const applyId = applies.map(apply => apply.id);
         const userApplies = applies.map(apply => apply.workii.id)
 
@@ -72,6 +71,7 @@ export class WorkiisCardsComponent {
       this.isApplyWorkiiId = userApplies
       this.applies = applies
     })
+
   }
 
   /* onWorkiiSelected(workiiId: string) {
@@ -88,7 +88,6 @@ export class WorkiisCardsComponent {
     applies.forEach(apply => {
       if (apply.workii.id.match(workii?.id!)) {
         this.apply = apply.id
-        console.log(this.apply);
       }
     })
 

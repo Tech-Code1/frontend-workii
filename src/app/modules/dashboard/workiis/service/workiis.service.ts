@@ -1,18 +1,44 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { catchError, map, of, tap, Observable, Subject } from 'rxjs';
+import { catchError, map, of, tap, Observable, Subject, BehaviorSubject } from 'rxjs';
 import { IApplication, IApplicationResponse, IApplicationUser, IWorkii, IWorkiiCreate } from '../interfaces/workii.interface';
 import { environment } from 'src/environments/environment';
+import { UserService } from '../../../auth/services/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WorkiisService {
 
+  userCurrentId!: string;
   private baseUrl: string = environment.baseUrl;
+  isApplyWorkiiId!: string[];
+  applies!: IApplicationUser[];
+  userApplies!: string[];
+  private appliesSubject = new BehaviorSubject<IApplicationUser[]>([]);
 
-  constructor( private http: HttpClient, ) { }
+  constructor( private http: HttpClient,
+    private userService: UserService) { }
+
+  ngOnInit() {
+
+    this.userCurrentId = this.userService.getCurrentUser()
+
+    this.findAllApplicationsWorkiiByUser(this.userCurrentId)
+    .pipe(
+      map(applies => {
+        const userApplies = applies.map(apply => apply.workii.id);
+        return { applies, userApplies };
+      })
+    )
+    .subscribe(({ applies, userApplies }) => {
+      this.applies = applies;
+      this.userApplies = userApplies;
+      console.log('applies en el servicio:', this.applies);
+      console.log('userApplies en el servicio:', this.userApplies);
+    });
+  }
 
 
   getWorkiis(limit: number, offset: number, headers: HttpHeaders): Observable<IWorkii[]> {

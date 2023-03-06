@@ -2,7 +2,7 @@ export interface IWorkii {
     cost: number,
     description: string,
     executionTime: number,
-    id?: string;
+    id: string;
     name: string,
     slug?: string,
     status?: string,

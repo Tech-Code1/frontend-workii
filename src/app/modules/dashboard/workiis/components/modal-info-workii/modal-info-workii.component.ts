@@ -6,7 +6,7 @@ import { IResponseError } from 'src/app/core/interfaces/responseError.inteface';
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
 import { UserService } from 'src/app/modules/auth/services/user.service';
 import Swal from 'sweetalert2';
-import { IApplication, IApplicationResponse, IApplicationUser, IResponseSuccess, IWorkii } from '../../interfaces/workii.interface';
+import { IApplication, IApplicationResponse, IApplicationUser, IResponseSuccess, IWorkii, IWorkiiCreate } from '../../interfaces/workii.interface';
 import { SharedWorkiiService } from '../../service/shareWorkii.service';
 import { WorkiisService } from '../../service/workiis.service';
 
@@ -55,13 +55,13 @@ export class ModalInfoWorkiiComponent {
   }
 
   shareWorkii() {
-    const workii: IWorkii = {
+    const workii: IWorkiiCreate = {
       name: this.workii.name,
       cost: this.workii.cost,
       description: this.workii.description,
       target: this.workii.target,
       toDoList: this.workii.toDoList,
-      user: this.workii.user,
+      userId: this.workii.user.id,
       applications: this.workii.applications,
       slug: this.workii.slug,
       executionTime: this.workii.executionTime,
