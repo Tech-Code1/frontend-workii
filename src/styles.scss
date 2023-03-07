@@ -74,6 +74,10 @@
   @apply bg-success-greenLight border-2 border-success-greenDark hover:border-success-greenLight rounded-md outline-none text-success-greenDark font-bold text-base font-title px-4 hover:bg-success-greenDark hover:text-success-greenLight
 }
 
+.btn-ghost-neutral-blue-light {
+  @apply bg-secondary-lightBlue border-2 border-primary-blueNeutral dark:border-dark-prymaryColor hover:bg-primary-blueNeutral dark:hover:bg-dark-prymaryColor rounded-md text-primary-blueNeutral dark:text-white-principal text-base font-bold font-title flex justify-center items-center outline-none hover:text-white-principal
+}
+
 .btn-ghost-neutral {
   @apply bg-transparent border-2 border-primary-blueNeutral dark:border-dark-prymaryColor hover:bg-primary-blueNeutral dark:hover:bg-dark-prymaryColor rounded-md text-primary-blueNeutral dark:text-white-principal text-base font-bold font-title px-4 flex justify-center items-center outline-none hover:text-white-principal
 }

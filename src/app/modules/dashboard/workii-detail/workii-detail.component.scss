@@ -1,0 +1,55 @@
+.child-hover {
+  fill: #278CEA;
+}
+
+.parent-hover:hover .child-hover {
+  fill: #fff;
+}
+
+/* .animated-child-arrow-one {
+  transition: transform 0.2s ease-in-out;
+}
+
+.animated-child-arrow-two {
+  transition: transform 0.2s ease-in-out;
+} */
+
+.animate-parent-hover:hover .animated-child-arrow-one {
+  animation: bounce 0.5s ease-in-out infinite;
+}
+
+.animate-parent-hover:hover .animated-child-arrow-two {
+  animation: bounce 0.5s ease-in-out infinite;
+}
+
+.animate-parent-hover:hover .animated-child-arrow-one-reverse {
+  animation: arrow-bounce 0.5s ease-in-out infinite;
+}
+
+.animate-parent-hover:hover .animated-child-arrow-two-reverse {
+  animation: arrow-bounce 0.5s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(-5px);
+  }
+  50% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes arrow-bounce {
+  0% {
+    transform: translateY(-5px);
+  }
+  50% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-5px);
+  }
+}

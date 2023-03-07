@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SharedWorkiiService } from '../workiis/service/shareWorkii.service';
 import { IApplicationUser, IWorkii } from '../workiis/interfaces/workii.interface';
@@ -14,12 +14,15 @@ import { UserService } from '../../auth/services/user.service';
 })
 export class WorkiiDetailComponent {
 
+  //@ViewChild('containerInfo') containerInfo!: ElementRef;
+
   workii?: IWorkii;
   slug: string = this.route.snapshot.paramMap.get('slug')!;
   userCurrentId!: string;
   isOwner!: boolean;
   isApplyWorkiiId!: string[];
   applies!: IApplicationUser[];
+  info: boolean = false;
 
   constructor(private route: ActivatedRoute,
     private workiisService: WorkiisService,
@@ -72,6 +75,10 @@ export class WorkiiDetailComponent {
       console.log(this.isApplyWorkiiId);
       console.log(applies);
     })
+  }
+
+  infoOpen() {
+    this.info = !this.info
   }
 
   getWorkii(slug: string): Observable<IWorkii> {

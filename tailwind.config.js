@@ -2,66 +2,68 @@
 module.exports = {
   important: true,
   purge: {
-    content: ['./src/**/*.{html,ts}'],
+    content: ["./src/**/*.{html,ts}"],
   },
-  darkMode: 'class', // or 'media' or 'class'
+  darkMode: "class", // or 'media' or 'class'
   theme: {
     fontFamily: {
-      title: ['Montserrat', 'sans-serif'],
-      body: ['Poppins', 'sans-serif']
+      title: ["Montserrat", "sans-serif"],
+      body: ["Poppins", "sans-serif"],
     },
 
     extend: {
       colors: {
         primary: {
-          blueNeutral: '#278CEA'
+          blueNeutral: "#278CEA",
         },
 
         secondary: {
-          lightBlue: '#E8F9FF',
-          strongYellow: '#FFC738'
+          lightBlue: "#E8F9FF",
+          strongYellow: "#FFC738",
         },
 
         accent: {
-          yellow: '#FFD465'
+          yellow: "#FFD465",
         },
 
         gray: {
-          lighter: '#F8F8F8',
-          light: '#F1F1F1',
-          neutral: '#D9D9D9'
+          lighter: "#F8F8F8",
+          light: "#F1F1F1",
+          neutral: "#D9D9D9",
         },
 
         white: {
-          principal: '#FFFFFF',
-          alternative: '#FDFDFD'
+          principal: "#FFFFFF",
+          alternative: "#FDFDFD",
         },
 
         black: {
-          principal: '#111827',
-          alternative: '#1F2937'
+          principal: "#111827",
+          alternative: "#1F2937",
         },
         dark: {
-          prymaryColor: '#217AFF',
-          secondaryColorYellow: '#FFB800',
-          secondaryColorBlue: '#1673FF40',
-          accentColor: '#FDC32E'
+          prymaryColor: "#217AFF",
+          secondaryColorYellow: "#FFB800",
+          secondaryColorBlue: "#1673FF40",
+          accentColor: "#FDC32E",
         },
 
         error: {
-          redLight: '#FFDACE',
-          redDark: '#C20707'
+          redLight: "#FFDACE",
+          redDark: "#C20707",
         },
 
         success: {
-          greenLight: '#E4FFD8',
-          greenDark: '#42B462'
-        }
-      }
+          greenLight: "#E4FFD8",
+          greenDark: "#42B462",
+        },
+
+        warning: {
+          yellowLight: "#FFEEC1",
+          yellowDark: "#C28F07",
+        },
+      },
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
-  ],
-}
+  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography")],
+};
