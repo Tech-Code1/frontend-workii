@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SharedWorkiiService } from '../workiis/service/shareWorkii.service';
-import { IApplicationUser, IWorkii } from '../workiis/interfaces/workii.interface';
+import { IApplicationUser } from '../workiis/interfaces/workii.interface';
 import { WorkiisService } from '../workiis/service/workiis.service';
 import { Observable, map } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { UserService } from '../../auth/services/user.service';
+import { IWorkii } from 'src/app/core/models/workii.interface';
 
 @Component({
   selector: 'workii-detail',

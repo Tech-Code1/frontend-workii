@@ -1,18 +1,4 @@
-export interface IWorkii {
-    cost: number,
-    description: string,
-    executionTime: number,
-    id: string;
-    name: string,
-    slug?: string,
-    status?: string,
-    target: string,
-    timeOfCreation?: number;
-    timeOfFinished?: string;
-    toDoList: string[],
-    applications?: number;
-    user: IUser,
-}
+import { IUser } from "src/app/core/models/user.interface";
 
 export interface IWorkiiCreate {
     cost: number,
@@ -43,10 +29,6 @@ export interface IApplicationUser {
 
 export interface IWorkiiApllication {
   id: string
-}
-
-export interface IUser {
-  id: string;
 }
 
 export interface IApplicationResponse {

@@ -3,10 +3,15 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { catchError, filter, forkJoin, map, Observable, of, tap, switchMap } from 'rxjs';
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
-import { IApplicationUser, IWorkii } from '../../interfaces/workii.interface';
+import { IApplicationUser } from '../../interfaces/workii.interface';
 import { SharedWorkiiService } from '../../service/shareWorkii.service';
 import { WorkiisService } from '../../service/workiis.service';
 import { UserService } from '../../../../auth/services/user.service';
+import { Store } from '@ngrx/store';
+import { IWorkii } from 'src/app/core/models/workii.interface';
+import { IWokiiState } from 'src/app/core/models/workii.state';
+import { WorkiiActions } from '../../state/actions/workii.actions';
+//import { loadWorkiis } from '../../state/actions/workii.actions';
 
 @Component({
   selector: 'workiis-cards',
@@ -30,9 +35,13 @@ export class WorkiisCardsComponent {
   constructor(private modalService: SwitchService,
     private workiisService: WorkiisService,
     private sharedWorkiiService: SharedWorkiiService,
-    private userService: UserService) {}
+    private userService: UserService,
+    private store: Store<IWokiiState | undefined>) {}
 
   ngOnInit(): void {
+
+  this.store.dispatch(WorkiiActions.cargardoWorkiis())
+
     this.modalService.$modal.subscribe((valor) => {
       this.modalSwitch = valor
     })

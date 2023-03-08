@@ -3,10 +3,11 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IResponseError } from 'src/app/core/interfaces/responseError.inteface';
+import { IWorkii } from 'src/app/core/models/workii.interface';
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
 import { UserService } from 'src/app/modules/auth/services/user.service';
 import Swal from 'sweetalert2';
-import { IApplication, IApplicationResponse, IApplicationUser, IResponseSuccess, IWorkii, IWorkiiCreate } from '../../interfaces/workii.interface';
+import { IApplication, IApplicationResponse, IWorkiiCreate } from '../../interfaces/workii.interface';
 import { SharedWorkiiService } from '../../service/shareWorkii.service';
 import { WorkiisService } from '../../service/workiis.service';
 

@@ -109,3 +109,11 @@
 ::placeholder {
   @apply font-body text-sm text-gray-neutral font-normal
 }
+
+::-webkit-scrollbar {
+  @apply bg-secondary-lightBlue rounded-2xl w-2 h-2
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary-blueNeutral rounded-lg
+}

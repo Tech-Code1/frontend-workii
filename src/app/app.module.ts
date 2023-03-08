@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { isDevMode, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -9,7 +9,9 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LayoutCoreModule } from './core/layouts/layout-core/layout-core.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
-import { SharedModule } from './shared/components/shared.module';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { ROOT_REDUCERS } from './core/state/app.state';
 
 export function createTranslateLoader(http: HttpClient) {
 	return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -26,6 +28,8 @@ export function createTranslateLoader(http: HttpClient) {
     AppRoutingModule,
     DashboardModule,
     HttpClientModule,
+    StoreModule.forRoot(ROOT_REDUCERS),
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: !isDevMode()}),
     TranslateModule.forRoot({
     loader: {
       provide: TranslateLoader,

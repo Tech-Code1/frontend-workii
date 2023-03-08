@@ -3,10 +3,13 @@ import { AbstractControl, AbstractFormGroupDirective, FormArray, FormBuilder, Fo
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
 import { UserService } from 'src/app/modules/auth/services/user.service';
 import { WorkiisService } from '../../service/workiis.service';
-import { IApplication, IWorkii, IWorkiiCreate } from '../../interfaces/workii.interface';
+import { IWorkiiCreate } from '../../interfaces/workii.interface';
 import Swal from 'sweetalert2';
 import { HttpHeaders } from '@angular/common/http';
 import { validate as uuidValidate } from 'uuid';
+import { Store } from '@ngrx/store';
+//import { createWorkii } from '../../state/actions/workii.actions';
+import { IWorkii } from 'src/app/core/models/workii.interface';
 
 @Component({
   selector: 'modal-create-workii',
@@ -32,7 +35,8 @@ export class ModalCreateWorkiiComponent implements OnInit {
     private formBuilder: FormBuilder,
     private workiisService: WorkiisService,
     private userService: UserService,
-    private changeDetectorRef: ChangeDetectorRef ) {
+    private changeDetectorRef: ChangeDetectorRef,
+    private store: Store<IWorkii> ) {
     }
 
     ngOnInit(): void {
@@ -46,7 +50,6 @@ export class ModalCreateWorkiiComponent implements OnInit {
           this.formBuilder.control('', Validators.required),
         ], [Validators.required]),
       })
-
 
     }
 
@@ -89,6 +92,7 @@ export class ModalCreateWorkiiComponent implements OnInit {
   }
 
   async createNewWorkii() {
+    //this.store.dispatch(createWorkii())
     const userId = await this.userService.getCurrentUser()
 
     // Obtener el token de autorización

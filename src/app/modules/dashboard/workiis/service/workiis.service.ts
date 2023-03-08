@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { catchError, map, of, tap, Observable, Subject, BehaviorSubject } from 'rxjs';
-import { IApplication, IApplicationResponse, IApplicationUser, IWorkii, IWorkiiCreate } from '../interfaces/workii.interface';
+import { IApplication, IApplicationResponse, IApplicationUser, IWorkiiCreate } from '../interfaces/workii.interface';
 import { environment } from 'src/environments/environment';
 import { UserService } from '../../../auth/services/user.service';
+import { IWorkii } from 'src/app/core/models/workii.interface';
 
 @Injectable({
   providedIn: 'root'
