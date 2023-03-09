@@ -4,8 +4,6 @@ import { EMPTY, Observable, of, tap } from 'rxjs';
 import { map, exhaustMap, catchError } from 'rxjs/operators';
 import { IWorkii } from 'src/app/core/models/workii.interface';
 import { WorkiisService } from '../../service/workiis.service';
-import { IWokiiState } from '../../../../../core/models/workii.state';
-import { UserService } from 'src/app/modules/auth/services/user.service';
 import { WorkiiActions } from '../actions/workii.actions';
 import { NotificationsService } from '../../../../../core/notifications/notifications.service';
 
@@ -29,17 +27,6 @@ export class WorkiiEffects {
     )
   );
 
-  foundWorkiis$ = createEffect(() => this.actions$.pipe(
-    ofType(WorkiiActions.listWorkiis),
-    tap(action => {
-      const foundArray = action.workiis.map(workii => workii.user.id.includes(this.userCurrentId));
-      this.isOwner = foundArray
-        console.log(this.isOwner);
-        return this.isOwner
-    })
-    ), {dispatch: false}
-  );
-
   notifyApiError$ = createEffect(() => this.actions$.pipe(
     ofType(WorkiiActions.loadError),
     tap(action => this.notificationsService.error(action.errorMessage))
@@ -48,9 +35,7 @@ export class WorkiiEffects {
   constructor(
     private actions$: Actions,
     private workiisService: WorkiisService,
-    private userService: UserService,
     private notificationsService: NotificationsService
   ) {
-    this.userCurrentId = this.userService.getCurrentUser()
   }
 }

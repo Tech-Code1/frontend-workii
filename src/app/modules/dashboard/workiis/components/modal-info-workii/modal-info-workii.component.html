@@ -140,7 +140,10 @@
           <p class="title-base-black">{{ workii.applications }}</p>
         </div>
         <button
-          *ngIf="!isApplyWorkiiId.includes(workii.id!) && isOwner$"
+          *ngIf="
+            !isApplyWorkiiId.includes(workii.id!) &&
+            !workii.user.id.includes(userCurrentId)
+          "
           type="button"
           (click)="applyWorkii(workii.id)"
           class="btn-solid-blue p-4 h-12 rounded-md"
@@ -150,7 +153,10 @@
         <button
           type="button"
           (click)="removeApplication(apply)"
-          *ngIf="isApplyWorkiiId.includes(workii.id!) && !isOwner$"
+          *ngIf="
+            isApplyWorkiiId.includes(workii.id!) &&
+            !workii.user.id.includes(userCurrentId)
+          "
           class="btn-light-red px-4 h-12 rounded-md"
         >
           Abandonar
