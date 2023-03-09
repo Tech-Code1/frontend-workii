@@ -19,12 +19,20 @@ export class WorkiisService {
     private userService: UserService) { }
 
 
-  getWorkiis(limit: number, offset: number, headers: HttpHeaders): Observable<IWorkii[]> {
+  getWorkiis(limit: number, offset: number): Observable<IWorkii[]> {
     const url = `${this.baseUrl}/workiis`;
     const params = {
       limit: limit.toString(),
       offset: offset.toString()
     };
+
+    // Obtener el token de autorización
+    const token = localStorage.getItem('token');
+
+    // Crear el encabezado de la solicitud HTTP
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
 
     return this.http.get<IWorkii[]>(url, {headers, params})
   }

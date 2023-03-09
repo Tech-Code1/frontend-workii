@@ -12,6 +12,8 @@ import { IWorkii } from 'src/app/core/models/workii.interface';
 import { IWokiiState } from 'src/app/core/models/workii.state';
 import { WorkiiActions } from '../../state/actions/workii.actions';
 //import { loadWorkiis } from '../../state/actions/workii.actions';
+import { selectListWorkiis, selectLoading } from '../../state/selectors/workii.selectors';
+import { IAppState } from '../../../../../core/state/app.state';
 
 @Component({
   selector: 'workiis-cards',
@@ -20,12 +22,14 @@ import { WorkiiActions } from '../../state/actions/workii.actions';
 })
 export class WorkiisCardsComponent {
 
+  loading$: Observable<boolean> = new Observable<boolean>();
+  workiis$: Observable<readonly IWorkii[]> = new Observable<readonly IWorkii[]>();
+
   @Input()
   isApplyWorkiiId!: string[];
 
   applies!: IApplicationUser[];
   modalSwitch: boolean = false;
-  workiis: IWorkii[] = []
   selectedWorkii: any;
   userCurrentId!: string;
   index!: number;
@@ -36,20 +40,14 @@ export class WorkiisCardsComponent {
     private workiisService: WorkiisService,
     private sharedWorkiiService: SharedWorkiiService,
     private userService: UserService,
-    private store: Store<IWokiiState | undefined>) {}
+    private store: Store<IAppState>) {}
 
   ngOnInit(): void {
+    this.loading$ = this.store.select(selectLoading)
 
-  this.store.dispatch(WorkiiActions.cargardoWorkiis())
+    this.store.dispatch(WorkiiActions.loadWorkiis())
 
-    this.modalService.$modal.subscribe((valor) => {
-      this.modalSwitch = valor
-    })
-
-    this.userCurrentId = this.userService.getCurrentUser()
-
-
-    this.getWorkiis(20, 0).pipe(
+    this.workiisService.getWorkiis(20, 0).pipe(
       filter((workiis: IWorkii[]) => workiis.length > 0),
       map(workiis => {
         const foundArray = workiis.map(workii => workii.user.id.includes(this.userCurrentId));
@@ -60,12 +58,17 @@ export class WorkiisCardsComponent {
         };
       })
     ).subscribe(({found, workiis}) => {
+      this.store.dispatch(WorkiiActions.listWorkiis(workiis))
+      this.workiis$ = this.store.select(selectListWorkiis)
       this.isOwner = found;
-      this.workiis = workiis;
     });
 
 
+    this.modalService.$modal.subscribe((valor) => {
+      this.modalSwitch = valor
+    })
 
+    this.userCurrentId = this.userService.getCurrentUser()
 
     this.findAllApplicationsWorkiiByUser(this.userCurrentId)
     .pipe(
@@ -99,21 +102,6 @@ export class WorkiisCardsComponent {
         this.apply = apply.id
       }
     })
-
-  }
-
-  getWorkiis(limit: number, offset: number): Observable<IWorkii[]> {
-
-    // Obtener el token de autorización
-    const token = localStorage.getItem('token');
-
-    // Crear el encabezado de la solicitud HTTP
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    return this.workiisService.getWorkiis(limit, offset, headers)
-
 
   }
 

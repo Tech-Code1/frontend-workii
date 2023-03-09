@@ -7,11 +7,11 @@ export const initialState: IWokiiState = { loading: false, workiis: []};
 
 export const _workiiReducer = createReducer(
   initialState,
-  on(WorkiiActions.cargardoWorkiis, (state) => {
+  on(WorkiiActions.loadWorkiis, (state) => {
     return {...state, loading: true}
   }),
-  on(WorkiiActions.crearWorkii, (state, {workii}) => {
-    return {...state, workii}
+  on(WorkiiActions.listWorkiis, (state, {workiis}) => {
+    return {...state, loading: false, workiis}
   }),
 );
 

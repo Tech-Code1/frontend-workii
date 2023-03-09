@@ -1,9 +1,10 @@
 <section
   class="grid grid-flow-row gap-y-16 gap-x-4 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 overflow-auto heigh-dynamic pt-10 pr-1"
 >
+  <b *ngIf="loading$ | async">Cargando....</b>
   <div
     class="flex justify-center"
-    *ngFor="let workii of workiis; let i = index"
+    *ngFor="let workii of workiis$ | async; let i = index"
   >
     <div
       (click)="openModal(workii, i, applies)"
