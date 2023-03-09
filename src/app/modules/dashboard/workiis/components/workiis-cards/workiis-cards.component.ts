@@ -7,13 +7,15 @@ import { IApplicationUser } from '../../interfaces/workii.interface';
 import { SharedWorkiiService } from '../../service/shareWorkii.service';
 import { WorkiisService } from '../../service/workiis.service';
 import { UserService } from '../../../../auth/services/user.service';
-import { Store } from '@ngrx/store';
+import { ActionsSubject, Store } from '@ngrx/store';
 import { IWorkii } from 'src/app/core/models/workii.interface';
 import { IWokiiState } from 'src/app/core/models/workii.state';
 import { WorkiiActions } from '../../state/actions/workii.actions';
 //import { loadWorkiis } from '../../state/actions/workii.actions';
 import { selectListWorkiis, selectLoading } from '../../state/selectors/workii.selectors';
 import { IAppState } from '../../../../../core/state/app.state';
+import { TypedAction } from '@ngrx/store/src/models';
+import { ofType } from '@ngrx/effects';
 
 @Component({
   selector: 'workiis-cards',
@@ -23,7 +25,10 @@ import { IAppState } from '../../../../../core/state/app.state';
 export class WorkiisCardsComponent {
 
   loading$: Observable<boolean> = new Observable<boolean>();
-  workiis$: Observable<readonly IWorkii[]> = new Observable<readonly IWorkii[]>();
+  workiis$: Observable<readonly IWorkii[]> = this.store.select(state => state.workiis.workiis)
+  //found$: Observable<boolean[] | undefined> = this.store.select(state => state.workiis.found)
+  isOwner$!: Observable<boolean[]>;
+  //isOwner$: Observable<boolean[]> = this.store.select(state => state.workiis.found);
 
   @Input()
   isApplyWorkiiId!: string[];
@@ -33,7 +38,6 @@ export class WorkiisCardsComponent {
   selectedWorkii: any;
   userCurrentId!: string;
   index!: number;
-  isOwner!: boolean[];
   apply!: string;
 
   constructor(private modalService: SwitchService,
@@ -47,7 +51,13 @@ export class WorkiisCardsComponent {
 
     this.store.dispatch(WorkiiActions.loadWorkiis())
 
-    this.workiisService.getWorkiis(20, 0).pipe(
+    console.log(this.isOwner$)
+
+    //this.store.dispatch({type: '[Workii Page] list workiis'})
+
+
+
+    /* this.workiisService.getWorkiis(20, 0).pipe(
       filter((workiis: IWorkii[]) => workiis.length > 0),
       map(workiis => {
         const foundArray = workiis.map(workii => workii.user.id.includes(this.userCurrentId));
@@ -61,7 +71,7 @@ export class WorkiisCardsComponent {
       this.store.dispatch(WorkiiActions.listWorkiis(workiis))
       this.workiis$ = this.store.select(selectListWorkiis)
       this.isOwner = found;
-    });
+    }); */
 
 
     this.modalService.$modal.subscribe((valor) => {
@@ -85,10 +95,6 @@ export class WorkiisCardsComponent {
     })
 
   }
-
-  /* onWorkiiSelected(workiiId: string) {
-    this.workiiSelected.emit(workiiId);
-  } */
 
   openModal(workii: IWorkii, index: number, applies: IApplicationUser[]): void {
 

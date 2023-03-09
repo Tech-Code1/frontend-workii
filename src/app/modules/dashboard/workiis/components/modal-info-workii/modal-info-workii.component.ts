@@ -22,7 +22,7 @@ export class ModalInfoWorkiiComponent {
   workii!: IWorkii;
 
   @Input()
-  isOwner!: boolean[];
+  isOwner$!: Observable<boolean[]>;
 
   @Input()
   isApplyWorkiiId!: string[];

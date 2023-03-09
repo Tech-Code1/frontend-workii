@@ -12,6 +12,9 @@ import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ROOT_REDUCERS } from './core/state/app.state';
+import { EffectsModule } from '@ngrx/effects';
+import { WorkiiEffects } from './modules/dashboard/workiis/state/effects/workiis.effects';
+import { NotificationsModule } from './core/notifications/notifications.module';
 
 export function createTranslateLoader(http: HttpClient) {
 	return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -30,6 +33,8 @@ export function createTranslateLoader(http: HttpClient) {
     HttpClientModule,
     StoreModule.forRoot(ROOT_REDUCERS),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: !isDevMode()}),
+    EffectsModule.forRoot([]),
+    NotificationsModule,
     TranslateModule.forRoot({
     loader: {
       provide: TranslateLoader,

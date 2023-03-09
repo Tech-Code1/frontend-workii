@@ -6,6 +6,8 @@ import { ModalCreateWorkiiComponent } from './components/modal-create-workii/mod
 import { WorkiisCardsComponent } from './components/workiis-cards/workiis-cards.component';
 import { ModalInfoWorkiiComponent } from './components/modal-info-workii/modal-info-workii.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EffectsModule } from '@ngrx/effects';
+import { WorkiiEffects } from './state/effects/workiis.effects';
 
 const routes: Routes = [
   {
@@ -25,6 +27,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
+    EffectsModule.forFeature([WorkiiEffects]),
   ]
 })
 export class WorkiisModule { }

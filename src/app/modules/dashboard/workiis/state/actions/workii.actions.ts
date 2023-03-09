@@ -4,8 +4,9 @@ import { IWorkii } from 'src/app/core/models/workii.interface';
 export const WorkiiActions = createActionGroup({
   source: 'Workii Page',
   events: {
-    'load workiis': emptyProps(),
-    'list workiis': (workiis: IWorkii[]) => ({ workiis })
+    'Load workiis': emptyProps(),
+    'List workiis': (workiis: readonly IWorkii[]) => ({ workiis }),
+    'Load Error':  (errorMessage: string) => ({ errorMessage }),
   }
 })
 
