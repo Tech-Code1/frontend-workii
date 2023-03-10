@@ -16,6 +16,11 @@ export interface IWorkiiCreate {
     userId?: string,
 }
 
+export interface IPagination {
+  limit: number;
+  offset: number;
+}
+
 export interface IStatus {
   id: number,
   status: string

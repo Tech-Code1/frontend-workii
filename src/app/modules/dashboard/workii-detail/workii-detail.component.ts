@@ -7,6 +7,9 @@ import { Observable, map } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { UserService } from '../../auth/services/user.service';
 import { IWorkii } from 'src/app/core/models/workii.interface';
+import { Store } from '@ngrx/store';
+import { WorkiiActions } from '../workiis/state/actions/workii.actions';
+import { IAppState } from 'src/app/core/state/app.state';
 
 @Component({
   selector: 'workii-detail',
@@ -21,23 +24,23 @@ export class WorkiiDetailComponent {
   slug: string = this.route.snapshot.paramMap.get('slug')!;
   userCurrentId!: string;
   isOwner!: boolean;
-  isApplyWorkiiId!: string[];
   applies!: IApplicationUser[];
   info: boolean = false;
+  applications$: Observable<readonly IApplicationUser[]> = this.store.select(state => state.workiis.applications)
 
   constructor(private route: ActivatedRoute,
     private workiisService: WorkiisService,
-    private userService: UserService) {
+    private userService: UserService,
+    private store: Store<IAppState>) {
+
 
      }
 
   ngOnInit(): void {
+    console.log(this.applications$);
 
     this.userCurrentId = this.userService.getCurrentUser()
     console.log(`${this.slug} primer slug`);
-
-    console.log(this.userCurrentId);
-
 
 
     this.getWorkii(this.slug)
@@ -59,8 +62,7 @@ export class WorkiiDetailComponent {
 
     });
 
-
-    this.findAllApplicationsWorkiiByUser(this.userCurrentId)
+    /* this.findAllApplicationsWorkiiByUser(this.userCurrentId)
     .pipe(
       map(applies => {
         //const applyId = applies.map(apply => apply.id);
@@ -75,7 +77,11 @@ export class WorkiiDetailComponent {
 
       console.log(this.isApplyWorkiiId);
       console.log(applies);
-    })
+    }) */
+
+    this.store.dispatch(WorkiiActions.loadApplications())
+    console.log(this.store.dispatch(WorkiiActions.loadApplications()));
+
   }
 
   infoOpen() {
@@ -97,8 +103,8 @@ export class WorkiiDetailComponent {
   }
 
 
-  findAllApplicationsWorkiiByUser(id: string): Observable<IApplicationUser[]> {
+  /* findAllApplicationsWorkiiByUser(id: string): Observable<IApplicationUser[]> {
 
-    return this.workiisService.findAllApplicationsWorkiiByUser(id)
-  }
+    return this.workiisService.get(id)
+  } */
 }

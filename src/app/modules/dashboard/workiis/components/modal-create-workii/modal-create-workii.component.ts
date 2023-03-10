@@ -13,9 +13,6 @@ import { WorkiiActions } from '../../state/actions/workii.actions';
 })
 export class ModalCreateWorkiiComponent implements OnInit {
 
-  @Input()
-  isApply!: string[];
-
   @ViewChild('taskInput', {static: true}) taskInput!: ElementRef<HTMLInputElement>;
   initialValue: string = "";
   inputChanged = false;

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { catchError, map, of, tap, Observable, Subject, BehaviorSubject } from 'rxjs';
-import { IApplication, IApplicationResponse, IApplicationUser, IWorkiiCreate } from '../interfaces/workii.interface';
+import { IApplication, IApplicationResponse, IApplicationUser, IPagination, IWorkiiCreate } from '../interfaces/workii.interface';
 import { environment } from 'src/environments/environment';
 import { UserService } from '../../../auth/services/user.service';
 import { IWorkii } from 'src/app/core/models/workii.interface';
@@ -29,11 +29,11 @@ export class WorkiisService {
     }
 
 
-  getWorkiis(limit: number, offset: number): Observable<IWorkii[]> {
+  getWorkiis({limit, offset}: IPagination): Observable<IWorkii[]> {
     const url = `${this.baseUrl}/workiis`;
     const params = {
       limit: limit.toString(),
-      offset: offset.toString()
+      offset:  offset.toString()
     };
 
     return this.http.get<IWorkii[]>(url, {headers: this.headers, params})
@@ -64,10 +64,15 @@ export class WorkiisService {
     return this.http.post<IApplicationResponse>(url, body, {headers})
   }
 
-  findAllApplicationsWorkiiByUser(id: string): Observable<IApplicationUser[]> {
+  getAllApplicationsWorkiiByUser(id: string, {limit, offset}: IPagination): Observable<IApplicationUser[]> {
     const url = `${this.baseUrl}/applications/user/${id}`;
 
-    return this.http.get<IApplicationUser[]>(url)
+    const params = {
+      limit: limit.toString(),
+      offset:  offset.toString()
+    };
+
+    return this.http.get<IApplicationUser[]>(url, {params})
   }
 
   removeApplication(id: string) {

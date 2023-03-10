@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { IWokiiState } from 'src/app/core/models/workii.state';
 import { WorkiiActions } from '../actions/workii.actions';
 
-export const initialState: IWokiiState = { loading: false, workiis: [] };
+export const initialState: IWokiiState = { loading: false, workiis: [], applications: [] };
 
 export const _workiiReducer = createReducer(
   initialState,
@@ -20,5 +20,8 @@ export const _workiiReducer = createReducer(
       ...state,
       workiis : state.workiis.filter(worki=>worki.id !== id)
     }
+  }),
+  on(WorkiiActions.listApplicationsWorkiis,(state,{applications})=>{
+    return {...state, applications}
   }),
 );

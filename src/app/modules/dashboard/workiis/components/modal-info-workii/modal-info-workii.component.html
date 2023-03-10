@@ -139,36 +139,38 @@
           />
           <p class="title-base-black">{{ workii.applications }}</p>
         </div>
-        <button
-          *ngIf="
-            !isApplyWorkiiId.includes(workii.id!) &&
-            !workii.user.id.includes(userCurrentId)
-          "
-          type="button"
-          (click)="applyWorkii(workii.id)"
-          class="btn-solid-blue p-4 h-12 rounded-md"
-        >
-          Aplicar
-        </button>
-        <button
-          type="button"
-          (click)="removeApplication(apply)"
-          *ngIf="
-            isApplyWorkiiId.includes(workii.id!) &&
-            !workii.user.id.includes(userCurrentId)
-          "
-          class="btn-light-red px-4 h-12 rounded-md"
-        >
-          Abandonar
-        </button>
-        <button
-          type="button"
-          (click)="deleteWorkii(workii.id!)"
-          *ngIf="userCurrentId === workii.user.id"
-          class="btn-light-red px-4 h-12 rounded-md"
-        >
-          Eliminar
-        </button>
+        <ng-container *ngFor="let applications of applications$ | async">
+          <button
+            *ngIf="
+              !applications.workii.id.includes(workii.id!) &&
+              !workii.user.id.includes(userCurrentId)
+            "
+            type="button"
+            (click)="applyWorkii(workii.id)"
+            class="btn-solid-blue p-4 h-12 rounded-md"
+          >
+            Aplicar
+          </button>
+          <button
+            type="button"
+            (click)="removeApplication(applications.id)"
+            *ngIf="
+              applications.workii.id.includes(workii.id!) &&
+              !workii.user.id.includes(userCurrentId)
+            "
+            class="btn-light-red px-4 h-12 rounded-md"
+          >
+            Abandonar
+          </button>
+          <button
+            type="button"
+            (click)="deleteWorkii(workii.id!)"
+            *ngIf="userCurrentId === workii.user.id"
+            class="btn-light-red px-4 h-12 rounded-md"
+          >
+            Eliminar
+          </button>
+        </ng-container>
       </div>
     </body>
   </div>

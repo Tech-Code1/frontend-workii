@@ -8,7 +8,7 @@ import { IWorkii } from 'src/app/core/models/workii.interface';
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
 import { UserService } from 'src/app/modules/auth/services/user.service';
 import Swal from 'sweetalert2';
-import { IApplication, IApplicationResponse, IWorkiiCreate } from '../../interfaces/workii.interface';
+import { IApplication, IApplicationResponse, IApplicationUser, IWorkiiCreate } from '../../interfaces/workii.interface';
 import { SharedWorkiiService } from '../../service/shareWorkii.service';
 import { WorkiisService } from '../../service/workiis.service';
 import { WorkiiActions } from '../../state/actions/workii.actions';
@@ -24,10 +24,7 @@ export class ModalInfoWorkiiComponent {
   workii!: IWorkii;
 
   @Input()
-  isApplyWorkiiId!: string[];
-
-  @Input()
-  apply!: string;
+  applications$!: Observable<readonly IApplicationUser[]>;
 
   @Input()
   index!: number;

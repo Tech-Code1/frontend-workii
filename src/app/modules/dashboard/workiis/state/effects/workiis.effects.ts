@@ -6,15 +6,18 @@ import { IWorkii } from 'src/app/core/models/workii.interface';
 import { WorkiisService } from '../../service/workiis.service';
 import { WorkiiActions } from '../actions/workii.actions';
 import Swal, { SweetAlertResult } from 'sweetalert2';
-import { IApplicationResponse, IWorkiiCreate } from '../../interfaces/workii.interface';
+import { IApplicationResponse, IApplicationUser, IWorkiiCreate } from '../../interfaces/workii.interface';
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
+import { UserService } from 'src/app/modules/auth/services/user.service';
 
 @Injectable()
 export class WorkiiEffects {
 
+  userCurrentId: string = this.userService.getCurrentUser();
+
   loadWorkiiss$: Observable<{type: string, workiis: IWorkii[]} | {errorMessage: string}> = createEffect(() => this.actions$.pipe(
     ofType(WorkiiActions.loadWorkiis),
-    exhaustMap(() => this.workiisService.getWorkiis(20, 0)
+    exhaustMap(() => this.workiisService.getWorkiis({limit: 20, offset: 0})
       .pipe(
         map(workiis => {
 
@@ -24,6 +27,24 @@ export class WorkiiEffects {
         catchError(() => {
           return of(WorkiiActions.errorCreateWorkii(
             { errorMessage: 'Ha ocurrido un error al intentar obtener el listado de los Workiis' }
+          ));
+        })
+      ))
+    )
+  );
+
+  loadApplications$: Observable<{type: string, applications: IApplicationUser[]} | {errorMessage: string}> = createEffect(() => this.actions$.pipe(
+    ofType(WorkiiActions.loadApplications),
+    exhaustMap((action) => this.workiisService.getAllApplicationsWorkiiByUser(this.userCurrentId, {limit: 10, offset: 0})
+      .pipe(
+        map(applications => {
+
+          return  { type: WorkiiActions.listApplicationsWorkiis.type, applications }
+
+        }),
+        catchError(() => {
+          return of(WorkiiActions.loadApplicationError(
+            { errorMessage: 'Ha ocurrido un error al cargar las aplicaciones' }
           ));
         })
       ))
@@ -104,7 +125,8 @@ deleteWorkii$: Observable<{id: string} | { errorMessage: string } | {message: st
   constructor(
     private actions$: Actions,
     private workiisService: WorkiisService,
-    private modalService: SwitchService
+    private modalService: SwitchService,
+    private userService: UserService,
   ) {
   }
 }

@@ -20,16 +20,12 @@ export class WorkiisCardsComponent {
 
   loading$: Observable<boolean> = new Observable<boolean>();
   workiis$: Observable<readonly IWorkii[]> = this.store.select(state => state.workiis.workiis)
+  applications$: Observable<readonly IApplicationUser[]> = this.store.select(state => state.workiis.applications)
   userCurrentId: string = this.userService.getCurrentUser();
 
-  @Input()
-  isApplyWorkiiId!: string[];
-
-  applies!: IApplicationUser[];
   modalSwitch: boolean = false;
   selectedWorkii: any;
   index!: number;
-  apply!: string;
 
   constructor(private modalService: SwitchService,
     private workiisService: WorkiisService,
@@ -41,41 +37,23 @@ export class WorkiisCardsComponent {
 
     this.store.dispatch(WorkiiActions.loadWorkiis())
 
+    this.store.dispatch(WorkiiActions.loadApplications())
+
     this.modalService.$modal.subscribe((valor) => {
       this.modalSwitch = valor
-    })
+  })
 
-    this.findAllApplicationsWorkiiByUser(this.userCurrentId)
-    .pipe(
-      map(applies => {
-        //const applyId = applies.map(apply => apply.id);
-        const userApplies = applies.map(apply => apply.workii.id)
-
-        return {userApplies, applies}
-      })
-    ).subscribe(({userApplies, applies}) => {
-
-      this.isApplyWorkiiId = userApplies
-      this.applies = applies
-    })
-
+    this.store.dispatch(WorkiiActions.loadApplications())
   }
 
-  openModal(workii: IWorkii, index: number, applies: IApplicationUser[]): void {
+  openModal(workii: IWorkii, index: number): void {
     this.modalSwitch = true
     this.selectedWorkii = workii;
     this.index = index;
-
-    applies.forEach(apply => {
-      if (apply.workii.id.match(workii?.id!)) {
-        this.apply = apply.id
-      }
-    })
   }
 
-  findAllApplicationsWorkiiByUser(id: string): Observable<IApplicationUser[]> {
-
-    return this.workiisService.findAllApplicationsWorkiiByUser(id)
+  ngDestroy() {
+    this.modalService.$modal.unsubscribe();
   }
 }
 
