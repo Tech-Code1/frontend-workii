@@ -1,5 +1,4 @@
-import { Action, createReducer, on } from '@ngrx/store';
-import { IWorkii } from 'src/app/core/models/workii.interface';
+import { createReducer, on } from '@ngrx/store';
 import { IWokiiState } from 'src/app/core/models/workii.state';
 import { WorkiiActions } from '../actions/workii.actions';
 
@@ -16,9 +15,10 @@ export const _workiiReducer = createReducer(
   on(WorkiiActions.createWorkiiSuccess, (state, {workii}) => {
     return {...state, workii}
   }),
+  on(WorkiiActions.deleteWorkiiSuccess,(state,{id})=>{
+    return {
+      ...state,
+      workiis : state.workiis.filter(worki=>worki.id !== id)
+    }
+  }),
 );
-
-/* export function workiiReducer(state: IWokiiState | undefined, action: Action) {
-
-  return _workiiReducer(state, action);
-} */

@@ -1,6 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { IResponseError } from 'src/app/core/interfaces/responseError.inteface';
 import { IWorkii } from 'src/app/core/models/workii.interface';
@@ -10,6 +11,7 @@ import Swal from 'sweetalert2';
 import { IApplication, IApplicationResponse, IWorkiiCreate } from '../../interfaces/workii.interface';
 import { SharedWorkiiService } from '../../service/shareWorkii.service';
 import { WorkiisService } from '../../service/workiis.service';
+import { WorkiiActions } from '../../state/actions/workii.actions';
 
 @Component({
   selector: 'modal-info-workii',
@@ -37,7 +39,8 @@ export class ModalInfoWorkiiComponent {
     private workiisService: WorkiisService,
     private userService: UserService,
     private router: Router,
-    private sharedWorkiiService: SharedWorkiiService) {}
+    private sharedWorkiiService: SharedWorkiiService,
+    private store: Store) {}
 
   ngOnInit() {
 
@@ -112,8 +115,6 @@ export class ModalInfoWorkiiComponent {
           timer: 2000
         });
 
-
-
       },
       error: (resp: IResponseError) => {
         console.log(resp.error?.message);
@@ -128,15 +129,7 @@ export class ModalInfoWorkiiComponent {
   }
 
   async removeApplication(id: string) {
-    // Obtener el token de autorización
-    const token = localStorage.getItem('token');
-
-    // Crear el encabezado de la solicitud HTTP
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    this.workiisService.removeApplication(id, headers)
+    this.workiisService.removeApplication(id)
     .subscribe({
       next: ( response: IApplicationResponse ) => {
 
@@ -164,42 +157,9 @@ export class ModalInfoWorkiiComponent {
     })
   }
 
-  async deleteWorkii(id: string) {
-    // Obtener el token de autorización
-    const token = localStorage.getItem('token');
+  deleteWorkii(id: string) {
 
-    // Crear el encabezado de la solicitud HTTP
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
+    this.store.dispatch(WorkiiActions.deleteWorkiiRequest(id))
 
-    this.workiisService.deleteWorkii(id, headers)
-    .subscribe({
-      next: ( response: IApplicationResponse ) => {
-
-        this.closeModal();
-
-        console.log(response);
-
-        setTimeout(() => {
-          location.reload();
-        }, 800)
-
-        Swal.fire({
-          icon: 'success',
-          text: response.message,
-          showConfirmButton: false,
-          timer: 2000
-        });
-
-      },
-      error: (resp: IResponseError) => {
-        Swal.fire({
-          icon: 'error',
-          text: resp.error?.message,
-          title: resp.status
-        });
-      }
-    })
   }
 }

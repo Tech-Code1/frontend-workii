@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Observable, of, tap } from 'rxjs';
-import { map, exhaustMap, catchError, concatMap } from 'rxjs/operators';
+import { EMPTY, firstValueFrom, from, lastValueFrom, Observable, of, tap } from 'rxjs';
+import { map, exhaustMap, catchError, concatMap, mergeMap, switchMap, takeUntil } from 'rxjs/operators';
 import { IWorkii } from 'src/app/core/models/workii.interface';
 import { WorkiisService } from '../../service/workiis.service';
 import { WorkiiActions } from '../actions/workii.actions';
-import Swal from 'sweetalert2';
-import { IWorkiiCreate } from '../../interfaces/workii.interface';
+import Swal, { SweetAlertResult } from 'sweetalert2';
+import { IApplicationResponse, IWorkiiCreate } from '../../interfaces/workii.interface';
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
 
 @Injectable()
@@ -37,7 +37,6 @@ export class WorkiiEffects {
         this.workiisService.createWorkiis(action.workii).pipe(
 
       map((savedWorkiis) => {
-        console.log(savedWorkiis);
 
         this.modalService.$modal.emit(false)
 
@@ -62,8 +61,41 @@ export class WorkiiEffects {
     ))
   ), {dispatch: false})
 
+
+deleteWorkii$: Observable<{id: string} | { errorMessage: string } | {message: string} | {response: IApplicationResponse}> = createEffect(() => this.actions$.pipe(
+  ofType(WorkiiActions.deleteWorkiiRequest),
+  switchMap((action) => from(Swal.fire({
+    title: '¿ Estas seguro de eliminar el Workii ?',
+    text: "No podras revertir esta acción",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si, eliminar workii!'
+  })).pipe(
+    map(result => {
+      return { result, action }
+    }) // Esto crea un array con el action y el result
+  )),
+  mergeMap(({result, action}) => { // Esto usa destructuring para extraer el action y el result del array
+    if(result.isConfirmed) {
+      this.modalService.$modal.emit(false);
+      // Eliminar el Workii del array de datos o actualizar el estado
+      Swal.fire({
+        icon: 'success',
+        text: 'El Workii se ha eliminado correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      });
+      return of(WorkiiActions.deleteWorkiiSuccess(action.id));
+    }
+    return of(WorkiiActions.cancelWorkiiDelete({message: 'Has cancelado la acción'}))
+  })
+))
+
+
   notifyApiError$ = createEffect(() => this.actions$.pipe(
-    ofType(WorkiiActions.loadError, WorkiiActions.errorCreateWorkii),
+    ofType(WorkiiActions.loadError, WorkiiActions.errorCreateWorkii, WorkiiActions.deleteWorkiiError),
     tap((action) => {
       Swal.fire('Error', `${action.errorMessage}`, 'error');
     })

@@ -70,15 +70,15 @@ export class WorkiisService {
     return this.http.get<IApplicationUser[]>(url)
   }
 
-  removeApplication(id: string, headers: HttpHeaders) {
+  removeApplication(id: string) {
     const url = `${this.baseUrl}/workiis/apply/${id}`;
 
-    return this.http.delete<IApplicationResponse>(url, {headers})
+    return this.http.delete<IApplicationResponse>(url, {headers: this.headers})
   }
 
-  deleteWorkii(id: string, headers: HttpHeaders) {
+  deleteWorkii(id: string) {
     const url = `${this.baseUrl}/workiis/${id}`;
 
-    return this.http.delete<IApplicationResponse>(url, {headers})
+    return this.http.delete<IApplicationResponse>(url, {headers: this.headers})
   }
 }

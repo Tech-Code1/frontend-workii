@@ -1,6 +1,6 @@
 import { createAction, createActionGroup, emptyProps, props } from '@ngrx/store';
 import { IWorkii } from 'src/app/core/models/workii.interface';
-import { IWorkiiCreate } from '../../interfaces/workii.interface';
+import { IWorkiiCreate, IApplicationResponse } from '../../interfaces/workii.interface';
 
 export const WorkiiActions = createActionGroup({
   source: 'Workii Page',
@@ -10,6 +10,11 @@ export const WorkiiActions = createActionGroup({
     'Load Error':   props<{errorMessage: string}>(),
     'Create Workii Success':  (workii: IWorkiiCreate) => ({ workii }),
     'Error Create Workii':  props<{errorMessage: string}>(),
+    'Delete Workii Success':  (id: string) => ({ id }),
+    'Delete Workii Success Response':  (response: IApplicationResponse) => ({ response }),
+    'Delete Workii Error':  props<{errorMessage: string}>(),
+    'Cancel Workii Delete':  props<{message: string}>(),
+    'Delete Workii Request':  (id: string) => ({ id }),
   }
 })
 

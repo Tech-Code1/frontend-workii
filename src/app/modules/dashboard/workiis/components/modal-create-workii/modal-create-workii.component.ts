@@ -24,7 +24,6 @@ export class ModalCreateWorkiiComponent implements OnInit {
   createWorkii!: FormGroup;
   changeEmail!: FormGroup;
 
-
   constructor(
     private modalService: SwitchService,
     private formBuilder: FormBuilder,

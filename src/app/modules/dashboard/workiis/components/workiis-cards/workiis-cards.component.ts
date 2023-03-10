@@ -78,7 +78,4 @@ export class WorkiisCardsComponent {
     return this.workiisService.findAllApplicationsWorkiiByUser(id)
   }
 }
-function ngAfterContentInit() {
-  throw new Error('Function not implemented.');
-}
 
