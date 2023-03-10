@@ -12,11 +12,21 @@ import { IWorkii } from 'src/app/core/models/workii.interface';
 })
 export class WorkiisService {
 
+  headers: HttpHeaders;
   userCurrentId!: string;
   private baseUrl: string = environment.baseUrl;
 
   constructor( private http: HttpClient,
-    private userService: UserService) { }
+    private userService: UserService) {
+
+    // Obtener el token de autorización
+    const token = localStorage.getItem('token');
+
+    // Crear el encabezado de la solicitud HTTP
+    this.headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    }
 
 
   getWorkiis(limit: number, offset: number): Observable<IWorkii[]> {
@@ -26,15 +36,7 @@ export class WorkiisService {
       offset: offset.toString()
     };
 
-    // Obtener el token de autorización
-    const token = localStorage.getItem('token');
-
-    // Crear el encabezado de la solicitud HTTP
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    return this.http.get<IWorkii[]>(url, {headers, params})
+    return this.http.get<IWorkii[]>(url, {headers: this.headers, params})
   }
 
   getWorkii(slug: string, headers: HttpHeaders): Observable<IWorkii> {
@@ -45,11 +47,11 @@ export class WorkiisService {
   }
 
 
-  createWorkiis( { name, target, description, toDoList, cost, executionTime, userId, ...rest } : IWorkiiCreate, headers: HttpHeaders) {
+  createWorkiis( { name, target, description, toDoList, cost, executionTime, userId, ...rest } : IWorkiiCreate) {
     const url = `${this.baseUrl}/workiis`;
     const body = { name, target, description, toDoList, cost, executionTime, userId }
 
-    return this.http.post<IWorkii>(url, body, {headers})
+    return this.http.post<IWorkii>(url, body, {headers: this.headers})
   }
 
   applyToWorkii({user, workii}: IApplication, headers: HttpHeaders) {

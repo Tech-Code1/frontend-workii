@@ -13,7 +13,7 @@ export interface IWorkiiCreate {
     timeOfFinished?: string;
     toDoList: string[],
     applications?: number;
-    userId: string,
+    userId?: string,
 }
 
 export interface IStatus {

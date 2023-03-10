@@ -1,12 +1,15 @@
 import { createAction, createActionGroup, emptyProps, props } from '@ngrx/store';
 import { IWorkii } from 'src/app/core/models/workii.interface';
+import { IWorkiiCreate } from '../../interfaces/workii.interface';
 
 export const WorkiiActions = createActionGroup({
   source: 'Workii Page',
   events: {
     'Load workiis': emptyProps(),
     'List workiis': (workiis: readonly IWorkii[]) => ({ workiis }),
-    'Load Error':  (errorMessage: string) => ({ errorMessage }),
+    'Load Error':   props<{errorMessage: string}>(),
+    'Create Workii Success':  (workii: IWorkiiCreate) => ({ workii }),
+    'Error Create Workii':  props<{errorMessage: string}>(),
   }
 })
 

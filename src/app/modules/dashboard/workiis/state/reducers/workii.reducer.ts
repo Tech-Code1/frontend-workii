@@ -3,7 +3,7 @@ import { IWorkii } from 'src/app/core/models/workii.interface';
 import { IWokiiState } from 'src/app/core/models/workii.state';
 import { WorkiiActions } from '../actions/workii.actions';
 
-export const initialState: IWokiiState = { loading: false, workiis: [], found: [] };
+export const initialState: IWokiiState = { loading: false, workiis: [] };
 
 export const _workiiReducer = createReducer(
   initialState,
@@ -12,6 +12,9 @@ export const _workiiReducer = createReducer(
   }),
   on(WorkiiActions.listWorkiis, (state, {workiis}) => {
     return {...state, loading: false, workiis}
+  }),
+  on(WorkiiActions.createWorkiiSuccess, (state, {workii}) => {
+    return {...state, workii}
   }),
 );
 
