@@ -3,13 +3,14 @@ import { ActivatedRoute } from '@angular/router';
 import { SharedWorkiiService } from '../workiis/service/shareWorkii.service';
 import { IApplicationUser } from '../workiis/interfaces/workii.interface';
 import { WorkiisService } from '../workiis/service/workiis.service';
-import { Observable, map } from 'rxjs';
+import { Observable, map, combineLatest } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { UserService } from '../../auth/services/user.service';
 import { IWorkii } from 'src/app/core/models/workii.interface';
 import { Store } from '@ngrx/store';
 import { WorkiiActions } from '../workiis/state/actions/workii.actions';
 import { IAppState } from 'src/app/core/state/app.state';
+import { selectListApplications } from '../workiis/state/selectors/workii.selectors';
 
 @Component({
   selector: 'workii-detail',
@@ -26,7 +27,7 @@ export class WorkiiDetailComponent {
   isOwner!: boolean;
   applies!: IApplicationUser[];
   info: boolean = false;
-  applications$: Observable<readonly IApplicationUser[]> = this.store.select(state => state.workiis.applications)
+  applications$: Observable<readonly IApplicationUser[]> = new Observable<readonly IApplicationUser[]>();
 
   constructor(private route: ActivatedRoute,
     private workiisService: WorkiisService,
@@ -37,7 +38,9 @@ export class WorkiiDetailComponent {
      }
 
   ngOnInit(): void {
-    console.log(this.applications$);
+    this.store.dispatch(WorkiiActions.loadApplications())
+
+    this.applications$ = this.store.select(selectListApplications)
 
     this.userCurrentId = this.userService.getCurrentUser()
     console.log(`${this.slug} primer slug`);
@@ -62,27 +65,18 @@ export class WorkiiDetailComponent {
 
     });
 
-    /* this.findAllApplicationsWorkiiByUser(this.userCurrentId)
-    .pipe(
-      map(applies => {
-        //const applyId = applies.map(apply => apply.id);
-        const userApplies = applies.map(apply => apply.workii.id)
-
-        return {userApplies, applies}
-      })
-    ).subscribe(({userApplies, applies}) => {
-
-      this.isApplyWorkiiId = userApplies
-      this.applies = applies
-
-      console.log(this.isApplyWorkiiId);
-      console.log(applies);
-    }) */
-
     this.store.dispatch(WorkiiActions.loadApplications())
-    console.log(this.store.dispatch(WorkiiActions.loadApplications()));
 
   }
+
+  /* workiisInApplications(): Observable<readonly boolean[]> {
+    return combineLatest([this.workiis$, this.applications$]).pipe(
+      map(([workiis, applications]) => {
+        const applyWorkiiIds = applications.map(apply => apply.workii.id);
+        return workiis.map(workii => applyWorkiiIds.includes(workii.id));
+      })
+    );
+  } */
 
   infoOpen() {
     this.info = !this.info

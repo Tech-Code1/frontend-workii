@@ -5,6 +5,7 @@ import { UserService } from 'src/app/modules/auth/services/user.service';
 import { Store } from '@ngrx/store';
 import { IWorkii } from 'src/app/core/models/workii.interface';
 import { WorkiiActions } from '../../state/actions/workii.actions';
+import { IAppState } from 'src/app/core/state/app.state';
 
 @Component({
   selector: 'modal-create-workii',
@@ -25,7 +26,7 @@ export class ModalCreateWorkiiComponent implements OnInit {
     private modalService: SwitchService,
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private store: Store<IWorkii> ) {
+    private store: Store<IAppState> ) {
   }
 
   ngOnInit(): void {

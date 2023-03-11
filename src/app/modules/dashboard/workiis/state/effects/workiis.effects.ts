@@ -35,7 +35,7 @@ export class WorkiiEffects {
 
   loadApplications$: Observable<{type: string, applications: IApplicationUser[]} | {errorMessage: string}> = createEffect(() => this.actions$.pipe(
     ofType(WorkiiActions.loadApplications),
-    exhaustMap((action) => this.workiisService.getAllApplicationsWorkiiByUser(this.userCurrentId, {limit: 10, offset: 0})
+    exhaustMap(() => this.workiisService.getAllApplicationsWorkiiByUser(this.userCurrentId, {limit: 10, offset: 0})
       .pipe(
         map(applications => {
 
@@ -116,7 +116,10 @@ deleteWorkii$: Observable<{id: string} | { errorMessage: string } | {message: st
 
 
   notifyApiError$ = createEffect(() => this.actions$.pipe(
-    ofType(WorkiiActions.loadError, WorkiiActions.errorCreateWorkii, WorkiiActions.deleteWorkiiError),
+    ofType(WorkiiActions.loadError,
+      WorkiiActions.errorCreateWorkii,
+      WorkiiActions.deleteWorkiiError,
+      WorkiiActions.loadApplicationError),
     tap((action) => {
       Swal.fire('Error', `${action.errorMessage}`, 'error');
     })

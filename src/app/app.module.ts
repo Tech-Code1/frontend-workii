@@ -9,10 +9,13 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LayoutCoreModule } from './core/layouts/layout-core/layout-core.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
+
+// NgRx
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { ROOT_REDUCERS } from './core/state/app.state';
 import { EffectsModule } from '@ngrx/effects';
+import { ROOT_REDUCERS } from './core/state/app.state';
+import { WorkiiEffects } from './modules/dashboard/workiis/state/effects/workiis.effects';
 
 export function createTranslateLoader(http: HttpClient) {
 	return new TranslateHttpLoader(http, './assets/i18n/', '.json');

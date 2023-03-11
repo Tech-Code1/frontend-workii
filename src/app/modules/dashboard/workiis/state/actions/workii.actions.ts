@@ -1,4 +1,4 @@
-import { createAction, createActionGroup, emptyProps, props } from '@ngrx/store';
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { IWorkii } from 'src/app/core/models/workii.interface';
 import { IWorkiiCreate, IApplicationResponse, IApplicationUser } from '../../interfaces/workii.interface';
 

@@ -1,9 +1,10 @@
 import { ActionReducerMap } from '@ngrx/store';
-import { IWokiiState } from 'src/app/core/models/workii.state';
+
 import { _workiiReducer } from '../../modules/dashboard/workiis/state/reducers/workii.reducer';
+import { IWorkiiState } from '../models/workii.state';
 
 export interface IAppState {
-  workiis: IWokiiState
+  workiis: IWorkiiState
 }
 
 export const ROOT_REDUCERS: ActionReducerMap<IAppState> = {

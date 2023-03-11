@@ -27,7 +27,6 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
-    EffectsModule.forFeature([WorkiiEffects]),
   ]
 })
 export class WorkiisModule { }

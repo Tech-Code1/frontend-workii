@@ -6,48 +6,49 @@
     class="flex justify-center"
     *ngFor="let workii of workiis$ | async; let i = index"
   >
-    <ng-container *ngFor="let applications of applications$ | async">
+    <div
+      (click)="openModal(workii, i)"
+      class="w-[242px] flex flex-col cursor-pointer hover:scale-110 transition"
+    >
       <div
-        (click)="openModal(workii, i)"
-        class="w-[242px] flex flex-col cursor-pointer hover:scale-110 transition"
+        class="bg-gray-lighter rounded-t-xl h-[150px] flex justify-between flex-col px-4 pt-2 relative"
       >
         <div
-          class="bg-gray-lighter rounded-t-xl h-[150px] flex justify-between flex-col px-4 pt-2 relative"
-        >
-          <div
-            class="w-16 h-16 bg-gray-light absolute rounded-full -top-[24px]"
-          ></div>
+          class="w-16 h-16 bg-gray-light absolute rounded-full -top-[24px]"
+        ></div>
 
-          <div class="pt-10 gap-2 flex flex-col">
-            <h3
-              class="title-lg-black w-[190px] h-7 text-ellipsis overflow-hidden whitespace-nowrap"
-            >
-              {{ workii.name }}
-            </h3>
-            <div class="gap-2 flex flex-row items-center">
-              <img
-                src="../../../../../../assets/images/svg/icon-target.svg"
-                alt="icon target"
-              />
-              <p class="body-sm-black">{{ workii.target }}</p>
-            </div>
-            <div class="gap-2 flex flex-row items-center">
-              <img
-                src="../../../../../../assets/images/svg/icon-time.svg"
-                alt="icon target"
-              />
-              <p class="body-sm-black">{{ workii.executionTime }} días</p>
-            </div>
+        <div class="pt-10 gap-2 flex flex-col">
+          <h3
+            class="title-lg-black w-[190px] h-7 text-ellipsis overflow-hidden whitespace-nowrap"
+          >
+            {{ workii.name }}
+          </h3>
+          <div class="gap-2 flex flex-row items-center">
+            <img
+              src="../../../../../../assets/images/svg/icon-target.svg"
+              alt="icon target"
+            />
+            <p class="body-sm-black">{{ workii.target }}</p>
+          </div>
+          <div class="gap-2 flex flex-row items-center">
+            <img
+              src="../../../../../../assets/images/svg/icon-time.svg"
+              alt="icon target"
+            />
+            <p class="body-sm-black">{{ workii.executionTime }} días</p>
           </div>
         </div>
+      </div>
 
+      <ng-container
+        *ngIf="workiisInApplications() | async as workiisInApplications"
+      >
         <div
           [ngClass]="{
             'bg-accent-yellow title-sm-black border-b-0':
-              !applications.workii.id.includes(workii.id!) &&
-              userCurrentId !== workii.user.id,
+              !workiisInApplications[i] && userCurrentId !== workii.user.id,
             'bg-success-greenLight border-success-greenDark':
-              applications.workii.id.includes(workii.id!),
+              workiisInApplications[i],
             'bg-secondary-lightBlue border-primary-blueNeutral':
               userCurrentId === workii.user.id,
             'h-12 w-full rounded-b-xl flex flex-col items-center px-4 py-1 border-b-4': true
@@ -55,8 +56,7 @@
         >
           <ng-container
             *ngIf="
-              !applications.workii.id.includes(workii.id!) &&
-              userCurrentId !== workii.user.id
+              !workiisInApplications[i] && userCurrentId !== workii.user.id
             "
           >
             <div class="flex flex-row items-center gap-1 w-full">
@@ -78,7 +78,7 @@
             <p>{{ workii.cost }} USD</p>
           </ng-container>
 
-          <ng-container *ngIf="applications.workii.id.includes(workii.id!)">
+          <ng-container *ngIf="workiisInApplications[i]">
             <div class="flex flex-col gap-1 items-center justify-center pt-1">
               <img
                 src="../../../../../../assets/images/svg/icon-check.svg"
@@ -100,13 +100,14 @@
             </div>
           </ng-container>
         </div>
-      </div>
-    </ng-container>
+      </ng-container>
+    </div>
   </div>
   <div *ngIf="modalSwitch">
     <modal-info-workii
       [workii]="selectedWorkii"
       [index]="index"
+      [isOwner$]="workiisInApplications()"
       [applications$]="applications$"
       [userCurrentId]="userCurrentId"
     ></modal-info-workii>

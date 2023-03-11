@@ -1,8 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
-import { IWokiiState } from 'src/app/core/models/workii.state';
+import { IWorkiiState } from 'src/app/core/models/workii.state';
 import { WorkiiActions } from '../actions/workii.actions';
 
-export const initialState: IWokiiState = { loading: false, workiis: [], applications: [] };
+export const initialState: IWorkiiState = { loading: false, workiis: [], applications: [] };
 
 export const _workiiReducer = createReducer(
   initialState,
@@ -25,3 +25,5 @@ export const _workiiReducer = createReducer(
     return {...state, applications}
   }),
 );
+
+

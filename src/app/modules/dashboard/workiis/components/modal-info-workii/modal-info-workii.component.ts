@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { IResponseError } from 'src/app/core/interfaces/responseError.inteface';
 import { IWorkii } from 'src/app/core/models/workii.interface';
+import { IAppState } from 'src/app/core/state/app.state';
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
 import { UserService } from 'src/app/modules/auth/services/user.service';
 import Swal from 'sweetalert2';
@@ -24,6 +25,9 @@ export class ModalInfoWorkiiComponent {
   workii!: IWorkii;
 
   @Input()
+  isOwner$!: Observable<readonly boolean[]>;
+
+  @Input()
   applications$!: Observable<readonly IApplicationUser[]>;
 
   @Input()
@@ -37,7 +41,7 @@ export class ModalInfoWorkiiComponent {
     private userService: UserService,
     private router: Router,
     private sharedWorkiiService: SharedWorkiiService,
-    private store: Store) {}
+    private store: Store<IAppState>) {}
 
   ngOnInit() {
 
