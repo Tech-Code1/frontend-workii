@@ -96,9 +96,9 @@ deleteWorkii$: Observable<{id: string} | { errorMessage: string } | {message: st
   })).pipe(
     map(result => {
       return { result, action }
-    }) // Esto crea un array con el action y el result
+    })
   )),
-  mergeMap(({result, action}) => { // Esto usa destructuring para extraer el action y el result del array
+  mergeMap(({result, action}) => {
     if(result.isConfirmed) {
       this.modalService.$modal.emit(false);
       // Eliminar el Workii del array de datos o actualizar el estado
@@ -108,9 +108,56 @@ deleteWorkii$: Observable<{id: string} | { errorMessage: string } | {message: st
         showConfirmButton: false,
         timer: 1500
       });
-      return of(WorkiiActions.deleteWorkiiSuccess(action.id));
+
+      return this.workiisService.deleteWorkii(action.id).pipe(
+        map(() => WorkiiActions.deleteWorkiiSuccess(action.id)),
+        catchError(() => {
+          return of(WorkiiActions.deleteWorkiiError({
+            errorMessage: 'No se ha podido eliminar el Workii, ha ocurrido un error'
+          }))
+        })
+      )
     }
     return of(WorkiiActions.cancelWorkiiDelete({message: 'Has cancelado la acción'}))
+  })
+))
+
+removeApplication$: Observable<{id: string} | { errorMessage: string } | {message: string} | {response: IApplicationResponse}> = createEffect(() => this.actions$.pipe(
+  ofType(WorkiiActions.deleteApplicationRequest),
+  switchMap((action) => from(Swal.fire({
+    title: '¿ Estas seguro que deseas abandonar el workii ?',
+    text: "",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si, abandonar'
+  })).pipe(
+    map(result => {
+      return { result, action }
+    })
+  )),
+  mergeMap(({result, action}) => {
+    if(result.isConfirmed) {
+      this.modalService.$modal.emit(false);
+      // Eliminar el Workii del array de datos o actualizar el estado
+      Swal.fire({
+        icon: 'success',
+        text: 'Has abandondado correctamente el workii',
+        showConfirmButton: false,
+        timer: 1500
+      });
+
+      return this.workiisService.removeApplication(action.id).pipe(
+        map(() => WorkiiActions.deleteApplicationSuccess(action.id)),
+        catchError(() => {
+          return of(WorkiiActions.deleteApplicationError({
+            errorMessage: 'No has podido abandonar el Workii, ha ocurrido un error'
+          }))
+        })
+      )
+    }
+    return of(WorkiiActions.cancelApplicationDelete({message: 'Has cancelado la acción'}))
   })
 ))
 
@@ -119,7 +166,8 @@ deleteWorkii$: Observable<{id: string} | { errorMessage: string } | {message: st
     ofType(WorkiiActions.loadError,
       WorkiiActions.errorCreateWorkii,
       WorkiiActions.deleteWorkiiError,
-      WorkiiActions.loadApplicationError),
+      WorkiiActions.loadApplicationError,
+      WorkiiActions.deleteApplicationError),
     tap((action) => {
       Swal.fire('Error', `${action.errorMessage}`, 'error');
     })

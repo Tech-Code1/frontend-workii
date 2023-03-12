@@ -24,6 +24,28 @@ export const _workiiReducer = createReducer(
   on(WorkiiActions.listApplicationsWorkiis,(state,{applications})=>{
     return {...state, applications}
   }),
+  on(WorkiiActions.deleteApplicationSuccess,(state,{id})=>{
+    return {
+      ...state,
+      workiis :
+        state.workiis.filter(worki=>{
+        if (worki.id === id) {
+                return {
+                    ...worki,
+                    applications: worki.applications - 1
+                };
+            } else {
+                return worki;
+            }
+      })
+    }
+  }),
+  /* on(WorkiiActions.decrementApplications,(state,{applications})=>{
+    return {
+      ...state,
+      workiis: state.workiis.find( workii => workii.id === a)
+    }
+  }), */
 );
 
 

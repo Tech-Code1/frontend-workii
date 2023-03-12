@@ -13,11 +13,16 @@ export const WorkiiActions = createActionGroup({
     'Create Workii Success':  (workii: IWorkiiCreate) => ({ workii }),
     'Error Create Workii':  props<{errorMessage: string}>(),
     'Delete Workii Success':  (id: string) => ({ id }),
+    'Delete Application Success':  (id: string) => ({ id }),
     'Delete Workii Success Response':  (response: IApplicationResponse) => ({ response }),
     'Delete Workii Error':  props<{errorMessage: string}>(),
+    'Delete Application Error':  props<{errorMessage: string}>(),
     'Load Application Error':  props<{errorMessage: string}>(),
     'Cancel Workii Delete':  props<{message: string}>(),
+    'Cancel Application Delete':  props<{message: string}>(),
     'Delete Workii Request':  (id: string) => ({ id }),
+    'Delete Application Request':  (id: string) => ({ id }),
+    'Decrement Applications':  ({applications}: IWorkii) => ({ applications }),
   }
 })
 

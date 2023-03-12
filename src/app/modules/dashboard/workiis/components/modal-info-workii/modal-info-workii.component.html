@@ -140,34 +140,40 @@
           <p class="title-base-black">{{ workii.applications }}</p>
         </div>
 
-        <button
-          *ngIf="!isOwner$ && !workii.user.id.includes(userCurrentId)"
-          type="button"
-          (click)="applyWorkii(workii.id)"
-          class="btn-solid-blue p-4 h-12 rounded-md"
+        <ng-container
+          *ngIf="workiisInApplications() | async as workiisInApplications"
         >
-          Aplicar
-        </button>
+          <button
+            *ngIf="
+              !workiisInApplications[index] && userCurrentId !== workii.user.id
+            "
+            type="button"
+            (click)="applyWorkii(workii.id)"
+            class="btn-solid-blue p-4 h-12 rounded-md"
+          >
+            Aplicar
+          </button>
 
-        <ng-container *ngFor="let applications of applications$ | async">
           <button
             type="button"
-            (click)="removeApplication(applications.id)"
-            *ngIf="isOwner$ && !workii.user.id.includes(userCurrentId)"
+            (click)="removeApplication()"
+            *ngIf="
+              workiisInApplications[index] && userCurrentId !== workii.user.id
+            "
             class="btn-light-red px-4 h-12 rounded-md"
           >
             Abandonar
           </button>
-        </ng-container>
 
-        <button
-          type="button"
-          (click)="deleteWorkii(workii.id!)"
-          *ngIf="userCurrentId === workii.user.id"
-          class="btn-light-red px-4 h-12 rounded-md"
-        >
-          Eliminar
-        </button>
+          <button
+            type="button"
+            (click)="deleteWorkii(workii.id!)"
+            *ngIf="userCurrentId === workii.user.id"
+            class="btn-light-red px-4 h-12 rounded-md"
+          >
+            Eliminar
+          </button>
+        </ng-container>
       </div>
     </body>
   </div>

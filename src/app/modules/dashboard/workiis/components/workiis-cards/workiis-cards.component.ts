@@ -7,7 +7,7 @@ import { UserService } from '../../../../auth/services/user.service';
 import { Store } from '@ngrx/store';
 import { IWorkii } from 'src/app/core/models/workii.interface';
 import { WorkiiActions } from '../../state/actions/workii.actions';
-import { selectListApplications, selectLoading } from '../../state/selectors/workii.selectors';
+import { selectListApplications, selectLoading, selectWorkiis } from '../../state/selectors/workii.selectors';
 import { IAppState } from '../../../../../core/state/app.state';
 
 @Component({
@@ -23,9 +23,12 @@ export class WorkiisCardsComponent {
   workiiIds$!: Observable<string[]>;
   userCurrentId: string = this.userService.getCurrentUser();
   isOwner!: Observable<readonly boolean[]>
+  applicationId!: string;
+  isApply!: boolean;
+  apllyUserId!: string;
 
   modalSwitch: boolean = false;
-  selectedWorkii: any;
+  selectedWorkii!: IWorkii;
   index!: number;
 
   constructor(private modalService: SwitchService,
@@ -60,10 +63,19 @@ export class WorkiisCardsComponent {
     );
   }
 
-  openModal(workii: IWorkii, index: number): void {
+  openModal(workii: IWorkii, index: number, applies: readonly IApplicationUser[]): void {
     this.modalSwitch = true
     this.selectedWorkii = workii;
     this.index = index;
+
+    applies.forEach(apply => {
+
+      workii.id.includes(apply.workii.id)
+      ?  this.applicationId = apply.id
+      : ''
+
+    })
+
   }
 
   ngDestroy() {

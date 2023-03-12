@@ -12,6 +12,6 @@ export interface IWorkii {
   timeOfCreation?: number;
   timeOfFinished?: string;
   toDoList: string[],
-  applications?: number;
+  applications: number;
   user: IUser,
 }
