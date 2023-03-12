@@ -24,15 +24,18 @@ export const _workiiReducer = createReducer(
   on(WorkiiActions.listApplicationsWorkiis,(state,{applications})=>{
     return {...state, applications}
   }),
-  on(WorkiiActions.deleteApplicationSuccess,(state,{id})=>{
+  on(WorkiiActions.deleteApplicationSuccess,(state,{id, workii})=>{
     return {
       ...state,
+      applications: state.applications.filter(app=>app.id !== id),
       workiis :
-        state.workiis.map(worki=>{
+        state.workiis
+        .map(worki=>{
         if (worki.id === id) {
                 return {
                     ...worki,
-                    applications: worki.applications - 1
+                    applications: worki.applications - 1,
+
                 };
             } else {
                 return worki;

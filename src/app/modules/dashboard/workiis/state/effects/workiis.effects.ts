@@ -150,7 +150,7 @@ applyToWorkii$ = createEffect(() => this.actions$.pipe(
   ))
 ))
 
-removeApplication$: Observable<{id: string} | { errorMessage: string } | {message: string} | {response: IApplicationResponse}> = createEffect(() => this.actions$.pipe(
+removeApplication$: Observable<{id: string, workii: string} | { errorMessage: string } | {message: string} | {response: IApplicationResponse}> = createEffect(() => this.actions$.pipe(
   ofType(WorkiiActions.deleteApplicationRequest),
   switchMap((action) => from(Swal.fire({
     title: '¿ Estas seguro que deseas abandonar el workii ?',
@@ -176,8 +176,11 @@ removeApplication$: Observable<{id: string} | { errorMessage: string } | {messag
         timer: 1500
       });
 
-      return this.workiisService.removeApplication(action.id).pipe(
-        map(() => WorkiiActions.deleteApplicationSuccess(action.id)),
+      console.log(action.id, action.workii);
+
+
+      return this.workiisService.removeApplication(action.id, action.workii).pipe(
+        map(() => WorkiiActions.deleteApplicationSuccess(action.id, action.workii)),
         catchError(() => {
           return of(WorkiiActions.deleteApplicationError({
             errorMessage: 'No has podido abandonar el Workii, ha ocurrido un error'

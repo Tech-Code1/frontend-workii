@@ -68,14 +68,11 @@ export class WorkiisCardsComponent {
     this.selectedWorkii = workii;
     this.index = index;
 
-    applies.forEach(apply => {
-
+    applies.map(apply => {
       workii.id.includes(apply.workii.id)
       ?  this.applicationId = apply.id
       : ''
-
     })
-
   }
 
   ngDestroy() {

@@ -92,75 +92,12 @@ export class ModalInfoWorkiiComponent {
   async applyWorkii(workii: string | undefined) {
 
     this.store.dispatch(WorkiiActions.applyToWorkii({user: this.userCurrentId, workii: workii!}))
-    /* const user = await this.userService.getCurrentUser()
-
-    const apply: IApplication = {
-      user,
-      workii : workii!
-    }
-
-    return this.workiisService.applyToWorkii(apply)
-    .subscribe({
-      next: async(resp: IApplicationResponse) => {
-
-        console.log(resp.message);
-
-        this.closeModal()
-
-        setTimeout(() => {
-          location.reload();
-        }, 800)
-
-        Swal.fire({
-          icon: 'success',
-          text: resp.message,
-          showConfirmButton: false,
-          timer: 2000
-        });
-
-      },
-      error: (resp: IResponseError) => {
-        console.log(resp.error?.message);
-
-        Swal.fire({
-          icon: 'error',
-          title: resp.status,
-          text: resp.error?.message
-        });
-      },
-    }) */
   }
 
-  async removeApplication() {
+  async removeApplication(workii: string) {
 
-    this.store.dispatch(WorkiiActions.deleteApplicationSuccess(this.applicationId))
-
-    /* this.workiisService.removeApplication(id)
-    .subscribe({
-      next: ( response: IApplicationResponse ) => {
-
-        this.closeModal();
-
-        setTimeout(() => {
-          location.reload();
-        }, 800)
-
-        Swal.fire({
-          icon: 'success',
-          text: response.message,
-          showConfirmButton: false,
-          timer: 2000
-        });
-
-      },
-      error: (resp: IResponseError) => {
-        Swal.fire({
-          icon: 'error',
-          text: resp.error?.message,
-          title: resp.status
-        });
-      }
-    }) */
+    this.store.dispatch(WorkiiActions.deleteApplicationRequest(this.applicationId, workii))
+    console.log(workii);
   }
 
   deleteWorkii(id: string) {

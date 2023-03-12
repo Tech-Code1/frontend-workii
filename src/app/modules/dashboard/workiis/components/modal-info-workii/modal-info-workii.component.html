@@ -156,7 +156,7 @@
 
           <button
             type="button"
-            (click)="removeApplication()"
+            (click)="removeApplication(workii.id)"
             *ngIf="
               workiisInApplications[index] && userCurrentId !== workii.user.id
             "

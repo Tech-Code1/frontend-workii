@@ -75,10 +75,13 @@ export class WorkiisService {
     return this.http.get<IApplicationUser[]>(url, {params})
   }
 
-  removeApplication(id: string) {
+  removeApplication(id: string, workii: string) {
     const url = `${this.baseUrl}/workiis/apply/${id}`;
+    const body = {
+      workii: workii.toString(),
+    };
 
-    return this.http.delete<IApplicationResponse>(url, {headers: this.headers})
+    return this.http.delete<IApplicationResponse>(url, {body: body, headers: this.headers})
   }
 
   deleteWorkii(id: string) {
