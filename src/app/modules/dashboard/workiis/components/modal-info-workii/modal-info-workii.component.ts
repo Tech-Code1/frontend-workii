@@ -37,9 +37,6 @@ export class ModalInfoWorkiiComponent {
   @Input()
   userCurrentId!: string;
 
-  isApply!: boolean[];
-  subscription!: Subscription;
-
   constructor(private modalService: SwitchService,
     private workiisService: WorkiisService,
     private userService: UserService,
@@ -48,15 +45,9 @@ export class ModalInfoWorkiiComponent {
     private store: Store<IAppState>) {}
 
   ngOnInit() {
-
     this.applications$ = this.store.select(selectListApplications);
 
     this.workiis$ = this.store.select(selectListWorkiis);
-
-
-    //this.isApply =  apply.user.id.includes(this.userCurrentId)
-
-
   }
 
   workiisInApplications(): Observable<readonly boolean[]> {
@@ -99,25 +90,16 @@ export class ModalInfoWorkiiComponent {
   }
 
   async applyWorkii(workii: string | undefined) {
-    const user = await this.userService.getCurrentUser()
 
-    // Obtener el token de autorización
-    const token = localStorage.getItem('token');
-
-    // Crear el encabezado de la solicitud HTTP
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
+    this.store.dispatch(WorkiiActions.applyToWorkii({user: this.userCurrentId, workii: workii!}))
+    /* const user = await this.userService.getCurrentUser()
 
     const apply: IApplication = {
       user,
       workii : workii!
     }
 
-    console.log(apply);
-
-
-    return this.workiisService.applyToWorkii(apply, headers)
+    return this.workiisService.applyToWorkii(apply)
     .subscribe({
       next: async(resp: IApplicationResponse) => {
 
@@ -146,7 +128,7 @@ export class ModalInfoWorkiiComponent {
           text: resp.error?.message
         });
       },
-    })
+    }) */
   }
 
   async removeApplication() {

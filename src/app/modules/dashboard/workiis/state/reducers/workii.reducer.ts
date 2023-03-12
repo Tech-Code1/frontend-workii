@@ -28,7 +28,7 @@ export const _workiiReducer = createReducer(
     return {
       ...state,
       workiis :
-        state.workiis.filter(worki=>{
+        state.workiis.map(worki=>{
         if (worki.id === id) {
                 return {
                     ...worki,
@@ -36,6 +36,23 @@ export const _workiiReducer = createReducer(
                 };
             } else {
                 return worki;
+            }
+      })
+    }
+  }),
+  on(WorkiiActions.applyToWorkii,(state,{apply})=>{
+    const {user, workii} = apply;
+    return {
+      ...state,
+      workiis :
+        state.workiis.map(workiis=>{
+        if (workiis.id === workii) {
+                return {
+                    ...workiis,
+                    applications: workiis.applications + 1
+                };
+            } else {
+                return workiis;
             }
       })
     }

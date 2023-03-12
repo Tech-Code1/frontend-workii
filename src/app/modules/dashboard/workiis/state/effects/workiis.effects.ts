@@ -6,7 +6,7 @@ import { IWorkii } from 'src/app/core/models/workii.interface';
 import { WorkiisService } from '../../service/workiis.service';
 import { WorkiiActions } from '../actions/workii.actions';
 import Swal, { SweetAlertResult } from 'sweetalert2';
-import { IApplicationResponse, IApplicationUser, IWorkiiCreate } from '../../interfaces/workii.interface';
+import { IApplicationResponse, IApplicationUser, IWorkiiCreate, IApplication } from '../../interfaces/workii.interface';
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
 import { UserService } from 'src/app/modules/auth/services/user.service';
 
@@ -122,6 +122,34 @@ deleteWorkii$: Observable<{id: string} | { errorMessage: string } | {message: st
   })
 ))
 
+applyToWorkii$ = createEffect(() => this.actions$.pipe(
+  ofType(WorkiiActions.applyToWorkii),
+  concatMap(({apply}) =>
+
+      this.workiisService.applyToWorkii({user: apply.user, workii: apply.workii}).pipe(
+
+    map((savedApply) => {
+
+      this.modalService.$modal.emit(false)
+
+      Swal.fire({
+        icon: 'success',
+        text: 'Has aplicado al Workii de manera correcta',
+        showConfirmButton: false,
+        timer: 1500
+      });
+
+      return WorkiiActions.applyToWorkii({user: savedApply.user, workii: savedApply.workii})
+    }),
+
+    catchError(() => {
+      return of(WorkiiActions.errorApplyToWorkii(
+        { errorMessage: 'Ha ocurrido un error al aplicar al Workii' }
+      ));
+    })
+  ))
+))
+
 removeApplication$: Observable<{id: string} | { errorMessage: string } | {message: string} | {response: IApplicationResponse}> = createEffect(() => this.actions$.pipe(
   ofType(WorkiiActions.deleteApplicationRequest),
   switchMap((action) => from(Swal.fire({
@@ -167,7 +195,8 @@ removeApplication$: Observable<{id: string} | { errorMessage: string } | {messag
       WorkiiActions.errorCreateWorkii,
       WorkiiActions.deleteWorkiiError,
       WorkiiActions.loadApplicationError,
-      WorkiiActions.deleteApplicationError),
+      WorkiiActions.deleteApplicationError,
+      WorkiiActions.errorApplyToWorkii),
     tap((action) => {
       Swal.fire('Error', `${action.errorMessage}`, 'error');
     })

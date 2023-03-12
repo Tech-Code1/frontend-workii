@@ -54,14 +54,14 @@ export class WorkiisService {
     return this.http.post<IWorkii>(url, body, {headers: this.headers})
   }
 
-  applyToWorkii({user, workii}: IApplication, headers: HttpHeaders) {
+  applyToWorkii({user, workii}: IApplication) {
     const url = `${this.baseUrl}/workiis/application`;
     const body = {
       user,
       workii
     };
 
-    return this.http.post<IApplicationResponse>(url, body, {headers})
+    return this.http.post<IApplication>(url, body, {headers: this.headers})
   }
 
   getAllApplicationsWorkiiByUser(id: string, {limit, offset}: IPagination): Observable<IApplicationUser[]> {
