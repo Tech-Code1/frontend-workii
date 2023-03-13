@@ -1,6 +1,6 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { IWorkii } from 'src/app/core/models/workii.interface';
-import { IWorkiiCreate, IApplicationResponse, IApplicationUser, IApplication, IApplyResponse } from '../../interfaces/workii.interface';
+import { IWorkiiCreate, IApplicationResponse, IApplicationUser, IApplicationCreateUserDTO, IApplication, IApplyResponse, IApplicationCreateUser } from '../../interfaces/workii.interface';
 
 export const WorkiiActions = createActionGroup({
   source: 'Workii Page',
@@ -22,9 +22,11 @@ export const WorkiiActions = createActionGroup({
     'Cancel Application Delete':  props<{message: string}>(),
     'Delete Workii Request':  (id: string) => ({ id }),
     'Delete Application Request':  (id: string, workii: string) => ({ id, workii }),
-    'Decrement Applications':  ({applications}: IWorkii) => ({ applications }),
+    //'Decrement Applications':  ({applications}: IWorkii) => ({ applications }),
     //'Apply To Workii Request':  (response: IApplicationResponse) => ({response}),
-    'Apply To Workii':  ({user, workii}: IApplyResponse) => ({user, workii}),
+    'Apply To Workii':  ({user, workii} : IApplicationCreateUser) => ({user: user.id, workii: workii.id}),
+    'Apply Workii Request':  (user: string, workii: string) => ({ user, workii }),
+    'Cancel Apply':  props<{errorMessage: string}>(),
     'Error Apply To Workii':  props<{errorMessage: string}>(),
   }
 })

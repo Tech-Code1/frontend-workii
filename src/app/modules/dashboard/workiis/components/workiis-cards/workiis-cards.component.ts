@@ -20,7 +20,7 @@ export class WorkiisCardsComponent {
   loading$: Observable<boolean> = new Observable<boolean>();
   workiis$: Observable<readonly IWorkii[]> = new Observable<readonly IWorkii[]>();
   applications$: Observable<readonly IApplicationUser[]> = new Observable<readonly IApplicationUser[]>();
-  workiiIds$!: Observable<string[]>;
+  workiiIds$!: Observable<(string | undefined)[]>;
   userCurrentId: string = this.userService.getCurrentUser();
   isOwner!: Observable<readonly boolean[]>
   applicationId!: string;
@@ -71,7 +71,7 @@ export class WorkiisCardsComponent {
 
     applies.map(apply => {
       workii.id.includes(apply.workii.id)
-      ?  this.applicationId = apply.id
+      ?  this.applicationId = apply.id!
       : ''
     })
   }

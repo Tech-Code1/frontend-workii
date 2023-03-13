@@ -27,9 +27,21 @@ export interface IStatus {
 }
 
 export interface IApplicationUser {
-  id: string;
+  id?: string;
   user: IUser
   workii: IWorkiiApllication
+}
+
+export type TPartialApplication = Partial<IApplicationUser>;
+
+export interface IApplicationCreateUser {
+  user: IUser
+  workii: IWorkiiApllication
+}
+
+export interface IApplicationCreateUserDTO {
+  userId: string;
+  workiiId: string;
 }
 
 export interface IWorkiiApllication {

@@ -87,12 +87,11 @@ export class ModalInfoWorkiiComponent {
     this.router.navigate([ruta]);
   }
 
-  async applyWorkii(workii: string | undefined) {
-    console.log(workii);
+  async applyWorkii() {
 
     console.log('click');
 
-    this.store.dispatch(WorkiiActions.applyToWorkii({user: this.userCurrentId, workii: workii!}))
+    this.store.dispatch(WorkiiActions.applyWorkiiRequest(this.userCurrentId,this.workii.id!))
   }
 
   async removeApplication(workii: string) {

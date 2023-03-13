@@ -122,7 +122,52 @@ deleteWorkii$: Observable<{id: string} | { errorMessage: string } | {message: st
   })
 ))
 
+
 applyToWorkii$ = createEffect(() => this.actions$.pipe(
+  ofType(WorkiiActions.applyWorkiiRequest),
+  switchMap((action) => from(Swal.fire({
+    title: '¿ Estas seguro que deseas aplicar al Workii ?',
+    text: "",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si, aplicar'
+  })).pipe(
+    map(result => {
+      return { result, action }
+    })
+  )),
+  mergeMap(({result, action}) => {
+    if(result.isConfirmed) {
+      this.modalService.$modal.emit(false);
+      // Eliminar el Workii del array de datos o actualizar el estado
+      Swal.fire({
+        icon: 'success',
+        text: 'El Workii se ha eliminado correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      });
+
+      return this.workiisService.applyToWorkii({user: action.user, workii: action.workii}).pipe(
+        map((result) => {
+          return WorkiiActions.applyToWorkii({ user: {id: action.user}, workii: { id: action.workii } });
+        }),
+        catchError(() => {
+          return of(WorkiiActions.errorApplyToWorkii({
+            errorMessage: 'No se ha podido aplicar al Workii, ha ocurrido un error'
+          }))
+        })
+      )
+    } else if (result.dismiss === Swal.DismissReason.backdrop || result.dismiss === Swal.DismissReason.esc || result.dismiss === Swal.DismissReason.close) {
+      // El usuario cerró el cuadro de confirmación sin seleccionar ninguna opción
+      return of(WorkiiActions.cancelApplicationDelete({message: 'Has cerrado el cuadro de confirmación sin seleccionar ninguna opción'}))
+    }
+    return of(WorkiiActions.cancelApply({errorMessage: 'Has cancelado la acción'}))
+  })
+))
+
+/* applyToWorkii$ = createEffect(() => this.actions$.pipe(
   ofType(WorkiiActions.applyToWorkii),
   concatMap(({user, workii}) => (console.log(user, workii),
     this.workiisService.applyToWorkii({user, workii}))
@@ -140,7 +185,7 @@ applyToWorkii$ = createEffect(() => this.actions$.pipe(
       catchError(() => of(WorkiiActions.errorApplyToWorkii({errorMessage: 'Ha ocurrido un error al aplicar al Workii'})))
     )
   )
-));
+)); */
 
 
 /* applyToWorkii$ = createEffect(() => this.actions$.pipe(
