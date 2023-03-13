@@ -6,9 +6,8 @@ export const initialState: IWorkiiState = { loading: false, workiis: [], applica
 
 export const _workiiReducer = createReducer(
   initialState,
-  on(WorkiiActions.loadWorkiis, (state) => {
-    return {...state, loading: true}
-  }),
+  on(WorkiiActions.loadWorkiis, (state, {type}) =>  ({...state, type})),
+  on(WorkiiActions.loadApplications, (state, {type}) =>  ({...state, type})),
   on(WorkiiActions.listWorkiis, (state, {workiis}) => {
     return {...state, loading: false, workiis}
   }),
@@ -35,7 +34,6 @@ export const _workiiReducer = createReducer(
                 return {
                     ...worki,
                     applications: worki.applications - 1,
-
                 };
             } else {
                 return worki;
@@ -43,8 +41,7 @@ export const _workiiReducer = createReducer(
       })
     }
   }),
-  on(WorkiiActions.applyToWorkii,(state,{apply})=>{
-    const {user, workii} = apply;
+  on(WorkiiActions.applyToWorkii,(state,{user, workii})=>{
     return {
       ...state,
       workiis :

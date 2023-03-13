@@ -34,7 +34,7 @@ export function createTranslateLoader(http: HttpClient) {
     HttpClientModule,
     StoreModule.forRoot(ROOT_REDUCERS),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: !isDevMode()}),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([WorkiiEffects]),
     TranslateModule.forRoot({
     loader: {
       provide: TranslateLoader,

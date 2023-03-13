@@ -38,8 +38,6 @@ export class ModalInfoWorkiiComponent {
   userCurrentId!: string;
 
   constructor(private modalService: SwitchService,
-    private workiisService: WorkiisService,
-    private userService: UserService,
     private router: Router,
     private sharedWorkiiService: SharedWorkiiService,
     private store: Store<IAppState>) {}
@@ -90,19 +88,18 @@ export class ModalInfoWorkiiComponent {
   }
 
   async applyWorkii(workii: string | undefined) {
+    console.log(workii);
+
+    console.log('click');
 
     this.store.dispatch(WorkiiActions.applyToWorkii({user: this.userCurrentId, workii: workii!}))
   }
 
   async removeApplication(workii: string) {
-
     this.store.dispatch(WorkiiActions.deleteApplicationRequest(this.applicationId, workii))
-    console.log(workii);
   }
 
   deleteWorkii(id: string) {
-
     this.store.dispatch(WorkiiActions.deleteWorkiiRequest(id))
-
   }
 }

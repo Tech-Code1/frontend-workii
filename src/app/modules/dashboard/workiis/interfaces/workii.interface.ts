@@ -47,6 +47,12 @@ export interface IApplication {
   user:            string;
 }
 
+export interface IApplyResponse {
+  workii:          string;
+  user:            string;
+  message?:         string;
+}
+
 export interface IResponseSuccess {
   message:          string;
 }

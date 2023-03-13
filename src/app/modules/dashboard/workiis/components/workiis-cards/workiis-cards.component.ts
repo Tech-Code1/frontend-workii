@@ -7,7 +7,7 @@ import { UserService } from '../../../../auth/services/user.service';
 import { Store } from '@ngrx/store';
 import { IWorkii } from 'src/app/core/models/workii.interface';
 import { WorkiiActions } from '../../state/actions/workii.actions';
-import { selectListApplications, selectLoading, selectWorkiis } from '../../state/selectors/workii.selectors';
+import { selectListApplications, selectLoading, selectWorkiis, selectListWorkiis } from '../../state/selectors/workii.selectors';
 import { IAppState } from '../../../../../core/state/app.state';
 
 @Component({
@@ -18,7 +18,7 @@ import { IAppState } from '../../../../../core/state/app.state';
 export class WorkiisCardsComponent {
 
   loading$: Observable<boolean> = new Observable<boolean>();
-  workiis$: Observable<readonly IWorkii[]> = this.store.select(state => state.workiis.workiis)
+  workiis$: Observable<readonly IWorkii[]> = new Observable<readonly IWorkii[]>();
   applications$: Observable<readonly IApplicationUser[]> = new Observable<readonly IApplicationUser[]>();
   workiiIds$!: Observable<string[]>;
   userCurrentId: string = this.userService.getCurrentUser();
@@ -37,6 +37,7 @@ export class WorkiisCardsComponent {
 
   ngOnInit(): void {
     this.loading$ = this.store.select(selectLoading)
+    this.workiis$ = this.store.select(selectListWorkiis)
     this.store.dispatch(WorkiiActions.loadWorkiis())
 
     this.store.dispatch(WorkiiActions.loadApplications())

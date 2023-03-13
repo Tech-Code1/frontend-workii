@@ -56,12 +56,11 @@ export class WorkiisService {
 
   applyToWorkii({user, workii}: IApplication) {
     const url = `${this.baseUrl}/workiis/application`;
-    const body = {
-      user,
-      workii
-    };
 
-    return this.http.post<IApplication>(url, body, {headers: this.headers})
+    console.log(user, workii);
+
+
+    return this.http.post<IApplication>(url, {user, workii}, {headers: this.headers})
   }
 
   getAllApplicationsWorkiiByUser(id: string, {limit, offset}: IPagination): Observable<IApplicationUser[]> {
@@ -81,7 +80,10 @@ export class WorkiisService {
       workii: workii.toString(),
     };
 
-    return this.http.delete<IApplicationResponse>(url, {body: body, headers: this.headers})
+    console.log(body);
+    console.log(body.workii);
+
+    return this.http.delete<IApplicationResponse>(url, {body: body.workii, headers: this.headers})
   }
 
   deleteWorkii(id: string) {

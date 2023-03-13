@@ -16,7 +16,7 @@ import { WorkiiEffects } from './workiis/state/effects/workiis.effects';
     CommonModule,
     DashboardRoutingModule,
     LayoutDashboardModule,
-    EffectsModule.forFeature([WorkiiEffects]),
+    //EffectsModule.forFeature([WorkiiEffects]),
   ],
   exports: []
 })

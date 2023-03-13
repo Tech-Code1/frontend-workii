@@ -9,6 +9,10 @@ export const selectListWorkiis = createSelector(
 ({workiis}: IWorkiiState) => workiis
 );
 
+export const selectWorkiiId = createSelector(
+  selectWorkiis,
+({workiis}: IWorkiiState) => workiis.map(workii => workii.id));
+
 export const selectLoading = createSelector(
   selectWorkiis,
   ({loading}: IWorkiiState) => loading
