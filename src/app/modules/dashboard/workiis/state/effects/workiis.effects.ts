@@ -167,54 +167,6 @@ applyToWorkii$ = createEffect(() => this.actions$.pipe(
   })
 ))
 
-/* applyToWorkii$ = createEffect(() => this.actions$.pipe(
-  ofType(WorkiiActions.applyToWorkii),
-  concatMap(({user, workii}) => (console.log(user, workii),
-    this.workiisService.applyToWorkii({user, workii}))
-    .pipe(
-      tap(() => {
-        this.modalService.$modal.emit(false)
-        Swal.fire({
-          icon: 'success',
-          text: 'Has aplicado al Workii de manera correcta',
-          showConfirmButton: false,
-          timer: 1500
-        });
-      }),
-      map(savedApply => WorkiiActions.applyToWorkii({user: savedApply.user, workii: savedApply.workii})),
-      catchError(() => of(WorkiiActions.errorApplyToWorkii({errorMessage: 'Ha ocurrido un error al aplicar al Workii'})))
-    )
-  )
-)); */
-
-
-/* applyToWorkii$ = createEffect(() => this.actions$.pipe(
-  ofType(WorkiiActions.applyToWorkii),
-  concatMap(({user, workii}) =>
-
-    this.workiisService.applyToWorkii({user, workii}).pipe(
-
-    map(({user, workii}) => {
-      this.modalService.$modal.emit(false)
-
-      Swal.fire({
-        icon: 'success',
-        text: 'Has aplicado al Workii de manera correcta',
-        showConfirmButton: false,
-        timer: 1500
-      });
-
-      return WorkiiActions.applyToWorkii({user, workii})
-    }),
-
-    catchError(() => {
-      return of(WorkiiActions.errorApplyToWorkii(
-        { errorMessage: 'Ha ocurrido un error al aplicar al Workii' }
-      ));
-    })
-  ))
-)) */
-
 removeApplication$: Observable<{id: string, workii: string} | { errorMessage: string } | {message: string} | {response: IApplicationResponse}> = createEffect(() => this.actions$.pipe(
   ofType(WorkiiActions.deleteApplicationRequest),
   switchMap((action) => from(Swal.fire({
@@ -252,10 +204,10 @@ removeApplication$: Observable<{id: string, workii: string} | { errorMessage: st
           }))
         })
       )
-    } /* else if (result.dismiss === Swal.DismissReason.backdrop || result.dismiss === Swal.DismissReason.esc || result.dismiss === Swal.DismissReason.close) {
+    } else if (result.dismiss === Swal.DismissReason.backdrop || result.dismiss === Swal.DismissReason.esc || result.dismiss === Swal.DismissReason.close) {
       // El usuario cerró el cuadro de confirmación sin seleccionar ninguna opción
       return of(WorkiiActions.cancelApplicationDelete({message: 'Has cerrado el cuadro de confirmación sin seleccionar ninguna opción'}))
-    } */
+    }
     return of(WorkiiActions.cancelApplicationDelete({message: 'Has cancelado la acción'}))
   })
 ))

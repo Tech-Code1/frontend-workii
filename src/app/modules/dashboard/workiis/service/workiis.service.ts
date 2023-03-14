@@ -76,14 +76,12 @@ export class WorkiisService {
 
   removeApplication(id: string, workii: string) {
     const url = `${this.baseUrl}/workiis/apply/${id}`;
+
     const body = {
-      workii: workii.toString(),
-    };
+      workii
+    }
 
-    console.log(body);
-    console.log(body.workii);
-
-    return this.http.delete<IApplicationResponse>(url, {body: body.workii, headers: this.headers})
+    return this.http.delete<IApplicationResponse>(url, {body, headers: this.headers})
   }
 
   deleteWorkii(id: string) {

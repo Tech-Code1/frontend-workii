@@ -95,6 +95,8 @@ export class ModalInfoWorkiiComponent {
   }
 
   async removeApplication(workii: string) {
+    console.log(this.applicationId);
+
     this.store.dispatch(WorkiiActions.deleteApplicationRequest(this.applicationId, workii))
   }
 
