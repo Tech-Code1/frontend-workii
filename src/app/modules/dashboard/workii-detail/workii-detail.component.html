@@ -1,6 +1,6 @@
 <section class="mt-6">
   <div
-    *ngIf="workii$ | async as workii"
+    *ngIf="combined$ | async as combined"
     class="pb-8 px-4 pt-4 w-full animate__animated animate__fadeIn animate__faster flex flex-col gap-4"
   >
     <div class="flex flex-row gap-1">
@@ -14,10 +14,10 @@
 
       <ng-container>
         <p
-          [routerLink]="'/dashboard/workiis/' + workii?.slug"
+          [routerLink]="'/dashboard/workiis/' + combined.workii?.slug"
           class="body-base-black cursor-pointer"
         >
-          {{ "workii-" + workii?.slug }}
+          {{ "workii-" + combined.workii?.slug }}
         </p>
       </ng-container>
     </div>
@@ -45,12 +45,40 @@
       </li>
     </div>
 
-    <div class="flex flex-col gap-6">
-      <ng-container *ngIf="applications$ | async as applications">
-        <info-workii [workii]="workii"></info-workii>
+    <div
+      class="flex flex-col gap-6"
+      *ngIf="combined.workii && combined.applications"
+    >
+      <ng-container
+        *ngIf="
+          combined.workii?.user?.id !== userCurrentId && combined.index !== -1
+        "
+      >
+        <info-workii [workii]="combined.workii"></info-workii>
 
-        <status-workii [workii]="workii" [applications]="applications">
+        <status-workii
+          [workii]="combined.workii"
+          [applications]="combined.applications"
+        >
         </status-workii>
+      </ng-container>
+
+      <ng-container
+        *ngIf="
+          combined.workii.user.id !== userCurrentId && combined.index === -1
+        "
+      >
+        <info-workii-without-apply
+          [workii]="combined.workii"
+          [userCurrentId]="userCurrentId"
+        ></info-workii-without-apply>
+      </ng-container>
+
+      <ng-container *ngIf="combined.workii?.user?.id === userCurrentId">
+        <info-workii-owner
+          [workii]="combined.workii"
+          [userCurrentId]="userCurrentId"
+        ></info-workii-owner>
       </ng-container>
     </div>
   </div>

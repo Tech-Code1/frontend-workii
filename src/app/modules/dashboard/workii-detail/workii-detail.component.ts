@@ -23,8 +23,9 @@ export class WorkiiDetailComponent {
   isOwner!: boolean;
   applies!: IApplicationUser[];
   applications$!: Observable<readonly IApplicationUser[]>;
-  applications!: readonly IApplicationUser[];
   workii$!: Observable<IWorkii | null>;
+  index$!: Observable<number>;
+  combined$!: Observable<{ index: number; applications: readonly IApplicationUser[]; workii: IWorkii | null }>;
 
 
   constructor(private route: ActivatedRoute,
@@ -42,5 +43,17 @@ export class WorkiiDetailComponent {
 
     this.store.dispatch(WorkiiActions.loadApplications())
     this.applications$ = this.store.select(selectListApplications)
+
+    this.combined$ = combineLatest([this.applications$, this.workii$]).pipe(
+      map(([applications, workii]) => {
+        if (!applications || !workii) {
+          return { index: -1, applications: [], workii: null };
+        }
+        const index = applications.findIndex(application => application.workii.id === workii.id);
+        return { index, applications, workii };
+      })
+    );
   }
+
+
 }

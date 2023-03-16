@@ -18,8 +18,6 @@ export class InfoWorkiiComponent {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.workii);
-
   }
 
   shareWorkii(event: Event) {

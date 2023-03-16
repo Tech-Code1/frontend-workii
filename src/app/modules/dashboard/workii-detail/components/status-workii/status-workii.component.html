@@ -1,13 +1,4 @@
-<div
-  *ngIf="
-    workii &&
-    applications &&
-    applications.length > 0 &&
-    workii?.id === applications[0].workii?.id &&
-    workii?.user?.id != userCurrentId
-  "
-  class="flex flex-col w-full"
->
+<div class="flex flex-col w-full">
   <div
     class="flex bg-gray-lighter h-auto w-full rounded-t-xl gap-4 flex-row p-4"
   >
