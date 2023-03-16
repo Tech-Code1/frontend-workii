@@ -8,7 +8,7 @@ import { WorkiisService } from './service/workiis.service';
 @Component({
   selector: 'app-workiis',
   templateUrl: './workiis.component.html',
-  styleUrls: ['./workiis.component.scss']
+  styleUrls: ['./workiis.component.scss'],
 })
 export class WorkiisComponent implements OnInit {
 

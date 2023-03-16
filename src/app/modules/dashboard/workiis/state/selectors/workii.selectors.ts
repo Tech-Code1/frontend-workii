@@ -22,3 +22,8 @@ export const selectListApplications = createSelector(
   selectWorkiis,
   ({applications}: IWorkiiState) => applications
 );
+
+export const selectCurrentWorkii = createSelector(
+  selectWorkiis,
+  ({getWorkii}: IWorkiiState) => getWorkii
+)

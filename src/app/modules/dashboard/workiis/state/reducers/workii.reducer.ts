@@ -3,8 +3,25 @@ import { IWorkiiState } from 'src/app/core/models/workii.state';
 import { WorkiiActions } from '../actions/workii.actions';
 import { filter } from 'rxjs';
 import { IApplication, IApplicationUser } from '../../interfaces/workii.interface';
+import { IWorkii } from 'src/app/core/models/workii.interface';
 
-export const initialState: IWorkiiState = { loading: false, workiis: [], applications: [] };
+export const initialWorkii: IWorkii = {
+  applications: 0,
+  cost: 0,
+  description: "",
+  executionTime: 0,
+  id: "",
+  name: "",
+  target: "",
+  toDoList: [],
+  user: {id: ""},
+  slug: "",
+  status: "",
+  timeOfCreation: 0,
+  timeOfFinished: "",
+};
+
+export const initialState: IWorkiiState = { loading: false, workiis: [], applications: [] , getWorkii: null}
 
 export const _workiiReducer = createReducer(
   initialState,
@@ -74,6 +91,8 @@ export const _workiiReducer = createReducer(
     }
   }),
   on(WorkiiActions.errorApplyToWorkii, (state, {errorMessage}) =>  ({...state, errorMessage})),
+  on(WorkiiActions.loadWorkii, (state, {slug}) =>  ({...state, slug})),
+  on(WorkiiActions.loadWorkiiSucces, (state, {workii}) =>  ({...state, getWorkii: workii})),
   /* on(WorkiiActions.decrementApplications,(state,{applications})=>{
     return {
       ...state,

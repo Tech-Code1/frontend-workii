@@ -28,6 +28,8 @@ export const WorkiiActions = createActionGroup({
     'Apply Workii Request':  (user: string, workii: string) => ({ user, workii }),
     'Cancel Apply':  props<{errorMessage: string}>(),
     'Error Apply To Workii':  props<{errorMessage: string}>(),
+    'Load Workii':  props<{slug: string}>(),
+    'Load Workii Succes':  props<{workii: IWorkii}>(),
   }
 })
 

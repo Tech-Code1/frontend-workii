@@ -39,11 +39,11 @@ export class WorkiisService {
     return this.http.get<IWorkii[]>(url, {headers: this.headers, params})
   }
 
-  getWorkii(slug: string, headers: HttpHeaders): Observable<IWorkii> {
+  getWorkii(slug: string): Observable<IWorkii> {
     const url = `${this.baseUrl}/workiis/${slug}`;
 
 
-    return this.http.get<IWorkii>(url, {headers})
+    return this.http.get<IWorkii>(url, {headers: this.headers})
   }
 
 

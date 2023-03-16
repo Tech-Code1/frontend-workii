@@ -15,7 +15,7 @@ export class WorkiiEffects {
 
   userCurrentId: string = this.userService.getCurrentUser();
 
-  loadWorkiiss$: Observable<{type: string, workiis: IWorkii[]} | {errorMessage: string}> = createEffect(() => this.actions$.pipe(
+  loadWorkiis$: Observable<{type: string, workiis: IWorkii[]} | {errorMessage: string}> = createEffect(() => this.actions$.pipe(
     ofType(WorkiiActions.loadWorkiis),
     exhaustMap(() => this.workiisService.getWorkiis({limit: 20, offset: 0})
       .pipe(
@@ -27,6 +27,24 @@ export class WorkiiEffects {
         catchError(() => {
           return of(WorkiiActions.errorCreateWorkii(
             { errorMessage: 'Ha ocurrido un error al intentar obtener el listado de los Workiis' }
+          ));
+        })
+      ))
+    )
+  );
+
+  loadWorkii$ = createEffect(() => this.actions$.pipe(
+    ofType(WorkiiActions.loadWorkii),
+    switchMap((action) => this.workiisService.getWorkii(action.slug)
+      .pipe(
+        map(workii => {
+
+        return  WorkiiActions.loadWorkiiSucces({workii})
+
+        }),
+        catchError(() => {
+          return of(WorkiiActions.errorCreateWorkii(
+            { errorMessage: 'Ha ocurrido un error al intentar obtener el workii' }
           ));
         })
       ))

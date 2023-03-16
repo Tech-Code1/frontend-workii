@@ -7,7 +7,7 @@ import { UserService } from '../../../../auth/services/user.service';
 import { Store } from '@ngrx/store';
 import { IWorkii } from 'src/app/core/models/workii.interface';
 import { WorkiiActions } from '../../state/actions/workii.actions';
-import { selectListApplications, selectLoading, selectWorkiis, selectListWorkiis } from '../../state/selectors/workii.selectors';
+import { selectListApplications, selectLoading, selectListWorkiis } from '../../state/selectors/workii.selectors';
 import { IAppState } from '../../../../../core/state/app.state';
 
 @Component({
@@ -26,7 +26,6 @@ export class WorkiisCardsComponent {
   applicationId!: string;
   isApply!: boolean;
   apllyUserId!: string;
-
   modalSwitch: boolean = false;
   selectedWorkii!: IWorkii;
   index!: number;

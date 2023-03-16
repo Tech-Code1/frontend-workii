@@ -13,7 +13,7 @@ import { IApplication, IApplicationResponse, IApplicationUser, IWorkiiCreate } f
 import { SharedWorkiiService } from '../../service/shareWorkii.service';
 import { WorkiisService } from '../../service/workiis.service';
 import { WorkiiActions } from '../../state/actions/workii.actions';
-import { selectListApplications, selectListWorkiis, selectWorkiis } from '../../state/selectors/workii.selectors';
+import { selectListApplications, selectListWorkiis, selectWorkiiId, selectWorkiis } from '../../state/selectors/workii.selectors';
 
 @Component({
   selector: 'modal-info-workii',
@@ -88,15 +88,10 @@ export class ModalInfoWorkiiComponent {
   }
 
   async applyWorkii() {
-
-    console.log('click');
-
     this.store.dispatch(WorkiiActions.applyWorkiiRequest(this.userCurrentId,this.workii.id!))
   }
 
   async removeApplication(workii: string) {
-    console.log(this.applicationId);
-
     this.store.dispatch(WorkiiActions.deleteApplicationRequest(this.applicationId, workii))
   }
 
