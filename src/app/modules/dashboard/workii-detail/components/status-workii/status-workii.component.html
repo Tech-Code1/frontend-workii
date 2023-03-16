@@ -1,0 +1,35 @@
+<div
+  *ngIf="
+    workii &&
+    applications &&
+    applications.length > 0 &&
+    workii?.id === applications[0].workii?.id &&
+    workii?.user?.id != userCurrentId
+  "
+  class="flex flex-col w-full"
+>
+  <div
+    class="flex bg-gray-lighter h-auto w-full rounded-t-xl gap-4 flex-row p-4"
+  >
+    <div class="w-16 h-16 rounded-full bg-gray-neutral"></div>
+
+    <div class="flex flex-col gap-2 flex-grow justify-center items-center">
+      <p class="text-sm-black">Esperando a que Daniel seleccione el talento</p>
+      <div class="w-full border-2 flex border-dashed"></div>
+    </div>
+
+    <img
+      class="w-16 h-16"
+      src="../../../../assets/images/svg/icon-time.svg"
+      alt="icon time"
+    />
+  </div>
+
+  <div
+    class="h-10 w-full rounded-b-xl bg-warning-yellowLight flex justify-center items-center"
+  >
+    <p class="title-sm-black text-warning-yellowDark">
+      Aún no se ha seleccionado el talento
+    </p>
+  </div>
+</div>

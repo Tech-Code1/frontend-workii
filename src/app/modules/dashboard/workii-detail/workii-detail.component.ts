@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SharedWorkiiService } from '../workiis/service/shareWorkii.service';
 import { IApplicationUser } from '../workiis/interfaces/workii.interface';
 import { WorkiisService } from '../workiis/service/workiis.service';
-import { Observable, map, combineLatest, Subscription } from 'rxjs';
+import { Observable, map, combineLatest, Subscription, startWith, defaultIfEmpty, filter } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { UserService } from '../../auth/services/user.service';
 import { IWorkii } from 'src/app/core/models/workii.interface';
@@ -19,14 +19,13 @@ import { selectCurrentWorkii, selectListApplications } from '../workiis/state/se
 })
 export class WorkiiDetailComponent {
 
-  //@ViewChild('containerInfo') containerInfo!: ElementRef;
-
   userCurrentId!: string;
   isOwner!: boolean;
   applies!: IApplicationUser[];
-  info: boolean = false;
-  applications$: Observable<readonly IApplicationUser[]> = new Observable<readonly IApplicationUser[]>();
+  applications$!: Observable<readonly IApplicationUser[]>;
+  applications!: readonly IApplicationUser[];
   workii$!: Observable<IWorkii | null>;
+
 
   constructor(private route: ActivatedRoute,
     private userService: UserService,
@@ -41,14 +40,7 @@ export class WorkiiDetailComponent {
 
     this.workii$ = this.store.select(selectCurrentWorkii)
 
-
-  }
-
-  infoOpen() {
-    this.info = !this.info
-  }
-
-  shareWorkii(event: Event) {
-    event.stopPropagation()
+    this.store.dispatch(WorkiiActions.loadApplications())
+    this.applications$ = this.store.select(selectListApplications)
   }
 }
