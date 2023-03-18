@@ -5,7 +5,7 @@ import { SwitchService } from 'src/app/modules/auth/services/switch.service';
 import { UserService } from 'src/app/modules/auth/services/user.service';
 
 @Injectable()
-export class LoginEffects {
+export class UserEffects {
 
   userCurrentId: string = this.userService.getCurrentUser();
 

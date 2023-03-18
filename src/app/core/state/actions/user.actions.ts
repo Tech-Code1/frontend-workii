@@ -1,6 +1,6 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
-export const LoginActions = createActionGroup({
+export const UserActions = createActionGroup({
   source: 'Workii Page',
   events: {
     'Login Request': emptyProps(),
