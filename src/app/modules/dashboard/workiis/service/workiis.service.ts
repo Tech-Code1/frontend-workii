@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { catchError, map, of, tap, Observable, Subject, BehaviorSubject } from 'rxjs';
-import { IApplication, IApplicationResponse, IApplicationUser, IPagination, IWorkiiCreate } from '../interfaces/workii.interface';
+import { IApplication, IApplicationResponse, IApplicationUser, IPagination, IUsersApplicationResponse, IWorkiiCreate } from '../interfaces/workii.interface';
 import { environment } from 'src/environments/environment';
 import { UserService } from '../../../auth/services/user.service';
 import { IWorkii } from 'src/app/core/models/workii.interface';
@@ -44,6 +44,17 @@ export class WorkiisService {
 
 
     return this.http.get<IWorkii>(url, {headers: this.headers})
+  }
+
+  getUsersApplyWorkii(workii: string, {limit, offset}: IPagination) {
+
+    const url = `${this.baseUrl}/applications/users/${workii}`;
+    const params = {
+      limit: limit.toString(),
+      offset:  offset.toString()
+    };
+
+    return this.http.get<IUsersApplicationResponse[]>(url, {params})
   }
 
 

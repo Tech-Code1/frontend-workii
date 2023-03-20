@@ -1,6 +1,6 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { IWorkii } from 'src/app/core/models/workii.interface';
-import { IWorkiiCreate, IApplicationResponse, IApplicationUser, IApplicationCreateUserDTO, IApplication, IApplyResponse, IApplicationCreateUser } from '../../interfaces/workii.interface';
+import { IWorkiiCreate, IApplicationResponse, IApplicationUser, IApplicationCreateUserDTO, IApplication, IApplyResponse, IApplicationCreateUser, IPagination, IUsersApplicationResponse } from '../../interfaces/workii.interface';
 
 export const WorkiiActions = createActionGroup({
   source: 'Workii Page',
@@ -28,8 +28,13 @@ export const WorkiiActions = createActionGroup({
     'Apply Workii Request':  (user: string, workii: string) => ({ user, workii }),
     'Cancel Apply':  props<{errorMessage: string}>(),
     'Error Apply To Workii':  props<{errorMessage: string}>(),
+    //TODO: Esto se podria separar
     'Load Workii':  props<{slug: string}>(),
     'Load Workii Succes':  props<{workii: IWorkii}>(),
+    'Load Workii Error':  props<{errorMessage: string}>(),
+    'Load Users Apply':  (workii: string, {limit, offset}:IPagination) => ({ workii, limit, offset }),
+    'Load Users Apply Success':  (workiiUsersApplications: readonly IUsersApplicationResponse[]) => ({ workiiUsersApplications }),
+    'Load Users Apply Error':  props<{errorMessage: string}>(),
   }
 })
 

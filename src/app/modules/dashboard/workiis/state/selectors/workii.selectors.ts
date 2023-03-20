@@ -27,3 +27,8 @@ export const selectCurrentWorkii = createSelector(
   selectWorkiis,
   ({getWorkii}: IWorkiiState) => getWorkii
 )
+
+export const selectUsersApplyToWorkii = createSelector(
+  selectWorkiis,
+  ({getUsersWorkiiApply}: IWorkiiState) => getUsersWorkiiApply
+)

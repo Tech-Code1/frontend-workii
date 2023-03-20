@@ -69,6 +69,23 @@ export interface IResponseSuccess {
   message:          string;
 }
 
+export interface IUsersApplicationResponse {
+  id:   string;
+  user: IUsersApplication;
+}
+
+export interface IUsersApplication {
+  id:              string;
+  email:           string;
+  avatar:          string;
+  nick:            string;
+  areaOfExpertise: string[];
+  profession:      string[];
+  isActive:        boolean;
+  roles:           string[];
+  timeOfCreation:  string;
+}
+
 /* export interface ITime {
   id: number,
   time: number

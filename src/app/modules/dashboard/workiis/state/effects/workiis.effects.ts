@@ -43,8 +43,26 @@ export class WorkiiEffects {
 
         }),
         catchError(() => {
-          return of(WorkiiActions.errorCreateWorkii(
+          return of(WorkiiActions.loadWorkiiError(
             { errorMessage: 'Ha ocurrido un error al intentar obtener el workii' }
+          ));
+        })
+      ))
+    )
+  );
+
+  loadUsersApply$ = createEffect(() => this.actions$.pipe(
+    ofType(WorkiiActions.loadUsersApply),
+    switchMap((action) => this.workiisService.getUsersApplyWorkii(action.workii, {limit: action.limit, offset: action.offset})
+      .pipe(
+        map(usersApply => {
+
+        return  WorkiiActions.loadUsersApplySuccess(usersApply)
+
+        }),
+        catchError(() => {
+          return of(WorkiiActions.loadUsersApplyError(
+            { errorMessage: 'Ha ocurrido un error al intentar obtener la lista de usuarios que han aplicado a este workii' }
           ));
         })
       ))
@@ -237,7 +255,9 @@ removeApplication$: Observable<{id: string, workii: string} | { errorMessage: st
       WorkiiActions.deleteWorkiiError,
       WorkiiActions.loadApplicationError,
       WorkiiActions.deleteApplicationError,
-      WorkiiActions.errorApplyToWorkii),
+      WorkiiActions.errorApplyToWorkii,
+      WorkiiActions.loadUsersApplyError,
+      WorkiiActions.loadWorkiiError),
     tap((action) => {
       Swal.fire('Error', `${action.errorMessage}`, 'error');
     })

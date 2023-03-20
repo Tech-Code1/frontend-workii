@@ -3,7 +3,13 @@ import { IWorkiiState } from 'src/app/core/models/workii.state';
 import { WorkiiActions } from '../actions/workii.actions';
 import { IApplicationUser } from '../../interfaces/workii.interface';
 
-export const initialState: IWorkiiState = { loading: false, workiis: [], applications: [] , getWorkii: null}
+export const initialState: IWorkiiState = {
+  loading: false,
+  workiis: [],
+  applications: [] ,
+  getWorkii: null,
+  getUsersWorkiiApply: [],
+}
 
 export const _workiiReducer = createReducer(
   initialState,
@@ -75,12 +81,10 @@ export const _workiiReducer = createReducer(
   on(WorkiiActions.errorApplyToWorkii, (state, {errorMessage}) =>  ({...state, errorMessage})),
   on(WorkiiActions.loadWorkii, (state, {slug}) =>  ({...state, slug})),
   on(WorkiiActions.loadWorkiiSucces, (state, {workii}) =>  ({...state, getWorkii: workii})),
-  /* on(WorkiiActions.decrementApplications,(state,{applications})=>{
-    return {
-      ...state,
-      workiis: state.workiis.find( workii => workii.id === a)
-    }
-  }), */
+  on(WorkiiActions.loadWorkiiError, (state, {errorMessage}) =>  ({...state, errorMessage})),
+  on(WorkiiActions.loadUsersApply, (state, {workii, limit, offset}) =>  ({...state, workii, limit, offset})),
+  on(WorkiiActions.loadUsersApplySuccess, (state, {workiiUsersApplications}) =>  ({...state, getUsersWorkiiApply: workiiUsersApplications})),
+  on(WorkiiActions.loadUsersApplyError, (state, {errorMessage}) =>  ({...state, errorMessage})),
 );
 
 
