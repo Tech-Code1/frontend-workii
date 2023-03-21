@@ -1,4 +1,4 @@
-<div>
+<div class="flex flex-col gap-4">
   <div
     class="flex flex-row justify-between w-full gap-4 px-4 p-4 bg-gray-lighter rounded-xl h-auto"
   >
@@ -70,4 +70,33 @@
       </div>
     </div>
   </div>
+
+  <div class="flex flex-row gap-2 items-center">
+    <div class="h-[2px] flex-grow bg-black-principal"></div>
+    <p class="title-lg-black">Personas que han aplicado</p>
+    <div class="h-[2px] flex-grow bg-black-principal"></div>
+  </div>
+
+  <ul
+    *ngIf="applyUsersToWorkii$ | async as applyUsersToWorkii"
+    class="flex flex-col gap-2"
+  >
+    <li
+      *ngFor="let applyUserToWorkii of applyUsersToWorkii"
+      class="h-12 rounded-md bg-gray-neutral w-full px-4 flex items-center justify-between"
+    >
+      <div class="flex flex-row gap-4">
+        <img
+          [src]="applyUserToWorkii.user.avatar"
+          alt="avatar user"
+          class="h-8 w-8 rounded-full object-cover"
+        />
+        <p class="title-base-black">{{ applyUserToWorkii.user.nick }}</p>
+      </div>
+
+      <button class="btn-solid-blue h-10 w-fit rounded-md px-4">
+        Seleccionar
+      </button>
+    </li>
+  </ul>
 </div>

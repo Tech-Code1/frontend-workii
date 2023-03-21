@@ -20,7 +20,7 @@ export class InfoWorkiiOwnerComponent {
   @Input()
   userCurrentId!: string;
 
-  applyUsersToWorkii!: Observable<IUsersApplicationResponse[]>
+  applyUsersToWorkii$!: Observable<readonly IUsersApplicationResponse[]>
 
   constructor(private store: Store<IAppState>) {}
 
@@ -28,7 +28,7 @@ export class InfoWorkiiOwnerComponent {
 
     console.log(this.workii.id);
 
-    //this.store.select(selectUsersApplyToWorkii)
+    this.applyUsersToWorkii$ = this.store.select(selectUsersApplyToWorkii)
     this.store.dispatch(WorkiiActions.loadUsersApply(this.workii.id, {limit: 10, offset: 0}))
   }
 
