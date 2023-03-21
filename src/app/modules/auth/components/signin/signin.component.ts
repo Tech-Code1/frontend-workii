@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidatorsService } from 'src/app/shared/validators/validators.service';
 import { Router } from '@angular/router';
@@ -8,15 +8,17 @@ import { loginDTO } from '../../DTOs/loginDTO';
 import { Store } from '@ngrx/store';
 import { IAppState } from '../../../../core/state/app.state';
 import { UiActions } from 'src/app/shared/state/actions/ui.actions';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'signin',
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.scss']
 })
-export class SigninComponent {
+export class SigninComponent implements OnInit, OnDestroy {
 
   validForm!: boolean;
+  uiSubscription!: Subscription;
   loading: boolean = false;
   userExists: boolean = true;
   loginForm:FormGroup  = this.formBuilder.group({
@@ -40,11 +42,15 @@ export class SigninComponent {
   }
 
   ngOnInit() {
-    this.store.select('ui').subscribe(ui => {
+   this.uiSubscription = this.store.select('ui').subscribe(ui => {
       this.loading = ui.isLoading
       console.log('Cargando subs');
 
     });
+  }
+
+  ngOnDestroy(): void {
+    this.uiSubscription.unsubscribe();
   }
 
   login() {
@@ -53,6 +59,8 @@ export class SigninComponent {
       this.loginForm.markAllAsTouched();
       return;
     }
+
+    this.store.dispatch(UiActions.isLoading())
 
     const {email, password} = this.loginForm.value
 
@@ -63,8 +71,10 @@ export class SigninComponent {
 
       if(ok === true) {
         this.router.navigateByUrl('/dashboard/workiis')
+        this.store.dispatch(UiActions.stopLoading());
         this.userExists = true;
       } else {
+        this.store.dispatch(UiActions.stopLoading());
         //Swal.fire('Error', ok, 'error')
         this.userExists = false;
       }

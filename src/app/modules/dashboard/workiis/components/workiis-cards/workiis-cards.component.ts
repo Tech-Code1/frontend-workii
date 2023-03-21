@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { combineLatest, map, Observable } from 'rxjs';
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
 import { IApplicationUser } from '../../interfaces/workii.interface';
@@ -7,8 +7,10 @@ import { UserService } from '../../../../auth/services/user.service';
 import { Store } from '@ngrx/store';
 import { IWorkii } from 'src/app/core/models/workii.interface';
 import { WorkiiActions } from '../../state/actions/workii.actions';
-import { selectListApplications, selectLoading, selectListWorkiis } from '../../state/selectors/workii.selectors';
+import { selectListApplications, selectListWorkiis } from '../../state/selectors/workii.selectors';
 import { IAppState } from '../../../../../core/state/app.state';
+import { selectLoadingUi } from 'src/app/shared/state/selectors/user.selectors';
+import { UiActions } from 'src/app/shared/state/actions/ui.actions';
 
 @Component({
   selector: 'workiis-cards',
@@ -17,25 +19,23 @@ import { IAppState } from '../../../../../core/state/app.state';
 })
 export class WorkiisCardsComponent {
 
+  private userService = inject(UserService)
+  private store = inject(Store<IAppState>)
+  private modalService = inject(SwitchService)
+
   loading$: Observable<boolean> = new Observable<boolean>();
   workiis$: Observable<readonly IWorkii[]> = new Observable<readonly IWorkii[]>();
   applications$: Observable<readonly IApplicationUser[]> = new Observable<readonly IApplicationUser[]>();
   workiiIds$!: Observable<(string | undefined)[]>;
   userCurrentId: string = this.userService.getCurrentUser();
-  isOwner!: Observable<readonly boolean[]>
   applicationId!: string;
-  isApply!: boolean;
-  apllyUserId!: string;
   modalSwitch: boolean = false;
   selectedWorkii!: IWorkii;
   index!: number;
 
-  constructor(private modalService: SwitchService,
-    private userService: UserService,
-    private store: Store<IAppState>) {}
-
   ngOnInit(): void {
-    this.loading$ = this.store.select(selectLoading)
+    this.store.dispatch(UiActions.isLoading())
+    this.loading$ = this.store.select(selectLoadingUi)
     this.workiis$ = this.store.select(selectListWorkiis)
     this.store.dispatch(WorkiiActions.loadWorkiis())
 
@@ -49,8 +49,7 @@ export class WorkiisCardsComponent {
 
     this.modalService.$modal.subscribe((valor) => {
       this.modalSwitch = valor
-  })
-
+    })
 
   }
 

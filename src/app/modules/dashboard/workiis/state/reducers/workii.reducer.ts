@@ -4,7 +4,6 @@ import { WorkiiActions } from '../actions/workii.actions';
 import { IApplicationUser } from '../../interfaces/workii.interface';
 
 export const initialState: IWorkiiState = {
-  loading: false,
   workiis: [],
   applications: [] ,
   getWorkii: null,

@@ -1,6 +1,6 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { IWorkii } from 'src/app/core/models/workii.interface';
-import { IWorkiiCreate, IApplicationResponse, IApplicationUser, IApplicationCreateUserDTO, IApplication, IApplyResponse, IApplicationCreateUser, IPagination, IUsersApplicationResponse } from '../../interfaces/workii.interface';
+import { IWorkiiCreate, IApplicationResponse, IApplicationUser, IApplicationCreateUser, IPagination, IUsersApplicationResponse } from '../../interfaces/workii.interface';
 
 export const WorkiiActions = createActionGroup({
   source: 'Workii Page',

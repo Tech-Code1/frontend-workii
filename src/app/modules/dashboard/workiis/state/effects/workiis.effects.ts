@@ -9,21 +9,23 @@ import Swal, { SweetAlertResult } from 'sweetalert2';
 import { IApplicationResponse, IApplicationUser, IWorkiiCreate, IApplication } from '../../interfaces/workii.interface';
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
 import { UserService } from 'src/app/modules/auth/services/user.service';
+import { IAppState } from '../../../../../core/state/app.state';
+import { Action, Store } from '@ngrx/store';
+import { UiActions } from 'src/app/shared/state/actions/ui.actions';
 
 @Injectable()
 export class WorkiiEffects {
 
   userCurrentId: string = this.userService.getCurrentUser();
 
-  loadWorkiis$: Observable<{type: string, workiis: IWorkii[]} | {errorMessage: string}> = createEffect(() => this.actions$.pipe(
+  loadWorkiis$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(WorkiiActions.loadWorkiis),
     exhaustMap(() => this.workiisService.getWorkiis({limit: 20, offset: 0})
       .pipe(
-        map(workiis => {
-
-        return  { type: WorkiiActions.listWorkiis.type, workiis }
-
-        }),
+        mergeMap(workiis =>[
+        UiActions.stopLoading(),
+        { type: WorkiiActions.listWorkiis.type, workiis }
+        ]),
         catchError(() => {
           return of(WorkiiActions.errorCreateWorkii(
             { errorMessage: 'Ha ocurrido un error al intentar obtener el listado de los Workiis' }
@@ -38,7 +40,6 @@ export class WorkiiEffects {
     switchMap((action) => this.workiisService.getWorkii(action.slug)
       .pipe(
         map(workii => {
-
         return  WorkiiActions.loadWorkiiSucces({workii})
 
         }),

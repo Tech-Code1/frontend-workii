@@ -6,6 +6,7 @@ import { ModalCreateWorkiiComponent } from './components/modal-create-workii/mod
 import { WorkiisCardsComponent } from './components/workiis-cards/workiis-cards.component';
 import { ModalInfoWorkiiComponent } from './components/modal-info-workii/modal-info-workii.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SkeletonCardsComponent } from './components/skeleton-cards/skeleton-cards.component';
 
 const routes: Routes = [
   {
@@ -19,7 +20,8 @@ const routes: Routes = [
     WorkiisComponent,
     ModalCreateWorkiiComponent,
     WorkiisCardsComponent,
-    ModalInfoWorkiiComponent
+    ModalInfoWorkiiComponent,
+    SkeletonCardsComponent
   ],
   imports: [
     CommonModule,

@@ -13,11 +13,6 @@ export const selectWorkiiId = createSelector(
   selectWorkiis,
 ({workiis}: IWorkiiState) => workiis.map(workii => workii.id));
 
-export const selectLoading = createSelector(
-  selectWorkiis,
-  ({loading}: IWorkiiState) => loading
-);
-
 export const selectListApplications = createSelector(
   selectWorkiis,
   ({applications}: IWorkiiState) => applications

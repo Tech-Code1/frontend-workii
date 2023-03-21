@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SwitchService } from '../../services/switch.service';
 import { AuthService } from '../../services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -10,13 +11,18 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent implements OnInit {
 
   modalSwith: boolean = false;
+  modalSubscription!: Subscription;
 
   constructor(private modalService: SwitchService) { }
 
   ngOnInit(): void {
-    this.modalService.$modal.subscribe((valor) => {
+   this.modalSubscription= this.modalService.$modal.subscribe((valor) => {
       this.modalSwith = valor
     })
+  }
+
+  ngOnDestroy() {
+    this.modalSubscription.unsubscribe();
   }
 
   openModal(): void {
