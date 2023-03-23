@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,9 @@ export class ValidatorsService {
   constructor() { }
 
   similarInputs(input1: string, input2: string) {
+
+    console.log(input1, input2);
+
 
     return (formGroup: AbstractControl): ValidationErrors | null => {
 

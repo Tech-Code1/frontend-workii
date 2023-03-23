@@ -1,7 +1,7 @@
 export interface ICreateUser {
-  avatar?: {};
+  avatar?: string;
   nick?: string;
-  areaOfExpertise?: string[];
-  profession?: string[];
+  areaOfExpertise?: string;
+  profession?: string;
   password?: string;
 }

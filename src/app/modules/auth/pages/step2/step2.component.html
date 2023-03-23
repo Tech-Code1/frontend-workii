@@ -129,8 +129,8 @@
     <div class="flex gap-2 justify-center mt-9">
       <p class="body-sm-black text-center">
         Estas creando una cuenta con el correo
-        <span class="text-primary-blueNeutral">{{ email }}</span> Si quieres
-        crearla con otro,
+        <span class="text-primary-blueNeutral">{{ email$ | async }}</span>
+        Si quieres crearla con otro,
         <a href="/auth" class="underline"> ingresa con otro correo.</a>
       </p>
     </div>

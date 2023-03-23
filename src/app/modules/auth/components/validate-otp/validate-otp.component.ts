@@ -17,9 +17,8 @@ import { UiActions } from 'src/app/shared/state/actions/ui.actions';
 })
 export class ValidateOtpComponent {
 
+  private formBuilder = inject(FormBuilder)
   private store = inject(Store<IAppState>)
-  @Input()
-  userExists!: boolean | null;
 
  /*  @Output()
   cancel: EventEmitter<void> = new EventEmitter<void>(); */
@@ -27,13 +26,6 @@ export class ValidateOtpComponent {
   otpForm:FormGroup  = this.formBuilder.group({
     otp: ['', [Validators.required, Validators.maxLength(100)]],
   })
-
-  constructor(private formBuilder: FormBuilder,
-    private validatorsService: ValidatorsService,
-    private router: Router,
-    private authService: AuthService,
-    ) {}
-
 
   isValid(inputName: string): boolean | undefined | void {
     if (this.otpForm.get(inputName)?.touched) {
@@ -50,7 +42,7 @@ export class ValidateOtpComponent {
 
     const {otp} = this.otpForm.value
 
-    this.store.dispatch(UserActions.validateOtp(otp))
+    this.store.dispatch(UserActions.validateOtp({otp}))
   }
 
   cancelOtp() {

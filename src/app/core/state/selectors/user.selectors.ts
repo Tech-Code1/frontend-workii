@@ -23,3 +23,13 @@ export const selectOtp = createSelector(
   selectUser,
   ({otp}: IUserState) => otp
 );
+
+export const selectEmail = createSelector(
+  selectUser,
+  ({email}: IUserState) => email
+);
+
+export const selectPassword = createSelector(
+  selectUser,
+  ({password}: IUserState) => password
+);

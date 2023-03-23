@@ -12,6 +12,7 @@ import { UiActions } from 'src/app/shared/state/actions/ui.actions';
 import { exhaustMap, mergeMap } from 'rxjs/operators';
 import { IAppState } from '../app.state';
 import { Store } from '@ngrx/store';
+import { selectPassword } from '../selectors/user.selectors';
 
 @Injectable()
 export class UserEffects {
@@ -24,7 +25,7 @@ export class UserEffects {
   userCurrentId: string = this.userService.getCurrentUser();
   private _user!: IUser;
   loginEmail!: string;
-  loginPassword!: string;
+  loginPassword!: string | undefined;
 
   setUserData(token: string, id: string, email: string) {
     localStorage.setItem('token', token!);
@@ -72,7 +73,7 @@ export class UserEffects {
     ofType(UserActions.validateOtp),
     concatMap((action) =>
 
-        this.authServices.validateOtp(action.otp.otp).pipe(
+        this.authServices.validateOtp(action.otp).pipe(
           map( resp => {
             if (resp.ok) {
               this.router.navigateByUrl('/auth/step2')

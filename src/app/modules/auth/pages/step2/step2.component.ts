@@ -1,10 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ValidatorsService } from 'src/app/shared/validators/validators.service';
 import { loginDTO } from '../../DTOs/loginDTO';
 import { AuthService } from '../../services/auth.service';
 import { RegisterService } from '../../services/register.service';
+import { IAppState } from 'src/app/core/state/app.state';
+import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
+import { selectEmail } from 'src/app/core/state/selectors/user.selectors';
+import { selectPassword } from '../../../../core/state/selectors/user.selectors';
 
 @Component({
   selector: 'app-step2',
@@ -13,30 +18,52 @@ import { RegisterService } from '../../services/register.service';
 })
 export class Step2Component implements OnInit {
 
-  email!: string | undefined;
+  private formBuilder = inject(FormBuilder);
+  private registerService = inject(RegisterService);
+  private router = inject(Router)
+  private store = inject(Store<IAppState>)
+  private validatorsService = inject(ValidatorsService)
+  email$!: Observable<string | null>;
+  passwordSubscription!: Subscription;
+  password!: string | null;
   images: any = {}
+  registerStep2!:FormGroup;
 
-  registerStep2:FormGroup  = this.formBuilder.group({
-    avatar: ['', Validators.required],
-    nick: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
-    password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]],
-  }, {validator: this.validatorsService.similarInputs(this.authService.loginPassword, 'password')} as AbstractControlOptions)
+  constructor() {
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private authService: AuthService,
-    private registerService: RegisterService,
-    private router:Router,
-    private validatorsService: ValidatorsService
-    ) { }
 
-  ngOnInit(): void {
-    this.email = this.authService.loginEmail
+
+}
+
+
+    ngOnInit(): void {
+    this.email$ = this.store.select(selectEmail)
+
+
+    this.passwordSubscription = this.store.select(selectPassword)
+    .subscribe(pass => {
+
+    this.registerStep2 = this.formBuilder.group({
+      avatar: ['', Validators.required],
+      nick: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]],
+    }, {validator: this.validatorsService.similarInputs(pass!, 'password')} as AbstractControlOptions)
+
+      console.log(pass);
+    })
+
+    this.registerStep2.valueChanges.subscribe(() => {
+      console.log('Formulario válido:', this.registerStep2.valid);
+      console.log('Errores:', this.registerStep2.errors);
+    });
 
     this.registerStep2.patchValue(this.registerService.userCreationDTO)
     this.images = this.registerService.previewImages;
   }
 
+  ngOnDestroy() {
+    this.passwordSubscription.unsubscribe();
+  }
 
   isValid(inputName: string): boolean | undefined | void {
     if (this.registerStep2.get(inputName)?.touched) {

@@ -13,8 +13,8 @@ import { RegisterService } from '../../services/register.service';
 export class Step3Component implements OnInit {
 
   registerStep3:FormGroup  = this.formBuilder.group({
-    areaOfExpertise: [[], [Validators.required]],
-    profession: [[], [Validators.required]],
+    areaOfExpertise: ["", [Validators.required]],
+    profession: ["", [Validators.required]],
   })
 
   constructor(

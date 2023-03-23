@@ -13,5 +13,5 @@ export interface IUser {
 
 export interface IOtp {
   otp: string;
-  ok: boolean;
+  ok?: boolean;
 }

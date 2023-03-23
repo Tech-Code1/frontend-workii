@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { SwitchService } from '../../services/switch.service';
 import { AuthService } from '../../services/auth.service';
 import { Subscription } from 'rxjs';
@@ -10,10 +10,9 @@ import { Subscription } from 'rxjs';
 })
 export class LoginComponent implements OnInit {
 
+  private modalService = inject(SwitchService)
   modalSwith: boolean = false;
   modalSubscription!: Subscription;
-
-  constructor(private modalService: SwitchService) { }
 
   ngOnInit(): void {
    this.modalSubscription= this.modalService.$modal.subscribe((valor) => {

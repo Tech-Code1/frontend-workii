@@ -7,4 +7,6 @@ export interface IUserState {
   user: IUserDTO | null,
   userStatus: boolean,
   otp: IOtp | null,
+  email: string | null,
+  password: string | null,
 }

@@ -11,7 +11,7 @@ export const UserActions = createActionGroup({
     'Login Error': (errorMessage: string) => ({ errorMessage }),
     'User Not Found': emptyProps(),
     'User Found': emptyProps(),
-    'Validate Otp': (otp: IOtp) => ({ otp }),
+    'Validate Otp': ({otp}: IOtp) => ({ otp }),
     'Validate Otp Success': (otp: IOtp) => ({ otp }),
     'Validate Otp Error Type': (otp: IOtp) => ({ otp }),
     'Validate Otp Error': (errorMessage: string) => ({ errorMessage }),
