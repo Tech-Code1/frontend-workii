@@ -38,23 +38,6 @@ export class AuthService {
     const body = { email, password };
 
     return this.http.post<IAuthResponse>(url, body)
-    .pipe(
-      tap( resp => {
-        if(resp.ok ) {
-          this.setUserData(resp.token!, resp.id!, resp.email!)
-          this.router.navigate(['/dashboard/workiis']);
-        }
-      }),
-      map(resp => {
-        if(resp.email && resp.password)
-        this.loginEmail = resp.email,
-        this.loginPassword = resp.password
-        console.log(this.loginPassword);
-
-      }
-      ),
-      catchError(err => of(err.error.message))
-    )
   }
 
   validateOtp(otp: string) {
@@ -62,10 +45,6 @@ export class AuthService {
     const body = { otp };
 
     return this.http.post<IOtp>(url, body)
-    .pipe(
-      map(resp => resp.ok),
-      catchError(err => of(false))
-    )
   }
 
   validateToken(): Observable<boolean> {

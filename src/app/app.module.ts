@@ -16,6 +16,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { ROOT_REDUCERS } from './core/state/app.state';
 import { WorkiiEffects } from './modules/dashboard/workiis/state/effects/workiis.effects';
+import { UserEffects } from './core/state/effects/user.effects';
 
 export function createTranslateLoader(http: HttpClient) {
 	return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -34,7 +35,7 @@ export function createTranslateLoader(http: HttpClient) {
     HttpClientModule,
     StoreModule.forRoot(ROOT_REDUCERS),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: !isDevMode()}),
-    EffectsModule.forRoot([WorkiiEffects]),
+    EffectsModule.forRoot([WorkiiEffects, UserEffects]),
     TranslateModule.forRoot({
     loader: {
       provide: TranslateLoader,

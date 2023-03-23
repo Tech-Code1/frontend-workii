@@ -1,9 +1,14 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidatorsService } from 'src/app/shared/validators/validators.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
+import { Store } from '@ngrx/store';
+import { IAppState } from '../../../../core/state/app.state';
+import { UserActions } from '../../../../core/state/actions/user.actions';
+import { selectOtp } from 'src/app/core/state/selectors/user.selectors';
+import { UiActions } from 'src/app/shared/state/actions/ui.actions';
 
 @Component({
   selector: 'validate-otp',
@@ -12,11 +17,12 @@ import Swal from 'sweetalert2';
 })
 export class ValidateOtpComponent {
 
+  private store = inject(Store<IAppState>)
   @Input()
-  userExists!: boolean;
+  userExists!: boolean | null;
 
-  @Output()
-  cancel: EventEmitter<void> = new EventEmitter<void>();
+ /*  @Output()
+  cancel: EventEmitter<void> = new EventEmitter<void>(); */
 
   otpForm:FormGroup  = this.formBuilder.group({
     otp: ['', [Validators.required, Validators.maxLength(100)]],
@@ -44,20 +50,10 @@ export class ValidateOtpComponent {
 
     const {otp} = this.otpForm.value
 
-    this.authService.validateOtp(otp)
-    .subscribe(ok => {
-
-      if (ok) {
-        this.router.navigateByUrl('/auth/step2')
-      } else {
-        Swal.fire('Error', "OTP inválido. Por favor, vuelva a intentarlo.", 'error')
-      }
-    })
+    this.store.dispatch(UserActions.validateOtp(otp))
   }
 
-
   cancelOtp() {
-    this.cancel.emit()
-    console.log(this.userExists);
+    this.store.dispatch(UserActions.userFound())
   }
 }

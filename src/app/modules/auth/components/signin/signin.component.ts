@@ -1,14 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidatorsService } from 'src/app/shared/validators/validators.service';
-import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
-import Swal from 'sweetalert2';
-import { loginDTO } from '../../DTOs/loginDTO';
 import { Store } from '@ngrx/store';
 import { IAppState } from '../../../../core/state/app.state';
 import { UiActions } from 'src/app/shared/state/actions/ui.actions';
-import { Subscription } from 'rxjs';
+import { UserActions } from 'src/app/core/state/actions/user.actions';
+import { selectStatusUser } from 'src/app/core/state/selectors/user.selectors';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'signin',
@@ -20,7 +18,7 @@ export class SigninComponent implements OnInit, OnDestroy {
   validForm!: boolean;
   uiSubscription!: Subscription;
   loading: boolean = false;
-  userExists: boolean = true;
+  userExists$!: Observable<boolean>;
   loginForm:FormGroup  = this.formBuilder.group({
     email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern), Validators.maxLength(100)]],
     password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]],
@@ -28,8 +26,6 @@ export class SigninComponent implements OnInit, OnDestroy {
 
   constructor(private formBuilder: FormBuilder,
     private validatorsService: ValidatorsService,
-    private router: Router,
-    private authService: AuthService,
     private store: Store<IAppState>) {}
 
 
@@ -47,6 +43,8 @@ export class SigninComponent implements OnInit, OnDestroy {
       console.log('Cargando subs');
 
     });
+
+    this.userExists$ = this.store.select(selectStatusUser)
   }
 
   ngOnDestroy(): void {
@@ -54,7 +52,6 @@ export class SigninComponent implements OnInit, OnDestroy {
   }
 
   login() {
-
     if(!this.loginForm.valid) {
       this.loginForm.markAllAsTouched();
       return;
@@ -64,21 +61,6 @@ export class SigninComponent implements OnInit, OnDestroy {
 
     const {email, password} = this.loginForm.value
 
-    this.authService.login({email, password})
-    .subscribe( ok => {
-
-      console.log(ok);
-
-      if(ok === true) {
-        this.router.navigateByUrl('/dashboard/workiis')
-        this.store.dispatch(UiActions.stopLoading());
-        this.userExists = true;
-      } else {
-        this.store.dispatch(UiActions.stopLoading());
-        //Swal.fire('Error', ok, 'error')
-        this.userExists = false;
-      }
-    })
-
+    this.store.dispatch(UserActions.loginUser(email, password))
   }
 }
