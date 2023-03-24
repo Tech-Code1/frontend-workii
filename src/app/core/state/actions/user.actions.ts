@@ -15,6 +15,11 @@ export const UserActions = createActionGroup({
     'Validate Otp Success': (otp: IOtp) => ({ otp }),
     'Validate Otp Error Type': (otp: IOtp) => ({ otp }),
     'Validate Otp Error': (errorMessage: string) => ({ errorMessage }),
+    'Register User': emptyProps(),
+    'Register User Success': emptyProps(),
+    'Register User Navigate To Dashboard': emptyProps(),
+    'Register User Show Message': emptyProps(),
+    'Register User Error': (errorMessage: string) => ({ errorMessage }),
     //'Login Error': emptyProps(),
     //'List workiis': (workiis: readonly IWorkii[]) => ({ workiis }),
   }

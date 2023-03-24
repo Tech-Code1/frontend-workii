@@ -16,4 +16,8 @@ export const _userReducer = createReducer(
   on(UserActions.validateOtpSuccess, (state, {otp: {otp, ok}}) =>  ({...state, otp: {otp, ok: true}})),
   on(UserActions.validateOtpErrorType, (state, {otp: {otp, ok}}) =>  ({...state, otp: {otp, ok: false}})),
   on(UserActions.validateOtpError, (state, {errorMessage}) =>  ({...state, errorMessage})),
+  on(UserActions.registerUser, (state) =>  ({...state})),
+  on(UserActions.registerUserSuccess, (state) =>  ({...state})),
+  on(UserActions.registerUserNavigateToDashboard, (state) =>  ({...state, email: null, password: null, otp: null, userStatus: true})),
+  on(UserActions.registerUserError, (state) =>  ({...state, email: null, password: null, otp: null, userStatus: true})),
 );

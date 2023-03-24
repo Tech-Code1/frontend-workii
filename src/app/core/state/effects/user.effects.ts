@@ -13,6 +13,7 @@ import { exhaustMap, mergeMap } from 'rxjs/operators';
 import { IAppState } from '../app.state';
 import { Store } from '@ngrx/store';
 import { selectPassword } from '../selectors/user.selectors';
+import { RegisterService } from '../../../modules/auth/services/register.service';
 
 @Injectable()
 export class UserEffects {
@@ -21,6 +22,7 @@ export class UserEffects {
   private router = inject(Router);
   private actions$ = inject(Actions);
   private userService = inject(UserService);
+  private registerService = inject(RegisterService);
   //private store = inject(Store<IAppState>);
   userCurrentId: string = this.userService.getCurrentUser();
   private _user!: IUser;
@@ -69,6 +71,46 @@ export class UserEffects {
         ))
   ));
 
+  registerUser$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(UserActions.registerUser),
+    mergeMap(() =>
+      this.registerService.finishUserCreation().pipe(
+        mergeMap(() => [
+          /* this.router.navigate(['/dashboard/workiis']);
+          Swal.fire('Se ha creado el usuario correctamente');
+          return UserActions.registerUserSuccess(); */
+          UserActions.registerUserSuccess(),
+          UserActions.registerUserNavigateToDashboard(),
+          UserActions.registerUserShowMessage(),
+        ]),
+        catchError(err => {
+          this.router.navigate(['/auth']);
+          return of(UserActions.registerUserError('Ha ocurrido un error al registrar el usuario'));
+        })
+      )
+    )
+  )
+);
+
+registerUserNavigateToDashboard$ = createEffect(() => this.actions$.pipe(
+      ofType(UserActions.registerUserNavigateToDashboard),
+      tap(() => {
+
+        this.router.navigate(['/dashboard/workiis']);
+      })
+    ),
+  { dispatch: false }
+);
+
+registerUserShowMessage$ = createEffect(() => this.actions$.pipe(
+      ofType(UserActions.registerUserShowMessage),
+      tap(() => Swal.fire('Se ha creado el usuario correctamente'))
+    ),
+  { dispatch: false }
+);
+
+
   validateOtp$ = createEffect(() => this.actions$.pipe(
     ofType(UserActions.validateOtp),
     concatMap((action) =>
@@ -94,7 +136,7 @@ export class UserEffects {
 
 
   notifyApiError$ = createEffect(() => this.actions$.pipe(
-    ofType(UserActions.loginError, UserActions.validateOtpError),
+    ofType(UserActions.loginError, UserActions.validateOtpError, UserActions.registerUserError),
     tap((action) => {
       Swal.fire('Error', `${action.errorMessage}`, 'error');
     })

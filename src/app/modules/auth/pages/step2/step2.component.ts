@@ -29,13 +29,6 @@ export class Step2Component implements OnInit {
   images: any = {}
   registerStep2!:FormGroup;
 
-  constructor() {
-
-
-
-}
-
-
     ngOnInit(): void {
     this.email$ = this.store.select(selectEmail)
 
@@ -49,7 +42,6 @@ export class Step2Component implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]],
     }, {validator: this.validatorsService.similarInputs(pass!, 'password')} as AbstractControlOptions)
 
-      console.log(pass);
     })
 
     this.registerStep2.valueChanges.subscribe(() => {
