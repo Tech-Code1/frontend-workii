@@ -1,6 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { supportLanguages } from './shared/utils/constLanguages';
+import { IAppState } from './core/state/app.state';
+import { UserActions } from './core/state/actions/user.actions';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,9 +13,10 @@ import { supportLanguages } from './shared/utils/constLanguages';
 export class AppComponent {
   title = 'workii';
 
-  constructor(
-		private translateService: TranslateService
-	) {
+  private translateService = inject(TranslateService)
+  private store = inject(Store<IAppState>)
+
+  constructor() {
 		this.translateService.addLangs(supportLanguages);
 		this.translateService.setDefaultLang('en');
 		this.translateService.use('en');
@@ -20,4 +24,8 @@ export class AppComponent {
 		/* const browserlang = this.translateService.getBrowserLang();
 	 this.translateService.use(browserlang); */
 	}
+
+  ngOnInit() {
+    this.store.dispatch(UserActions.validateToken());
+  }
 }

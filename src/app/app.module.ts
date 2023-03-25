@@ -11,15 +11,20 @@ import { LayoutCoreModule } from './core/layouts/layout-core/layout-core.module'
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 
 // NgRx
-import { StoreModule } from '@ngrx/store';
+import { ActionReducer, StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { ROOT_REDUCERS } from './core/state/app.state';
 import { WorkiiEffects } from './modules/dashboard/workiis/state/effects/workiis.effects';
 import { UserEffects } from './core/state/effects/user.effects';
+import { localStorageSync } from 'ngrx-store-localstorage';
 
 export function createTranslateLoader(http: HttpClient) {
 	return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
+export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
+  return localStorageSync({ keys: ['token', 'access_token_expiration', 'code_verifier', 'theme'], rehydrate: true })(reducer);
 }
 
 @NgModule({
@@ -33,7 +38,15 @@ export function createTranslateLoader(http: HttpClient) {
     AppRoutingModule,
     DashboardModule,
     HttpClientModule,
-    StoreModule.forRoot(ROOT_REDUCERS),
+    StoreModule.forRoot(ROOT_REDUCERS, {
+      metaReducers: [localStorageSyncReducer],
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+        strictStateSerializability: true,
+        strictActionSerializability: true,
+      },
+    }),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: !isDevMode()}),
     EffectsModule.forRoot([WorkiiEffects, UserEffects]),
     TranslateModule.forRoot({

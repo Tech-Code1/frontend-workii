@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { IOtp } from 'src/app/modules/auth/interfaces/auth.interface';
+import { IAuthResponse, IOtp } from 'src/app/modules/auth/interfaces/auth.interface';
 import { IUserDTO } from '../../models/user.interface';
 
 export const UserActions = createActionGroup({
@@ -8,6 +8,7 @@ export const UserActions = createActionGroup({
     'Set User': (user: IUserDTO) => ({ user }),
     'Unset User': emptyProps(),
     'Login User': (email: string, password: string) => ({ email, password }),
+    'Login Success': (token: string) => ({ token }),
     'Login Error': (errorMessage: string) => ({ errorMessage }),
     'User Not Found': emptyProps(),
     'User Found': emptyProps(),
@@ -20,6 +21,9 @@ export const UserActions = createActionGroup({
     'Register User Navigate To Dashboard': emptyProps(),
     'Register User Show Message': emptyProps(),
     'Register User Error': (errorMessage: string) => ({ errorMessage }),
+    'Validate Token': emptyProps(),
+    'Validate Token Success': (tokenValid: boolean) => ({ tokenValid }),
+    'Validate Token Error': (errorMessage: string) => ({ errorMessage }),
     //'Login Error': emptyProps(),
     //'List workiis': (workiis: readonly IWorkii[]) => ({ workiis }),
   }

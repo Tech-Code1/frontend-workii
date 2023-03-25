@@ -9,4 +9,5 @@ export interface IUserState {
   otp: IOtp | null,
   email: string | null,
   password: string | null,
+  tokenValid: boolean;
 }

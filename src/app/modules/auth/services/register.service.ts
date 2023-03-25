@@ -4,7 +4,7 @@ import { environment } from '../../../../environments/environment';
 
 import { tap} from 'rxjs';
 import { buildFormData } from 'src/app/shared/utils/buildFormData';
-import { ICreateUser } from '../interfaces/createUser.interface';
+import { ICreateUser, ICreateUserResponse } from '../interfaces/createUser.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +37,7 @@ export class RegisterService {
 
     let formData = buildFormData(finalDTO);
 
-    return this.http.post(url, formData).pipe(
+    return this.http.post<ICreateUserResponse>(url, formData).pipe(
       tap(()=>{
         this.userCreationDTO = {};
       })

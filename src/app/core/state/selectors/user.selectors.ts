@@ -33,3 +33,8 @@ export const selectPassword = createSelector(
   selectUser,
   ({password}: IUserState) => password
 );
+
+export const selectAuthStatus = createSelector(
+  selectUser,
+  ({tokenValid}: IUserState) => tokenValid
+);

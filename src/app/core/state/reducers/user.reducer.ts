@@ -2,13 +2,14 @@ import { createReducer, on } from '@ngrx/store';
 import { IUserState } from '../../models/user.state';
 import { UserActions } from '../actions/user.actions';
 
-export const initialState: IUserState = { login: null , user: null, userStatus: true, otp: null, email: null, password: null}
+export const initialState: IUserState = { login: null , user: null, userStatus: true, otp: null, email: null, password: null, tokenValid: false}
 
 export const _userReducer = createReducer(
   initialState,
   on(UserActions.setUser, (state, {user}) =>  ({...state, user: {...user}})),
   on(UserActions.unsetUser, (state, {type}) =>  ({...state, type, user: null})),
-  on(UserActions.loginUser, (state, {email, password}) =>  ({...state, email, password})),
+  on(UserActions.loginUser, (state, {email, password}) =>  ({...state, email, password, tokenValid: true})),
+  on(UserActions.loginSuccess, (state, token) =>  ({...state, token, tokenValid: true})),
   on(UserActions.loginError, (state, {errorMessage}) =>  ({...state, errorMessage})),
   on(UserActions.userNotFound, (state) =>  ({...state, userStatus: false})),
   on(UserActions.userFound, (state) =>  ({...state, userStatus: true})),
@@ -20,4 +21,7 @@ export const _userReducer = createReducer(
   on(UserActions.registerUserSuccess, (state) =>  ({...state})),
   on(UserActions.registerUserNavigateToDashboard, (state) =>  ({...state, email: null, password: null, otp: null, userStatus: true})),
   on(UserActions.registerUserError, (state) =>  ({...state, email: null, password: null, otp: null, userStatus: true})),
+  on(UserActions.validateToken, (state) =>  ({...state, tokenValid: false})),
+  on(UserActions.validateTokenSuccess, (state) =>  ({...state, tokenValid: true})),
+  on(UserActions.validateTokenError, (state) =>  ({...state, tokenValid: false})),
 );

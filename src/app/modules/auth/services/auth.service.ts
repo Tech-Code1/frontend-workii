@@ -47,19 +47,12 @@ export class AuthService {
     return this.http.post<IOtp>(url, body)
   }
 
-  validateToken(): Observable<boolean> {
+  validateToken(): Observable<IAuthResponse> {
     const url = `${this.baseUrl}/auth/renew`;
     const headers = new HttpHeaders()
     .set('x-token', localStorage.getItem('token') || '');
 
     return this.http.get<IAuthResponse>(url, { headers })
-    .pipe(
-      map(resp => {
-        this.setUserData(resp.token!, resp.id!, resp.email!)
-        return resp.ok
-      }),
-      catchError(err => of(false))
-    )
   }
 
   logout() {

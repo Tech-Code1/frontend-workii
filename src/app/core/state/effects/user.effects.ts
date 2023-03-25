@@ -51,6 +51,7 @@ export class UserEffects {
 
               return from([
                 UserActions.userFound(),
+                UserActions.loginSuccess(resp.token!),
                 UiActions.stopLoading()
               ]);
 
@@ -74,42 +75,58 @@ export class UserEffects {
   registerUser$ = createEffect(() =>
   this.actions$.pipe(
     ofType(UserActions.registerUser),
-    mergeMap(() =>
+    switchMap(() =>
       this.registerService.finishUserCreation().pipe(
-        mergeMap(() => [
-          /* this.router.navigate(['/dashboard/workiis']);
-          Swal.fire('Se ha creado el usuario correctamente');
-          return UserActions.registerUserSuccess(); */
+        switchMap((createUserResponse) => {
+        const token = createUserResponse.token;
+        // Almacena el token en localStorage
+        localStorage.setItem('token', token);
+
+        return [
           UserActions.registerUserSuccess(),
           UserActions.registerUserNavigateToDashboard(),
           UserActions.registerUserShowMessage(),
-        ]),
+        ]}),
         catchError(err => {
           this.router.navigate(['/auth']);
           return of(UserActions.registerUserError('Ha ocurrido un error al registrar el usuario'));
         })
+        )
+    )
+  ));
+
+  registerUserNavigateToDashboard$ = createEffect(() => this.actions$.pipe(
+        ofType(UserActions.registerUserNavigateToDashboard),
+        tap(() => {
+
+          this.router.navigate(['/dashboard/workiis']);
+        })
+      ),
+    { dispatch: false }
+  );
+
+  registerUserShowMessage$ = createEffect(() => this.actions$.pipe(
+        ofType(UserActions.registerUserShowMessage),
+        tap(() => Swal.fire('Se ha creado el usuario correctamente'))
+      ),
+    { dispatch: false }
+  );
+
+  validateToken$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.validateToken),
+      concatMap(() =>
+        this.authServices.validateToken().pipe(
+          map(resp => {
+            this.setUserData(resp.token!, resp.id!, resp.email!)
+            //this.router.navigate(['/dashboard/workiis']);
+            return UserActions.validateTokenSuccess(resp.ok);
+          }),
+          catchError((error) => of(UserActions.validateTokenError('Hubo un error en validar el token')))
+        )
       )
     )
-  )
-);
-
-registerUserNavigateToDashboard$ = createEffect(() => this.actions$.pipe(
-      ofType(UserActions.registerUserNavigateToDashboard),
-      tap(() => {
-
-        this.router.navigate(['/dashboard/workiis']);
-      })
-    ),
-  { dispatch: false }
-);
-
-registerUserShowMessage$ = createEffect(() => this.actions$.pipe(
-      ofType(UserActions.registerUserShowMessage),
-      tap(() => Swal.fire('Se ha creado el usuario correctamente'))
-    ),
-  { dispatch: false }
-);
-
+  );
 
   validateOtp$ = createEffect(() => this.actions$.pipe(
     ofType(UserActions.validateOtp),
@@ -136,7 +153,7 @@ registerUserShowMessage$ = createEffect(() => this.actions$.pipe(
 
 
   notifyApiError$ = createEffect(() => this.actions$.pipe(
-    ofType(UserActions.loginError, UserActions.validateOtpError, UserActions.registerUserError),
+    ofType(UserActions.loginError, UserActions.validateOtpError, UserActions.registerUserError, UserActions.validateTokenError),
     tap((action) => {
       Swal.fire('Error', `${action.errorMessage}`, 'error');
     })
