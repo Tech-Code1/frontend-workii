@@ -12,6 +12,7 @@ export const initialState: IWorkiiState = {
 
 export const _workiiReducer = createReducer(
   initialState,
+  on(WorkiiActions.logOut, () => initialState),
   on(WorkiiActions.loadWorkiis, (state, {type}) =>  ({...state, type})),
   on(WorkiiActions.loadApplications, (state, {type}) =>  ({...state, type})),
   on(WorkiiActions.listWorkiis, (state, {workiis}) => ({...state, loading: false, workiis})),

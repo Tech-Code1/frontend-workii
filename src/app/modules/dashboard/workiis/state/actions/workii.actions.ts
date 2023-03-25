@@ -5,6 +5,7 @@ import { IWorkiiCreate, IApplicationResponse, IApplicationUser, IApplicationCrea
 export const WorkiiActions = createActionGroup({
   source: 'Workii Page',
   events: {
+    'Log Out': emptyProps(),
     'Load workiis': emptyProps(),
     'Load Applications': emptyProps(),
     'List workiis': (workiis: readonly IWorkii[]) => ({ workiis }),
