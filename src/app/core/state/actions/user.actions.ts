@@ -5,11 +5,14 @@ import { IUserDTO } from '../../models/user.interface';
 export const UserActions = createActionGroup({
   source: 'Auth',
   events: {
+    'Get User': (id: string) => ({ id }),
+    'Get User Error': (errorMessage: string) => ({ errorMessage }),
     'Set User': (user: IUserDTO) => ({ user }),
     'Unset User': emptyProps(),
     'Login User': (email: string, password: string) => ({ email, password }),
     'Login Success': (token: string) => ({ token }),
     'Login Error': (errorMessage: string) => ({ errorMessage }),
+    'Log Out': emptyProps(),
     'User Not Found': emptyProps(),
     'User Found': emptyProps(),
     'Validate Otp': ({otp}: IOtp) => ({ otp }),

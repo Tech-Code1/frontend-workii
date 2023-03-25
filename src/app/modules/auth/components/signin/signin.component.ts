@@ -57,7 +57,7 @@ export class SigninComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.store.dispatch(UiActions.isLoading())
+    //this.store.dispatch(UserActions.validateToken());
 
     const {email, password} = this.loginForm.value
 

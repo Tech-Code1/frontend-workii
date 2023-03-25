@@ -23,7 +23,7 @@ export class UserEffects {
   private actions$ = inject(Actions);
   private userService = inject(UserService);
   private registerService = inject(RegisterService);
-  //private store = inject(Store<IAppState>);
+  private store = inject(Store<IAppState>);
   userCurrentId: string = this.userService.getCurrentUser();
   private _user!: IUser;
   loginEmail!: string;
@@ -52,6 +52,7 @@ export class UserEffects {
               return from([
                 UserActions.userFound(),
                 UserActions.loginSuccess(resp.token!),
+                //UserActions.getUser(resp.id!),
                 UiActions.stopLoading()
               ]);
 
@@ -94,6 +95,20 @@ export class UserEffects {
         )
     )
   ));
+
+  getUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.getUser),
+      concatMap((action) =>
+        this.userService.getUser(action.id).pipe(
+          map(user => {
+            return UserActions.setUser(user);
+          }),
+          catchError((error) => of(UserActions.getUserError('No se pudo encontrar el usuario')))
+        )
+      )
+    )
+  );
 
   registerUserNavigateToDashboard$ = createEffect(() => this.actions$.pipe(
         ofType(UserActions.registerUserNavigateToDashboard),
@@ -153,7 +168,11 @@ export class UserEffects {
 
 
   notifyApiError$ = createEffect(() => this.actions$.pipe(
-    ofType(UserActions.loginError, UserActions.validateOtpError, UserActions.registerUserError, UserActions.validateTokenError),
+    ofType(UserActions.loginError,
+      UserActions.validateOtpError,
+      UserActions.registerUserError,
+      UserActions.validateTokenError,
+      UserActions.getUserError),
     tap((action) => {
       Swal.fire('Error', `${action.errorMessage}`, 'error');
     })

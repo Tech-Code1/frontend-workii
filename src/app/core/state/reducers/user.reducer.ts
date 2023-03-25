@@ -1,4 +1,4 @@
-import { createReducer, on } from '@ngrx/store';
+import { createReducer, on, select } from '@ngrx/store';
 import { IUserState } from '../../models/user.state';
 import { UserActions } from '../actions/user.actions';
 
@@ -6,11 +6,14 @@ export const initialState: IUserState = { login: null , user: null, userStatus: 
 
 export const _userReducer = createReducer(
   initialState,
+  on(UserActions.getUser, (state, {id}) =>  ({...state, id})),
+  on(UserActions.getUserError, (state, {errorMessage}) =>  ({...state, errorMessage, user: null})),
   on(UserActions.setUser, (state, {user}) =>  ({...state, user: {...user}})),
   on(UserActions.unsetUser, (state, {type}) =>  ({...state, type, user: null})),
   on(UserActions.loginUser, (state, {email, password}) =>  ({...state, email, password, tokenValid: true})),
   on(UserActions.loginSuccess, (state, token) =>  ({...state, token, tokenValid: true})),
   on(UserActions.loginError, (state, {errorMessage}) =>  ({...state, errorMessage})),
+  on(UserActions.logOut, () => initialState),
   on(UserActions.userNotFound, (state) =>  ({...state, userStatus: false})),
   on(UserActions.userFound, (state) =>  ({...state, userStatus: true})),
   on(UserActions.validateOtp, (state, {otp}) =>  ({...state, otp: {otp} })),

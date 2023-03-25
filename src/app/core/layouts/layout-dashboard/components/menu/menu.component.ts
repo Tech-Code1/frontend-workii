@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { IAppState } from '../../../../state/app.state';
+import { UserActions } from '../../../../state/actions/user.actions';
 
 @Component({
   selector: 'menu',
@@ -9,12 +12,12 @@ import { AuthService } from 'src/app/modules/auth/services/auth.service';
 })
 export class MenuComponent  {
 
-  constructor(private router: Router,
-    private authService: AuthService) { }
-
+  private store = inject(Store<IAppState>)
+  private router = inject(Router)
 
   logout() {
     this.router.navigateByUrl('/auth');
-    this.authService.logout();
+    localStorage.removeItem('token');
+    this.store.dispatch(UserActions.logOut())
   }
 }

@@ -11,5 +11,6 @@ export interface IUserDTO {
   profession: string[];
   isActive?: boolean;
   roles?: string[];
+  timeOfCreation: number;
   workiis?: string[];
 }

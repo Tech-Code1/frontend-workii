@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 
@@ -6,22 +6,24 @@ import { IAuthResponse, IOtp, IUser } from '../interfaces/auth.interface';
 import { catchError, map, of, tap, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { loginDTO } from '../DTOs/loginDTO';
+import { IAppState } from '../../../core/state/app.state';
+import { Store } from '@ngrx/store';
+import { UserActions } from '../../../core/state/actions/user.actions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  private store = inject(Store<IAppState>)
+  private http = inject(HttpClient)
+
   private baseUrl: string = environment.baseUrl;
   private _user!: IUser;
-  loginEmail!: string;
-  loginPassword!: string;
 
   get user() {
     return { ...this._user }
   }
-
-  constructor( private http: HttpClient, private router: Router, ) { }
 
   setUserData(token: string, id: string, email: string) {
     localStorage.setItem('token', token!);
@@ -53,9 +55,5 @@ export class AuthService {
     .set('x-token', localStorage.getItem('token') || '');
 
     return this.http.get<IAuthResponse>(url, { headers })
-  }
-
-  logout() {
-    localStorage.removeItem('token');
   }
 }
