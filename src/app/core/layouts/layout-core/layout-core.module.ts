@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'src/app/shared/components/shared.module';
 import { ClickOutsideDirective } from 'src/app/shared/directives/clickOutside.directive';
+import { ShareDirectiveModule } from 'src/app/shared/directives/shareDirectives.module';
 import { BtnLoginComponent } from './components/btn-login/btn-login.component';
 import { BtnSupportComponent } from './components/btn-support/btn-support.component';
 import { NavComponent } from './components/nav/nav.component';
@@ -13,7 +14,6 @@ import { TemplateRootComponent } from './template-root/template-root.component';
 
 @NgModule({
   declarations: [
-    ClickOutsideDirective,
     SelectLangComponent,
     BtnLoginComponent,
     BtnSupportComponent,
@@ -24,7 +24,8 @@ import { TemplateRootComponent } from './template-root/template-root.component';
     CommonModule,
     RouterModule,
     TranslateModule,
-    SharedModule
+    SharedModule,
+    ShareDirectiveModule
   ],
   exports: [
     TemplateRootComponent,

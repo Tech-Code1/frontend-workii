@@ -1,3 +1,15 @@
 .custom-heigh {
   height: calc(100vh - 112px );;
 }
+
+.hover-child:dark {
+  fill: #217AFF;
+}
+
+.hover-child {
+  fill: #278CEA
+}
+
+.hover-parent:hover .hover-child {
+  fill: #fff;
+}

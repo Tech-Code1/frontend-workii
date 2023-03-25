@@ -13,13 +13,4 @@ import { WorkiiActions } from 'src/app/modules/dashboard/workiis/state/actions/w
 })
 export class MenuComponent  {
 
-  private store = inject(Store<IAppState>)
-  private router = inject(Router)
-
-  logout() {
-    this.router.navigateByUrl('/auth');
-    localStorage.removeItem('token');
-    this.store.dispatch(UserActions.logOut())
-    this.store.dispatch(WorkiiActions.logOut())
-  }
 }
