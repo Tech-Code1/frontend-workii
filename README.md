@@ -1,27 +1,36 @@
-# WorkiiApp
+## Nombre del proyecto
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.5.
+**Workii**
 
-## Development server
+***Nota:** Este proyecto ha sido generado con [Angular CLI](https://github.com/angular/angular-cli) versión 14.0.5.*
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+>## Descripción breve
+>Workii es un proyecto paracedio a Workana / Fiver. En esta plataforma se busca que los talentos apliquen a los diferentes workiis(tareas) que han sido publicados, con el objetivo de poder conseguir la recompensa que estan dando por hacerla. Además el creador del Workii tendrá que elegi entre los talentos que han aplicado, esto con el fin de ver quien es la persona ideal para cumplir con los objetivos del Workii.
 
-## Code scaffolding
+## Instalar y configurar
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Correr el siguiente comando para instalar todas las dependencias del proyecto
+``` 
+npm i o yarn install (Depende de que manejador de paquetes uses)
+```
+- Recurda que debes correr el backend del proyecto para el correcto funcionamiento del front (Las instrucciones de este esta en su respectivo repositorio)
+- Por ultimo corre el comando `ng s -o` o `ng s` y navega al siguiente link `http://localhost:4200/`. La aplicación deberia cargarse automaticamente, además de cargar correctamente los cambios.
 
-## Build
+## Generar componentes con comandos
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Se recomienda la creación de componentes con el CLI de Angular, para la agilización de estos procesos.
+Corre el siguente comando `ng g c (component-name)` para generar un nuevo componente. Tambie puedes usar `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Producción
 
-## Running end-to-end tests
+Ejecuta `ng build` para compilar el proyecto. Los archivos de compilación se almacenarán en el directorio `dist/`.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Pruebas unitarias
 
-## Further help
+El proyecto aún no cuenta con las pruebas unitarias, al tratarse de un proyecto que se quiere lanzar rapido al publico omitiremos esta parte por ahora.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Dudas o preguntas
+
+Contactar con algún miembro de la comunidad [Indie Creators]( https://discord.gg/Qncuxgcgsn) de Discord, que tenga la etiqueta 
+**Community Lead** o escribir al siguiente correo `serudda.oficial@gmail.com` 
