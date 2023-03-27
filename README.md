@@ -3,7 +3,6 @@
 | **Angular** | **NgRx** | **Tailwind** |
 |-|-|-|
 | <a target="_BLANK" href="https://angular.io/"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Angular_full_color_logo.svg" alt="Angular" width="64px"></a> | <a target="_BLANK" href="https://ngrx.io/"><img src="https://ngrx.io/assets/images/badge.svg" alt="NgRx" width="64px"></a> | <a target="_BLANK" href="https://tailwindcss.com/"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg" alt="Tailwind" width="64px"></a> |
-|
 
 ## Nombre del proyecto
 
