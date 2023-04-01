@@ -1,14 +1,19 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { combineLatest, map, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
 import { SwitchService } from '../../auth/services/switch.service';
 import { UserService } from '../../auth/services/user.service';
 import { IApplicationUser } from './interfaces/workii.interface';
-import { WorkiisService } from './service/workiis.service';
 import { IWorkii } from 'src/app/core/models/workii.interface';
 import { Store } from '@ngrx/store';
 import { IAppState } from 'src/app/core/state/app.state';
 import { selectListApplications, selectListWorkiis } from './state/selectors/workii.selectors';
 import { WorkiiActions } from './state/actions/workii.actions';
+
+
+export interface WorkiiInfo {
+  isApplied: boolean;
+  isCreatedByCurrentUser: boolean;
+}
 
 @Component({
   selector: 'app-workiis',
@@ -22,14 +27,14 @@ export class WorkiisComponent implements OnInit {
   private userService = inject(UserService)
 
   combined$!: Observable<{ applications: readonly IApplicationUser[]; workiis: readonly IWorkii[] }>;
-  workiisInApplications$!: Observable<readonly boolean[]>;
+  workiisInApplications$!: Observable<WorkiiInfo[]>;
   userCurrentId!: string;
   isApplyWorkiiId!: string[];
   modalSwitch: boolean = false;
   isFilterOpened: boolean = true;
   workiis$: Observable<readonly IWorkii[]> = new Observable<readonly IWorkii[]>();
   applications$: Observable<readonly IApplicationUser[]> = new Observable<readonly IApplicationUser[]>();
-  selectedTargets: string[] = []
+  selectedTargets$ = new BehaviorSubject<string[]>([]);
   targets: string[] = [
   'Arte',
   'Informatica',
@@ -66,11 +71,15 @@ export class WorkiisComponent implements OnInit {
     );
   }
 
-  workiisInApplications(): Observable<readonly boolean[]> {
+  workiisInApplications(): Observable<(IWorkii & WorkiiInfo)[]> {
     return combineLatest([this.workiis$, this.applications$]).pipe(
       map(([workiis, applications]) => {
         const applyWorkiiIds = applications.map(apply => apply.workii.id);
-        return workiis.map(workii => applyWorkiiIds.includes(workii.id));
+        return workiis.map(workii => ({
+          ...workii,
+          isApplied: applyWorkiiIds.includes(workii.id),
+          isCreatedByCurrentUser: this.userCurrentId === workii.user.id
+        }));
       })
     );
   }
@@ -88,16 +97,14 @@ export class WorkiisComponent implements OnInit {
   }
 
   onTargetChange(target: string, checked: boolean): void {
+    let newSelectedTargets: string[] = [];
 
     if (checked) {
-      console.log(checked);
-
-      this.selectedTargets.push(target);
-      console.log(this.selectedTargets);
-
+      newSelectedTargets = [...this.selectedTargets$.value, target];
     } else {
-      this.selectedTargets = this.selectedTargets.filter(t => t !== target);
-      console.log(this.selectedTargets);
+      newSelectedTargets = this.selectedTargets$.value.filter(t => t !== target);
     }
+
+    this.selectedTargets$.next(newSelectedTargets);
   }
 }

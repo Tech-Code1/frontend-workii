@@ -78,14 +78,17 @@
   <div class="h-[1px] w-full bg-black-principal"></div>
 </div>
 
-<ng-container *ngIf="combined$ | async as combined">
-  <ng-container
-    *ngIf="workiisInApplications() | async as workiisInApplications"
-  >
-    <workiis-cards
-      [workiis]="combined.workiis | targetFilter : selectedTargets"
-      [workiisInApplications]="workiisInApplications"
-      [applications]="combined.applications"
-    ></workiis-cards>
-  </ng-container>
+<ng-container
+  *ngIf="{
+    combined: combined$ | async,
+    workiisInApplications: workiisInApplications() | async
+  } as context"
+>
+  <workiis-cards
+    [workiis]="
+      context.workiisInApplications! | targetFilter : (selectedTargets$ | async)
+    "
+    [applications]="context.combined!.applications"
+    [userCurrentId]="userCurrentId"
+  ></workiis-cards>
 </ng-container>

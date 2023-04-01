@@ -47,67 +47,60 @@
           </div>
         </div>
 
-        <ng-container *ngIf="workiisInApplications">
-          <div
-            [ngClass]="{
-              'bg-accent-yellow title-sm-black border-b-0':
-                !workiisInApplications[i] && userCurrentId !== workii.user.id,
-              'bg-success-greenLight border-success-greenDark':
-                workiisInApplications[i],
-              'bg-secondary-lightBlue border-primary-blueNeutral':
-                userCurrentId === workii.user.id,
-              'h-12 w-full rounded-b-xl flex flex-col items-center px-4 py-1 border-b-4': true
-            }"
+        <div
+          [ngClass]="{
+            'bg-accent-yellow title-sm-black border-b-0':
+              !workii.isApplied && !workii.isCreatedByCurrentUser,
+            'bg-success-greenLight border-success-greenDark': workii.isApplied,
+            'bg-secondary-lightBlue border-primary-blueNeutral':
+              workii.isCreatedByCurrentUser,
+            'h-12 w-full rounded-b-xl flex flex-col items-center px-4 py-1 border-b-4': true
+          }"
+        >
+          <ng-container
+            *ngIf="!workii.isApplied && !workii.isCreatedByCurrentUser"
           >
-            <ng-container
-              *ngIf="
-                !workiisInApplications[i] && userCurrentId !== workii.user.id
-              "
-            >
-              <div class="flex flex-row items-center gap-1 w-full">
-                <img
-                  src="../../../../../../assets/images/svg/icon-decorator-card-workii.svg"
-                  alt="icon decorator card workii"
-                />
-                <div class="h-[1px] bg-black-principal flex-grow"></div>
+            <div class="flex flex-row items-center gap-1 w-full">
+              <img
+                src="../../../../../../assets/images/svg/icon-decorator-card-workii.svg"
+                alt="icon decorator card workii"
+              />
+              <div class="h-[1px] bg-black-principal flex-grow"></div>
 
-                <p>Recompensa</p>
+              <p>Recompensa</p>
 
-                <div class="h-[1px] bg-black-principal flex-grow"></div>
-                <img
-                  src="../../../../../../assets/images/svg/icon-decorator-card-workii.svg"
-                  alt="icon decorator card workii"
-                />
-              </div>
+              <div class="h-[1px] bg-black-principal flex-grow"></div>
+              <img
+                src="../../../../../../assets/images/svg/icon-decorator-card-workii.svg"
+                alt="icon decorator card workii"
+              />
+            </div>
 
-              <p>{{ workii.cost }} USD</p>
-            </ng-container>
+            <p>{{ workii.cost }} USD</p>
+          </ng-container>
 
-            <ng-container *ngIf="workiisInApplications[i]">
-              <div class="flex flex-col gap-1 items-center justify-center pt-1">
-                <img
-                  src="../../../../../../assets/images/svg/icon-check.svg"
-                  alt="icon check"
-                />
-                <p class="text-success-greenDark title-sm-white">
-                  Has aplicado
-                </p>
-              </div>
-            </ng-container>
+          <ng-container *ngIf="workii.isApplied">
+            <div class="flex flex-col gap-1 items-center justify-center pt-1">
+              <img
+                src="../../../../../../assets/images/svg/icon-check.svg"
+                alt="icon check"
+              />
+              <p class="text-success-greenDark title-sm-white">Has aplicado</p>
+            </div>
+          </ng-container>
 
-            <ng-container *ngIf="userCurrentId === workii.user.id">
-              <div class="flex flex-col gap-1 items-center justify-center pt-1">
-                <img
-                  src="../../../../../../assets/images/svg/icon-time.svg"
-                  alt="icon time"
-                />
-                <p class="text-primary-blueNeutral title-sm-white">
-                  Buscando talentos
-                </p>
-              </div>
-            </ng-container>
-          </div>
-        </ng-container>
+          <ng-container *ngIf="workii.isCreatedByCurrentUser">
+            <div class="flex flex-col gap-1 items-center justify-center pt-1">
+              <img
+                src="../../../../../../assets/images/svg/icon-time.svg"
+                alt="icon time"
+              />
+              <p class="text-primary-blueNeutral title-sm-white">
+                Buscando talentos
+              </p>
+            </div>
+          </ng-container>
+        </div>
       </div>
     </ng-container>
   </div>

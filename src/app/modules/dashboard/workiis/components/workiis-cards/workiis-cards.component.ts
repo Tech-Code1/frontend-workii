@@ -11,6 +11,7 @@ import { selectListApplications, selectListWorkiis } from '../../state/selectors
 import { IAppState } from '../../../../../core/state/app.state';
 import { selectLoadingUi } from 'src/app/shared/state/selectors/user.selectors';
 import { UiActions } from 'src/app/shared/state/actions/ui.actions';
+import { WorkiiInfo } from '../../workiis.component';
 
 @Component({
   selector: 'workiis-cards',
@@ -24,18 +25,20 @@ export class WorkiisCardsComponent {
   private modalService = inject(SwitchService)
 
   @Input()
-  workiis!: readonly IWorkii[];
+  workiis!: (IWorkii & WorkiiInfo)[];
 
   @Input()
   applications!: readonly IApplicationUser[];
 
+  /* @Input()
+  workiisInApplications!: WorkiiInfo[] | null; */
+
   @Input()
-  workiisInApplications!: readonly boolean[];
+  userCurrentId!: string;
 
 
   loading$: Observable<boolean> = new Observable<boolean>();
   //workiiIds$!: Observable<(string | undefined)[]>;
-  userCurrentId: string = this.userService.getCurrentUser();
   applicationId!: string;
   modalSwitch: boolean = false;
   selectedWorkii!: IWorkii;
