@@ -1,30 +1,72 @@
-<div class="flex flex-row justify-between gap-2 mt-16 items-end mb-2">
-  <div class="flex flex-row gap-2 flex-grow-[1]">
-    <div
-      class="h-12 flex flex-grow bg-gray-lighter rounded-md pr-4 items-center"
-    >
-      <input
-        type="text"
-        class="flex w-full bg-transparent input-standard ring-0"
-      />
-      <img
-        class="h-6 w-6"
-        src="../../../../../../assets/images/svg/icon-search.svg"
-        alt="icon search"
-      />
+<div class="flex flex-col gap-4 mt-16 items-start mb-2">
+  <div class="flex flex-row justify-between gap-2 items-end w-full">
+    <div class="flex flex-row gap-2 flex-grow-[1]">
+      <div
+        class="h-12 flex flex-grow bg-gray-lighter rounded-md pr-4 items-center"
+      >
+        <input
+          type="text"
+          class="flex w-full bg-transparent input-standard ring-0"
+        />
+        <img
+          class="h-6 w-6"
+          src="../../../../../../assets/images/svg/icon-search.svg"
+          alt="icon search"
+        />
+      </div>
+      <button
+        [ngClass]="{ 'bg-success-greenDark': isFilterOpened }"
+        (click)="toggleFilter()"
+        class="w-12 h-12 btn-solid-blue rounded-md"
+      >
+        <img
+          src="../../../../../../assets/images/svg/icon-filter.svg"
+          alt="icon filter"
+        />
+      </button>
     </div>
-    <button class="w-12 h-12 btn-solid-blue rounded-md">
-      <img
-        src="../../../../../../assets/images/svg/icon-filter.svg"
-        alt="icon filter"
-      />
-    </button>
+
+    <div class="flex-grow-[1] flex justify-end">
+      <button (click)="openModal()" class="btn-solid-blue rounded-md px-4 h-12">
+        Crear Workii
+      </button>
+    </div>
   </div>
 
-  <div class="flex-grow-[1] flex justify-end">
-    <button (click)="openModal()" class="btn-solid-blue rounded-md px-4 h-12">
-      Crear Workii
-    </button>
+  <div
+    *ngIf="isFilterOpened"
+    class="flex flex-row gap-4 bg-white-principal shadow-md rounded-b-md p-4 w-full animate__animated animate__bounceIn mb-2"
+  >
+    <div class="flex flex-col gap-2">
+      <button
+        class="flex flex-row gap-2 items-center h-10 p-2 bg-gray-light rounded hover-parent"
+      >
+        <img
+          class="h-4 w-4 flex"
+          src="../../../../assets/images/svg/icon-target.svg"
+          alt="icon target"
+        />
+        <h2 class="title-sm-black">Target</h2>
+      </button>
+
+      <div class="hover-child flex flex-col gap-2 p-2 bg-gray-lighter rounded">
+        <ng-container *ngFor="let target of targets; index as i">
+          <label
+            [for]="target"
+            class="flex flex-row gap-2 items-center cursor-pointer"
+          >
+            <input
+              type="checkbox"
+              [id]="target"
+              #checked
+              (change)="onTargetChange(target, checked.checked)"
+              class="rounded outline-0 ring-0"
+            />
+            <p class="title-sm-black">{{ target }}</p>
+          </label>
+        </ng-container>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -36,4 +78,14 @@
   <div class="h-[1px] w-full bg-black-principal"></div>
 </div>
 
-<workiis-cards></workiis-cards>
+<ng-container *ngIf="combined$ | async as combined">
+  <ng-container
+    *ngIf="workiisInApplications() | async as workiisInApplications"
+  >
+    <workiis-cards
+      [workiis]="combined.workiis | targetFilter : selectedTargets"
+      [workiisInApplications]="workiisInApplications"
+      [applications]="combined.applications"
+    ></workiis-cards>
+  </ng-container>
+</ng-container>

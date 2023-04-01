@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { combineLatest, map, Observable } from 'rxjs';
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
 import { IApplicationUser } from '../../interfaces/workii.interface';
@@ -23,10 +23,18 @@ export class WorkiisCardsComponent {
   private store = inject(Store<IAppState>)
   private modalService = inject(SwitchService)
 
+  @Input()
+  workiis!: readonly IWorkii[];
+
+  @Input()
+  applications!: readonly IApplicationUser[];
+
+  @Input()
+  workiisInApplications!: readonly boolean[];
+
+
   loading$: Observable<boolean> = new Observable<boolean>();
-  workiis$: Observable<readonly IWorkii[]> = new Observable<readonly IWorkii[]>();
-  applications$: Observable<readonly IApplicationUser[]> = new Observable<readonly IApplicationUser[]>();
-  workiiIds$!: Observable<(string | undefined)[]>;
+  //workiiIds$!: Observable<(string | undefined)[]>;
   userCurrentId: string = this.userService.getCurrentUser();
   applicationId!: string;
   modalSwitch: boolean = false;
@@ -36,30 +44,21 @@ export class WorkiisCardsComponent {
   ngOnInit(): void {
     this.store.dispatch(UiActions.isLoading())
     this.loading$ = this.store.select(selectLoadingUi)
-    this.workiis$ = this.store.select(selectListWorkiis)
-    this.store.dispatch(WorkiiActions.loadWorkiis())
+    //this.workiis$ = this.store.select(selectListWorkiis)
+    //this.store.dispatch(WorkiiActions.loadWorkiis())
 
-    this.store.dispatch(WorkiiActions.loadApplications())
+    //this.store.dispatch(WorkiiActions.loadApplications())
 
-    this.applications$ = this.store.select(selectListApplications)
+    //this.applications$ = this.store.select(selectListApplications)
 
-    this.workiiIds$ = this.applications$.pipe(
+    /* this.workiiIds$ = this.applications$.pipe(
       map(workiis => workiis.map(worki => worki.id))
-    )
+    ) */
 
     this.modalService.$modal.subscribe((valor) => {
       this.modalSwitch = valor
     })
 
-  }
-
-  workiisInApplications(): Observable<readonly boolean[]> {
-    return combineLatest([this.workiis$, this.applications$]).pipe(
-      map(([workiis, applications]) => {
-        const applyWorkiiIds = applications.map(apply => apply.workii.id);
-        return workiis.map(workii => applyWorkiiIds.includes(workii.id));
-      })
-    );
   }
 
   openModal(workii: IWorkii, index: number, applies: readonly IApplicationUser[]): void {

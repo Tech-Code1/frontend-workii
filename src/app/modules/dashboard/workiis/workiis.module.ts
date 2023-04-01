@@ -7,6 +7,7 @@ import { WorkiisCardsComponent } from './components/workiis-cards/workiis-cards.
 import { ModalInfoWorkiiComponent } from './components/modal-info-workii/modal-info-workii.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SkeletonCardsComponent } from './components/skeleton-cards/skeleton-cards.component';
+import { TargetFilterPipe } from './pipes/target-filter.pipe';
 
 const routes: Routes = [
   {
@@ -21,7 +22,8 @@ const routes: Routes = [
     ModalCreateWorkiiComponent,
     WorkiisCardsComponent,
     ModalInfoWorkiiComponent,
-    SkeletonCardsComponent
+    SkeletonCardsComponent,
+    TargetFilterPipe
   ],
   imports: [
     CommonModule,
