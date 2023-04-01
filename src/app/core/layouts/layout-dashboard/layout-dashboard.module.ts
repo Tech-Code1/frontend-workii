@@ -7,6 +7,7 @@ import { LayoutCoreModule } from '../layout-core/layout-core.module';
 import { HeaderDashboard } from './components/header-dashboard/header-dashboard.component';
 import { ClickOutsideDirective } from 'src/app/shared/directives/clickOutside.directive';
 import { ShareDirectiveModule } from 'src/app/shared/directives/shareDirectives.module';
+import { SharedModule } from 'src/app/shared/components/shared.module';
 
 
 
@@ -21,7 +22,8 @@ import { ShareDirectiveModule } from 'src/app/shared/directives/shareDirectives.
     CommonModule,
     RouterModule,
     LayoutCoreModule,
-    ShareDirectiveModule
+    ShareDirectiveModule,
+    SharedModule
   ],
   exports: [
     TemplateDashboardComponent,

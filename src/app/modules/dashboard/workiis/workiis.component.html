@@ -1,8 +1,31 @@
-<div class="flex flex-row justify-between gap-2 mt-4 items-end mb-2">
-  <p class="title-xl-black">Empezar</p>
-  <button (click)="openModal()" class="btn-solid-blue rounded-md px-4 h-12">
-    Crear Workii
-  </button>
+<div class="flex flex-row justify-between gap-2 mt-16 items-end mb-2">
+  <div class="flex flex-row gap-2 flex-grow-[1]">
+    <div
+      class="h-12 flex flex-grow bg-gray-lighter rounded-md pr-4 items-center"
+    >
+      <input
+        type="text"
+        class="flex w-full bg-transparent input-standard ring-0"
+      />
+      <img
+        class="h-6 w-6"
+        src="../../../../../../assets/images/svg/icon-search.svg"
+        alt="icon search"
+      />
+    </div>
+    <button class="w-12 h-12 btn-solid-blue rounded-md">
+      <img
+        src="../../../../../../assets/images/svg/icon-filter.svg"
+        alt="icon filter"
+      />
+    </button>
+  </div>
+
+  <div class="flex-grow-[1] flex justify-end">
+    <button (click)="openModal()" class="btn-solid-blue rounded-md px-4 h-12">
+      Crear Workii
+    </button>
+  </div>
 </div>
 
 <div *ngIf="modalSwitch">

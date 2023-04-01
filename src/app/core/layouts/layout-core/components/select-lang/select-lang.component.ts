@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, ElementRef, HostListener, Inject, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Inject, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { supportLanguages } from 'src/app/shared/utils/constLanguages';
 
@@ -13,6 +13,9 @@ export class SelectLangComponent implements OnInit {
   langs = supportLanguages;
 	clickCount = 1;
 	clickCountTwo = 1;
+
+  @Input()
+  titleLang!: string;
 
 
 	@ViewChild('select') select!: ElementRef;

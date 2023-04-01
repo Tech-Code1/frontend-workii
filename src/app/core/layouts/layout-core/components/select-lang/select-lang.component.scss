@@ -11,7 +11,7 @@
    .select-lang {
     margin-left: 0;
     margin-top: 8px;
-    width: 90%;
+    width: 100%;
     margin-bottom:8px;
     display: flex;
     justify-content: center;
@@ -19,7 +19,6 @@
 }
 
 .selectbox {
-    width: 80px;
     position: relative;
     display: flex;
     align-items: center;
@@ -70,7 +69,6 @@
 	max-height: 400px;
 	overflow: auto;
 	z-index: 10;
-	width: 80px;
 	position: absolute;
 	display: none;
 }

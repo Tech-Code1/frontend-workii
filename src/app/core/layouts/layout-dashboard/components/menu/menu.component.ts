@@ -13,4 +13,5 @@ import { WorkiiActions } from 'src/app/modules/dashboard/workiis/state/actions/w
 })
 export class MenuComponent  {
 
+  titleLang: string = 'Language'
 }
