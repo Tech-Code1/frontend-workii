@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, Renderer2, ViewChildren, inject } from '@angular/core';
 import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
 import { SwitchService } from '../../auth/services/switch.service';
 import { UserService } from '../../auth/services/user.service';
@@ -25,9 +25,13 @@ export class WorkiisComponent implements OnInit {
   private store = inject(Store<IAppState>)
   private modalService = inject(SwitchService)
   private userService = inject(UserService)
+  private renderer = inject(Renderer2)
+
+  @ViewChildren('checked') checkedInputs!: QueryList<ElementRef<HTMLInputElement>>;
 
   combined$!: Observable<{ applications: readonly IApplicationUser[]; workiis: readonly IWorkii[] }>;
   workiisInApplications$!: Observable<WorkiiInfo[]>;
+  checked: boolean[] = [];
   userCurrentId!: string;
   isApplyWorkiiId!: string[];
   modalSwitch: boolean = false;
@@ -35,6 +39,7 @@ export class WorkiisComponent implements OnInit {
   workiis$: Observable<readonly IWorkii[]> = new Observable<readonly IWorkii[]>();
   applications$: Observable<readonly IApplicationUser[]> = new Observable<readonly IApplicationUser[]>();
   selectedTargets$ = new BehaviorSubject<string[]>([]);
+  newSelectedTargets: string[] = [];
   targets: string[] = [
   'Arte',
   'Informatica',
@@ -97,14 +102,25 @@ export class WorkiisComponent implements OnInit {
   }
 
   onTargetChange(target: string, checked: boolean): void {
-    let newSelectedTargets: string[] = [];
 
     if (checked) {
-      newSelectedTargets = [...this.selectedTargets$.value, target];
+      this.checked.push(checked)
+      this.newSelectedTargets = [...this.selectedTargets$.value, target];
     } else {
-      newSelectedTargets = this.selectedTargets$.value.filter(t => t !== target);
+      this.newSelectedTargets = this.selectedTargets$.value.filter(t => t !== target);
     }
 
-    this.selectedTargets$.next(newSelectedTargets);
+    this.selectedTargets$.next(this.newSelectedTargets);
+  }
+
+  deleteTarget() {
+    //console.log(this.checkedInputs.map(e => e.nativeElement.checked));
+
+    this.checkedInputs.forEach((checkedInput: ElementRef) => {
+      checkedInput.nativeElement.checked = false;
+    });
+
+    this.newSelectedTargets = []
+    this.selectedTargets$.next(this.newSelectedTargets)
   }
 }

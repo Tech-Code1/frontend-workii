@@ -30,8 +30,8 @@ export class WorkiisCardsComponent {
   @Input()
   applications!: readonly IApplicationUser[];
 
-  /* @Input()
-  workiisInApplications!: WorkiiInfo[] | null; */
+  @Input()
+  isFilterOpened!: boolean;
 
   @Input()
   userCurrentId!: string;

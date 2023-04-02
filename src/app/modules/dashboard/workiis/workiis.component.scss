@@ -1,0 +1,14 @@
+.icon-trash {
+  stroke: #C20707;
+  height: 16px;
+  width: auto;
+  stroke-width: 1px;
+}
+
+.hover-child {
+  display: none;
+}
+
+.hover-parent:hover .hover-child {
+  display: flex;
+}
