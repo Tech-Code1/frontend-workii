@@ -84,7 +84,7 @@
               </option>
               <option
                 *ngFor="let executionTime of executionTimes"
-                value="3 días"
+                [value]="executionTime"
               >
                 {{ executionTime }} días
               </option>

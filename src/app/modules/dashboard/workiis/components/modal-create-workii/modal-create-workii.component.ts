@@ -34,12 +34,14 @@ export class ModalCreateWorkiiComponent implements OnInit {
       name: ["", [Validators.required]],
       cost: ["", [Validators.required]],
       target: ["", [Validators.required]],
-      time: [ '', [Validators.required]],
+      time: [ "", [Validators.required]],
+
       description: ["", [Validators.required]],
       tasks: this.formBuilder.array([
         this.formBuilder.control('', Validators.required),
       ], [Validators.required]),
     })
+
   }
 
   get tasksArr() {
@@ -88,6 +90,8 @@ export class ModalCreateWorkiiComponent implements OnInit {
       toDoList: this.createWorkii.get('tasks')?.value,
       userId: userId
     }
+
+    console.log(newWorkii.executionTime);
 
     this.store.dispatch(WorkiiActions.createWorkiiSuccess(newWorkii))
   }
