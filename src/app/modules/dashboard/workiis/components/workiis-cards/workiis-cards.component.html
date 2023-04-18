@@ -13,13 +13,13 @@
   </ng-container>
 
   <div
-    class="flex justify-center pt-10 pr-1"
+    class="flex justify-center pt-10 pr-1 h-fit"
     *ngFor="let workii of workiis; let i = index"
   >
     <ng-container *ngIf="applications">
       <div
         (click)="openModal(workii, i, applications)"
-        class="w-[242px] flex flex-col cursor-pointer hover:scale-110 transition"
+        class="w-[242px] flex flex-col cursor-pointer hover:scale-110 transition h-auto"
       >
         <div
           class="bg-gray-lighter rounded-t-xl h-[150px] flex justify-between flex-col px-4 pt-2 relative"

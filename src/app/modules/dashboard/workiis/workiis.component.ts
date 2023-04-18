@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { IAppState } from 'src/app/core/state/app.state';
 import { selectListApplications, selectListWorkiis } from './state/selectors/workii.selectors';
 import { WorkiiActions } from './state/actions/workii.actions';
+import { TargetService } from './service/targetService.service';
 
 
 export interface WorkiiInfo {
@@ -26,19 +27,18 @@ export class WorkiisComponent implements OnInit {
   private modalService = inject(SwitchService)
   private userService = inject(UserService)
   private renderer = inject(Renderer2)
+  public targetService = inject(TargetService)
 
   @ViewChildren('checked') checkedInputs!: QueryList<ElementRef<HTMLInputElement>>;
 
   combined$!: Observable<{ applications: readonly IApplicationUser[]; workiis: readonly IWorkii[] }>;
   workiisInApplications$!: Observable<WorkiiInfo[]>;
-  checked: boolean[] = [];
   userCurrentId!: string;
   isApplyWorkiiId!: string[];
   modalSwitch: boolean = false;
   isFilterOpened: boolean = true;
   workiis$: Observable<readonly IWorkii[]> = new Observable<readonly IWorkii[]>();
   applications$: Observable<readonly IApplicationUser[]> = new Observable<readonly IApplicationUser[]>();
-  selectedTargets$ = new BehaviorSubject<string[]>([]);
   newSelectedTargets: string[] = [];
   targets: string[] = [
   'Arte',
@@ -104,23 +104,11 @@ export class WorkiisComponent implements OnInit {
   onTargetChange(target: string, checked: boolean): void {
 
     if (checked) {
-      this.checked.push(checked)
-      this.newSelectedTargets = [...this.selectedTargets$.value, target];
+      const updatedSelectedTargets = [...this.targetService.getSelectedTargets$().value, target];
+      this.targetService.updateSelectedTargets(updatedSelectedTargets);
     } else {
-      this.newSelectedTargets = this.selectedTargets$.value.filter(t => t !== target);
+      const updatedSelectedTargets = this.targetService.getSelectedTargets$().value.filter(t => t !== target);
+      this.targetService.updateSelectedTargets(updatedSelectedTargets);
     }
-
-    this.selectedTargets$.next(this.newSelectedTargets);
-  }
-
-  deleteTarget() {
-    //console.log(this.checkedInputs.map(e => e.nativeElement.checked));
-
-    this.checkedInputs.forEach((checkedInput: ElementRef) => {
-      checkedInput.nativeElement.checked = false;
-    });
-
-    this.newSelectedTargets = []
-    this.selectedTargets$.next(this.newSelectedTargets)
   }
 }
