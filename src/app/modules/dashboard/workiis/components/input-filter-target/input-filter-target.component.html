@@ -1,0 +1,12 @@
+<ng-container *ngFor="let target of targets; index as i">
+  <label [for]="target" class="flex flex-row gap-2 items-center cursor-pointer">
+    <input
+      type="checkbox"
+      [id]="target"
+      #checked
+      (change)="onTargetChange(target, checked.checked)"
+      class="rounded outline-0 ring-0 cursor-pointer"
+    />
+    <p class="title-sm-black">{{ target }}</p>
+  </label>
+</ng-container>

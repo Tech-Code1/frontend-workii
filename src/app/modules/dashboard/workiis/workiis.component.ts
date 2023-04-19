@@ -26,7 +26,6 @@ export class WorkiisComponent implements OnInit {
   private store = inject(Store<IAppState>)
   private modalService = inject(SwitchService)
   private userService = inject(UserService)
-  private renderer = inject(Renderer2)
   public targetService = inject(TargetService)
 
   @ViewChildren('checked') checkedInputs!: QueryList<ElementRef<HTMLInputElement>>;
@@ -40,16 +39,6 @@ export class WorkiisComponent implements OnInit {
   workiis$: Observable<readonly IWorkii[]> = new Observable<readonly IWorkii[]>();
   applications$: Observable<readonly IApplicationUser[]> = new Observable<readonly IApplicationUser[]>();
   newSelectedTargets: string[] = [];
-  targets: string[] = [
-  'Arte',
-  'Informatica',
-  'Humanidades',
-  'Ciencias',
-  'Ingenieria',
-  'Entretenimiento',
-  'Comunicaciones',
-  'Marketing',
-  'Otro'];
 
   ngOnInit(): void {
     this.userCurrentId = this.userService.getCurrentUser()
@@ -99,16 +88,5 @@ export class WorkiisComponent implements OnInit {
 
   toggleFilter():void {
     this.isFilterOpened = !this.isFilterOpened
-  }
-
-  onTargetChange(target: string, checked: boolean): void {
-
-    if (checked) {
-      const updatedSelectedTargets = [...this.targetService.getSelectedTargets$().value, target];
-      this.targetService.updateSelectedTargets(updatedSelectedTargets);
-    } else {
-      const updatedSelectedTargets = this.targetService.getSelectedTargets$().value.filter(t => t !== target);
-      this.targetService.updateSelectedTargets(updatedSelectedTargets);
-    }
   }
 }

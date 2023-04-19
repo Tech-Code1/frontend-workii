@@ -49,21 +49,7 @@
       <div
         class="hover-child flex-col gap-2 p-2 bg-white-principal shadow-md rounded absolute z-10 top-[40px]"
       >
-        <ng-container *ngFor="let target of targets; index as i">
-          <label
-            [for]="target"
-            class="flex flex-row gap-2 items-center cursor-pointer"
-          >
-            <input
-              type="checkbox"
-              [id]="target"
-              #checked
-              (change)="onTargetChange(target, checked.checked)"
-              class="rounded outline-0 ring-0 cursor-pointer"
-            />
-            <p class="title-sm-black">{{ target }}</p>
-          </label>
-        </ng-container>
+        <input-filter-target></input-filter-target>
       </div>
     </div>
   </div>

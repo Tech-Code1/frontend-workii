@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SkeletonCardsComponent } from './components/skeleton-cards/skeleton-cards.component';
 import { TargetFilterPipe } from './pipes/target-filter.pipe';
 import { ButtonFilterTargetComponent } from './components/button-filter-target/button-filter-target.component';
+import { InputFilterTargetComponent } from './components/input-filter-target/input-filter-target.component';
 
 const routes: Routes = [
   {
@@ -25,7 +26,8 @@ const routes: Routes = [
     ModalInfoWorkiiComponent,
     SkeletonCardsComponent,
     TargetFilterPipe,
-    ButtonFilterTargetComponent
+    ButtonFilterTargetComponent,
+    InputFilterTargetComponent
   ],
   imports: [
     CommonModule,
