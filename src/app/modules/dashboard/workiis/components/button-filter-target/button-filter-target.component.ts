@@ -1,5 +1,4 @@
 import { Component, ElementRef, Input, OnInit, QueryList, inject } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 import { TargetService } from '../../service/targetService.service';
 
 @Component({
@@ -12,7 +11,8 @@ export class ButtonFilterTargetComponent implements OnInit {
   public targetService = inject(TargetService)
 
   @Input()
-  checkedInputs!: QueryList<ElementRef<HTMLInputElement>>
+  checkedInputsTarget!: QueryList<ElementRef<HTMLInputElement>>
+
 
   constructor() { }
 
@@ -21,10 +21,9 @@ export class ButtonFilterTargetComponent implements OnInit {
 
 
   deleteTarget() {
-    this.checkedInputs.forEach((checkedInput: ElementRef) => {
+    this.checkedInputsTarget.forEach((checkedInput: ElementRef) => {
       checkedInput.nativeElement.checked = false;
     });
-
     this.targetService.updateSelectedTargets([]);
   }
 }

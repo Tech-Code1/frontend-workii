@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ElementRef, QueryList } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -8,6 +8,8 @@ export class TargetService {
   private selectedTargets$ = new BehaviorSubject<string[]>([]);
 
   getSelectedTargets$() {
+    console.log(this.selectedTargets$);
+
     return this.selectedTargets$;
   }
 

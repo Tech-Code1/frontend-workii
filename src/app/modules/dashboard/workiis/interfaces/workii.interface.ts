@@ -3,7 +3,7 @@ import { IUser } from "src/app/core/models/user.interface";
 export interface IWorkiiCreate {
     cost: number,
     description: string,
-    executionTime: number,
+    executionTime: number | string,
     id?: string;
     name: string,
     slug?: string,

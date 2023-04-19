@@ -9,7 +9,7 @@ import { IAppState } from 'src/app/core/state/app.state';
 import { selectListApplications, selectListWorkiis } from './state/selectors/workii.selectors';
 import { WorkiiActions } from './state/actions/workii.actions';
 import { TargetService } from './service/targetService.service';
-
+import { TimeService } from './service/timeService.service';
 
 export interface WorkiiInfo {
   isApplied: boolean;
@@ -27,8 +27,10 @@ export class WorkiisComponent implements OnInit {
   private modalService = inject(SwitchService)
   private userService = inject(UserService)
   public targetService = inject(TargetService)
+  public timeService = inject(TimeService)
 
-  @ViewChildren('checked') checkedInputs!: QueryList<ElementRef<HTMLInputElement>>;
+  @ViewChildren('checkedTarget') checkedInputsTarget!: QueryList<ElementRef<HTMLInputElement>>;
+  @ViewChildren('checkedTime') checkedInputsTime!: QueryList<ElementRef<HTMLInputElement>>;
 
   combined$!: Observable<{ applications: readonly IApplicationUser[]; workiis: readonly IWorkii[] }>;
   workiisInApplications$!: Observable<WorkiiInfo[]>;
@@ -39,6 +41,17 @@ export class WorkiisComponent implements OnInit {
   workiis$: Observable<readonly IWorkii[]> = new Observable<readonly IWorkii[]>();
   applications$: Observable<readonly IApplicationUser[]> = new Observable<readonly IApplicationUser[]>();
   newSelectedTargets: string[] = [];
+  targets: string[] = [
+    'Arte',
+    'Informatica',
+    'Humanidades',
+    'Ciencias',
+    'Ingenieria',
+    'Entretenimiento',
+    'Comunicaciones',
+    'Marketing',
+    'Otro'];
+  times: string[] = ['3', '5', '7', '10', '15'];
 
   ngOnInit(): void {
     this.userCurrentId = this.userService.getCurrentUser()
@@ -88,5 +101,28 @@ export class WorkiisComponent implements OnInit {
 
   toggleFilter():void {
     this.isFilterOpened = !this.isFilterOpened
+  }
+
+  onTargetChange(target: string, checked: boolean): void {
+
+    if (checked) {
+      const updatedSelectedTargets = [...this.targetService.getSelectedTargets$().value, target];
+      this.targetService.updateSelectedTargets(updatedSelectedTargets);
+    } else {
+      const updatedSelectedTargets = this.targetService.getSelectedTargets$().value.filter(t => t !== target);
+      this.targetService.updateSelectedTargets(updatedSelectedTargets);
+    }
+  }
+
+  onTimeChange(time: string, checked: boolean): void {
+
+    if (checked) {
+      const updatedSelectedTargets = [...this.timeService.getSelectedTimes$().value, time];
+      this.timeService.updateSelectedTime(updatedSelectedTargets);
+    } else {
+      const updatedSelectedTargets = this.timeService.getSelectedTimes$().value.filter(t => t !== time);
+
+      this.timeService.updateSelectedTime(updatedSelectedTargets);
+    }
   }
 }

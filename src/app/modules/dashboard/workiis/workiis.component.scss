@@ -5,3 +5,12 @@
 .hover-parent:hover .hover-child {
   display: flex;
 }
+
+.hover-child-two {
+  display: none;
+  width: 121px;
+}
+
+.hover-parent-two:hover .hover-child-two {
+  display: flex;
+}

@@ -1,5 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ViewChildren, QueryList, ElementRef, Output, EventEmitter, Input } from '@angular/core';
 import { TargetService } from '../../service/targetService.service';
+import { Store } from '@ngrx/store';
+import { IAppState } from 'src/app/core/state/app.state';
+import { WorkiiActions } from '../../state/actions/workii.actions';
 
 @Component({
   selector: 'input-filter-target',
@@ -9,30 +12,14 @@ import { TargetService } from '../../service/targetService.service';
 export class InputFilterTargetComponent implements OnInit {
 
   public targetService = inject(TargetService)
-  targets: string[] = [
-    'Arte',
-    'Informatica',
-    'Humanidades',
-    'Ciencias',
-    'Ingenieria',
-    'Entretenimiento',
-    'Comunicaciones',
-    'Marketing',
-    'Otro'];
+  public store = inject(Store<IAppState>)
+
+  @ViewChildren('checked') checkedInputs!: ElementRef<HTMLInputElement>[];
+
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  onTargetChange(target: string, checked: boolean): void {
-
-    if (checked) {
-      const updatedSelectedTargets = [...this.targetService.getSelectedTargets$().value, target];
-      this.targetService.updateSelectedTargets(updatedSelectedTargets);
-    } else {
-      const updatedSelectedTargets = this.targetService.getSelectedTargets$().value.filter(t => t !== target);
-      this.targetService.updateSelectedTargets(updatedSelectedTargets);
-    }
-  }
 }

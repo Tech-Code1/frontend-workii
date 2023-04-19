@@ -10,6 +10,9 @@ import { SkeletonCardsComponent } from './components/skeleton-cards/skeleton-car
 import { TargetFilterPipe } from './pipes/target-filter.pipe';
 import { ButtonFilterTargetComponent } from './components/button-filter-target/button-filter-target.component';
 import { InputFilterTargetComponent } from './components/input-filter-target/input-filter-target.component';
+import { InputFilterTimeComponent } from './components/input-filter-time/input-filter-time.component';
+import { ButtonFilterTimeComponent } from './components/button-filter-time/button-filter-time.component';
+import { TimeFilterPipe } from './pipes/time-filter.pipe';
 
 const routes: Routes = [
   {
@@ -26,8 +29,11 @@ const routes: Routes = [
     ModalInfoWorkiiComponent,
     SkeletonCardsComponent,
     TargetFilterPipe,
+    TimeFilterPipe,
     ButtonFilterTargetComponent,
-    InputFilterTargetComponent
+    InputFilterTargetComponent,
+    InputFilterTimeComponent,
+    ButtonFilterTimeComponent
   ],
   imports: [
     CommonModule,

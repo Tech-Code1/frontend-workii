@@ -98,10 +98,6 @@ export class WorkiiEffects {
 
         this.modalService.$modal.emit(false)
 
-        setTimeout(() => {
-          location.reload();
-        }, 800)
-
         Swal.fire({
           icon: 'success',
           text: 'El workii se ha creado correctamente',
