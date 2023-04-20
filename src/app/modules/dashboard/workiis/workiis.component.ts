@@ -10,6 +10,7 @@ import { selectListApplications, selectListWorkiis } from './state/selectors/wor
 import { WorkiiActions } from './state/actions/workii.actions';
 import { TargetService } from './service/targetService.service';
 import { TimeService } from './service/timeService.service';
+import { CostService } from './service/costService.service';
 
 export interface WorkiiInfo {
   isApplied: boolean;
@@ -28,9 +29,11 @@ export class WorkiisComponent implements OnInit {
   private userService = inject(UserService)
   public targetService = inject(TargetService)
   public timeService = inject(TimeService)
+  public costService = inject(CostService)
 
   @ViewChildren('checkedTarget') checkedInputsTarget!: QueryList<ElementRef<HTMLInputElement>>;
   @ViewChildren('checkedTime') checkedInputsTime!: QueryList<ElementRef<HTMLInputElement>>;
+  @ViewChildren('checkedCost') checkedInputsCost!: QueryList<ElementRef<HTMLInputElement>>;
 
   combined$!: Observable<{ applications: readonly IApplicationUser[]; workiis: readonly IWorkii[] }>;
   workiisInApplications$!: Observable<WorkiiInfo[]>;
@@ -52,6 +55,7 @@ export class WorkiisComponent implements OnInit {
     'Marketing',
     'Otro'];
   times: string[] = ['3', '5', '7', '10', '15'];
+  costs: string[] = ['desc', 'asc'];
 
   ngOnInit(): void {
     this.userCurrentId = this.userService.getCurrentUser()
@@ -117,12 +121,25 @@ export class WorkiisComponent implements OnInit {
   onTimeChange(time: string, checked: boolean): void {
 
     if (checked) {
-      const updatedSelectedTargets = [...this.timeService.getSelectedTimes$().value, time];
-      this.timeService.updateSelectedTime(updatedSelectedTargets);
+      const updatedSelectedTime = [...this.timeService.getSelectedTimes$().value, time];
+      this.timeService.updateSelectedTime(updatedSelectedTime);
     } else {
-      const updatedSelectedTargets = this.timeService.getSelectedTimes$().value.filter(t => t !== time);
+      const updatedSelectedTime = this.timeService.getSelectedTimes$().value.filter(t => t !== time);
 
-      this.timeService.updateSelectedTime(updatedSelectedTargets);
+      this.timeService.updateSelectedTime(updatedSelectedTime);
+    }
+  }
+
+  onCostChange(cost: string, checked: boolean): void {
+    console.log('hola');
+
+    console.log(cost);
+    console.log(checked);
+
+    if (checked) {
+      this.costService.updateSelectedCost(cost);
+    } else {
+      this.costService.clearSelectedCost();
     }
   }
 }

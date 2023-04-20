@@ -14,3 +14,12 @@
 .hover-parent-two:hover .hover-child-two {
   display: flex;
 }
+
+.hover-child-three {
+  display: none;
+  width: 121px;
+}
+
+.hover-parent-three:hover .hover-child-three {
+  display: flex;
+}

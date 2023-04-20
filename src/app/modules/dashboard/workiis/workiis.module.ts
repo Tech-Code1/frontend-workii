@@ -13,6 +13,8 @@ import { InputFilterTargetComponent } from './components/input-filter-target/inp
 import { InputFilterTimeComponent } from './components/input-filter-time/input-filter-time.component';
 import { ButtonFilterTimeComponent } from './components/button-filter-time/button-filter-time.component';
 import { TimeFilterPipe } from './pipes/time-filter.pipe';
+import { ButtonFilterCostComponent } from './components/button-filter-cost/button-filter-cost.component';
+import { CostFilterPipe } from './pipes/cost-filter.pipe';
 
 const routes: Routes = [
   {
@@ -30,10 +32,12 @@ const routes: Routes = [
     SkeletonCardsComponent,
     TargetFilterPipe,
     TimeFilterPipe,
+    CostFilterPipe,
     ButtonFilterTargetComponent,
     InputFilterTargetComponent,
     InputFilterTimeComponent,
-    ButtonFilterTimeComponent
+    ButtonFilterTimeComponent,
+    ButtonFilterCostComponent
   ],
   imports: [
     CommonModule,
