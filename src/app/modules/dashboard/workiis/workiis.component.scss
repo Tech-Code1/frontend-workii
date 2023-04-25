@@ -23,3 +23,12 @@
 .hover-parent-three:hover .hover-child-three {
   display: flex;
 }
+
+.hover-child-four {
+  display: none;
+  width: 130px;
+}
+
+.hover-parent-four:hover .hover-child-four {
+  display: flex;
+}

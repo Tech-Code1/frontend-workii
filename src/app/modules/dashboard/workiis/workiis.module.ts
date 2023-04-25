@@ -15,6 +15,8 @@ import { ButtonFilterTimeComponent } from './components/button-filter-time/butto
 import { TimeFilterPipe } from './pipes/time-filter.pipe';
 import { ButtonFilterCostComponent } from './components/button-filter-cost/button-filter-cost.component';
 import { CostFilterPipe } from './pipes/cost-filter.pipe';
+import { ButtonFilterOwnershipComponent } from './components/button-filter-ownership/button-filter-ownership.component';
+import { StatusFilterPipe } from './pipes/status-filter.pipe';
 
 const routes: Routes = [
   {
@@ -33,11 +35,13 @@ const routes: Routes = [
     TargetFilterPipe,
     TimeFilterPipe,
     CostFilterPipe,
+    StatusFilterPipe,
     ButtonFilterTargetComponent,
     InputFilterTargetComponent,
     InputFilterTimeComponent,
     ButtonFilterTimeComponent,
-    ButtonFilterCostComponent
+    ButtonFilterCostComponent,
+    ButtonFilterOwnershipComponent
   ],
   imports: [
     CommonModule,

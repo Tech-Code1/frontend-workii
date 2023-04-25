@@ -122,6 +122,33 @@
         </ng-container>
       </div>
     </div>
+
+    <div class="flex flex-col gap-2 relative hover-parent-four w-[130px]">
+      <button-filter-ownership
+        [checkedInputsStatus]="checkedInputsStatus"
+      ></button-filter-ownership>
+      <div
+        class="hover-child-four flex-col gap-2 p-2 bg-white-principal shadow-md rounded absolute z-10 top-[40px]"
+      >
+        <ng-container *ngFor="let state of status; index as i">
+          <label
+            [for]="state"
+            class="flex flex-row gap-2 items-center cursor-pointer"
+          >
+            <input
+              type="checkbox"
+              name="costGroup"
+              [id]="state"
+              [value]="state"
+              #checkedOwnership
+              (change)="onStatusChange(state, checkedOwnership.checked)"
+              class="rounded outline-0 ring-0 cursor-pointer"
+            />
+            <p class="title-sm-black">{{ state }}</p>
+          </label>
+        </ng-container>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -145,6 +172,10 @@
         | targetFilter : (targetService.getSelectedTargets$() | async)
         | timeFilter : (timeService.getSelectedTimes$() | async)!
         | costFilter : (costService.getSelectedCost$() | async)!
+        | statusFilter
+          : (statusService.getSelectedStatus$() | async)!
+          : context.combined!.applications
+          : userCurrentId
     "
     [applications]="context.combined!.applications"
     [userCurrentId]="userCurrentId"

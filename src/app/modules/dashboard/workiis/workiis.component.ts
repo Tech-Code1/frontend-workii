@@ -11,6 +11,7 @@ import { WorkiiActions } from './state/actions/workii.actions';
 import { TargetService } from './service/targetService.service';
 import { TimeService } from './service/timeService.service';
 import { CostService } from './service/costService.service';
+import { StatusService } from './service/statusService.service';
 
 export interface WorkiiInfo {
   isApplied: boolean;
@@ -30,10 +31,12 @@ export class WorkiisComponent implements OnInit {
   public targetService = inject(TargetService)
   public timeService = inject(TimeService)
   public costService = inject(CostService)
+  public statusService = inject(StatusService)
 
   @ViewChildren('checkedTarget') checkedInputsTarget!: QueryList<ElementRef<HTMLInputElement>>;
   @ViewChildren('checkedTime') checkedInputsTime!: QueryList<ElementRef<HTMLInputElement>>;
   @ViewChildren('checkedCost') checkedInputsCost!: QueryList<ElementRef<HTMLInputElement>>;
+  @ViewChildren('checkedOwnership') checkedInputsStatus!: QueryList<ElementRef<HTMLInputElement>>;
 
   combined$!: Observable<{ applications: readonly IApplicationUser[]; workiis: readonly IWorkii[] }>;
   workiisInApplications$!: Observable<WorkiiInfo[]>;
@@ -56,6 +59,7 @@ export class WorkiisComponent implements OnInit {
     'Otro'];
   times: string[] = ['3', '5', '7', '10', '15'];
   costs: string[] = ['desc', 'asc'];
+  status: string[] = ['Publicados', 'Aplicados', 'Disponibles'];
 
   ngOnInit(): void {
     this.userCurrentId = this.userService.getCurrentUser()
@@ -103,7 +107,7 @@ export class WorkiisComponent implements OnInit {
     this.modalService.$modal.emit(false)
   }
 
-  toggleFilter():void {
+  toggleFilter(): void {
     this.isFilterOpened = !this.isFilterOpened
   }
 
@@ -140,6 +144,16 @@ export class WorkiisComponent implements OnInit {
       this.costService.updateSelectedCost(cost);
     } else {
       this.costService.clearSelectedCost();
+    }
+  }
+
+  onStatusChange(state: string, checked: boolean): void {
+    if (checked) {
+      const updatedSelectedStatus = [...this.statusService.getSelectedStatus$().value, state];
+      this.statusService.updateSelectedStatus(updatedSelectedStatus);
+    } else {
+      const updatedSelectedStatus = this.statusService.getSelectedStatus$().value.filter(t => t !== state);
+      this.statusService.updateSelectedStatus(updatedSelectedStatus);
     }
   }
 }
