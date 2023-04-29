@@ -8,8 +8,6 @@ export class TargetService {
   private selectedTargets$ = new BehaviorSubject<string[]>([]);
 
   getSelectedTargets$() {
-    console.log(this.selectedTargets$);
-
     return this.selectedTargets$;
   }
 

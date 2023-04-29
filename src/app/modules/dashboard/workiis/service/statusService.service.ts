@@ -8,8 +8,6 @@ export class StatusService {
   private selectedStatus$ = new BehaviorSubject<string[]>([]);
 
   getSelectedStatus$() {
-    console.log(this.selectedStatus$);
-
     return this.selectedStatus$;
   }
 

@@ -6,24 +6,29 @@ export const selectWorkiis = (state: IAppState) => state.workiis;
 
 export const selectListWorkiis = createSelector(
   selectWorkiis,
-({workiis}: IWorkiiState) => workiis
+  ({ workiis }: IWorkiiState) => workiis
 );
 
 export const selectWorkiiId = createSelector(
   selectWorkiis,
-({workiis}: IWorkiiState) => workiis.map(workii => workii.id));
+  ({ workiis }: IWorkiiState) => workiis.map(workii => workii.id));
 
 export const selectListApplications = createSelector(
   selectWorkiis,
-  ({applications}: IWorkiiState) => applications
+  ({ applications }: IWorkiiState) => applications
 );
 
 export const selectCurrentWorkii = createSelector(
   selectWorkiis,
-  ({getWorkii}: IWorkiiState) => getWorkii
+  ({ getWorkii }: IWorkiiState) => getWorkii
 )
 
 export const selectUsersApplyToWorkii = createSelector(
   selectWorkiis,
-  ({getUsersWorkiiApply}: IWorkiiState) => getUsersWorkiiApply
+  ({ getUsersWorkiiApply }: IWorkiiState) => getUsersWorkiiApply
 )
+
+export const selectSearchWorkiis = createSelector(
+  selectWorkiis,
+  ({ searchWorkiis }: IWorkiiState) => searchWorkiis
+);

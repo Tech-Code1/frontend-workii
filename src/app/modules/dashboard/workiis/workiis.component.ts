@@ -1,17 +1,20 @@
-import { Component, ElementRef, OnInit, QueryList, Renderer2, ViewChildren, inject } from '@angular/core';
-import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
+import { Component, ElementRef, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
+import { BehaviorSubject, combineLatest, debounceTime, distinctUntilChanged, EMPTY, filter, fromEvent, map, Observable, of, Subject, switchMap, takeUntil, throttleTime, tap, asyncScheduler, shareReplay } from 'rxjs';
 import { SwitchService } from '../../auth/services/switch.service';
 import { UserService } from '../../auth/services/user.service';
 import { IApplicationUser } from './interfaces/workii.interface';
 import { IWorkii } from 'src/app/core/models/workii.interface';
 import { Store } from '@ngrx/store';
 import { IAppState } from 'src/app/core/state/app.state';
-import { selectListApplications, selectListWorkiis } from './state/selectors/workii.selectors';
+import { selectListApplications, selectListWorkiis, selectSearchWorkiis } from './state/selectors/workii.selectors';
 import { WorkiiActions } from './state/actions/workii.actions';
 import { TargetService } from './service/targetService.service';
 import { TimeService } from './service/timeService.service';
 import { CostService } from './service/costService.service';
 import { StatusService } from './service/statusService.service';
+import { selectLoadingUi } from '../../../shared/state/selectors/user.selectors';
+import { FormControl } from '@angular/forms';
+import { UiActions } from '../../../shared/state/actions/ui.actions';
 
 export interface WorkiiInfo {
   isApplied: boolean;
@@ -37,14 +40,20 @@ export class WorkiisComponent implements OnInit {
   @ViewChildren('checkedTime') checkedInputsTime!: QueryList<ElementRef<HTMLInputElement>>;
   @ViewChildren('checkedCost') checkedInputsCost!: QueryList<ElementRef<HTMLInputElement>>;
   @ViewChildren('checkedOwnership') checkedInputsStatus!: QueryList<ElementRef<HTMLInputElement>>;
+  @ViewChild('search') search!: ElementRef<HTMLInputElement>;
 
-  combined$!: Observable<{ applications: readonly IApplicationUser[]; workiis: readonly IWorkii[] }>;
+  searchControl = new FormControl<string>('');
+  searchWorkiis: readonly IWorkii[] = [];
+  //loading$: Observable<boolean> = new Observable<boolean>();
+  //combined$!: Observable<{ applications: readonly IApplicationUser[]; workiis: readonly IWorkii[] }>;
+  //combinedSearch$!: Observable<{ applications: readonly IApplicationUser[]; searchWorkiis: readonly IWorkii[] }>;
   workiisInApplications$!: Observable<WorkiiInfo[]>;
   userCurrentId!: string;
   isApplyWorkiiId!: string[];
   modalSwitch: boolean = false;
   isFilterOpened: boolean = true;
   workiis$: Observable<readonly IWorkii[]> = new Observable<readonly IWorkii[]>();
+  searchWorkiis$: Observable<readonly IWorkii[]> = new Observable<readonly IWorkii[]>();
   applications$: Observable<readonly IApplicationUser[]> = new Observable<readonly IApplicationUser[]>();
   newSelectedTargets: string[] = [];
   targets: string[] = [
@@ -73,28 +82,70 @@ export class WorkiisComponent implements OnInit {
 
     this.workiis$ = this.store.select(selectListWorkiis)
     this.applications$ = this.store.select(selectListApplications)
-
     this.workiisInApplications$ = this.workiisInApplications()
 
-    this.combined$ = combineLatest([this.applications$, this.workiis$]).pipe(
-      map(([applications, workiis]) => {
-        if (!applications || !workiis) {
-          return { applications: [], workiis: [] };
+    this.searchControl.valueChanges
+      .pipe(
+        debounceTime(1000),
+        filter((searchTerm: string | null) => searchTerm !== null && (searchTerm.length >= 3 || searchTerm.length === 0)),
+        distinctUntilChanged(),
+      )
+      .subscribe((searchTerm: string | null) => {
+        if (searchTerm !== null) {
+          console.log(searchTerm);
+
+          this.store.dispatch(WorkiiActions.searchWorkii(searchTerm, { limit: 10, offset: 0 }));
         }
-        return { applications, workiis };
-      })
-    );
+      });
+
+    this.searchWorkiis$ = this.store.select(selectSearchWorkiis);
   }
 
   workiisInApplications(): Observable<(IWorkii & WorkiiInfo)[]> {
     return combineLatest([this.workiis$, this.applications$]).pipe(
       map(([workiis, applications]) => {
-        const applyWorkiiIds = applications.map(apply => apply.workii.id);
+        if (!workiis || workiis.length === 0) {
+          return [];
+        }
+
+
+        const applyWorkiiIds = applications.map((apply) => apply.workii.id);
+
+        console.log(applyWorkiiIds, 'applyWorkiiIds');
+
         return workiis.map(workii => ({
           ...workii,
           isApplied: applyWorkiiIds.includes(workii.id),
-          isCreatedByCurrentUser: this.userCurrentId === workii.user.id
+          isCreatedByCurrentUser: workii.user && this.userCurrentId === workii.user.id,
         }));
+      })
+    );
+  }
+
+  searchInApplications(): Observable<(IWorkii & WorkiiInfo)[]> {
+    return combineLatest([this.searchWorkiis$, this.applications$]).pipe(
+      map(([searchWorkiis, applications]) => {
+
+        if (!searchWorkiis || searchWorkiis.length === 0) {
+
+          return [];
+        }
+
+        console.log(this.applications$, 'applications$');
+        console.log(applications, 'applications');
+
+        const applyWorkiiIds = applications.map((apply) => apply.workii.id);
+
+        console.log(applyWorkiiIds, 'applyWorkiiIds');
+
+
+        const data = searchWorkiis.map(searchWorkii => ({
+          ...searchWorkii,
+          isApplied: applyWorkiiIds.includes(searchWorkii.id),
+          isCreatedByCurrentUser: searchWorkii.user && this.userCurrentId === searchWorkii.user.id,
+        }));
+
+        return data;
       })
     );
   }
@@ -135,10 +186,6 @@ export class WorkiisComponent implements OnInit {
   }
 
   onCostChange(cost: string, checked: boolean): void {
-    console.log('hola');
-
-    console.log(cost);
-    console.log(checked);
 
     if (checked) {
       this.costService.updateSelectedCost(cost);

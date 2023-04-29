@@ -25,10 +25,13 @@ export class WorkiisCardsComponent {
   private modalService = inject(SwitchService)
 
   @Input()
-  workiis!: (IWorkii & WorkiiInfo)[];
+  workiis!: (IWorkii & WorkiiInfo)[] | undefined;
 
   @Input()
-  applications!: readonly IApplicationUser[];
+  searchWorkiis!: (IWorkii & WorkiiInfo)[] | undefined;
+
+  @Input()
+  applications!: readonly IApplicationUser[] | null;
 
   @Input()
   isFilterOpened!: boolean;
@@ -38,7 +41,6 @@ export class WorkiisCardsComponent {
 
 
   loading$: Observable<boolean> = new Observable<boolean>();
-  //workiiIds$!: Observable<(string | undefined)[]>;
   applicationId!: string;
   modalSwitch: boolean = false;
   selectedWorkii!: IWorkii;
@@ -47,20 +49,13 @@ export class WorkiisCardsComponent {
   ngOnInit(): void {
     this.store.dispatch(UiActions.isLoading())
     this.loading$ = this.store.select(selectLoadingUi)
-    //this.workiis$ = this.store.select(selectListWorkiis)
-    //this.store.dispatch(WorkiiActions.loadWorkiis())
-
-    //this.store.dispatch(WorkiiActions.loadApplications())
-
-    //this.applications$ = this.store.select(selectListApplications)
-
-    /* this.workiiIds$ = this.applications$.pipe(
-      map(workiis => workiis.map(worki => worki.id))
-    ) */
 
     this.modalService.$modal.subscribe((valor) => {
       this.modalSwitch = valor
     })
+
+    console.log(this.searchWorkiis, 'searchWorkiis');
+    console.log(this.applications, 'applications');
 
   }
 
@@ -71,8 +66,8 @@ export class WorkiisCardsComponent {
 
     applies.map(apply => {
       workii.id.includes(apply.workii.id)
-      ?  this.applicationId = apply.id!
-      : ''
+        ? this.applicationId = apply.id!
+        : ''
     })
   }
 

@@ -20,11 +20,11 @@ export class WorkiiEffects {
 
   loadWorkiis$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(WorkiiActions.loadWorkiis),
-    exhaustMap(() => this.workiisService.getWorkiis({limit: 20, offset: 0})
+    exhaustMap(() => this.workiisService.getWorkiis({ limit: 20, offset: 0 })
       .pipe(
-        mergeMap(workiis =>[
-        UiActions.stopLoading(),
-        { type: WorkiiActions.listWorkiis.type, workiis }
+        mergeMap(workiis => [
+          UiActions.stopLoading(),
+          { type: WorkiiActions.listWorkiis.type, workiis }
         ]),
         catchError(() => {
           return of(WorkiiActions.errorCreateWorkii(
@@ -32,7 +32,7 @@ export class WorkiiEffects {
           ));
         })
       ))
-    )
+  )
   );
 
   loadWorkii$ = createEffect(() => this.actions$.pipe(
@@ -40,7 +40,7 @@ export class WorkiiEffects {
     switchMap((action) => this.workiisService.getWorkii(action.slug)
       .pipe(
         map(workii => {
-        return  WorkiiActions.loadWorkiiSucces({workii})
+          return WorkiiActions.loadWorkiiSucces({ workii })
 
         }),
         catchError(() => {
@@ -49,16 +49,16 @@ export class WorkiiEffects {
           ));
         })
       ))
-    )
+  )
   );
 
   loadUsersApply$ = createEffect(() => this.actions$.pipe(
     ofType(WorkiiActions.loadUsersApply),
-    switchMap((action) => this.workiisService.getUsersApplyWorkii(action.workii, {limit: action.limit, offset: action.offset})
+    switchMap((action) => this.workiisService.getUsersApplyWorkii(action.workii, { limit: action.limit, offset: action.offset })
       .pipe(
         map(usersApply => {
 
-        return  WorkiiActions.loadUsersApplySuccess(usersApply)
+          return WorkiiActions.loadUsersApplySuccess(usersApply)
 
         }),
         catchError(() => {
@@ -67,16 +67,16 @@ export class WorkiiEffects {
           ));
         })
       ))
-    )
+  )
   );
 
-  loadApplications$: Observable<{type: string, applications: IApplicationUser[]} | {errorMessage: string}> = createEffect(() => this.actions$.pipe(
+  loadApplications$: Observable<{ type: string, applications: IApplicationUser[] } | { errorMessage: string }> = createEffect(() => this.actions$.pipe(
     ofType(WorkiiActions.loadApplications),
-    exhaustMap(() => this.workiisService.getAllApplicationsWorkiiByUser(this.userCurrentId, {limit: 10, offset: 0})
+    exhaustMap(() => this.workiisService.getAllApplicationsWorkiiByUser(this.userCurrentId, { limit: 10, offset: 0 })
       .pipe(
         map(applications => {
 
-          return  { type: WorkiiActions.listApplicationsWorkiis.type, applications }
+          return { type: WorkiiActions.listApplicationsWorkiis.type, applications }
 
         }),
         catchError(() => {
@@ -85,180 +85,205 @@ export class WorkiiEffects {
           ));
         })
       ))
+  )
+  );
+
+  searchWorkiis$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(WorkiiActions.searchWorkii),
+      switchMap((action) =>
+        this.workiisService.searchWorkiis(action.searchTerm!, action.limit, action.offset).pipe(
+          mergeMap((workiis) => {
+            if (workiis.length === 0) {
+              return [UiActions.stopLoading(), WorkiiActions.searchWorkiiNotFound()];
+            } else {
+              return [UiActions.stopLoading(), WorkiiActions.searchWorkiiSuccess(workiis)];
+            }
+          }),
+          catchError(() => {
+            return of(WorkiiActions.searchWorkiiFail(
+              { errorMessage: 'Ha ocurrido un error al cargar las aplicaciones' }
+            ));
+          })
+        )
+      )
     )
   );
 
-  createWorkii$: Observable<{workii: IWorkiiCreate} | { errorMessage: string }> = createEffect(() => this.actions$.pipe(
+
+  createWorkii$: Observable<{ workii: IWorkiiCreate } | { errorMessage: string }> = createEffect(() => this.actions$.pipe(
     ofType(WorkiiActions.createWorkiiSuccess),
     concatMap((action) =>
 
-        this.workiisService.createWorkiis(action.workii).pipe(
+      this.workiisService.createWorkiis(action.workii).pipe(
 
-      map((savedWorkiis) => {
+        map((savedWorkiis) => {
 
-        this.modalService.$modal.emit(false)
+          this.modalService.$modal.emit(false)
 
+          Swal.fire({
+            icon: 'success',
+            text: 'El workii se ha creado correctamente',
+            showConfirmButton: false,
+            timer: 1500
+          });
+          return WorkiiActions.createWorkiiSuccess(savedWorkiis)
+        }),
+
+        catchError(() => {
+          return of(WorkiiActions.errorCreateWorkii(
+            { errorMessage: 'Ha ocurrido un error al intentar crear el Workii' }
+          ));
+        })
+      ))
+  ), { dispatch: false })
+
+
+  deleteWorkii$: Observable<{ id: string } | { errorMessage: string } | { message: string } | { response: IApplicationResponse }> = createEffect(() => this.actions$.pipe(
+    ofType(WorkiiActions.deleteWorkiiRequest),
+    switchMap((action) => from(Swal.fire({
+      title: '¿ Estas seguro de eliminar el Workii ?',
+      text: "No podras revertir esta acción",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar workii!'
+    })).pipe(
+      map(result => {
+        return { result, action }
+      })
+    )),
+    mergeMap(({ result, action }) => {
+      if (result.isConfirmed) {
+        this.modalService.$modal.emit(false);
+        // Eliminar el Workii del array de datos o actualizar el estado
         Swal.fire({
           icon: 'success',
-          text: 'El workii se ha creado correctamente',
+          text: 'El Workii se ha eliminado correctamente',
           showConfirmButton: false,
           timer: 1500
         });
-        return WorkiiActions.createWorkiiSuccess(savedWorkiis)
-      }),
 
-      catchError(() => {
-        return of(WorkiiActions.errorCreateWorkii(
-          { errorMessage: 'Ha ocurrido un error al intentar crear el Workii' }
-        ));
+        return this.workiisService.deleteWorkii(action.id).pipe(
+          map(() => WorkiiActions.deleteWorkiiSuccess(action.id)),
+          catchError(() => {
+            return of(WorkiiActions.deleteWorkiiError({
+              errorMessage: 'No se ha podido eliminar el Workii, ha ocurrido un error'
+            }))
+          })
+        )
+      }
+      return of(WorkiiActions.cancelWorkiiDelete({ message: 'Has cancelado la acción' }))
+    })
+  ))
+
+
+  applyToWorkii$ = createEffect(() => this.actions$.pipe(
+    ofType(WorkiiActions.applyWorkiiRequest),
+    switchMap((action) => from(Swal.fire({
+      title: '¿ Estas seguro que deseas aplicar al Workii ?',
+      text: "",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, aplicar'
+    })).pipe(
+      map(result => {
+        return { result, action }
       })
-    ))
-  ), {dispatch: false})
+    )),
+    mergeMap(({ result, action }) => {
+      if (result.isConfirmed) {
+        this.modalService.$modal.emit(false);
+        // Eliminar el Workii del array de datos o actualizar el estado
+        Swal.fire({
+          icon: 'success',
+          text: 'El Workii se ha eliminado correctamente',
+          showConfirmButton: false,
+          timer: 1500
+        });
 
-
-deleteWorkii$: Observable<{id: string} | { errorMessage: string } | {message: string} | {response: IApplicationResponse}> = createEffect(() => this.actions$.pipe(
-  ofType(WorkiiActions.deleteWorkiiRequest),
-  switchMap((action) => from(Swal.fire({
-    title: '¿ Estas seguro de eliminar el Workii ?',
-    text: "No podras revertir esta acción",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Si, eliminar workii!'
-  })).pipe(
-    map(result => {
-      return { result, action }
+        return this.workiisService.applyToWorkii({ user: action.user, workii: action.workii }).pipe(
+          map((result) => {
+            return WorkiiActions.applyToWorkii({ user: { id: action.user }, workii: { id: action.workii } });
+          }),
+          catchError(() => {
+            return of(WorkiiActions.errorApplyToWorkii({
+              errorMessage: 'No se ha podido aplicar al Workii, ha ocurrido un error'
+            }))
+          })
+        )
+      } else if (result.dismiss === Swal.DismissReason.backdrop || result.dismiss === Swal.DismissReason.esc || result.dismiss === Swal.DismissReason.close) {
+        // El usuario cerró el cuadro de confirmación sin seleccionar ninguna opción
+        return of(WorkiiActions.cancelApplicationDelete({ message: 'Has cerrado el cuadro de confirmación sin seleccionar ninguna opción' }))
+      }
+      return of(WorkiiActions.cancelApply({ errorMessage: 'Has cancelado la acción' }))
     })
-  )),
-  mergeMap(({result, action}) => {
-    if(result.isConfirmed) {
-      this.modalService.$modal.emit(false);
-      // Eliminar el Workii del array de datos o actualizar el estado
-      Swal.fire({
-        icon: 'success',
-        text: 'El Workii se ha eliminado correctamente',
-        showConfirmButton: false,
-        timer: 1500
-      });
+  ))
 
-      return this.workiisService.deleteWorkii(action.id).pipe(
-        map(() => WorkiiActions.deleteWorkiiSuccess(action.id)),
-        catchError(() => {
-          return of(WorkiiActions.deleteWorkiiError({
-            errorMessage: 'No se ha podido eliminar el Workii, ha ocurrido un error'
-          }))
-        })
-      )
-    }
-    return of(WorkiiActions.cancelWorkiiDelete({message: 'Has cancelado la acción'}))
-  })
-))
+  removeApplication$: Observable<{ id: string, workii: string } | { errorMessage: string } | { message: string } | { response: IApplicationResponse }> = createEffect(() => this.actions$.pipe(
+    ofType(WorkiiActions.deleteApplicationRequest),
+    switchMap((action) => from(Swal.fire({
+      title: '¿ Estas seguro que deseas abandonar el workii ?',
+      text: "",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, abandonar'
+    })).pipe(
+      map(result => {
+        return { result, action }
+      })
+    )),
+    mergeMap(({ result, action }) => {
+      if (result.isConfirmed) {
+        this.modalService.$modal.emit(false);
+        // Eliminar el Workii del array de datos o actualizar el estado
+        Swal.fire({
+          icon: 'success',
+          text: 'Has abandondado correctamente el workii',
+          showConfirmButton: false,
+          timer: 1500
+        });
+
+        console.log(action.id, action.workii);
 
 
-applyToWorkii$ = createEffect(() => this.actions$.pipe(
-  ofType(WorkiiActions.applyWorkiiRequest),
-  switchMap((action) => from(Swal.fire({
-    title: '¿ Estas seguro que deseas aplicar al Workii ?',
-    text: "",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Si, aplicar'
-  })).pipe(
-    map(result => {
-      return { result, action }
+        return this.workiisService.removeApplication(action.id, action.workii).pipe(
+          map(() => WorkiiActions.deleteApplicationSuccess(action.id, action.workii)),
+          catchError(() => {
+            return of(WorkiiActions.deleteApplicationError({
+              errorMessage: 'No has podido abandonar el Workii, ha ocurrido un error'
+            }))
+          })
+        )
+      } else if (result.dismiss === Swal.DismissReason.backdrop || result.dismiss === Swal.DismissReason.esc || result.dismiss === Swal.DismissReason.close) {
+        // El usuario cerró el cuadro de confirmación sin seleccionar ninguna opción
+        return of(WorkiiActions.cancelApplicationDelete({ message: 'Has cerrado el cuadro de confirmación sin seleccionar ninguna opción' }))
+      }
+      return of(WorkiiActions.cancelApplicationDelete({ message: 'Has cancelado la acción' }))
     })
-  )),
-  mergeMap(({result, action}) => {
-    if(result.isConfirmed) {
-      this.modalService.$modal.emit(false);
-      // Eliminar el Workii del array de datos o actualizar el estado
-      Swal.fire({
-        icon: 'success',
-        text: 'El Workii se ha eliminado correctamente',
-        showConfirmButton: false,
-        timer: 1500
-      });
-
-      return this.workiisService.applyToWorkii({user: action.user, workii: action.workii}).pipe(
-        map((result) => {
-          return WorkiiActions.applyToWorkii({ user: {id: action.user}, workii: { id: action.workii } });
-        }),
-        catchError(() => {
-          return of(WorkiiActions.errorApplyToWorkii({
-            errorMessage: 'No se ha podido aplicar al Workii, ha ocurrido un error'
-          }))
-        })
-      )
-    } else if (result.dismiss === Swal.DismissReason.backdrop || result.dismiss === Swal.DismissReason.esc || result.dismiss === Swal.DismissReason.close) {
-      // El usuario cerró el cuadro de confirmación sin seleccionar ninguna opción
-      return of(WorkiiActions.cancelApplicationDelete({message: 'Has cerrado el cuadro de confirmación sin seleccionar ninguna opción'}))
-    }
-    return of(WorkiiActions.cancelApply({errorMessage: 'Has cancelado la acción'}))
-  })
-))
-
-removeApplication$: Observable<{id: string, workii: string} | { errorMessage: string } | {message: string} | {response: IApplicationResponse}> = createEffect(() => this.actions$.pipe(
-  ofType(WorkiiActions.deleteApplicationRequest),
-  switchMap((action) => from(Swal.fire({
-    title: '¿ Estas seguro que deseas abandonar el workii ?',
-    text: "",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Si, abandonar'
-  })).pipe(
-    map(result => {
-      return { result, action }
-    })
-  )),
-  mergeMap(({result, action}) => {
-    if(result.isConfirmed) {
-      this.modalService.$modal.emit(false);
-      // Eliminar el Workii del array de datos o actualizar el estado
-      Swal.fire({
-        icon: 'success',
-        text: 'Has abandondado correctamente el workii',
-        showConfirmButton: false,
-        timer: 1500
-      });
-
-      console.log(action.id, action.workii);
-
-
-      return this.workiisService.removeApplication(action.id, action.workii).pipe(
-        map(() => WorkiiActions.deleteApplicationSuccess(action.id, action.workii)),
-        catchError(() => {
-          return of(WorkiiActions.deleteApplicationError({
-            errorMessage: 'No has podido abandonar el Workii, ha ocurrido un error'
-          }))
-        })
-      )
-    } else if (result.dismiss === Swal.DismissReason.backdrop || result.dismiss === Swal.DismissReason.esc || result.dismiss === Swal.DismissReason.close) {
-      // El usuario cerró el cuadro de confirmación sin seleccionar ninguna opción
-      return of(WorkiiActions.cancelApplicationDelete({message: 'Has cerrado el cuadro de confirmación sin seleccionar ninguna opción'}))
-    }
-    return of(WorkiiActions.cancelApplicationDelete({message: 'Has cancelado la acción'}))
-  })
-))
+  ))
 
 
   notifyApiError$ = createEffect(() => this.actions$.pipe(
-    ofType(WorkiiActions.loadError,
+    ofType(
+      WorkiiActions.loadError,
       WorkiiActions.errorCreateWorkii,
       WorkiiActions.deleteWorkiiError,
       WorkiiActions.loadApplicationError,
       WorkiiActions.deleteApplicationError,
       WorkiiActions.errorApplyToWorkii,
       WorkiiActions.loadUsersApplyError,
-      WorkiiActions.loadWorkiiError),
+      WorkiiActions.loadWorkiiError,
+    ),
     tap((action) => {
       Swal.fire('Error', `${action.errorMessage}`, 'error');
     })
-  ), {dispatch: false})
+  ), { dispatch: false })
 
   constructor(
     private actions$: Actions,
