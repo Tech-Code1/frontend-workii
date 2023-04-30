@@ -7,4 +7,5 @@ export interface IWorkiiState {
   getUsersWorkiiApply: readonly IUsersApplicationResponse[];
   searchWorkiis: ReadonlyArray<IWorkii>;
   notFound: boolean;
+  searchTerm: string;
 }

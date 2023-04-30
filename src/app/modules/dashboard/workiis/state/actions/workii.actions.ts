@@ -40,6 +40,7 @@ export const WorkiiActions = createActionGroup({
     'Search Workii Success': (workiis: IWorkii[]) => ({ workiis, notFound: false }),
     'Search Workii Not Found': () => ({ notFound: true }),
     'Search Workii Fail': props<{ errorMessage: string }>(),
+    'Update Search Term': props<{ searchTerm: string }>(),
   }
 })
 

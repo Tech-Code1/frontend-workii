@@ -19,6 +19,8 @@ import { ButtonFilterOwnershipComponent } from './components/button-filter-owner
 import { StatusFilterPipe } from './pipes/status-filter.pipe';
 import { SearchFilterPipe } from './pipes/search-filter.pipe';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { LottieModule } from 'ngx-lottie';
+import { LottieSearchComponent } from 'src/app/shared/lottie/lottieSearch.component';
 
 const routes: Routes = [
   {
@@ -29,6 +31,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
+    LottieSearchComponent,
     WorkiisComponent,
     ModalCreateWorkiiComponent,
     WorkiisCardsComponent,
@@ -51,6 +54,10 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
+    LottieModule
+  ],
+  exports: [
+    LottieSearchComponent,
   ]
 })
 export class WorkiisModule { }

@@ -1,12 +1,12 @@
-import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren, inject } from '@angular/core';
-import { combineLatest, debounceTime, distinctUntilChanged, map, Observable } from 'rxjs';
+import { Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren, inject } from '@angular/core';
+import { combineLatest, debounceTime, delay, distinctUntilChanged, filter, map, Observable, Subject, takeUntil, tap } from 'rxjs';
 import { SwitchService } from '../../auth/services/switch.service';
 import { UserService } from '../../auth/services/user.service';
 import { IApplicationUser } from './interfaces/workii.interface';
 import { IWorkii } from 'src/app/core/models/workii.interface';
 import { Store } from '@ngrx/store';
 import { IAppState } from 'src/app/core/state/app.state';
-import { selectListApplications, selectListWorkiis, selectSearchWorkiis, selectNotFound } from './state/selectors/workii.selectors';
+import { selectListApplications, selectListWorkiis, selectSearchWorkiis, selectNotFound, selectSearchTerm } from './state/selectors/workii.selectors';
 import { WorkiiActions } from './state/actions/workii.actions';
 import { TargetService } from './service/targetService.service';
 import { TimeService } from './service/timeService.service';
@@ -15,6 +15,7 @@ import { StatusService } from './service/statusService.service';
 import { FormControl } from '@angular/forms';
 import { UiActions } from 'src/app/shared/state/actions/ui.actions';
 import { selectLoadingUi } from 'src/app/shared/state/selectors/user.selectors';
+import { AnimationOptions } from 'ngx-lottie';
 
 export interface WorkiiInfo {
   isApplied: boolean;
@@ -26,7 +27,7 @@ export interface WorkiiInfo {
   templateUrl: './workiis.component.html',
   styleUrls: ['./workiis.component.scss'],
 })
-export class WorkiisComponent implements OnInit {
+export class WorkiisComponent implements OnInit, OnDestroy {
 
   private store = inject(Store<IAppState>)
   private modalService = inject(SwitchService)
@@ -42,8 +43,11 @@ export class WorkiisComponent implements OnInit {
   @ViewChildren('checkedOwnership') checkedInputsStatus!: QueryList<ElementRef<HTMLInputElement>>;
   @ViewChild('search') search!: ElementRef<HTMLInputElement>;
 
+  public hasSearched: boolean = false;
+  private destroy$ = new Subject<void>();
   loading$: Observable<boolean> = new Observable<boolean>();
   isFound$: Observable<boolean> = new Observable<boolean>();
+  searchTerm$: Observable<string> = new Observable<string>();
   searchControl: FormControl<string> = new FormControl;
   searchWorkiis: readonly IWorkii[] = [];
   workiisInApplications$!: Observable<WorkiiInfo[]>;
@@ -72,6 +76,7 @@ export class WorkiisComponent implements OnInit {
   ngOnInit(): void {
     this.loading$ = this.store.select(selectLoadingUi)
     this.isFound$ = this.store.select(selectNotFound)
+    this.searchTerm$ = this.store.select(selectSearchTerm);
 
     this.userCurrentId = this.userService.getCurrentUser()
 
@@ -84,18 +89,40 @@ export class WorkiisComponent implements OnInit {
 
     this.workiis$ = this.store.select(selectListWorkiis)
     this.applications$ = this.store.select(selectListApplications)
+    this.searchWorkiis$ = this.store.select(selectSearchWorkiis);
+
+    this.searchTerm$.pipe(
+      takeUntil(this.destroy$)
+    )
+      .subscribe(searchTerm => {
+        this.searchControl.setValue(searchTerm, { emitEvent: false });
+      });
 
     this.searchControl.valueChanges
       .pipe(
-        debounceTime(1000),
+        tap(() => {
+          this.hasSearched = true;
+          this.store.dispatch(UiActions.isLoading());
+        }),
+        debounceTime(500),
         distinctUntilChanged(),
+        delay(500),
+        takeUntil(this.destroy$),
       )
       .subscribe((searchTerm: string) => {
+        this.store.dispatch(WorkiiActions.updateSearchTerm({ searchTerm }));
         this.store.dispatch(WorkiiActions.searchWorkii(searchTerm, { limit: 20, offset: 0 }));
       });
-
-    this.searchWorkiis$ = this.store.select(selectSearchWorkiis);
   }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  lottieOptions: AnimationOptions = {
+    path: 'https://assets4.lottiefiles.com/packages/lf20_LKXG6QRgtE.json',
+  };
 
   workiisOrSearchInApplications(source$: Observable<readonly IWorkii[]>): Observable<(IWorkii & WorkiiInfo)[]> {
     return combineLatest([source$, this.applications$]).pipe(

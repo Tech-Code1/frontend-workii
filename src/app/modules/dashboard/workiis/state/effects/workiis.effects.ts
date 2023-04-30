@@ -101,12 +101,9 @@ export class WorkiiEffects {
   searchWorkiis$ = createEffect(() =>
     this.actions$.pipe(
       ofType(WorkiiActions.searchWorkii),
-      // Inicia el indicador de carga
-      tap(() => this.store.dispatch(UiActions.isLoading())),
       switchMap((action) =>
         this.workiisService.searchWorkiis(action.searchTerm!, action.limit, action.offset).pipe(
           mergeMap((workiis) => {
-            // Detén el indicador de carga en caso de éxito
             if (workiis.length === 0) {
               return [UiActions.stopLoading(), WorkiiActions.searchWorkiiNotFound()];
             } else {
@@ -114,7 +111,6 @@ export class WorkiiEffects {
             }
           }),
           catchError(() => {
-            // Detén el indicador de carga en caso de error
             return of(UiActions.stopLoading(), WorkiiActions.searchWorkiiFail(
               { errorMessage: 'Ha ocurrido un error al cargar los workiis' }
             ));

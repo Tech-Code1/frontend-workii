@@ -37,3 +37,8 @@ export const selectNotFound = createSelector(
   selectWorkiis,
   ({ notFound }) => notFound
 );
+
+export const selectSearchTerm = createSelector(
+  selectWorkiis,
+  ({ searchTerm }) => searchTerm
+);

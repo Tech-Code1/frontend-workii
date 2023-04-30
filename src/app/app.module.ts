@@ -18,9 +18,15 @@ import { ROOT_REDUCERS } from './core/state/app.state';
 import { WorkiiEffects } from './modules/dashboard/workiis/state/effects/workiis.effects';
 import { UserEffects } from './core/state/effects/user.effects';
 import { localStorageSync } from 'ngrx-store-localstorage';
+import { LottieModule as NgxLottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
+
+export function playerFactory() {
+  return player;
+}
 
 export function createTranslateLoader(http: HttpClient) {
-	return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
@@ -47,15 +53,16 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
         strictActionSerializability: true,
       },
     }),
-    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: !isDevMode()}),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     EffectsModule.forRoot([WorkiiEffects, UserEffects]),
     TranslateModule.forRoot({
-    loader: {
-      provide: TranslateLoader,
-      useFactory: (createTranslateLoader),
-      deps: [HttpClient]
-    }
-    })
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    }),
+    [NgxLottieModule.forRoot({ player: playerFactory })],
   ],
   providers: [],
   bootstrap: [AppComponent]

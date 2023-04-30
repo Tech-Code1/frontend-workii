@@ -10,6 +10,7 @@ export const initialState: IWorkiiState = {
   getUsersWorkiiApply: [],
   searchWorkiis: [],
   notFound: false,
+  searchTerm: '',
 }
 
 export const _workiiReducer = createReducer(
@@ -90,7 +91,8 @@ export const _workiiReducer = createReducer(
   on(WorkiiActions.searchWorkii, (state) => ({ ...state })),
   on(WorkiiActions.searchWorkiiSuccess, (state, { workiis }) => ({ ...state, searchWorkiis: workiis, loading: false, notFound: false })),
   on(WorkiiActions.searchWorkiiNotFound, (state) => ({ ...state, searchWorkiis: [], notFound: true })),
-  on(WorkiiActions.searchWorkiiFail, (state, { errorMessage }) => ({ ...state, errorMessage }))
+  on(WorkiiActions.searchWorkiiFail, (state, { errorMessage }) => ({ ...state, errorMessage })),
+  on(WorkiiActions.updateSearchTerm, (state, { searchTerm }) => ({ ...state, searchTerm }))
 );
 
 

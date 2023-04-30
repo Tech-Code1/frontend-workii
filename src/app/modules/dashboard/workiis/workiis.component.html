@@ -180,16 +180,30 @@
     "
   >
     <ng-container *ngIf="loading$ | async">
-      <skeleton-cards
-        class="col-span-5 grid grid-flow-row 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 gap-x-4 gap-y-16 overflow-hidden pt-10 pr-1"
-      ></skeleton-cards>
+      <ng-container
+        *ngIf="
+          this.searchControl.value === null || this.searchControl.value === ''
+        "
+      >
+        <skeleton-cards
+          class="col-span-5 grid grid-flow-row 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 gap-x-4 gap-y-16 overflow-hidden pt-10 pr-1"
+        ></skeleton-cards>
+      </ng-container>
+
+      <ng-container
+        *ngIf="
+          this.searchControl.value !== '' && hasSearched && !(isFound$ | async)
+        "
+      >
+        <search-lottie></search-lottie>
+      </ng-container>
     </ng-container>
 
     <ng-container *ngIf="isFound$ | async">
       <not-found></not-found>
     </ng-container>
 
-    <ng-container *ngIf="!(isFound$ | async)">
+    <ng-container *ngIf="!(isFound$ | async) && !(loading$ | async)">
       <workiis-cards
         [workiis]="
           context.workiisInApplications!
