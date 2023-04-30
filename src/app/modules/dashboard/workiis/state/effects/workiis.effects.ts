@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { EMPTY, firstValueFrom, from, lastValueFrom, Observable, of, tap } from 'rxjs';
 import { map, exhaustMap, catchError, concatMap, mergeMap, switchMap, takeUntil } from 'rxjs/operators';
@@ -16,23 +16,33 @@ import { UiActions } from 'src/app/shared/state/actions/ui.actions';
 @Injectable()
 export class WorkiiEffects {
 
+  private store = inject(Store<IAppState>)
   userCurrentId: string = this.userService.getCurrentUser();
 
-  loadWorkiis$: Observable<Action> = createEffect(() => this.actions$.pipe(
-    ofType(WorkiiActions.loadWorkiis),
-    exhaustMap(() => this.workiisService.getWorkiis({ limit: 20, offset: 0 })
-      .pipe(
-        mergeMap(workiis => [
-          UiActions.stopLoading(),
-          { type: WorkiiActions.listWorkiis.type, workiis }
-        ]),
-        catchError(() => {
-          return of(WorkiiActions.errorCreateWorkii(
-            { errorMessage: 'Ha ocurrido un error al intentar obtener el listado de los Workiis' }
-          ));
-        })
-      ))
-  )
+  loadWorkiis$: Observable<Action> = createEffect(() =>
+    this.actions$.pipe(
+      ofType(WorkiiActions.loadWorkiis),
+      tap(() => this.store.dispatch(UiActions.isLoading())),
+      mergeMap(({ limit, offset }) =>
+        this.workiisService.getWorkiis({ limit, offset }).pipe(
+          mergeMap((workiis) =>
+            of(
+              { type: WorkiiActions.listWorkiis.type, workiis },
+              UiActions.stopLoading()
+            )
+          ),
+          catchError(() =>
+            of(
+              UiActions.stopLoading(),
+              WorkiiActions.errorCreateWorkii({
+                errorMessage:
+                  'Ha ocurrido un error al intentar obtener el listado de los Workiis',
+              })
+            )
+          )
+        )
+      )
+    )
   );
 
   loadWorkii$ = createEffect(() => this.actions$.pipe(
@@ -91,9 +101,12 @@ export class WorkiiEffects {
   searchWorkiis$ = createEffect(() =>
     this.actions$.pipe(
       ofType(WorkiiActions.searchWorkii),
+      // Inicia el indicador de carga
+      tap(() => this.store.dispatch(UiActions.isLoading())),
       switchMap((action) =>
         this.workiisService.searchWorkiis(action.searchTerm!, action.limit, action.offset).pipe(
           mergeMap((workiis) => {
+            // Detén el indicador de carga en caso de éxito
             if (workiis.length === 0) {
               return [UiActions.stopLoading(), WorkiiActions.searchWorkiiNotFound()];
             } else {
@@ -101,15 +114,15 @@ export class WorkiiEffects {
             }
           }),
           catchError(() => {
-            return of(WorkiiActions.searchWorkiiFail(
-              { errorMessage: 'Ha ocurrido un error al cargar las aplicaciones' }
+            // Detén el indicador de carga en caso de error
+            return of(UiActions.stopLoading(), WorkiiActions.searchWorkiiFail(
+              { errorMessage: 'Ha ocurrido un error al cargar los workiis' }
             ));
           })
         )
       )
     )
   );
-
 
   createWorkii$: Observable<{ workii: IWorkiiCreate } | { errorMessage: string }> = createEffect(() => this.actions$.pipe(
     ofType(WorkiiActions.createWorkiiSuccess),

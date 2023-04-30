@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 export class StatusService {
   private selectedStatus$ = new BehaviorSubject<string[]>([]);
 
-  getSelectedStatus$() {
+  getSelectedStatus$(): BehaviorSubject<string[]> {
     return this.selectedStatus$;
   }
 

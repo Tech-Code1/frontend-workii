@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 export class TimeService {
   private selectedTime$ = new BehaviorSubject<string[]>([]);
 
-  getSelectedTimes$() {
+  getSelectedTimes$(): BehaviorSubject<string[]> {
     return this.selectedTime$;
   }
 

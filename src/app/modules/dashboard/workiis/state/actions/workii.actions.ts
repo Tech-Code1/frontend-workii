@@ -6,7 +6,7 @@ export const WorkiiActions = createActionGroup({
   source: 'Workii Page',
   events: {
     'Log Out': emptyProps(),
-    'Load workiis': emptyProps(),
+    'Load workiis': ({ limit, offset }: IPagination) => ({ limit, offset }),
     'Load Applications': emptyProps(),
     'List workiis': (workiis: readonly IWorkii[]) => ({ workiis }),
     'List Applications Workiis': (applications: readonly IApplicationUser[]) => ({ applications }),

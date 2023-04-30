@@ -4,6 +4,7 @@ export interface IWorkiiState {
   workiis: ReadonlyArray<IWorkii>;
   applications: ReadonlyArray<IApplicationUser>;
   getWorkii: IWorkii | null;
-  getUsersWorkiiApply: readonly IUsersApplicationResponse[]
-  searchWorkiis: ReadonlyArray<IWorkii>
+  getUsersWorkiiApply: readonly IUsersApplicationResponse[];
+  searchWorkiis: ReadonlyArray<IWorkii>;
+  notFound: boolean;
 }

@@ -32,3 +32,8 @@ export const selectSearchWorkiis = createSelector(
   selectWorkiis,
   ({ searchWorkiis }: IWorkiiState) => searchWorkiis
 );
+
+export const selectNotFound = createSelector(
+  selectWorkiis,
+  ({ notFound }) => notFound
+);

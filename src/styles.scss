@@ -29,7 +29,12 @@
   @apply text-white-principal dark:text-black-principal text-base font-bold font-title
 }
 
-.title-xl-black {
+.title-xl-gray-neutral {
+  @apply text-gray-neutral text-xl font-bold font-title
+}
+
+.title-xl-black,
+.title-xl-gray-neutral {
   @apply text-xl
 }
 

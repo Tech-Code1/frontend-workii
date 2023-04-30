@@ -163,53 +163,58 @@
   <div class="h-[1px] w-full bg-black-principal opacity-20"></div>
 </div>
 
-<ng-container *ngIf="searchWorkiis$ | async as searchWorkiis">
-  <ng-container *ngIf="searchWorkiis && searchWorkiis.length === 0">
-    <ng-container
-      *ngIf="{
-        applications: applications$ | async,
-        workiisInApplications: workiisInApplications() | async
-      } as context"
-    >
+<ng-container
+  *ngIf="{
+    applications: (applications$ | async) || [],
+    searchInApplications:
+      (workiisOrSearchInApplications(searchWorkiis$) | async) || [],
+    workiisInApplications:
+      (workiisOrSearchInApplications(workiis$) | async) || []
+  } as context"
+>
+  <ng-container
+    *ngIf="
+      context.applications.length ||
+      context.searchInApplications.length ||
+      context.workiisInApplications.length
+    "
+  >
+    <ng-container *ngIf="loading$ | async">
+      <skeleton-cards
+        class="col-span-5 grid grid-flow-row 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 gap-x-4 gap-y-16 overflow-hidden pt-10 pr-1"
+      ></skeleton-cards>
+    </ng-container>
+
+    <ng-container *ngIf="isFound$ | async">
+      <not-found></not-found>
+    </ng-container>
+
+    <ng-container *ngIf="!(isFound$ | async)">
       <workiis-cards
         [workiis]="
           context.workiisInApplications!
             | targetFilter : (targetService.getSelectedTargets$() | async)
-            | timeFilter : (timeService.getSelectedTimes$() | async)!
-            | costFilter : (costService.getSelectedCost$() | async)!
+            | timeFilter : (timeService.getSelectedTimes$() | async) || []
+            | costFilter : (costService.getSelectedCost$() | async) || ''
             | statusFilter
-              : (statusService.getSelectedStatus$() | async)!
+              : (statusService.getSelectedStatus$() | async) || []
               : context.applications
               : userCurrentId
         "
-        [applications]="applications$ | async"
-        [userCurrentId]="userCurrentId"
-        [isFilterOpened]="isFilterOpened"
-      ></workiis-cards>
-    </ng-container>
-  </ng-container>
-
-  <ng-container *ngIf="searchWorkiis && searchWorkiis.length > 0">
-    <ng-container
-      *ngIf="{
-        applications: applications$ | async,
-        searchInApplications: searchInApplications() | async
-      } as contextTwo"
-    >
-      <workiis-cards
         [searchWorkiis]="
-          contextTwo.searchInApplications!
+          context.searchInApplications!
             | targetFilter : (targetService.getSelectedTargets$() | async)
-            | timeFilter : (timeService.getSelectedTimes$() | async)!
-            | costFilter : (costService.getSelectedCost$() | async)!
+            | timeFilter : (timeService.getSelectedTimes$() | async) || []
+            | costFilter : (costService.getSelectedCost$() | async) || ''
             | statusFilter
-              : (statusService.getSelectedStatus$() | async)!
-              : contextTwo.applications
+              : (statusService.getSelectedStatus$() | async) || []
+              : context.applications
               : userCurrentId
         "
-        [applications]="applications$ | async"
+        [applications]="(applications$ | async) || []"
         [userCurrentId]="userCurrentId"
         [isFilterOpened]="isFilterOpened"
+        [searchControl]="searchControl"
       ></workiis-cards>
     </ng-container>
   </ng-container>

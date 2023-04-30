@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 export class TargetService {
   private selectedTargets$ = new BehaviorSubject<string[]>([]);
 
-  getSelectedTargets$() {
+  getSelectedTargets$(): BehaviorSubject<string[]> {
     return this.selectedTargets$;
   }
 

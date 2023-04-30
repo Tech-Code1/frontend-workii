@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 export class CostService {
   private selectedCost$ = new BehaviorSubject<string>('');
 
-  getSelectedCost$() {
+  getSelectedCost$(): BehaviorSubject<string> {
     return this.selectedCost$;
   }
 
