@@ -1,11 +1,3 @@
-.hover-child {
-  display: none;
-}
-
-.hover-parent:hover .hover-child {
-  display: flex;
-}
-
 .hover-child-two {
   display: none;
   width: 121px;

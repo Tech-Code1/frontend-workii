@@ -8,9 +8,7 @@ import { ModalInfoWorkiiComponent } from './components/modal-info-workii/modal-i
 import { ReactiveFormsModule } from '@angular/forms';
 import { SkeletonCardsComponent } from './components/skeleton-cards/skeleton-cards.component';
 import { TargetFilterPipe } from './pipes/target-filter.pipe';
-import { ButtonFilterTargetComponent } from './components/button-filter-target/button-filter-target.component';
-import { InputFilterTargetComponent } from './components/input-filter-target/input-filter-target.component';
-import { InputFilterTimeComponent } from './components/input-filter-time/input-filter-time.component';
+import { ButtonFilterTargetComponent } from './components/filter-target/filter-target.component';
 import { ButtonFilterTimeComponent } from './components/button-filter-time/button-filter-time.component';
 import { TimeFilterPipe } from './pipes/time-filter.pipe';
 import { ButtonFilterCostComponent } from './components/button-filter-cost/button-filter-cost.component';
@@ -43,8 +41,6 @@ const routes: Routes = [
     StatusFilterPipe,
     SearchFilterPipe,
     ButtonFilterTargetComponent,
-    InputFilterTargetComponent,
-    InputFilterTimeComponent,
     ButtonFilterTimeComponent,
     ButtonFilterCostComponent,
     ButtonFilterOwnershipComponent,

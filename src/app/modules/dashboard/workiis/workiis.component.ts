@@ -37,7 +37,6 @@ export class WorkiisComponent implements OnInit, OnDestroy {
   public costService = inject(CostService)
   public statusService = inject(StatusService)
 
-  @ViewChildren('checkedTarget') checkedInputsTarget!: QueryList<ElementRef<HTMLInputElement>>;
   @ViewChildren('checkedTime') checkedInputsTime!: QueryList<ElementRef<HTMLInputElement>>;
   @ViewChildren('checkedCost') checkedInputsCost!: QueryList<ElementRef<HTMLInputElement>>;
   @ViewChildren('checkedOwnership') checkedInputsStatus!: QueryList<ElementRef<HTMLInputElement>>;
@@ -59,16 +58,6 @@ export class WorkiisComponent implements OnInit, OnDestroy {
   searchWorkiis$: Observable<readonly IWorkii[]> = new Observable<readonly IWorkii[]>();
   applications$: Observable<readonly IApplicationUser[]> = new Observable<readonly IApplicationUser[]>();
   newSelectedTargets: string[] = [];
-  targets: string[] = [
-    'Arte',
-    'Informatica',
-    'Humanidades',
-    'Ciencias',
-    'Ingenieria',
-    'Entretenimiento',
-    'Comunicaciones',
-    'Marketing',
-    'Otro'];
   times: string[] = ['3', '5', '7', '10', '15'];
   costs: string[] = ['desc', 'asc'];
   status: string[] = ['Publicados', 'Aplicados', 'Disponibles'];
@@ -155,17 +144,6 @@ export class WorkiisComponent implements OnInit, OnDestroy {
 
   toggleFilter(): void {
     this.isFilterOpened = !this.isFilterOpened
-  }
-
-  onTargetChange(target: string, checked: boolean): void {
-
-    if (checked) {
-      const updatedSelectedTargets = [...this.targetService.getSelectedTargets$().value, target];
-      this.targetService.updateSelectedTargets(updatedSelectedTargets);
-    } else {
-      const updatedSelectedTargets = this.targetService.getSelectedTargets$().value.filter(t => t !== target);
-      this.targetService.updateSelectedTargets(updatedSelectedTargets);
-    }
   }
 
   onTimeChange(time: string, checked: boolean): void {
