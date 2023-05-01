@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, QueryList, ViewChildren, inject } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChildren, inject } from '@angular/core';
 import { TargetService } from '../../service/targetService.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { TargetService } from '../../service/targetService.service';
   templateUrl: './filter-target.component.html',
   styleUrls: ['./filter-target.component.scss']
 })
-export class FilterTargetComponent implements OnInit {
+export class FilterTargetComponent {
 
   public targetService = inject(TargetService)
 
@@ -21,11 +21,6 @@ export class FilterTargetComponent implements OnInit {
     'Comunicaciones',
     'Marketing',
     'Otro'];
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   deleteTarget() {
     this.checkedInputsTarget.forEach((checkedInput: ElementRef) => {

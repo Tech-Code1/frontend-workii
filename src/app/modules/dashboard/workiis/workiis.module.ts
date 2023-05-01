@@ -11,7 +11,7 @@ import { TargetFilterPipe } from './pipes/target-filter.pipe';
 import { FilterTargetComponent } from './components/filter-target/filter-target.component';
 import { FilterTimeComponent } from './components/filter-time/filter-time.component';
 import { TimeFilterPipe } from './pipes/time-filter.pipe';
-import { ButtonFilterCostComponent } from './components/button-filter-cost/button-filter-cost.component';
+import { FilterCostComponent } from './components/filter-cost/filter-cost.component';
 import { CostFilterPipe } from './pipes/cost-filter.pipe';
 import { ButtonFilterOwnershipComponent } from './components/button-filter-ownership/button-filter-ownership.component';
 import { StatusFilterPipe } from './pipes/status-filter.pipe';
@@ -42,7 +42,7 @@ const routes: Routes = [
     SearchFilterPipe,
     FilterTargetComponent,
     FilterTimeComponent,
-    ButtonFilterCostComponent,
+    FilterCostComponent,
     ButtonFilterOwnershipComponent,
     NotFoundComponent
   ],

@@ -37,7 +37,7 @@ export class WorkiisComponent implements OnInit, OnDestroy {
   public costService = inject(CostService)
   public statusService = inject(StatusService)
 
-  @ViewChildren('checkedCost') checkedInputsCost!: QueryList<ElementRef<HTMLInputElement>>;
+
   @ViewChildren('checkedOwnership') checkedInputsStatus!: QueryList<ElementRef<HTMLInputElement>>;
   @ViewChild('search') search!: ElementRef<HTMLInputElement>;
 
@@ -57,7 +57,6 @@ export class WorkiisComponent implements OnInit, OnDestroy {
   searchWorkiis$: Observable<readonly IWorkii[]> = new Observable<readonly IWorkii[]>();
   applications$: Observable<readonly IApplicationUser[]> = new Observable<readonly IApplicationUser[]>();
   newSelectedTargets: string[] = [];
-  costs: string[] = ['desc', 'asc'];
   status: string[] = ['Publicados', 'Aplicados', 'Disponibles'];
 
   ngOnInit(): void {
@@ -144,14 +143,7 @@ export class WorkiisComponent implements OnInit, OnDestroy {
     this.isFilterOpened = !this.isFilterOpened
   }
 
-  onCostChange(cost: string, checked: boolean): void {
 
-    if (checked) {
-      this.costService.updateSelectedCost(cost);
-    } else {
-      this.costService.clearSelectedCost();
-    }
-  }
 
   onStatusChange(state: string, checked: boolean): void {
     if (checked) {

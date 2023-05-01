@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, Input, QueryList, ElementRef } from '@angular/core';
+import { Component, inject, Input, QueryList, ElementRef } from '@angular/core';
 import { StatusService } from '../../service/statusService.service';
 
 @Component({
@@ -6,16 +6,12 @@ import { StatusService } from '../../service/statusService.service';
   templateUrl: './button-filter-ownership.component.html',
   styleUrls: ['./button-filter-ownership.component.scss']
 })
-export class ButtonFilterOwnershipComponent implements OnInit {
+export class ButtonFilterOwnershipComponent {
 
   public statusService = inject(StatusService)
 
   @Input()
   checkedInputsStatus!: QueryList<ElementRef<HTMLInputElement>>
-
-  ngOnInit(): void {
-  }
-
 
   deleteStatus() {
     this.checkedInputsStatus.forEach((checkedInput: ElementRef) => {
