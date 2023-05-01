@@ -37,7 +37,6 @@ export class WorkiisComponent implements OnInit, OnDestroy {
   public costService = inject(CostService)
   public statusService = inject(StatusService)
 
-  @ViewChildren('checkedTime') checkedInputsTime!: QueryList<ElementRef<HTMLInputElement>>;
   @ViewChildren('checkedCost') checkedInputsCost!: QueryList<ElementRef<HTMLInputElement>>;
   @ViewChildren('checkedOwnership') checkedInputsStatus!: QueryList<ElementRef<HTMLInputElement>>;
   @ViewChild('search') search!: ElementRef<HTMLInputElement>;
@@ -58,7 +57,6 @@ export class WorkiisComponent implements OnInit, OnDestroy {
   searchWorkiis$: Observable<readonly IWorkii[]> = new Observable<readonly IWorkii[]>();
   applications$: Observable<readonly IApplicationUser[]> = new Observable<readonly IApplicationUser[]>();
   newSelectedTargets: string[] = [];
-  times: string[] = ['3', '5', '7', '10', '15'];
   costs: string[] = ['desc', 'asc'];
   status: string[] = ['Publicados', 'Aplicados', 'Disponibles'];
 
@@ -144,18 +142,6 @@ export class WorkiisComponent implements OnInit, OnDestroy {
 
   toggleFilter(): void {
     this.isFilterOpened = !this.isFilterOpened
-  }
-
-  onTimeChange(time: string, checked: boolean): void {
-
-    if (checked) {
-      const updatedSelectedTime = [...this.timeService.getSelectedTimes$().value, time];
-      this.timeService.updateSelectedTime(updatedSelectedTime);
-    } else {
-      const updatedSelectedTime = this.timeService.getSelectedTimes$().value.filter(t => t !== time);
-
-      this.timeService.updateSelectedTime(updatedSelectedTime);
-    }
   }
 
   onCostChange(cost: string, checked: boolean): void {

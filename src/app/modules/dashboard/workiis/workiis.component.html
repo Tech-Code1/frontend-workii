@@ -65,35 +65,7 @@
     class="flex flex-row gap-4 bg-white-principal shadow-md rounded-b-md p-2 w-full animate__animated animate__bounceIn z-10"
   >
     <filter-target></filter-target>
-
-    <div class="flex flex-col gap-2 relative hover-parent-two w-[121px]">
-      <ng-container
-        *ngIf="timeService.getSelectedTimes$() | async as selectedTargets"
-      >
-        <button-filter-time [checkedInputs]="checkedInputsTime">
-        </button-filter-time>
-      </ng-container>
-
-      <div
-        class="hover-child-two flex-col gap-2 p-2 bg-white-principal shadow-md rounded absolute z-10 top-[40px]"
-      >
-        <ng-container *ngFor="let time of times; index as i">
-          <label
-            [for]="time"
-            class="flex flex-row gap-2 items-center cursor-pointer"
-          >
-            <input
-              type="checkbox"
-              [id]="time"
-              #checkedTime
-              (change)="onTimeChange(time, checkedTime.checked)"
-              class="rounded outline-0 ring-0 cursor-pointer"
-            />
-            <p class="title-sm-black">{{ time }} dias</p>
-          </label>
-        </ng-container>
-      </div>
-    </div>
+    <filter-time> </filter-time>
 
     <div class="flex flex-col gap-2 relative hover-parent-three w-[121px]">
       <button-filter-cost

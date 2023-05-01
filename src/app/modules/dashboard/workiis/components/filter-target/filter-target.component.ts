@@ -6,7 +6,7 @@ import { TargetService } from '../../service/targetService.service';
   templateUrl: './filter-target.component.html',
   styleUrls: ['./filter-target.component.scss']
 })
-export class ButtonFilterTargetComponent implements OnInit {
+export class FilterTargetComponent implements OnInit {
 
   public targetService = inject(TargetService)
 
