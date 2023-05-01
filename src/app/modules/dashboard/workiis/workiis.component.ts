@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren, inject } from '@angular/core';
-import { combineLatest, debounceTime, delay, distinctUntilChanged, filter, map, Observable, Subject, takeUntil, tap } from 'rxjs';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import { combineLatest, debounceTime, delay, distinctUntilChanged, map, Observable, Subject, takeUntil, tap } from 'rxjs';
 import { SwitchService } from '../../auth/services/switch.service';
 import { UserService } from '../../auth/services/user.service';
 import { IApplicationUser } from './interfaces/workii.interface';
@@ -15,7 +15,6 @@ import { StatusService } from './service/statusService.service';
 import { FormControl } from '@angular/forms';
 import { UiActions } from 'src/app/shared/state/actions/ui.actions';
 import { selectLoadingUi } from 'src/app/shared/state/selectors/user.selectors';
-import { AnimationOptions } from 'ngx-lottie';
 
 export interface WorkiiInfo {
   isApplied: boolean;
@@ -37,8 +36,6 @@ export class WorkiisComponent implements OnInit, OnDestroy {
   public costService = inject(CostService)
   public statusService = inject(StatusService)
 
-
-  @ViewChildren('checkedOwnership') checkedInputsStatus!: QueryList<ElementRef<HTMLInputElement>>;
   @ViewChild('search') search!: ElementRef<HTMLInputElement>;
 
   public hasSearched: boolean = false;
@@ -47,23 +44,20 @@ export class WorkiisComponent implements OnInit, OnDestroy {
   isFound$: Observable<boolean> = new Observable<boolean>();
   searchTerm$: Observable<string> = new Observable<string>();
   searchControl: FormControl<string> = new FormControl;
-  searchWorkiis: readonly IWorkii[] = [];
-  workiisInApplications$!: Observable<WorkiiInfo[]>;
   userCurrentId!: string;
-  isApplyWorkiiId!: string[];
   modalSwitch: boolean = false;
   isFilterOpened: boolean = true;
   workiis$: Observable<readonly IWorkii[]> = new Observable<readonly IWorkii[]>();
   searchWorkiis$: Observable<readonly IWorkii[]> = new Observable<readonly IWorkii[]>();
   applications$: Observable<readonly IApplicationUser[]> = new Observable<readonly IApplicationUser[]>();
-  newSelectedTargets: string[] = [];
-  status: string[] = ['Publicados', 'Aplicados', 'Disponibles'];
 
   ngOnInit(): void {
     this.loading$ = this.store.select(selectLoadingUi)
     this.isFound$ = this.store.select(selectNotFound)
     this.searchTerm$ = this.store.select(selectSearchTerm);
-
+    this.workiis$ = this.store.select(selectListWorkiis)
+    this.applications$ = this.store.select(selectListApplications)
+    this.searchWorkiis$ = this.store.select(selectSearchWorkiis);
     this.userCurrentId = this.userService.getCurrentUser()
 
     this.modalService.$modal.subscribe((valor) => {
@@ -72,10 +66,6 @@ export class WorkiisComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(WorkiiActions.loadWorkiis({ limit: 20, offset: 0 }))
     this.store.dispatch(WorkiiActions.loadApplications())
-
-    this.workiis$ = this.store.select(selectListWorkiis)
-    this.applications$ = this.store.select(selectListApplications)
-    this.searchWorkiis$ = this.store.select(selectSearchWorkiis);
 
     this.searchTerm$.pipe(
       takeUntil(this.destroy$)
@@ -105,10 +95,6 @@ export class WorkiisComponent implements OnInit, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
-  lottieOptions: AnimationOptions = {
-    path: 'https://assets4.lottiefiles.com/packages/lf20_LKXG6QRgtE.json',
-  };
 
   clearInput() {
     this.searchControl.setValue('');
@@ -141,17 +127,5 @@ export class WorkiisComponent implements OnInit, OnDestroy {
 
   toggleFilter(): void {
     this.isFilterOpened = !this.isFilterOpened
-  }
-
-
-
-  onStatusChange(state: string, checked: boolean): void {
-    if (checked) {
-      const updatedSelectedStatus = [...this.statusService.getSelectedStatus$().value, state];
-      this.statusService.updateSelectedStatus(updatedSelectedStatus);
-    } else {
-      const updatedSelectedStatus = this.statusService.getSelectedStatus$().value.filter(t => t !== state);
-      this.statusService.updateSelectedStatus(updatedSelectedStatus);
-    }
   }
 }

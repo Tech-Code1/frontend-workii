@@ -1,4 +1,4 @@
-import { NgModule, Component } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WorkiisComponent } from './workiis.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -13,7 +13,7 @@ import { FilterTimeComponent } from './components/filter-time/filter-time.compon
 import { TimeFilterPipe } from './pipes/time-filter.pipe';
 import { FilterCostComponent } from './components/filter-cost/filter-cost.component';
 import { CostFilterPipe } from './pipes/cost-filter.pipe';
-import { ButtonFilterOwnershipComponent } from './components/button-filter-ownership/button-filter-ownership.component';
+import { FilterStatus } from './components/filter-status/filter-status.component';
 import { StatusFilterPipe } from './pipes/status-filter.pipe';
 import { SearchFilterPipe } from './pipes/search-filter.pipe';
 import { NotFoundComponent } from './components/not-found/not-found.component';
@@ -43,7 +43,7 @@ const routes: Routes = [
     FilterTargetComponent,
     FilterTimeComponent,
     FilterCostComponent,
-    ButtonFilterOwnershipComponent,
+    FilterStatus,
     NotFoundComponent
   ],
   imports: [
