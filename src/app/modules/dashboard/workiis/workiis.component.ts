@@ -123,5 +123,12 @@ export class WorkiisComponent implements OnInit, OnDestroy {
 
   toggleFilter(): void {
     this.isFilterOpened = !this.isFilterOpened
+
+    if (!this.isFilterOpened) {
+      this.targetService.clearSelectedTargets();
+      this.timeService.clearSelectedTime();
+      this.costService.clearSelectedCost();
+      this.statusService.clearSelectedStatus();
+    }
   }
 }

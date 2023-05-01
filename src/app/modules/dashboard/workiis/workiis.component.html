@@ -1,4 +1,10 @@
-<div class="flex flex-col gap-2 mt-16 items-start mb-2">
+<div
+  class="flex flex-col gap-2 mt-16 items-start mb-2"
+  [ngClass]="{
+    'bg-white-principal shadow-md rounded-b-md p-2': isFilterOpened,
+    'shadow-none': !isFilterOpened
+  }"
+>
   <div class="flex flex-row justify-between gap-2 items-end w-full">
     <div class="flex flex-row gap-2 flex-grow-[1]">
       <div
@@ -42,14 +48,25 @@
         </div>
       </div>
       <button
-        [ngClass]="{ 'bg-success-greenDark': isFilterOpened }"
+        [ngClass]="{
+          'bg-error-redDark': isFilterOpened,
+          'bg-primary-blueNeutral': !isFilterOpened
+        }"
         (click)="toggleFilter()"
         class="w-12 h-12 btn-solid-blue rounded-md"
       >
-        <img
-          src="../../../../../../assets/images/svg/icon-filter.svg"
-          alt="icon filter"
-        />
+        <ng-container *ngIf="!isFilterOpened">
+          <img
+            src="../../../../../../assets/images/svg/icon-filter.svg"
+            alt="icon filter"
+          />
+        </ng-container>
+        <ng-container *ngIf="isFilterOpened">
+          <img
+            src="../../../../../../assets/images/svg/icon-filter-clear.svg"
+            alt="icon filter"
+          />
+        </ng-container>
       </button>
     </div>
 
@@ -62,12 +79,11 @@
 
   <div
     *ngIf="isFilterOpened"
-    class="flex flex-row gap-4 bg-white-principal shadow-md rounded-b-md p-2 w-full animate__animated animate__bounceIn z-10"
+    class="flex flex-row gap-4 w-full animate__animated animate__faster animate__fadeInDown z-10"
   >
     <filter-target></filter-target>
     <filter-time> </filter-time>
     <filter-cost></filter-cost>
-
     <filter-status></filter-status>
   </div>
 </div>
