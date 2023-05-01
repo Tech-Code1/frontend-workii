@@ -32,3 +32,11 @@
 .hover-parent-four:hover .hover-child-four {
   display: flex;
 }
+
+.hover-child-five {
+  fill: #D83010;
+}
+
+.hover-parent-five:hover .hover-child-five {
+  fill: #fff;
+}

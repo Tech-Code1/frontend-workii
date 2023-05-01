@@ -124,6 +124,10 @@ export class WorkiisComponent implements OnInit, OnDestroy {
     path: 'https://assets4.lottiefiles.com/packages/lf20_LKXG6QRgtE.json',
   };
 
+  clearInput() {
+    this.searchControl.setValue('');
+  }
+
   workiisOrSearchInApplications(source$: Observable<readonly IWorkii[]>): Observable<(IWorkii & WorkiiInfo)[]> {
     return combineLatest([source$, this.applications$]).pipe(
       map(([workiis, applications]) => {
