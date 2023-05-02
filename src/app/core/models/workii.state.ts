@@ -8,4 +8,5 @@ export interface IWorkiiState {
   searchWorkiis: ReadonlyArray<IWorkii>;
   notFound: boolean;
   searchTerm: string;
+  totalResults: number;
 }

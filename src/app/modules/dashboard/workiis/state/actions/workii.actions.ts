@@ -37,7 +37,7 @@ export const WorkiiActions = createActionGroup({
     'Load Users Apply Success': (workiiUsersApplications: readonly IUsersApplicationResponse[]) => ({ workiiUsersApplications }),
     'Load Users Apply Error': props<{ errorMessage: string }>(),
     'Search Workii': (searchTerm: string, { limit, offset }: IPagination) => ({ searchTerm, limit, offset }),
-    'Search Workii Success': (workiis: IWorkii[]) => ({ workiis, notFound: false }),
+    'Search Workii Success': (workiis: IWorkii[], totalResults: number) => ({ workiis, totalResults, notFound: false }),
     'Search Workii Not Found': () => ({ notFound: true }),
     'Search Workii Fail': props<{ errorMessage: string }>(),
     'Update Search Term': props<{ searchTerm: string }>(),

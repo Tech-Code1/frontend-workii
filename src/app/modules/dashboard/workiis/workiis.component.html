@@ -162,7 +162,11 @@
         [userCurrentId]="userCurrentId"
         [isFilterOpened]="isFilterOpened"
         [searchControl]="searchControl"
-      ></workiis-cards>
+        [totalResults]="(totalResults$ | async) || 0"
+        [limit]="limit"
+        (pageChanged)="onPageChange($event)"
+      >
+      </workiis-cards>
     </ng-container>
   </ng-container>
 </ng-container>

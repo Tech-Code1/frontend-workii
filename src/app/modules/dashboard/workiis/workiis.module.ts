@@ -7,6 +7,7 @@ import { FilterTargetComponent, FilterCostComponent, FilterStatus, FilterTimeCom
 import { TimeFilterPipe, CostFilterPipe, SearchFilterPipe, StatusFilterPipe, TargetFilterPipe } from './pipes';
 import { LottieModule } from 'ngx-lottie';
 import { LottieSearchComponent } from 'src/app/shared/lottie/lottieSearch.component';
+import { CustomPaginatorComponent } from './components/custom-paginator/custom-paginator.component';
 
 const routes: Routes = [
   {
@@ -32,7 +33,8 @@ const routes: Routes = [
     FilterTimeComponent,
     FilterCostComponent,
     FilterStatus,
-    NotFoundComponent
+    NotFoundComponent,
+    CustomPaginatorComponent
   ],
   imports: [
     CommonModule,

@@ -103,11 +103,11 @@ export class WorkiiEffects {
       ofType(WorkiiActions.searchWorkii),
       switchMap((action) =>
         this.workiisService.searchWorkiis(action.searchTerm!, action.limit, action.offset).pipe(
-          mergeMap((workiis) => {
+          mergeMap(({ workiis, totalResults }) => {
             if (workiis.length === 0) {
               return [UiActions.stopLoading(), WorkiiActions.searchWorkiiNotFound()];
             } else {
-              return [UiActions.stopLoading(), WorkiiActions.searchWorkiiSuccess(workiis)];
+              return [UiActions.stopLoading(), WorkiiActions.searchWorkiiSuccess(workiis, totalResults)];
             }
           }),
           catchError(() => {

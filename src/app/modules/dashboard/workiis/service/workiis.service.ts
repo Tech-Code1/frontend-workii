@@ -86,19 +86,14 @@ export class WorkiisService {
     return this.http.get<IApplicationUser[]>(url, { params })
   }
 
-  searchWorkiis(searchTerm: string, limit: number, offset: number): Observable<IWorkii[]> {
-    if (this.searchCache[searchTerm]) {
-      return of(this.searchCache[searchTerm]);
-    }
-
-
+  searchWorkiis(searchTerm: string, limit: number, offset: number): Observable<{ workiis: IWorkii[], totalResults: number }> {
     const url = `${this.baseUrl}/workiis/search`;
     const params = new HttpParams()
       .set('searchTerm', searchTerm)
       .set('limit', limit.toString())
       .set('offset', offset.toString());
 
-    return this.http.get<IWorkii[]>(url, { params, headers: this.headers });
+    return this.http.get<{ workiis: IWorkii[], totalResults: number }>(url, { params, headers: this.headers });
   }
 
   removeApplication(id: string, workii: string) {

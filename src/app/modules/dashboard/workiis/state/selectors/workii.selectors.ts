@@ -42,3 +42,8 @@ export const selectSearchTerm = createSelector(
   selectWorkiis,
   ({ searchTerm }) => searchTerm
 );
+
+export const selectTotalResults = createSelector(
+  selectWorkiis,
+  ({ totalResults }) => totalResults
+);

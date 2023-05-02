@@ -5,7 +5,7 @@ import { IApplicationUser } from './interfaces/workii.interface';
 import { IWorkii } from 'src/app/core/models/workii.interface';
 import { Store } from '@ngrx/store';
 import { IAppState } from 'src/app/core/state/app.state';
-import { selectListApplications, selectListWorkiis, selectSearchWorkiis, selectNotFound, selectSearchTerm } from './state/selectors/workii.selectors';
+import { selectListApplications, selectListWorkiis, selectSearchWorkiis, selectNotFound, selectSearchTerm, selectTotalResults } from './state/selectors/workii.selectors';
 import { WorkiiActions } from './state/actions/workii.actions';
 import { TargetService, CostService, StatusService, TimeService } from './service';
 import { FormControl } from '@angular/forms';
@@ -34,6 +34,10 @@ export class WorkiisComponent implements OnInit, OnDestroy {
 
   @ViewChild('search') search!: ElementRef<HTMLInputElement>;
 
+  totalResults$: Observable<number> = new Observable<number>();
+  limit: number = 20;
+  offset: number = 0;
+  totalResults: number = 0;
   public hasSearched: boolean = false;
   private destroy$ = new Subject<void>();
   loading$: Observable<boolean> = new Observable<boolean>();
@@ -54,6 +58,7 @@ export class WorkiisComponent implements OnInit, OnDestroy {
     this.workiis$ = this.store.select(selectListWorkiis)
     this.applications$ = this.store.select(selectListApplications)
     this.searchWorkiis$ = this.store.select(selectSearchWorkiis);
+    this.totalResults$ = this.store.select(selectTotalResults);
     this.userCurrentId = this.userService.getCurrentUser()
 
     this.modalService.$modal.subscribe((valor) => {
@@ -83,7 +88,7 @@ export class WorkiisComponent implements OnInit, OnDestroy {
       )
       .subscribe((searchTerm: string) => {
         this.store.dispatch(WorkiiActions.updateSearchTerm({ searchTerm }));
-        this.store.dispatch(WorkiiActions.searchWorkii(searchTerm, { limit: 20, offset: 0 }));
+        this.store.dispatch(WorkiiActions.searchWorkii(searchTerm, { limit: this.limit, offset: this.offset }));
       });
   }
 
@@ -131,4 +136,17 @@ export class WorkiisComponent implements OnInit, OnDestroy {
       this.statusService.clearSelectedStatus();
     }
   }
+
+  searchWorkii() {
+    const searchTerm = this.searchControl.value;
+    this.store.dispatch(WorkiiActions.updateSearchTerm({ searchTerm }));
+    this.store.dispatch(WorkiiActions.searchWorkii(searchTerm, { limit: this.limit, offset: this.offset }));
+  }
+
+  onPageChange(page: number) {
+    this.offset = (page - 1) * this.limit;
+    this.searchWorkii();
+    console.log(this.offset, 'offset');
+  }
+
 }

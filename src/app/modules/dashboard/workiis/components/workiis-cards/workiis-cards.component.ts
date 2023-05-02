@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, inject, Output, EventEmitter } from '@angular/core';
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
 import { IApplicationUser } from '../../interfaces/workii.interface';
 
@@ -7,6 +7,8 @@ import { IWorkii } from 'src/app/core/models/workii.interface';
 import { IAppState } from '../../../../../core/state/app.state';
 import { WorkiiInfo } from '../../workiis.component';
 import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { selectTotalResults } from '../../state/selectors/workii.selectors';
 
 @Component({
   selector: 'workiis-cards',
@@ -17,24 +19,21 @@ import { FormControl } from '@angular/forms';
 export class WorkiisCardsComponent {
 
   private modalService = inject(SwitchService)
+  private store = inject(Store<IAppState>)
 
-  @Input()
-  workiis!: (IWorkii & WorkiiInfo)[];
+  @Input() workiis!: (IWorkii & WorkiiInfo)[];
+  @Input() searchWorkiis!: (IWorkii & WorkiiInfo)[];
+  @Input() applications!: readonly IApplicationUser[];
+  @Input() isFilterOpened!: boolean;
+  @Input() userCurrentId!: string;
+  @Input() searchControl!: FormControl<string>;
+  @Input() totalResults!: number;
+  @Input() limit!: number;
+  @Output() pageChanged: EventEmitter<number> = new EventEmitter<number>();
 
-  @Input()
-  searchWorkiis!: (IWorkii & WorkiiInfo)[];
-
-  @Input()
-  applications!: readonly IApplicationUser[];
-
-  @Input()
-  isFilterOpened!: boolean;
-
-  @Input()
-  userCurrentId!: string;
-
-  @Input()
-  searchControl!: FormControl<string>;
+  totalPages: number = 0;
+  currentPage: number = 1;
+  pages: number[] = [];
 
   applicationId!: string;
   modalSwitch: boolean = false;
@@ -42,9 +41,16 @@ export class WorkiisCardsComponent {
   index!: number;
 
   ngOnInit(): void {
+    this.totalPages = this.totalResults && Math.ceil(this.totalResults / this.limit)
+    console.log(this.totalResults, 'totalResults');
+
+    this.pages = this.range(1, this.totalPages);
+
     this.modalService.$modal.subscribe((valor) => {
       this.modalSwitch = valor
     })
+
+
   }
 
   openModal(workii: IWorkii, index: number, applies: readonly IApplicationUser[]): void {
@@ -67,6 +73,15 @@ export class WorkiisCardsComponent {
     return this.searchControl.value === null || this.searchControl.value === '';
   }
 
+  range(start: number, end: number): number[] {
+    return [...Array(end).keys()].map(el => el + start)
+  }
+
+  changePage(newPage: number) {
+    this.currentPage = newPage;
+    this.pageChanged.emit(newPage);
+
+  }
 
   ngDestroy() {
     this.modalService.$modal.unsubscribe();

@@ -213,6 +213,36 @@
     </div>
   </ng-container>
 
+  <ng-container *ngIf="totalResults > 20">
+    <button
+      (click)="changePage(currentPage - 1)"
+      [disabled]="currentPage === 1"
+    >
+      Anterior
+    </button>
+    <ul class="paginator">
+      <li
+        *ngFor="let page of pages"
+        [ngClass]="{ 'page-item': true, active: currentPage === page }"
+        (click)="changePage(page)"
+      >
+        <span class="page-link">{{ page }}</span>
+      </li>
+    </ul>
+    <button
+      (click)="changePage(currentPage + 1)"
+      [disabled]="currentPage === totalPages"
+    >
+      Siguiente
+    </button>
+  </ng-container>
+  <!-- <custom-paginator
+    [totalResults]="(searchWorkiis$ | async)?.length"
+    [limit]="limit"
+    (pageChanged)="onPageChange($event)"
+  >
+  </custom-paginator> -->
+
   <div *ngIf="modalSwitch">
     <modal-info-workii
       [workii]="selectedWorkii"
