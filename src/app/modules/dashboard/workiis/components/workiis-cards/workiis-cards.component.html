@@ -3,7 +3,7 @@
     'heigh-dynamic-two': isFilterOpened,
     'heigh-dynamic-one': !isFilterOpened
   }"
-  class="grid grid-flow-row gap-y-16 gap-x-4 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 overflow-auto"
+  class="grid grid-flow-row gap-y-16 gap-x-4 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 overflow-auto relative"
 >
   <ng-container *ngIf="shouldDisplayContent()">
     <div
@@ -213,28 +213,44 @@
     </div>
   </ng-container>
 
-  <ng-container *ngIf="totalResults > 20">
-    <button
-      (click)="changePage(currentPage - 1)"
-      [disabled]="currentPage === 1"
-    >
-      Anterior
-    </button>
-    <ul class="paginator">
-      <li
-        *ngFor="let page of pages"
-        [ngClass]="{ 'page-item': true, active: currentPage === page }"
-        (click)="changePage(page)"
-      >
-        <span class="page-link">{{ page }}</span>
-      </li>
-    </ul>
-    <button
-      (click)="changePage(currentPage + 1)"
-      [disabled]="currentPage === totalPages"
-    >
-      Siguiente
-    </button>
+  <ng-container *ngIf="totalResults > 20 && searchControl.value !== ''">
+    <div class="w-full flex justify-center items-center fixed bottom-4 left-0 pl-[276px]">
+      <div class="flex flex-row gap-6 p-2 rounded-full shadow-md items-center backdrop-custom">
+        <button
+          (click)="changePage(currentPage - 1)"
+          [disabled]="currentPage === 1"
+          [ngClass]="{
+            'bg-primary-blueNeutral h-10 w-10 rounded-full flex justify-center items-center' : true,
+            'bg-gray-neutral cursor-default': currentPage === 1
+          }"
+
+        >
+          <img class="w-auto h-4" src="../../../../../../assets/images/svg/icon-arrow-left.svg" alt="icon arrow left">
+        </button>
+        <ul class="paginator gap-1 flex flex-row">
+          <li
+            *ngFor="let page of pages"
+            [ngClass]="{
+            'title-base-black cursor-pointer hover:bg-secondary-lightBlue h-7 w-7 rounded-full flex justify-center items-center': true,
+            'title-base-black text-primary-blueNeutral': currentPage === page
+            }"
+            (click)="changePage(page)"
+          >
+            <span class="">{{ page }}</span>
+          </li>
+        </ul>
+        <button
+          (click)="changePage(currentPage + 1)"
+          [disabled]="currentPage === totalPages"
+          [ngClass]="{
+            'bg-primary-blueNeutral h-10 w-10 rounded-full flex justify-center items-center' : true,
+            'bg-gray-neutral cursor-default': currentPage === totalPages
+          }"
+        >
+        <img class="w-auto h-4" src="../../../../../../assets/images/svg/icon-arrow-right.svg" alt="icon arrow right">
+        </button>
+      </div>
+    </div>
   </ng-container>
   <!-- <custom-paginator
     [totalResults]="(searchWorkiis$ | async)?.length"

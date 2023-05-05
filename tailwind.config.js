@@ -18,7 +18,7 @@ module.exports = {
         },
 
         secondary: {
-          lightBlue: "#E8F9FF",
+          lightBlue: "#BDEEFF",
           strongYellow: "#FFC738",
         },
 

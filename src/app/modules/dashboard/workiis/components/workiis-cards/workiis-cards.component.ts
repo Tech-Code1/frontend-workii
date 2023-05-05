@@ -2,13 +2,9 @@ import { ChangeDetectionStrategy, Component, Input, inject, Output, EventEmitter
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
 import { IApplicationUser } from '../../interfaces/workii.interface';
 
-import { Store } from '@ngrx/store';
 import { IWorkii } from 'src/app/core/models/workii.interface';
-import { IAppState } from '../../../../../core/state/app.state';
 import { WorkiiInfo } from '../../workiis.component';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { selectTotalResults } from '../../state/selectors/workii.selectors';
 
 @Component({
   selector: 'workiis-cards',
@@ -19,7 +15,6 @@ import { selectTotalResults } from '../../state/selectors/workii.selectors';
 export class WorkiisCardsComponent {
 
   private modalService = inject(SwitchService)
-  private store = inject(Store<IAppState>)
 
   @Input() workiis!: (IWorkii & WorkiiInfo)[];
   @Input() searchWorkiis!: (IWorkii & WorkiiInfo)[];
@@ -49,8 +44,6 @@ export class WorkiisCardsComponent {
     this.modalService.$modal.subscribe((valor) => {
       this.modalSwitch = valor
     })
-
-
   }
 
   openModal(workii: IWorkii, index: number, applies: readonly IApplicationUser[]): void {
