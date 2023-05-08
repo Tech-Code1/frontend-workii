@@ -25,9 +25,9 @@ export class WorkiiEffects {
       tap(() => this.store.dispatch(UiActions.isLoading())),
       mergeMap(({ limit, offset }) =>
         this.workiisService.getWorkiis({ limit, offset }).pipe(
-          mergeMap((workiis) =>
+          mergeMap(({workiis, totalResults}) =>
             of(
-              { type: WorkiiActions.listWorkiis.type, workiis },
+              { type: WorkiiActions.listWorkiis.type, workiis, totalResults },
               UiActions.stopLoading()
             )
           ),
@@ -103,11 +103,11 @@ export class WorkiiEffects {
       ofType(WorkiiActions.searchWorkii),
       switchMap((action) =>
         this.workiisService.searchWorkiis(action.searchTerm!, action.limit, action.offset).pipe(
-          mergeMap(({ workiis, totalResults }) => {
+          mergeMap(({ workiis, totalSearchResults }) => {
             if (workiis.length === 0) {
               return [UiActions.stopLoading(), WorkiiActions.searchWorkiiNotFound()];
             } else {
-              return [UiActions.stopLoading(), WorkiiActions.searchWorkiiSuccess(workiis, totalResults)];
+              return [UiActions.stopLoading(), WorkiiActions.searchWorkiiSuccess(workiis, totalSearchResults)];
             }
           }),
           catchError(() => {

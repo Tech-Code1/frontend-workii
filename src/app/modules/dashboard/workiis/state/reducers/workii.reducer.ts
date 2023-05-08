@@ -12,6 +12,7 @@ export const initialState: IWorkiiState = {
   notFound: false,
   searchTerm: '',
   totalResults: 0,
+  totalSearchResults: 0,
 }
 
 export const _workiiReducer = createReducer(
@@ -19,7 +20,7 @@ export const _workiiReducer = createReducer(
   on(WorkiiActions.logOut, () => initialState),
   on(WorkiiActions.loadWorkiis, (state, { type }) => ({ ...state, type })),
   on(WorkiiActions.loadApplications, (state, { type }) => ({ ...state, type })),
-  on(WorkiiActions.listWorkiis, (state, { workiis }) => ({ ...state, loading: false, workiis })),
+  on(WorkiiActions.listWorkiis, (state, { workiis, totalResults }) => ({ ...state, loading: false, workiis, totalResults })),
   on(WorkiiActions.listApplicationsWorkiis, (state, { applications }) => ({ ...state, applications })),
   on(WorkiiActions.loadError, (state, { errorMessage }) => ({ ...state, errorMessage })),
   on(WorkiiActions.createWorkiiSuccess, (state, { workii }) => ({ ...state, workii })),
@@ -90,7 +91,7 @@ export const _workiiReducer = createReducer(
   on(WorkiiActions.loadUsersApplySuccess, (state, { workiiUsersApplications }) => ({ ...state, getUsersWorkiiApply: workiiUsersApplications })),
   on(WorkiiActions.loadUsersApplyError, (state, { errorMessage }) => ({ ...state, errorMessage })),
   on(WorkiiActions.searchWorkii, (state) => ({ ...state })),
-  on(WorkiiActions.searchWorkiiSuccess, (state, { workiis, totalResults }) => ({ ...state, searchWorkiis: workiis, totalResults, loading: false, notFound: false })),
+  on(WorkiiActions.searchWorkiiSuccess, (state, { workiis, totalSearchResults }) => ({ ...state, searchWorkiis: workiis, totalSearchResults, loading: false, notFound: false })),
   on(WorkiiActions.searchWorkiiNotFound, (state) => ({ ...state, searchWorkiis: [], notFound: true })),
   on(WorkiiActions.searchWorkiiFail, (state, { errorMessage }) => ({ ...state, errorMessage })),
   on(WorkiiActions.updateSearchTerm, (state, { searchTerm }) => ({ ...state, searchTerm }))

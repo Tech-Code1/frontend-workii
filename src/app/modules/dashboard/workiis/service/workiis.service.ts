@@ -30,14 +30,14 @@ export class WorkiisService {
   }
 
 
-  getWorkiis({ limit, offset }: IPagination): Observable<IWorkii[]> {
+  getWorkiis({ limit, offset }: IPagination): Observable<{ workiis: IWorkii[], totalResults: number }> {
     const url = `${this.baseUrl}/workiis`;
-    const params = {
-      limit: limit.toString(),
-      offset: offset.toString()
-    };
 
-    return this.http.get<IWorkii[]>(url, { headers: this.headers, params })
+    const params = new HttpParams()
+      .set('limit', limit.toString())
+      .set('offset', offset.toString());
+
+    return this.http.get<{ workiis: IWorkii[], totalResults: number }>(url, { headers: this.headers, params })
   }
 
   getWorkii(slug: string): Observable<IWorkii> {
@@ -86,14 +86,14 @@ export class WorkiisService {
     return this.http.get<IApplicationUser[]>(url, { params })
   }
 
-  searchWorkiis(searchTerm: string, limit: number, offset: number): Observable<{ workiis: IWorkii[], totalResults: number }> {
+  searchWorkiis(searchTerm: string, limit: number, offset: number): Observable<{ workiis: IWorkii[], totalSearchResults: number }> {
     const url = `${this.baseUrl}/workiis/search`;
     const params = new HttpParams()
       .set('searchTerm', searchTerm)
       .set('limit', limit.toString())
       .set('offset', offset.toString());
 
-    return this.http.get<{ workiis: IWorkii[], totalResults: number }>(url, { params, headers: this.headers });
+    return this.http.get<{ workiis: IWorkii[], totalSearchResults: number }>(url, { params, headers: this.headers });
   }
 
   removeApplication(id: string, workii: string) {

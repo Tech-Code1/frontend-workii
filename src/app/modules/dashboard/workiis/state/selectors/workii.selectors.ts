@@ -47,3 +47,8 @@ export const selectTotalResults = createSelector(
   selectWorkiis,
   ({ totalResults }) => totalResults
 );
+
+export const selectTotalSearchResults = createSelector(
+  selectWorkiis,
+  ({ totalSearchResults }) => totalSearchResults
+);

@@ -163,8 +163,10 @@
         [isFilterOpened]="isFilterOpened"
         [searchControl]="searchControl"
         [totalResults]="(totalResults$ | async) || 0"
+        [totalSearchResults]="(totalSearchResults$ | async) || 0"
         [limit]="limit"
         (pageChanged)="onPageChange($event)"
+        (pageChangedWorkiis)="onPageChangeWorkiis($event)"
       >
       </workiis-cards>
     </ng-container>

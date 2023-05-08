@@ -9,4 +9,5 @@ export interface IWorkiiState {
   notFound: boolean;
   searchTerm: string;
   totalResults: number;
+  totalSearchResults: number;
 }
