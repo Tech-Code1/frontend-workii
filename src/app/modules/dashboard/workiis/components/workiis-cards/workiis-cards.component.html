@@ -109,45 +109,6 @@
         </div>
       </ng-container>
     </div>
-    <ng-container *ngIf="totalResults > 20 && searchControl.value !== ''">
-      <div class="w-full flex justify-center items-center fixed bottom-4 left-0 pl-[276px]">
-        <div class="flex flex-row gap-6 p-2 rounded-full shadow-md items-center backdrop-custom">
-          <button
-            (click)="changePageSearch(currentPage - 1)"
-            [disabled]="currentPage === 1"
-            [ngClass]="{
-              'bg-primary-blueNeutral h-10 w-10 rounded-full flex justify-center items-center' : true,
-              'bg-gray-neutral cursor-default': currentPage === 1
-            }"
-
-          >
-            <img class="w-auto h-4" src="../../../../../../assets/images/svg/icon-arrow-left.svg" alt="icon arrow left">
-          </button>
-          <ul class="paginator gap-1 flex flex-row">
-            <li
-              *ngFor="let page of pagesSearch"
-              [ngClass]="{
-              'title-base-black cursor-pointer hover:bg-secondary-lightBlue h-7 w-7 rounded-full flex justify-center items-center': true,
-              'title-base-black text-primary-blueNeutral': currentPage === page
-              }"
-              (click)="changePageSearch(page)"
-            >
-              <span class="">{{ page }}</span>
-            </li>
-          </ul>
-          <button
-            (click)="changePageSearch(currentPage + 1)"
-            [disabled]="currentPage === totalPages"
-            [ngClass]="{
-              'bg-primary-blueNeutral h-10 w-10 rounded-full flex justify-center items-center' : true,
-              'bg-gray-neutral cursor-default': currentPage === totalPages
-            }"
-          >
-          <img class="w-auto h-4" src="../../../../../../assets/images/svg/icon-arrow-right.svg" alt="icon arrow right">
-          </button>
-        </div>
-      </div>
-    </ng-container>
   </ng-container>
 
   <ng-container *ngIf="notDisplayContent()">
@@ -251,52 +212,6 @@
       </ng-container>
     </div>
   </ng-container>
-  <ng-container *ngIf="totalResults > 20">
-    <div class="w-full flex justify-center items-center fixed bottom-4 left-0 pl-[276px]">
-      <div class="flex flex-row gap-6 p-2 rounded-full shadow-md items-center backdrop-custom">
-        <button
-          (click)="changePageWorkiis(currentPageWorkiis - 1)"
-          [disabled]="currentPageWorkiis === 1"
-          [ngClass]="{
-            'bg-primary-blueNeutral h-10 w-10 rounded-full flex justify-center items-center' : true,
-            'bg-gray-neutral cursor-default': currentPageWorkiis === 1
-          }"
-
-        >
-          <img class="w-auto h-4" src="../../../../../../assets/images/svg/icon-arrow-left.svg" alt="icon arrow left">
-        </button>
-        <ul class="paginator gap-1 flex flex-row">
-          <li
-            *ngFor="let pageWorkiis of pagesWorkiis"
-            [ngClass]="{
-            'title-base-black cursor-pointer hover:bg-secondary-lightBlue h-7 w-7 rounded-full flex justify-center items-center': true,
-            'title-base-black text-primary-blueNeutral': currentPageWorkiis === pageWorkiis
-            }"
-            (click)="changePageWorkiis(pageWorkiis)"
-          >
-            <span class="">{{ pageWorkiis }}</span>
-          </li>
-        </ul>
-        <button
-          (click)="changePageWorkiis(currentPageWorkiis + 1)"
-          [disabled]="currentPageWorkiis === totalPagesListWorkiis"
-          [ngClass]="{
-            'bg-primary-blueNeutral h-10 w-10 rounded-full flex justify-center items-center' : true,
-            'bg-gray-neutral cursor-default': currentPageWorkiis === 2
-          }"
-        >
-        <img class="w-auto h-4" src="../../../../../../assets/images/svg/icon-arrow-right.svg" alt="icon arrow right">
-        </button>
-      </div>
-    </div>
-  </ng-container>
-
-  <!-- <custom-paginator
-    [totalResults]="(searchWorkiis$ | async)?.length"
-    [limit]="limit"
-    (pageChanged)="onPageChange($event)"
-  >
-  </custom-paginator> -->
 
   <div *ngIf="modalSwitch">
     <modal-info-workii

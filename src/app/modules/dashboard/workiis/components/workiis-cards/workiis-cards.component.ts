@@ -22,17 +22,9 @@ export class WorkiisCardsComponent {
   @Input() isFilterOpened!: boolean;
   @Input() userCurrentId!: string;
   @Input() searchControl!: FormControl<string>;
-  @Input() totalResults!: number;
-  @Input() totalSearchResults!: number;
-  @Input() limit!: number;
-  @Output() pageChanged: EventEmitter<number> = new EventEmitter<number>();
-  @Output() pageChangedWorkiis: EventEmitter<number> = new EventEmitter<number>();
 
-  totalPages: number = 0;
+
   totalPagesListWorkiis: number = 0;
-  currentPage: number = 1;
-  currentPageWorkiis: number = 1;
-  pagesSearch: number[] = [];
   pagesWorkiis: number[] = [];
 
   applicationId!: string;
@@ -41,14 +33,6 @@ export class WorkiisCardsComponent {
   index!: number;
 
   ngOnInit(): void {
-    this.totalPages = this.totalSearchResults && Math.ceil(this.totalSearchResults / this.limit)
-
-    this.totalPagesListWorkiis = this.totalResults && Math.ceil(this.totalResults / this.limit)
-
-
-    this.pagesSearch = this.range(1, this.totalPages);
-    this.pagesWorkiis = this.range(1, this.totalPagesListWorkiis);
-
     this.modalService.$modal.subscribe((valor) => {
       this.modalSwitch = valor
     })
@@ -72,24 +56,6 @@ export class WorkiisCardsComponent {
 
   notDisplayContent(): boolean | undefined {
     return this.searchControl.value === null || this.searchControl.value === '';
-  }
-
-  range(start: number, end: number): number[] {
-    return [...Array(end).keys()].map(el => el + start)
-  }
-
-  changePageSearch(newPage: number) {
-    this.currentPage = newPage;
-    this.pageChanged.emit(newPage);
-  }
-
-  changePageWorkiis(newPage: number) {
-    console.log(newPage, 'page');
-
-    this.currentPageWorkiis = newPage;
-    console.log(this.currentPageWorkiis, 'page');
-
-    this.pageChangedWorkiis.emit(newPage);
   }
 
   ngDestroy() {

@@ -102,7 +102,9 @@
     searchInApplications:
       (workiisOrSearchInApplications(searchWorkiis$) | async) || [],
     workiisInApplications:
-      (workiisOrSearchInApplications(workiis$) | async) || []
+      (workiisOrSearchInApplications(workiis$) | async) || [],
+      totalResults: (totalResultsWorkiis$ | async) || 0,
+      totalSearchResults: (totalSearchResults$ | async) || 0
   } as context"
 >
   <ng-container
@@ -162,13 +164,32 @@
         [userCurrentId]="userCurrentId"
         [isFilterOpened]="isFilterOpened"
         [searchControl]="searchControl"
-        [totalResults]="(totalResults$ | async) || 0"
-        [totalSearchResults]="(totalSearchResults$ | async) || 0"
-        [limit]="limit"
-        (pageChanged)="onPageChange($event)"
-        (pageChangedWorkiis)="onPageChangeWorkiis($event)"
       >
       </workiis-cards>
     </ng-container>
+
+
+      <ng-container *ngIf="context.totalResults > 20 && searchControl.value === '' && !(loading$ | async)">
+
+        <pagination
+        (pageChanged)="onPageChangeWorkiis($event)"
+        [limit]="limit"
+        [totalResults]="context.totalResults"
+        >
+        </pagination>
+
+      </ng-container>
+
+      <ng-container *ngIf="context.totalSearchResults > 20 && searchControl.value !== '' && !(loading$ | async)">
+
+        <pagination
+        (pageChanged)="onPageChangeSearch($event)"
+        [limit]="limit"
+        [totalResults]="context.totalSearchResults"
+        >
+        </pagination>
+
+      </ng-container>
+
   </ng-container>
 </ng-container>

@@ -8,6 +8,7 @@ import { TimeFilterPipe, CostFilterPipe, SearchFilterPipe, StatusFilterPipe, Tar
 import { LottieModule } from 'ngx-lottie';
 import { LottieSearchComponent } from 'src/app/shared/lottie/lottieSearch.component';
 import { CustomPaginatorComponent } from './components/custom-paginator/custom-paginator.component';
+import { PaginationModule } from 'src/app/shared/components/pagination/pagination.module';
 
 const routes: Routes = [
   {
@@ -40,7 +41,8 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
-    LottieModule
+    LottieModule,
+    PaginationModule
   ],
   exports: [
     LottieSearchComponent,

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { combineLatest, debounceTime, delay, distinctUntilChanged, map, Observable, Subject, takeUntil, tap } from 'rxjs';
 import { SwitchService, UserService } from '../../auth/services';
 import { IApplicationUser } from './interfaces/workii.interface';
@@ -32,9 +32,7 @@ export class WorkiisComponent implements OnInit, OnDestroy {
   public costService = inject(CostService)
   public statusService = inject(StatusService)
 
-  @ViewChild('search') search!: ElementRef<HTMLInputElement>;
-
-  totalResults$: Observable<number> = new Observable<number>();
+  totalResultsWorkiis$: Observable<number> = new Observable<number>();
   totalSearchResults$: Observable<number> = new Observable<number>();
   limit: number = 20;
   offset: number = 0;
@@ -58,7 +56,7 @@ export class WorkiisComponent implements OnInit, OnDestroy {
     this.workiis$ = this.store.select(selectListWorkiis)
     this.applications$ = this.store.select(selectListApplications)
     this.searchWorkiis$ = this.store.select(selectSearchWorkiis);
-    this.totalResults$ = this.store.select(selectTotalResults);
+    this.totalResultsWorkiis$ = this.store.select(selectTotalResults);
     this.totalSearchResults$ = this.store.select(selectTotalSearchResults);
     this.userCurrentId = this.userService.getCurrentUser()
 
@@ -66,7 +64,7 @@ export class WorkiisComponent implements OnInit, OnDestroy {
       this.modalSwitch = valor
     })
 
-    this.store.dispatch(WorkiiActions.loadWorkiis({ limit: this.limit, offset: this.offset }))
+    this.store.dispatch(WorkiiActions.loadWorkiis({ limit: this.limit, offset: this.offset }));
     this.store.dispatch(WorkiiActions.loadApplications())
 
     this.searchTerm$.pipe(
@@ -144,7 +142,7 @@ export class WorkiisComponent implements OnInit, OnDestroy {
     this.store.dispatch(WorkiiActions.searchWorkii(searchTerm, { limit: this.limit, offset: this.offset }));
   }
 
-  onPageChange(page: number) {
+  onPageChangeSearch(page: number) {
     this.offset = (page - 1) * this.limit;
     this.searchWorkii();
   }
