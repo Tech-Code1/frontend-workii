@@ -64,7 +64,7 @@ export class WorkiisComponent implements OnInit, OnDestroy {
       this.modalSwitch = valor
     })
 
-    this.store.dispatch(WorkiiActions.loadWorkiis({ limit: this.limit, offset: this.offset }));
+    this.store.dispatch(WorkiiActions.loadWorkiis({ limit: this.limit, offset: this.offset }))
     this.store.dispatch(WorkiiActions.loadApplications())
 
     this.searchTerm$.pipe(

@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { PaginationService } from 'src/app/modules/dashboard/workiis/service/paginationService.service';
 
 @Component({
   selector: 'pagination',
@@ -7,12 +8,13 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class PaginationComponent implements OnInit {
 
+  paginationService = inject(PaginationService);
+
   @Output() pageChanged: EventEmitter<number> = new EventEmitter<number>();
   @Input() totalResults!: number;
   @Input() limit!: number;
 
   totalPages: number = 0;
-  currentPage: number = 1;
   pages: number[] = [];
 
 
@@ -20,6 +22,8 @@ export class PaginationComponent implements OnInit {
     this.totalPages = this.totalResults && Math.ceil(this.totalResults / this.limit);
 
     this.pages = this.range(1, this.totalPages);
+
+    this.pageChanged.emit(this.paginationService.currentPage$.value);
   }
 
   range(start: number, end: number): number[] {
@@ -27,10 +31,7 @@ export class PaginationComponent implements OnInit {
   }
 
   changePage(newPage: number) {
-    console.log(newPage, 'page');
-
-    this.currentPage = newPage;
-    console.log(this.currentPage, 'page');
+    this.paginationService.changePage(newPage);
 
     this.pageChanged.emit(newPage);
   }
