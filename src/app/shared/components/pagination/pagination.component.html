@@ -1,12 +1,12 @@
 <ng-container *ngIf="(paginationService.currentPage$ | async) as currentPage">
   <div class="w-full flex justify-center items-center fixed bottom-4 left-0 pl-[276px]">
-    <div class="flex flex-row gap-6 p-2 rounded-full shadow-md items-center backdrop-custom">
+    <div class="flex flex-row gap-6 p-2 rounded-full shadow-sm items-center bg-[#ffffff95] dark:bg-black-principal dark:shadow-white-principal">
       <button
         (click)="changePage(currentPage - 1)"
         [disabled]="currentPage === 1"
         [ngClass]="{
-          'bg-primary-blueNeutral h-10 w-10 rounded-full flex justify-center items-center' : true,
-          'bg-gray-neutral cursor-default': currentPage === 1
+          'bg-primary-blueNeutral dark:bg-dark-prymaryColor h-10 w-10 rounded-full flex justify-center items-center' : true,
+          'bg-gray-neutral dark:bg-gray-neutral cursor-default': currentPage === 1
         }"
 
       >
@@ -16,8 +16,8 @@
         <li
           *ngFor="let page of pages"
           [ngClass]="{
-          'title-base-black cursor-pointer hover:bg-secondary-lightBlue h-7 w-7 rounded-full flex justify-center items-center': true,
-          'title-base-black text-primary-blueNeutral': currentPage === page
+          'title-base-black text-black-principal dark:text-white-principal cursor-pointer hover:bg-secondary-lightBlue dark:hover:bg-dark-secondaryColorBlue h-7 w-7 rounded-full flex justify-center items-center': true,
+          'title-base-black text-primary-blueNeutral dark:text-dark-prymaryColor': currentPage === page
           }"
           (click)="changePage(page)"
         >
@@ -28,8 +28,8 @@
         (click)="changePage(currentPage + 1)"
         [disabled]="currentPage === totalPages"
         [ngClass]="{
-          'bg-primary-blueNeutral h-10 w-10 rounded-full flex justify-center items-center' : true,
-          'bg-gray-neutral cursor-default': currentPage === totalPages
+          'bg-primary-blueNeutral dark:bg-dark-prymaryColor h-10 w-10 rounded-full flex justify-center items-center' : true,
+          'bg-gray-neutral dark:bg-gray-neutral cursor-default': currentPage === totalPages
         }"
       >
       <img class="w-auto h-4" src="../../../../../../assets/images/svg/icon-arrow-right.svg" alt="icon arrow right">

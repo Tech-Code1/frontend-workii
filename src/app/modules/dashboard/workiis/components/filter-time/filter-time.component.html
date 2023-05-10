@@ -5,7 +5,7 @@
       'border-2 border-primary-blueNeutral':
         timeService.getSelectedTimeLength() > 0,
       'border-transparent': timeService.getSelectedTimeLength() === 0,
-      'flex flex-row gap-2 justify-between items-center h-10 px-2 bg-gray-light rounded border-2 border-transparent w-full': true
+      'flex flex-row gap-2 justify-between items-center h-10 px-2 bg-gray-light dark:bg-black-principal rounded border-2 border-transparent w-full': true
     }"
   >
     <div class="flex flex-row gap-2 items-center">
@@ -54,7 +54,7 @@
   </button>
 
   <div
-    class="hover-child-two flex-col gap-2 p-2 bg-white-principal shadow-md rounded absolute z-10 top-[40px]"
+    class="hover-child-two flex-col gap-2 p-2 bg-white-principal dark:bg-black-alternative shadow-sm dark:shadow-white-principal rounded-b absolute z-10 top-[40px]"
   >
     <ng-container *ngFor="let time of times; index as i">
       <label

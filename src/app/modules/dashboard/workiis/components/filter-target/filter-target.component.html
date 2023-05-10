@@ -5,15 +5,14 @@
       'border-2 border-primary-blueNeutral':
         targetService.getSelectedTargetsLength() > 0,
       'border-transparent': targetService.getSelectedTargetsLength() === 0,
-      'flex flex-row gap-2 justify-between items-center h-10 px-2 bg-gray-light rounded border-2 border-transparent w-full': true
+      'flex flex-row gap-2 justify-between items-center h-10 px-2 bg-gray-light dark:bg-black-principal rounded border-2 border-transparent w-full': true
     }"
   >
     <div class="flex flex-row gap-2 items-center">
-      <img
-        class="h-4 w-4 flex"
-        src="../../../../assets/images/svg/icon-target.svg"
-        alt="icon target"
-      />
+      <svg class="h-4 w-4 fill-black-principal dark:fill-white-principal" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8.00059 10.4C9.32607 10.4 10.4006 9.32549 10.4006 8.00001C10.4006 6.67452 9.32607 5.60001 8.00059 5.60001C6.6751 5.60001 5.60059 6.67452 5.60059 8.00001C5.60059 9.32549 6.6751 10.4 8.00059 10.4Z"/>
+        <path d="M8.8 1.6552V0H7.2V1.6552C5.79214 1.83468 4.48373 2.47659 3.48016 3.48016C2.47659 4.48373 1.83468 5.79214 1.6552 7.2H0V8.8H1.6552C1.83455 10.2079 2.47641 11.5164 3.48001 12.52C4.4836 13.5236 5.79208 14.1654 7.2 14.3448V16H8.8V14.3448C10.2079 14.1654 11.5164 13.5236 12.52 12.52C13.5236 11.5164 14.1654 10.2079 14.3448 8.8H16V7.2H14.3448C14.1653 5.79214 13.5234 4.48373 12.5198 3.48016C11.5163 2.47659 10.2079 1.83468 8.8 1.6552ZM8 12.8C5.3528 12.8 3.2 10.6472 3.2 8C3.2 5.3528 5.3528 3.2 8 3.2C10.6472 3.2 12.8 5.3528 12.8 8C12.8 10.6472 10.6472 12.8 8 12.8Z"/>
+      </svg>
       <h2 class="title-sm-black">Target</h2>
     </div>
 
@@ -54,7 +53,7 @@
   </button>
 
   <div
-    class="hover-child flex-col gap-2 p-2 bg-white-principal shadow-md rounded absolute z-10 top-[40px]"
+    class="hover-child flex-col gap-2 p-2 bg-white-principal dark:bg-black-alternative shadow-sm dark:shadow-white-principal rounded-b absolute z-10 top-[40px]"
   >
     <ng-container *ngFor="let target of targets; index as i">
       <label

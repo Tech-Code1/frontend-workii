@@ -18,8 +18,8 @@
       <li
         routerLink="/dashboard/workiis"
         class="list-none flex flex-row gap-4 items-center cursor-pointer h-12 px-4 rounded-md"
-        [ngClass]="{ 'hover:bg-secondary-lightBlue': !workiis.isActive }"
-        routerLinkActive="bg-primary-blueNeutral"
+        [ngClass]="{ 'hover:bg-secondary-lightBlue dark:hover:bg-dark-secondaryColorBlue': !workiis.isActive }"
+        routerLinkActive="bg-primary-blueNeutral dark:bg-dark-prymaryColor"
         #workiis="routerLinkActive"
       >
         <svg
@@ -49,8 +49,8 @@
       <li
         routerLink="/dashboard/messages"
         class="list-none flex flex-row gap-4 items-center cursor-pointer h-12 px-4 rounded-md"
-        [ngClass]="{ 'hover:bg-secondary-lightBlue': !messages.isActive }"
-        routerLinkActive="bg-primary-blueNeutral"
+        [ngClass]="{ 'hover:bg-secondary-lightBlue dark:hover:bg-dark-secondaryColorBlue': !messages.isActive }"
+        routerLinkActive="bg-primary-blueNeutral dark:bg-dark-prymaryColor"
         #messages="routerLinkActive"
       >
         <svg
@@ -81,8 +81,8 @@
       <li
         routerLink="/dashboard/progress"
         class="list-none flex flex-row gap-4 items-center cursor-pointer h-12 px-4 rounded-md"
-        [ngClass]="{ 'hover:bg-secondary-lightBlue': !progress.isActive }"
-        routerLinkActive="bg-primary-blueNeutral"
+        [ngClass]="{ 'hover:bg-secondary-lightBlue dark:hover:bg-dark-secondaryColorBlue': !progress.isActive }"
+        routerLinkActive="bg-primary-blueNeutral dark:bg-dark-prymaryColor"
         #progress="routerLinkActive"
       >
         <svg
