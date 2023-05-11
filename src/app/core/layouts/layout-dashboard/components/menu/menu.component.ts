@@ -1,10 +1,4 @@
-import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { IAppState } from '../../../../state/app.state';
-import { UserActions } from '../../../../state/actions/user.actions';
-import { WorkiiActions } from 'src/app/modules/dashboard/workiis/state/actions/workii.actions';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'menu',
@@ -14,4 +8,10 @@ import { WorkiiActions } from 'src/app/modules/dashboard/workiis/state/actions/w
 export class MenuComponent  {
 
   titleLang: string = 'Language'
+  isLayoutHidden: boolean = false;
+
+
+  toggleLayoutHidden(): void {
+    this.isLayoutHidden = !this.isLayoutHidden;
+  }
 }

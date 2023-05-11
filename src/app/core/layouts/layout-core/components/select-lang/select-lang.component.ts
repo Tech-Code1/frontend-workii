@@ -14,9 +14,9 @@ export class SelectLangComponent implements OnInit {
 	clickCount = 1;
 	clickCountTwo = 1;
 
-  @Input()
-  titleLang!: string;
+  @Input() titleLang!: string;
 
+  @Input() isLayoutHidden!: boolean;
 
 	@ViewChild('select') select!: ElementRef;
 	@ViewChild('optionsLang') optionsLang!: ElementRef;

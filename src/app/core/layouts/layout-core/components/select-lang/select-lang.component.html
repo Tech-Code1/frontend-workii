@@ -1,13 +1,18 @@
 <div class="select-lang flex relative">
   <div class="selectbox w-full">
     <div
-      class="select dark:bg-black-principal lg:dark:bg-black-alternative gap-2"
+      [ngClass]="{
+        'select dark:bg-black-principal lg:dark:bg-black-alternative gap-2': true,
+        'px-2 flex justify-center items-center gap-0': isLayoutHidden
+      }"
       #select
     >
       <div id="contentSelect" #contentSelect>
         <span class="title-base-black flex gap-2">
           <p class="text-[28px]">🌐</p>
-          {{ titleLang }}
+          <p [ngClass]="{
+            'hidden': isLayoutHidden,
+            'flex': !isLayoutHidden}">{{ titleLang }}</p>
         </span>
       </div>
 
@@ -39,7 +44,11 @@
       *ngFor="let languaje of lang"
     >
       <div
-        class="content-option d-flex flex-row gap-2"
+        [ngClass]="{
+          'content-option flex flex-row gap-2': true,
+          'justify-center': isLayoutHidden,
+          'justify-start': !isLayoutHidden
+        }"
         (click)="selectLang(languaje.languaje)"
       >
         <img
@@ -48,7 +57,11 @@
           alt=" {{ languaje.description }}"
         />
         <h3
-          class="text-sm font-bold font-title title-lang dark:text-white-principal"
+          [ngClass]="{
+            'text-sm font-bold font-title title-lang dark:text-white-principal': true,
+            'hidden': isLayoutHidden,
+            'flex': !isLayoutHidden
+          }"
         >
           {{ languaje.languaje }}
         </h3>
