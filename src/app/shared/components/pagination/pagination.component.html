@@ -1,5 +1,9 @@
 <ng-container *ngIf="(paginationService.currentPage$ | async) as currentPage">
-  <div class="w-full flex justify-center items-center fixed bottom-4 left-0 pl-[276px]">
+  <div [ngClass]="{
+    'w-full flex justify-center items-center fixed bottom-4 left-0 transition-all duration-300 ease-in-out' : true,
+    'pl-[276px]': !(toggleLayout$ | async),
+    'pl-[80px]': toggleLayout$ | async
+  }">
     <div class="flex flex-row gap-6 p-2 rounded-full shadow-sm items-center bg-[#ffffff95] dark:bg-black-principal dark:shadow-white-principal">
       <button
         (click)="changePage(currentPage - 1)"

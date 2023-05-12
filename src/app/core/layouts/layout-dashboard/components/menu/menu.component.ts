@@ -1,17 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { ToggleLayoutService } from 'src/app/modules/dashboard/workiis/service/toggleLayoutService.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']
 })
-export class MenuComponent  {
+export class MenuComponent implements OnInit {
 
+  public toggleLayoutService = inject(ToggleLayoutService);
+
+  toggleLayout$!: Observable<boolean>;
   titleLang: string = 'Language'
-  isLayoutHidden: boolean = false;
 
+  ngOnInit(): void {
+   this.toggleLayout$ = this.toggleLayoutService.toggleLayout$;
+  }
 
   toggleLayoutHidden(): void {
-    this.isLayoutHidden = !this.isLayoutHidden;
+    this.toggleLayoutService.toggleLayout();
   }
 }

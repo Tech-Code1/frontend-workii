@@ -1,35 +1,36 @@
 <div class="select-lang flex relative">
   <div class="selectbox w-full">
-    <div
-      [ngClass]="{
-        'select dark:bg-black-principal lg:dark:bg-black-alternative gap-2': true,
-        'px-2 flex justify-center items-center gap-0': isLayoutHidden
-      }"
-      #select
-    >
-      <div id="contentSelect" #contentSelect>
-        <span class="title-base-black flex gap-2">
-          <p class="text-[28px]">🌐</p>
-          <p [ngClass]="{
-            'hidden': isLayoutHidden,
-            'flex': !isLayoutHidden}">{{ titleLang }}</p>
-        </span>
-      </div>
 
-      <svg
-        class="icon-rotate fill-primary-blueNeutral dark:fill-dark-prymaryColor"
-        width="14"
-        height="12"
-        viewBox="0 0 14 12"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        #arrow
+      <div
+        [ngClass]="{
+          'select dark:bg-black-principal lg:dark:bg-black-alternative gap-2': true,
+          'px-2 flex justify-center items-center gap-0': toggleLayout$ | async
+        }"
+        #select
       >
-        <path
-          d="M8.71971 10.5773C7.94473 11.8825 6.05527 11.8825 5.28029 10.5773L0.793768 3.02103C0.00218971 1.68785 0.963001 -4.89109e-05 2.51348 -4.87753e-05L11.4865 -4.79909e-05C13.037 -4.78553e-05 13.9978 1.68785 13.2062 3.02103L8.71971 10.5773Z"
-        />
-      </svg>
-    </div>
+        <div id="contentSelect" #contentSelect>
+          <span class="title-base-black flex gap-2">
+            <p class="text-[28px]">🌐</p>
+            <p [ngClass]="{
+              'hidden': toggleLayout$ | async,
+              'flex': !(toggleLayout$ | async)}">{{ titleLang }}</p>
+          </span>
+        </div>
+
+        <svg
+          class="icon-rotate fill-primary-blueNeutral dark:fill-dark-prymaryColor"
+          width="14"
+          height="12"
+          viewBox="0 0 14 12"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          #arrow
+        >
+          <path
+            d="M8.71971 10.5773C7.94473 11.8825 6.05527 11.8825 5.28029 10.5773L0.793768 3.02103C0.00218971 1.68785 0.963001 -4.89109e-05 2.51348 -4.87753e-05L11.4865 -4.79909e-05C13.037 -4.78553e-05 13.9978 1.68785 13.2062 3.02103L8.71971 10.5773Z"
+          />
+        </svg>
+      </div>
   </div>
 
   <!-- opciones -->
@@ -46,8 +47,8 @@
       <div
         [ngClass]="{
           'content-option flex flex-row gap-2': true,
-          'justify-center': isLayoutHidden,
-          'justify-start': !isLayoutHidden
+          'justify-center': toggleLayout$ | async,
+          'justify-start': !(toggleLayout$ | async)
         }"
         (click)="selectLang(languaje.languaje)"
       >
@@ -59,8 +60,8 @@
         <h3
           [ngClass]="{
             'text-sm font-bold font-title title-lang dark:text-white-principal': true,
-            'hidden': isLayoutHidden,
-            'flex': !isLayoutHidden
+            'hidden': toggleLayout$ | async,
+            'flex': !(toggleLayout$ | async)
           }"
         >
           {{ languaje.languaje }}
@@ -69,3 +70,5 @@
     </a>
   </div>
 </div>
+
+

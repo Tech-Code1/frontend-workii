@@ -1,6 +1,8 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, ElementRef, HostListener, Inject, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Inject, Input, OnInit, Renderer2, ViewChild, inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { ToggleLayoutService } from 'src/app/modules/dashboard/workiis/service/toggleLayoutService.service';
 import { supportLanguages } from 'src/app/shared/utils/constLanguages';
 
 @Component({
@@ -10,13 +12,14 @@ import { supportLanguages } from 'src/app/shared/utils/constLanguages';
 })
 export class SelectLangComponent implements OnInit {
 
+  public toggleLayoutService = inject(ToggleLayoutService);
+
+  toggleLayout$!: Observable<boolean>;
   langs = supportLanguages;
 	clickCount = 1;
 	clickCountTwo = 1;
 
   @Input() titleLang!: string;
-
-  @Input() isLayoutHidden!: boolean;
 
 	@ViewChild('select') select!: ElementRef;
 	@ViewChild('optionsLang') optionsLang!: ElementRef;
@@ -45,8 +48,8 @@ export class SelectLangComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.toggleLayout$ = this.toggleLayoutService.toggleLayout$;
   }
-
 
   selectLang(lang: any) {
     this.translateService.use(lang);
