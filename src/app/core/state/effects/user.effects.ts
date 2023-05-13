@@ -46,6 +46,7 @@ export class UserEffects {
             if(resp.ok === true) {
 
               this.setUserData(resp.token!, resp.id!, resp.email!)
+              localStorage.setItem('authToken', resp.token!);
               this.router.navigate(['/dashboard/workiis']);
 
 

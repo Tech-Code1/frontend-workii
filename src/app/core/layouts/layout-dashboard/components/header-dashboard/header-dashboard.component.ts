@@ -31,7 +31,7 @@ export class HeaderDashboard implements OnInit {
 
   logout() {
     this.router.navigateByUrl('/auth');
-    localStorage.removeItem('token');
+    localStorage.removeItem('authToken');
     this.store.dispatch(UserActions.logOut())
     this.store.dispatch(WorkiiActions.logOut())
   }
