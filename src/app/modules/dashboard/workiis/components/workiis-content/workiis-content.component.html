@@ -1,0 +1,124 @@
+<section
+  [ngClass]="{
+    'heigh-dynamic-two': isFilterOpened,
+    'heigh-dynamic-one': !isFilterOpened
+  }"
+  class="grid grid-flow-row gap-y-16 gap-x-4 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 overflow-auto relative"
+>
+  <div
+    class="flex justify-center pt-10 pr-1 h-fit"
+    *ngFor="let workii of workiis; let i = index"
+    >
+
+  <ng-container *ngIf="applications">
+
+    <div
+      (click)="openModal(workii, i, applications)"
+      class="w-[242px] flex flex-col cursor-pointer hover:scale-110 transition h-auto"
+    >
+      <div
+        class="bg-gray-lighter dark:bg-black-alternative rounded-t-xl h-[150px] flex justify-between flex-col px-4 pt-2 relative"
+      >
+        <div
+          class="w-16 h-16 bg-gray-light absolute rounded-full -top-[24px]"
+        ></div>
+
+        <div class="pt-10 gap-2 flex flex-col">
+          <h3
+            class="title-lg-black w-[190px] h-7 text-ellipsis overflow-hidden whitespace-nowrap"
+          >
+            {{ workii.name }}
+          </h3>
+          <div class="gap-2 flex flex-row items-center">
+            <svg class="h-4 w-4 fill-black-principal dark:fill-white-principal" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8.00059 10.4C9.32607 10.4 10.4006 9.32549 10.4006 8.00001C10.4006 6.67452 9.32607 5.60001 8.00059 5.60001C6.6751 5.60001 5.60059 6.67452 5.60059 8.00001C5.60059 9.32549 6.6751 10.4 8.00059 10.4Z"/>
+              <path d="M8.8 1.6552V0H7.2V1.6552C5.79214 1.83468 4.48373 2.47659 3.48016 3.48016C2.47659 4.48373 1.83468 5.79214 1.6552 7.2H0V8.8H1.6552C1.83455 10.2079 2.47641 11.5164 3.48001 12.52C4.4836 13.5236 5.79208 14.1654 7.2 14.3448V16H8.8V14.3448C10.2079 14.1654 11.5164 13.5236 12.52 12.52C13.5236 11.5164 14.1654 10.2079 14.3448 8.8H16V7.2H14.3448C14.1653 5.79214 13.5234 4.48373 12.5198 3.48016C11.5163 2.47659 10.2079 1.83468 8.8 1.6552ZM8 12.8C5.3528 12.8 3.2 10.6472 3.2 8C3.2 5.3528 5.3528 3.2 8 3.2C10.6472 3.2 12.8 5.3528 12.8 8C12.8 10.6472 10.6472 12.8 8 12.8Z"/>
+            </svg>
+            <p class="body-sm-black">{{ workii.target }}</p>
+          </div>
+          <div class="gap-2 flex flex-row items-center">
+            <img
+              src="../../../../../../assets/images/svg/icon-time.svg"
+              alt="icon target"
+            />
+            <p class="body-sm-black">
+              {{ workii.executionTime }} días
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div
+        [ngClass]="{
+          'bg-accent-yellow title-sm-black border-b-0':
+            !workii.isApplied && !workii.isCreatedByCurrentUser,
+          'bg-success-greenLight border-success-greenDark':
+            workii.isApplied,
+          'bg-secondary-lightBlue border-primary-blueNeutral':
+            workii.isCreatedByCurrentUser,
+          'h-12 w-full rounded-b-xl flex flex-col items-center px-4 py-1 border-b-4': true
+        }"
+      >
+        <ng-container
+          *ngIf="
+            !workii.isApplied && !workii.isCreatedByCurrentUser
+          "
+        >
+          <div class="flex flex-row items-center gap-1 w-full">
+            <img
+              src="../../../../../../assets/images/svg/icon-decorator-card-workii.svg"
+              alt="icon decorator card workii"
+            />
+            <div class="h-[1px] bg-black-principal flex-grow"></div>
+
+            <p>Recompensa</p>
+
+            <div class="h-[1px] bg-black-principal flex-grow"></div>
+            <img
+              src="../../../../../../assets/images/svg/icon-decorator-card-workii.svg"
+              alt="icon decorator card workii"
+            />
+          </div>
+
+          <p>{{ workii.cost }} USD</p>
+        </ng-container>
+
+        <ng-container *ngIf="workii.isApplied">
+          <div class="flex flex-col gap-1 items-center justify-center pt-1">
+            <img
+              src="../../../../../../assets/images/svg/icon-check.svg"
+              alt="icon check"
+            />
+            <p class="text-success-greenDark title-sm-white">
+              Has aplicado
+            </p>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="workii.isCreatedByCurrentUser">
+          <div class="flex flex-col gap-1 items-center justify-center pt-1">
+            <img
+              src="../../../../../../assets/images/svg/icon-time.svg"
+              alt="icon time"
+            />
+            <p class="text-primary-blueNeutral dark:text-dark-prymaryColor title-sm-white">
+              Buscando talentos
+            </p>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+  </ng-container>
+
+  </div>
+
+<div *ngIf="modalSwitch">
+  <modal-info-workii
+    [workii]="selectedWorkii"
+    [index]="index"
+    [applicationId]="applicationId"
+    [userCurrentId]="userCurrentId"
+  ></modal-info-workii>
+</div>
+</section>

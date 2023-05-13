@@ -14,8 +14,6 @@ import { FormControl } from '@angular/forms';
 })
 export class WorkiisCardsComponent {
 
-  private modalService = inject(SwitchService)
-
   @Input() workiis!: (IWorkii & WorkiiInfo)[];
   @Input() searchWorkiis!: (IWorkii & WorkiiInfo)[];
   @Input() applications!: readonly IApplicationUser[];
@@ -23,32 +21,9 @@ export class WorkiisCardsComponent {
   @Input() userCurrentId!: string;
   @Input() searchControl!: FormControl<string>;
 
-
   totalPagesListWorkiis: number = 0;
   pagesWorkiis: number[] = [];
-
-  applicationId!: string;
   modalSwitch: boolean = false;
-  selectedWorkii!: IWorkii;
-  index!: number;
-
-  ngOnInit(): void {
-    this.modalService.$modal.subscribe((valor) => {
-      this.modalSwitch = valor
-    })
-  }
-
-  openModal(workii: IWorkii, index: number, applies: readonly IApplicationUser[]): void {
-    this.modalSwitch = true
-    this.selectedWorkii = workii;
-    this.index = index;
-
-    applies.map(apply => {
-      workii.id.includes(apply.workii.id)
-        ? this.applicationId = apply.id!
-        : ''
-    })
-  }
 
   shouldDisplayContent(): boolean | undefined {
     return this.searchWorkiis && this.searchControl.value !== '';
@@ -56,10 +31,6 @@ export class WorkiisCardsComponent {
 
   notDisplayContent(): boolean | undefined {
     return this.searchControl.value === null || this.searchControl.value === '';
-  }
-
-  ngDestroy() {
-    this.modalService.$modal.unsubscribe();
   }
 }
 

@@ -43,6 +43,10 @@ export class ModalInfoWorkiiComponent {
     private store: Store<IAppState>) {}
 
   ngOnInit() {
+    console.log(this.workii, 'workii child');
+    console.log(this.applicationId, 'applicationId child');
+    console.log(this.index, 'index child');
+
     this.applications$ = this.store.select(selectListApplications);
 
     this.workiis$ = this.store.select(selectListWorkiis);

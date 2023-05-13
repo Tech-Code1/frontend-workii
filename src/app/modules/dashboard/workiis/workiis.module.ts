@@ -9,6 +9,7 @@ import { LottieModule } from 'ngx-lottie';
 import { LottieSearchComponent } from 'src/app/shared/lottie/lottieSearch.component';
 import { CustomPaginatorComponent } from './components/custom-paginator/custom-paginator.component';
 import { PaginationModule } from 'src/app/shared/components/pagination/pagination.module';
+import { WorkiisContentComponent } from './components/workiis-content/workiis-content.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     LottieSearchComponent,
+    WorkiisContentComponent,
     WorkiisComponent,
     ModalCreateWorkiiComponent,
     WorkiisCardsComponent,

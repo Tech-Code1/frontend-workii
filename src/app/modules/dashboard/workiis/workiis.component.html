@@ -182,7 +182,7 @@
 
       </ng-container>
 
-      <ng-container *ngIf="context.totalSearchResults > 20 && searchControl.value !== '' && !(loading$ | async)">
+      <ng-container *ngIf="context.totalSearchResults > 20 && searchControl.value !== '' && !(loading$ | async) && !(isFound$ | async)">
 
         <pagination
         (pageChanged)="onPageChangeSearch($event)"
