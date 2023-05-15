@@ -24,7 +24,10 @@ export const _userReducer = createReducer(
   on(UserActions.registerUserSuccess, (state) =>  ({...state})),
   on(UserActions.registerUserNavigateToDashboard, (state) =>  ({...state, email: null, password: null, otp: null, userStatus: true})),
   on(UserActions.registerUserError, (state) =>  ({...state, email: null, password: null, otp: null, userStatus: true})),
-  on(UserActions.validateToken, (state) =>  ({...state, tokenValid: false})),
+  on(UserActions.validateToken, (state) =>  ({...state})),
   on(UserActions.validateTokenSuccess, (state) =>  ({...state, tokenValid: true})),
   on(UserActions.validateTokenError, (state) =>  ({...state, tokenValid: false})),
+  on(UserActions.renewToken, (state) =>  ({...state})),
+  on(UserActions.renewTokenSuccess, (state) =>  ({...state, tokenValid: true})),
+  on(UserActions.renewTokenError, (state) =>  ({...state, tokenValid: false})),
 );

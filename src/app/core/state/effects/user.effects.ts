@@ -14,6 +14,7 @@ import { IAppState } from '../app.state';
 import { Store } from '@ngrx/store';
 import { selectPassword } from '../selectors/user.selectors';
 import { RegisterService } from '../../../modules/auth/services/register.service';
+import { WorkiiActions } from 'src/app/modules/dashboard/workiis/state/actions/workii.actions';
 
 @Injectable()
 export class UserEffects {
@@ -30,12 +31,22 @@ export class UserEffects {
   loginPassword!: string | undefined;
 
   setUserData(token: string, id: string, email: string) {
-    localStorage.setItem('token', token!);
+    localStorage.setItem('authToken', token!);
 
     this._user = {
       uiid: id!,
       email: email!
     }
+  }
+
+  removeUserData() {
+    //localStorage.removeItem('authToken');
+    //localStorage.removeItem('tokenExpiry');
+
+    //this.store.dispatch(UserActions.logOut());
+    //this.store.dispatch(WorkiiActions.logOut());
+    console.log('se removio la data');
+
   }
 
   loginUser$ = createEffect(() => this.actions$.pipe(
@@ -82,7 +93,7 @@ export class UserEffects {
         switchMap((createUserResponse) => {
         const token = createUserResponse.token;
         // Almacena el token en localStorage
-        localStorage.setItem('token', token);
+        localStorage.setItem('authToken', token);
 
         return [
           UserActions.registerUserSuccess(),
@@ -134,15 +145,31 @@ export class UserEffects {
       concatMap(() =>
         this.authServices.validateToken().pipe(
           map(resp => {
-            this.setUserData(resp.token!, resp.id!, resp.email!)
-            //this.router.navigate(['/dashboard/workiis']);
+
+            // this.setUserData(resp.token!, resp.id!, resp.email!)
             return UserActions.validateTokenSuccess(resp.ok);
           }),
-          catchError((error) => of(UserActions.validateTokenError('Hubo un error en validar el token')))
+          catchError((error) => {
+            console.log(error, 'ERROR');
+
+            return of(UserActions.validateTokenError('Hubo un error en validar el token'));
+          })
         )
       )
     )
   );
+
+  /* renewToken$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.renewToken),
+      switchMap(() =>
+        this.authService.renewToken().pipe(
+          map(token => UserActions.renewTokenSuccess({ token })),
+          catchError(() => of(UserActions.renewTokenFailure()))
+        )
+      )
+    )
+  ); */
 
   validateOtp$ = createEffect(() => this.actions$.pipe(
     ofType(UserActions.validateOtp),
@@ -172,7 +199,6 @@ export class UserEffects {
     ofType(UserActions.loginError,
       UserActions.validateOtpError,
       UserActions.registerUserError,
-      UserActions.validateTokenError,
       UserActions.getUserError),
     tap((action) => {
       Swal.fire('Error', `${action.errorMessage}`, 'error');

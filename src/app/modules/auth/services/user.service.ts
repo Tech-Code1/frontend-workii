@@ -15,16 +15,11 @@ export class UserService {
 
   constructor() { }
 
-  public getJwtToken(): string | null {
-
-    return localStorage.getItem('token') ? localStorage.getItem('token') : null
-
-  }
-
   public getCurrentUser(): any {
-    const token = this.getJwtToken();
+    const token = localStorage.getItem('authToken');
     if (token) {
       const decodedToken: {id: string} = jwt_decode(token);
+
       return decodedToken['id'];
     }
     return null;

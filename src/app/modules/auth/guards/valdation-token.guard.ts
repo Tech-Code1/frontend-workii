@@ -22,6 +22,7 @@ export class ValdationTokenGuard implements CanActivate, CanLoad {
     if (!valid) {
       this.router.navigateByUrl('/auth');
     }
+
     return valid;
   }
 }

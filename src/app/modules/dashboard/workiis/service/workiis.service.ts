@@ -21,7 +21,7 @@ export class WorkiisService {
     private userService: UserService) {
 
     // Obtener el token de autorización
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authToken');
 
     // Crear el encabezado de la solicitud HTTP
     this.headers = new HttpHeaders({
@@ -42,7 +42,6 @@ export class WorkiisService {
 
   getWorkii(slug: string): Observable<IWorkii> {
     const url = `${this.baseUrl}/workiis/${slug}`;
-
 
     return this.http.get<IWorkii>(url, { headers: this.headers })
   }

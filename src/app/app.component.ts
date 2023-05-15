@@ -34,7 +34,8 @@ export class AppComponent {
 
 
   ngOnInit() {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authToken');
+
 
     if(token) {
       this.store.dispatch(UserActions.validateToken());
