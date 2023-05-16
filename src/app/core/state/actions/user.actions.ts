@@ -12,6 +12,7 @@ export const UserActions = createActionGroup({
     'Login User': (email: string, password: string) => ({ email, password }),
     'Login Success': (token: string) => ({ token }),
     'Login Error': (errorMessage: string) => ({ errorMessage }),
+    'Navigate After Login': emptyProps(),
     'Log Out': emptyProps(),
     'User Not Found': emptyProps(),
     'User Found': emptyProps(),

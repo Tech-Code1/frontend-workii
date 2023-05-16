@@ -13,6 +13,7 @@ export const _userReducer = createReducer(
   on(UserActions.loginUser, (state, {email, password}) =>  ({...state, email, password, tokenValid: true})),
   on(UserActions.loginSuccess, (state, token) =>  ({...state, token, tokenValid: true})),
   on(UserActions.loginError, (state, {errorMessage}) =>  ({...state, errorMessage})),
+  on(UserActions.navigateAfterLogin, (state) =>  ({...state})),
   on(UserActions.logOut, () => initialState),
   on(UserActions.userNotFound, (state) =>  ({...state, userStatus: false})),
   on(UserActions.userFound, (state) =>  ({...state, userStatus: true})),

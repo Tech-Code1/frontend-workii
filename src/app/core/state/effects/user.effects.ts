@@ -58,14 +58,13 @@ export class UserEffects {
 
               this.setUserData(resp.token!, resp.id!, resp.email!)
               localStorage.setItem('authToken', resp.token!);
-              this.router.navigate(['/dashboard/workiis']);
-
 
               return from([
                 UserActions.userFound(),
                 UserActions.loginSuccess(resp.token!),
                 //UserActions.getUser(resp.id!),
-                UiActions.stopLoading()
+                UiActions.stopLoading(),
+                UserActions.navigateAfterLogin()
               ]);
 
             } else {
@@ -84,6 +83,11 @@ export class UserEffects {
           })
         ))
   ));
+
+  navigateAfterLogin$ = createEffect(() => this.actions$.pipe(
+    ofType(UserActions.navigateAfterLogin),
+    tap(() => this.router.navigate(['/dashboard/workiis']))
+  ), { dispatch: false });
 
   registerUser$ = createEffect(() =>
   this.actions$.pipe(
