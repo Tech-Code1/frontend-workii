@@ -20,8 +20,20 @@
         class="bg-gray-lighter dark:bg-black-alternative rounded-t-xl h-[150px] flex justify-between flex-col px-4 pt-2 relative"
       >
         <div
-          class="w-16 h-16 bg-gray-light absolute rounded-full -top-[24px]"
-        ></div>
+          class="w-16 h-16 bg-white-principal dark:bg-black-principal absolute rounded-full -top-[24px] flex justify-center items-center shadow-sm shadow-slate-500 dark:shadow-slate-400"
+        >
+        <ng-container [ngSwitch]="workii.target">
+          <img class="h-10 w-auto" *ngSwitchCase="'Arte'" src="../../../../../../assets/images/svg/icon-art.svg" alt="icon art">
+          <img class="h-10 w-auto" *ngSwitchCase="'Informatica'" src="../../../../../../assets/images/svg/icon-informatics.svg" alt="icon informatics">
+          <img class="h-10 w-auto" *ngSwitchCase="'Humanidades'" src="../../../../../../assets/images/svg/icon-humanities.svg" alt="icon humanities">
+          <img class="h-10 w-auto" *ngSwitchCase="'Ciencias'" src="../../../../../../assets/images/svg/icon-sciences.svg" alt="icon sciences">
+          <img class="h-10 w-auto" *ngSwitchCase="'Ingenieria'" src="../../../../../../assets/images/svg/icon-engineering.svg" alt="icon engineering">
+          <img class="h-10 w-auto" *ngSwitchCase="'Entretenimiento'" src="../../../../../../assets/images/svg/icon-entertainment.svg" alt="icon entertainment">
+          <img class="h-10 w-auto" *ngSwitchCase="'Comunicaciones'" src="../../../../../../assets/images/svg/icon-communications.svg" alt="icon communications">
+          <img class="h-10 w-auto" *ngSwitchCase="'Marketing'" src="../../../../../../assets/images/svg/icon-marketing.svg" alt="icon marketing">
+          <img class="h-10 w-auto" *ngSwitchCase="'Otros'" src="../../../../../../assets/images/svg/icon-others.svg" alt="icon others">
+        </ng-container>
+      </div>
 
         <div class="pt-10 gap-2 flex flex-col">
           <h3
