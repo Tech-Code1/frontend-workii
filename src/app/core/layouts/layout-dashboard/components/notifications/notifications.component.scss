@@ -1,0 +1,7 @@
+.hover-child-two {
+  fill: #004BA0;
+}
+
+.hover-parent-two:hover .hover-child-two {
+  fill: #fff;
+}

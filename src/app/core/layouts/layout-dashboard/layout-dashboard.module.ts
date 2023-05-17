@@ -8,6 +8,7 @@ import { HeaderDashboard } from './components/header-dashboard/header-dashboard.
 import { ClickOutsideDirective } from 'src/app/shared/directives/clickOutside.directive';
 import { ShareDirectiveModule } from 'src/app/shared/directives/shareDirectives.module';
 import { SharedModule } from 'src/app/shared/components/shared.module';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 
 
@@ -16,6 +17,7 @@ import { SharedModule } from 'src/app/shared/components/shared.module';
     TemplateDashboardComponent,
     MenuComponent,
     HeaderDashboard,
+    NotificationsComponent,
 
   ],
   imports: [
