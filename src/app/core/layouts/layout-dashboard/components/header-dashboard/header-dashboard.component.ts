@@ -7,6 +7,7 @@ import { selectOneUser } from '../../../../state/selectors/user.selectors';
 import { IUserDTO } from '../../../../models/user.interface';
 import { UserActions } from 'src/app/core/state/actions/user.actions';
 import { WorkiiActions } from 'src/app/modules/dashboard/workiis/state/actions/workii.actions';
+import { AuthService } from 'src/app/modules/auth/services';
 
 @Component({
   selector: 'header-dashboard',
@@ -15,7 +16,7 @@ import { WorkiiActions } from 'src/app/modules/dashboard/workiis/state/actions/w
 })
 export class HeaderDashboard implements OnInit {
 
-  private router = inject(Router)
+  private authService = inject(AuthService)
   private store = inject(Store<IAppState>)
 
   user$!: Observable<IUserDTO | null>;
@@ -30,11 +31,7 @@ export class HeaderDashboard implements OnInit {
   }
 
   logout() {
-    this.router.navigateByUrl('/auth');
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('tokenExpiry');
-    this.store.dispatch(UserActions.logOut())
-    this.store.dispatch(WorkiiActions.logOut())
+    this.authService.logout();
   }
 
   clickedOutside(): void {

@@ -30,8 +30,9 @@ export class UserEffects {
   loginEmail!: string;
   loginPassword!: string | undefined;
 
-  setUserData(token: string, id: string, email: string) {
+  setUserData(token: string, id: string, email: string, refreshToken: string) {
     localStorage.setItem('authToken', token!);
+    localStorage.setItem('refreshToken', refreshToken!);
 
     this._user = {
       uiid: id!,
@@ -56,8 +57,7 @@ export class UserEffects {
           switchMap( resp => {
             if(resp.ok === true) {
 
-              this.setUserData(resp.token!, resp.id!, resp.email!)
-              localStorage.setItem('authToken', resp.token!);
+              this.setUserData(resp.token!, resp.id!, resp.email!, resp.refreshToken!)
 
               return from([
                 UserActions.userFound(),
@@ -96,8 +96,10 @@ export class UserEffects {
       this.registerService.finishUserCreation().pipe(
         switchMap((createUserResponse) => {
         const token = createUserResponse.token;
+        const refreshToken = createUserResponse.refreshToken;
         // Almacena el token en localStorage
         localStorage.setItem('authToken', token);
+        localStorage.setItem('refreshToken', refreshToken);
 
         return [
           UserActions.registerUserSuccess(),
@@ -163,13 +165,13 @@ export class UserEffects {
     )
   );
 
-  /* renewToken$ = createEffect(() =>
+  /* refreshToken$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(UserActions.renewToken),
-      switchMap(() =>
-        this.authService.renewToken().pipe(
-          map(token => UserActions.renewTokenSuccess({ token })),
-          catchError(() => of(UserActions.renewTokenFailure()))
+      ofType(refreshToken),
+      exhaustMap(({ refreshToken }) =>
+        this.authService.refreshToken(refreshToken).pipe(
+          map(({ accessToken, refreshToken }) => refreshTokenSuccess({ accessToken, refreshToken })),
+          catchError((error) => of(refreshTokenFailure({ error })))
         )
       )
     )

@@ -4,6 +4,7 @@ export interface IAuthResponse {
     email?: string,
     password?: string,
     token?: string
+    refreshToken?: string
 }
 
 export interface IUser {

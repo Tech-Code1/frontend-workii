@@ -28,7 +28,7 @@ export const _userReducer = createReducer(
   on(UserActions.validateToken, (state) =>  ({...state})),
   on(UserActions.validateTokenSuccess, (state) =>  ({...state, tokenValid: true})),
   on(UserActions.validateTokenError, (state) =>  ({...state, tokenValid: false})),
-  on(UserActions.renewToken, (state) =>  ({...state})),
-  on(UserActions.renewTokenSuccess, (state) =>  ({...state, tokenValid: true})),
-  on(UserActions.renewTokenError, (state) =>  ({...state, tokenValid: false})),
+  //on(UserActions.refreshToken, (state) =>  ({...state})),
+  //on(UserActions.refreshTokenSuccess, (state,  { accessToken, refreshToken }) =>  ({...state, accessToken, refreshToken, tokenValid: true })),
+  //on(UserActions.refreshTokenFailure, (state) =>  ({...state, tokenValid: false})),
 );

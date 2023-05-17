@@ -5,8 +5,9 @@ import { supportLanguages } from './shared/utils/constLanguages';
 import { IAppState } from './core/state/app.state';
 import { UserActions } from './core/state/actions/user.actions';
 import { AuthService } from './modules/auth/services/auth.service';
-import { selectOneUser } from './core/state/selectors/user.selectors';
 import { UserService } from './modules/auth/services/user.service';
+import { EventBusService } from './shared/services/event-bus.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,11 +16,14 @@ import { UserService } from './modules/auth/services/user.service';
 })
 export class AppComponent {
   title = 'workii';
+  isLoggedIn = false;
+  eventBusSub?: Subscription;
 
-  private translateService = inject(TranslateService)
-  private store = inject(Store<IAppState>)
-  private authService = inject(AuthService)
-  private userService = inject(UserService)
+  private translateService = inject(TranslateService);
+  private store = inject(Store<IAppState>);
+  private authService = inject(AuthService);
+  private userService = inject(UserService);
+  private eventBusService = inject(EventBusService);
 
   userCurrentId: string = this.userService.getCurrentUser();
 
@@ -32,9 +36,12 @@ export class AppComponent {
 	 this.translateService.use(browserlang); */
 	}
 
-
   ngOnInit() {
     const token = localStorage.getItem('authToken');
+
+    this.eventBusSub = this.eventBusService.on('logout', () => {
+      this.logout();
+    });
 
 
     if(token) {
@@ -42,8 +49,9 @@ export class AppComponent {
 
       this.store.dispatch(UserActions.getUser(this.userCurrentId))
     }
-
   }
 
-
+  logout(): void {
+    this.authService.logout();
+  }
 }

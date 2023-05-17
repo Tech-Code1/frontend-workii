@@ -19,4 +19,5 @@ export interface ICreateUserResponse {
   isActive: boolean;
   roles: string[];
   token: string;
+  refreshToken: string;
 }

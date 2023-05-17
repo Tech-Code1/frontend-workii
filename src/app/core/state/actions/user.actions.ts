@@ -28,9 +28,9 @@ export const UserActions = createActionGroup({
     'Validate Token': emptyProps(),
     'Validate Token Success': (tokenValid: boolean) => ({ tokenValid }),
     'Validate Token Error': (errorMessage: string) => ({ errorMessage }),
-    'Renew Token': emptyProps(),
-    'Renew Token Success': (token: string) => ({ token }),
-    'Renew Token Error': (errorMessage: string) => ({ errorMessage }),
+    //'Refresh Token': (refreshToken: string) => ({ refreshToken }),
+    //'Refresh Token Success': ( accessToken: string, refreshToken: string ) => ({ accessToken, refreshToken }),
+    //'Refresh Token Failure': (errorMessage: string) => ({ errorMessage }),
     //'Login Error': emptyProps(),
     //'List workiis': (workiis: readonly IWorkii[]) => ({ workiis }),
   }
