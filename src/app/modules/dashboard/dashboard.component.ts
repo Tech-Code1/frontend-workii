@@ -1,11 +1,6 @@
-import { Component, OnInit, inject, AfterViewInit, OnChanges } from '@angular/core';
-import { Router } from '@angular/router';
-import { UiActions } from 'src/app/shared/state/actions/ui.actions';
+import { Component, OnInit, inject } from '@angular/core';
 import { IUser } from '../auth/interfaces/auth.interface';
 import { AuthService } from '../auth/services/auth.service';
-import { UserActions } from '../../core/state/actions/user.actions';
-import { Store } from '@ngrx/store';
-import { IAppState } from 'src/app/core/state/app.state';
 
 @Component({
   selector: 'app-dashboard',

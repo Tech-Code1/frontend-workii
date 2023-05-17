@@ -21,8 +21,19 @@ export class AuthService {
     private http = inject(HttpClient);
     private router = inject(Router);
 
+    headers: HttpHeaders;
     private baseUrl: string = environment.baseUrl;
     private _user!: IUser;
+
+    constructor() {
+      // Obtener el token de autorización
+      const token = localStorage.getItem('authToken');
+
+      // Crear el encabezado de la solicitud HTTP
+      this.headers = new HttpHeaders({
+        'Authorization': `${token}`
+      });
+    }
 
     get user() {
       return { ...this._user }
@@ -43,22 +54,15 @@ export class AuthService {
       return this.http.post<IOtp>(url, body)
     }
 
-    validateToken(): Observable<IAuthResponse> {
-      const token = localStorage.getItem('authToken');
+    /* validateToken(): Observable<IAuthResponse> {
+      const url = `${this.baseUrl}/auth/revalidate`;
 
-      if(!token) {
-        console.log('por acá paso');
-        return EMPTY;
-      }
-        const url = `${this.baseUrl}/auth/renew`;
-        const headers = new HttpHeaders()
-        .set('Authorization', token);
-
-
-        return this.http.get<IAuthResponse>(url, { headers })
-    }
+      return this.http.get<IAuthResponse>(url, { headers: this.headers });
+    } */
 
     getRefreshToken(): string | null {
+      console.log(localStorage.getItem('refreshToken'));
+
       return localStorage.getItem('refreshToken');
     }
 
@@ -69,10 +73,6 @@ export class AuthService {
 
       return this.http.post(url, body);
     }
-
-    /* getRefreshToken(): string | null {
-      return localStorage.getItem('refreshToken');
-    } */
 
     logout(): Observable<any> {
       return from(this.router.navigateByUrl('/auth')).pipe(

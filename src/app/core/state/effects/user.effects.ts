@@ -145,12 +145,13 @@ export class UserEffects {
     { dispatch: false }
   );
 
-  validateToken$ = createEffect(() =>
+  /* validateToken$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UserActions.validateToken),
       concatMap(() =>
         this.authServices.validateToken().pipe(
           map(resp => {
+            console.log(resp, 'response');
 
             // this.setUserData(resp.token!, resp.id!, resp.email!)
             return UserActions.validateTokenSuccess(resp.ok);
@@ -163,7 +164,7 @@ export class UserEffects {
         )
       )
     )
-  );
+  ); */
 
   /* refreshToken$ = createEffect(() =>
     this.actions$.pipe(

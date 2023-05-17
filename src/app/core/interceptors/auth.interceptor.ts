@@ -17,11 +17,13 @@ import { EventBusService } from 'src/app/shared/services/event-bus.service';
 // import { StorageService } from 'src/app/modules/auth/services/storage.service';
 import { EventData } from 'src/app/shared/utils/event.class';
 import { IAuthResponse } from 'src/app/modules/auth/interfaces/auth.interface';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
   private store = inject(Store<IAppState>);
+  private router = inject(Router);
   private authService = inject(AuthService);
   private eventBusService = inject(EventBusService);
   // private storageService = inject(StorageService);
@@ -54,7 +56,10 @@ export class AuthInterceptor implements HttpInterceptor {
     if (!this.isRefreshing) {
       this.isRefreshing = true;
 
-      if (localStorage.getItem('authToken')) {
+      const authToken = localStorage.getItem('authToken');
+      const refreshToken = localStorage.getItem('refreshToken');
+
+      if (authToken && refreshToken) {
         return this.authService.refreshToken().pipe(
           switchMap((resp: IAuthResponse) => {
             localStorage.setItem('authToken', resp.token!);
@@ -74,6 +79,8 @@ export class AuthInterceptor implements HttpInterceptor {
             if (error.status == '403') {
               this.eventBusService.emit(new EventData('logout', null));
             }
+
+            this.router.navigate(['/auth']);
 
             return throwError(() => error);
           })

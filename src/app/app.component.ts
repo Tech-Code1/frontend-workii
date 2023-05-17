@@ -45,13 +45,13 @@ export class AppComponent {
 
 
     if(token) {
-      this.store.dispatch(UserActions.validateToken());
+      //this.store.dispatch(UserActions.validateToken());
 
       this.store.dispatch(UserActions.getUser(this.userCurrentId))
     }
   }
 
   logout(): void {
-    this.authService.logout();
+    this.authService.logout().subscribe();
   }
 }
