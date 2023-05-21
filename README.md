@@ -1,57 +1,212 @@
-## Tecnologías usadas
+# Workii
+
+## Technologies used
 
 | **Angular** | **NgRx** | **Tailwind** |
 |-|-|-|
 | <a target="_BLANK" href="https://angular.io/"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Angular_full_color_logo.svg" alt="Angular" width="64px"></a> | <a target="_BLANK" href="https://ngrx.io/"><img src="https://ngrx.io/assets/images/badge.svg" alt="NgRx" width="64px"></a> | <a target="_BLANK" href="https://tailwindcss.com/"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg" alt="Tailwind" width="64px"></a> |
 
-## Nombre del proyecto
 
-**Workii**
+## Table of Contents
 
-***Nota:** Este proyecto ha sido generado con [Angular CLI](https://github.com/angular/angular-cli) versión 14.0.5.*
+- [Workii](#workii)
+  - [Technologies used](#technologies-used)
+  - [Table of Contents](#table-of-contents)
+  - [Project objectives](#project-objectives)
+  - [Pre-requisites](#pre-requisites)
+  - [Project File Tree](#project-file-tree)
+  - [Architecture](#architecture)
+- [Installation and configuration](#installation-and-configuration)
+  - [Generate components with commands](#generate-components-with-commands)
+  - [Production](#production)
+  - [Unit testing](#unit-testing)
+- [How can I contribute?](#how-can-i-contribute)
+  - [Support](#support)
+  - [Join Our Community](#join-our-community)
+  - [Read the Contribution Guidelines](#read-the-contribution-guidelines)
+  - [Security](#security)
+  - [License](#license)
+  - [Contributors](#contributors)
 
->## Descripción breve
->Workii es un proyecto paracedio a Workana / Fiver. En esta plataforma se busca que los talentos apliquen a los diferentes workiis(tareas) que han sido publicados, con el objetivo de poder conseguir la recompensa que estan dando por hacerla. Además el creador del Workii tendrá que elegi entre los talentos que han aplicado, esto con el fin de ver quien es la persona ideal para cumplir con los objetivos del Workii.
 
-## Objetivos del proyecto
-- Facilitar la conexión entre personas que buscan trabajo y empleadores que necesitan talento para completar tareas específicas (Workiis).
-- Crear una plataforma fácil de usar y accesible para que los talentos puedan aplicar a diferentes Workiis y los empleadores puedan publicar y administrar sus tareas.
-- Implementar un sistema de calificación y reseñas que permita a los empleadores evaluar a los talentos y a los talentos calificar la experiencia con los empleadores. Esto ayudará a mejorar la calidad y confiabilidad de la plataforma.
-- Desarrollar un sistema de pago seguro y transparente que permita a los empleadores recompensar a los talentos por el trabajo completado y garantizar la protección de los datos financieros de los usuarios.
-- Fomentar el crecimiento de una comunidad de talentos y empleadores de diversas áreas y habilidades, lo que permitirá a los usuarios encontrar oportunidades de trabajo en diferentes campos y sectores.
-- Promover la adopción de la plataforma a nivel mundial, con soporte para múltiples idiomas y monedas, para expandir el alcance de las oportunidades laborales y la diversidad de talentos disponibles.
-- Establecer un sistema de soporte y recursos para ayudar a los usuarios a resolver problemas, aprender sobre las mejores prácticas y mejorar sus habilidades en la plataforma.
-- Construir una base de código sólida y modular que permita a la comunidad de código abierto contribuir fácilmente al desarrollo y mantenimiento de la plataforma.
-- Mantener y mejorar constantemente la plataforma basándose en el feedback de los usuarios y las tendencias del mercado, garantizando así que Workii siga siendo relevante y útil a lo largo del tiempo.
-- Promover prácticas éticas y responsables en el uso de la plataforma, a través de la implementación de un código de conducta y políticas claras para los usuarios.
+>## Brief description
+>Workii is a similar project to Workana / Fiver. On this platform it is sought that the talents apply to the different workiis (tasks) that have been published, with the aim of being able to get the reward they are giving for doing it. In addition, the creator of the Workii will have to choose between the talents that have applied, this in order to see who is the ideal person to meet the objectives of the Workii.
 
-## Instalar y configurar
+## Project objectives
+- Facilitating the connection between job seekers and employers who need talent to complete specific tasks (Workiis).
+- Create an easy-to-use and accessible platform for talents to apply for different Workiis and for employers to post and manage their jobs.
+- Implement a rating and review system that allows employers to rate talent and talent to rate experience with employers. This will help improve the quality and reliability of the platform..
+- Develop a secure and transparent payment system that allows employers to reward talents for work completed and ensure the protection of users' financial data.
+- Foster the growth of a community of talents and employers in various areas and skills, which will allow users to find job opportunities in different fields and sectors.
+- Promote the adoption of the platform globally, with support for multiple languages and currencies, to expand the scope of job opportunities and the diversity of talent available.
+- Establish a support system and resources to help users solve problems, learn about best practices and improve their skills on the platform.
+- Build a robust and modular code base that allows the open source community to easily contribute to the development and maintenance of the platform.
+- Maintain and constantly improve the platform based on user feedback and market trends, ensuring that Workii remains relevant and useful over time.
+- Promote ethical and responsible practices in the use of the platform, through the implementation of a code of conduct and clear policies for users.
 
-- Correr el siguiente comando para instalar todas las dependencias del proyecto
-``` 
-npm i o yarn install (Depende de que manejador de paquetes uses)
+## Pre-requisites
+
+Before you start, make sure you have the following:
+
+- [Node.js version 16 or higher](https://nodejs.org/en)
+- [npm package manager](https://www.npmjs.com/)
+
+
+## Project File Tree
+
 ```
-- Recurda que debes correr el backend del proyecto para el correcto funcionamiento del front (Las instrucciones de este esta en su respectivo repositorio)
-- Por ultimo corre el comando `ng s -o` o `ng s` y navega al siguiente link `http://localhost:4200/`. La aplicación deberia cargarse automaticamente, además de cargar correctamente los cambios.
+.github
+  └─ ISSUE_TEMPALTE
+        └─ ...
+.vscode
+  └─ ...
+.src
+  ├─ app
+  |   ├─ Core
+  |   |     ├─ guards
+  |   |     ├─ interceptors
+  |   |     ├─ interfaces
+  |   |     ├─ layouts
+  |   |     ├─ models
+  |   |     └─ state
+  |   |          ├─ actions
+  |   |          ├─ effects
+  |   |          ├─ reducers
+  |   |          └─ selectors
+  |   ├─ modules
+  |   |     ├─ auth
+  |   |          ├─ components
+  |   |          ├─ DTOs
+  |   |          ├─ guards
+  |   |          ├─ interfaces
+  |   |          ├─ pages
+  |   |          └─ services
+  |   |     ├─ dashboard
+  |   |          └─ ...
+  |   |     ├─ landing
+  |   |          └─ ...
+  |   |     └─ ...
+  |   └─ shared
+  |          ├─ components
+  |          ├─ directives
+  |          ├─ DTOs
+  |          ├─ lottie
+  |          ├─ services
+  |          ├─ state
+  |          ├─ utils
+  |          └─ validators
+  ├─ assets
+  |  ├─ fonts
+  |  ├─ i18n
+  |  └─ images
+  └─ environments
+...
+```
 
-## Generar componentes con comandos
+## Architecture
 
-Se recomienda la creación de componentes con el CLI de Angular, para la agilización de estos procesos.
-Corre el siguente comando `ng g c (component-name)` para generar un nuevo componente. Tambie puedes usar `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+![architecture_workii](https://github.com/Tech-Code1/frontend-workii/assets/61479618/cb13425d-2690-4556-ad6a-caba9e00070b)
+
+This project is based on a reactive architecture built on top of Angular and NgRX. NgRX, a Redux implementation for Angular, is used to manage the state of the application through a series of Actions, Reducers, Effects and Selectors.
+
+Actions describe events that occur in the application, Reducers update the state based on these Actions, Effects manage asynchronous tasks, and Selectors extract pieces of information from the state to be used in components.
+
+The project structure follows the Smart/Dumb Components pattern. Smart Components take care of the business logic, interact with services and handle data flow. Dumb Components, on the other hand, are presentational components that receive data through @Inputs and communicate events through @Outputs, allowing them to be reusable and easy to test.
+
+This approach ensures a predictable, efficient and easy to understand architecture, where each part has a clear responsibility, allowing for easier development and maintenance over time.
+
+***Note:** Although the project did not start with this architecture, it has been gradually migrating to this structure.*
+
+Here are some resources for understanding this architecture:
+
+- [Angular Architecture - Smart Components vs Presentational Components](https://blog.angular-university.io/angular-2-smart-components-vs-presentation-components-whats-the-difference-when-to-use-each-and-why/)
+- [NGRX](https://ngrx.io/)
+
+<div align="right">
+
+[ [ ↑ to top ↑ ] ](#workii)
+
+</div>
+
+# Installation and configuration
+
+***Note:** This project has been generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.5.*
+
+- Run the following command to install all the project dependencies
+``` 
+npm i o yarn install (Depends on which package manager you use)
+```
+- Remember that you must run the backend of the project for the correct functioning of the frontend (the instructions for this are in its [respective repository](https://github.com/Tech-Code1/backend-workii))
+- Finally run the command `ng s -o` or `ng s` and navigate to the following link `http://localhost:4200/`. The application should load automatically, as well as correctly load the changes.
+
+## Generate components with commands
+
+The creation of components with the Angular CLI is recommended, to streamline these processes.
+Run the following command `ng g c (component-name)` to generate a new component. you can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 
-## Producción
+## Production
 
-Ejecuta `ng build` para compilar el proyecto. Los archivos de compilación se almacenarán en el directorio `dist/`.
+Run `ng build` to compile the project. The compilation files will be stored in the directory `dist/`.
 
-## Pruebas unitarias
+## Unit testing
 
-El proyecto aún no cuenta con las pruebas unitarias, al tratarse de un proyecto que se quiere lanzar rapido al publico omitiremos esta parte por ahora.
+The project does not yet have unit tests, as it is a project that is to be released quickly to the public we will omit this part for now.
 
-## Como contribuir
-Se esta trabajando en el contributing...
+# How can I contribute?
 
-## Dudas o preguntas
+We welcome contributions from anyone who would like to help improve our project. Whether you're an experienced developer or just starting out, there are plenty of ways to get involved.
 
-Contactar con algún miembro de la comunidad [Indie Creators]( https://discord.gg/Qncuxgcgsn) de Discord, que tenga la etiqueta 
-**Community Lead** o escribir al siguiente correo `serudda.oficial@gmail.com` 
+## Support
+
+If you need help using our project, please visit our [SUPPORT.md](./docs/SUPPORT.md) file. This document provides information on how to get help from the community, how to report issues, and where to find additional resources.
+
+## Join Our Community
+
+Join our [Discord](https://indiecreatorshq.com/discord) community to connect with other contributors and get help from the maintainers. This is a great place to ask questions, get feedback on your ideas, and collaborate with others on the project.
+
+## Read the Contribution Guidelines
+
+Before you start contributing, please read our [CONTRIBUTING.md](./docs/CONTRIBUTING.md) file. This outlines the contribution guidelines and provides instructions for setting up your development environment, submitting pull requests, and more.
+
+We appreciate all contributions, big and small. Thank you for helping to make our project better!
+
+## Security
+
+We take the security of our project seriously. If you discover a security vulnerability, please let us know right away. We will investigate all legitimate reports and do our best to quickly address any issues.
+
+To learn more about our security practices, please read our [SECURITY.md](./docs/SECURITY.md) file.
+
+## License
+
+[MIT License](./LICENSE)
+
+## Contributors
+
+<a href="https://github.com/Tech-Code1/frontend-workii/network/dependencies/contributors">
+  <img src="" />
+</a>
+
+Made with [contrib.rocks](https://contrib.rocks).
+
+<div align="right">
+
+[ [ ↑ to top ↑ ] ](#workii)
+
+</div>
+
+---
+
+**Folow us at**
+
+<a href="https://github.com/Indie-Creator-Community">
+<img src="https://img.shields.io/badge/IndieCreatorsHQ-FAFF00?style=for-the-badge&logo=github&logoColor=black">
+</a>
+<a href="https://indiecreatorshq.com/discord">
+<img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white">
+</a>
+<a href="https://twitter.com/IndieCreatorsHQ">
+<img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white">
+</a>
+
+---
