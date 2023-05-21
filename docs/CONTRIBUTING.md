@@ -46,15 +46,6 @@ Including these details will help the maintainers of the project understand the 
 3. Select your profile or the organization you want to fork the repository to.
 4. Wait for the forking process to complete.
 
-<details>
-<summary style="color: #6366F1; font-weight:bold">
-Fork Example:
-</summary>
-<br/>
-<a href='https://user-images.githubusercontent.com/14036522/228447365-3c3e183a-b58f-4fbe-89aa-dbdb0db597d2.gif'> <img src="https://user-images.githubusercontent.com/14036522/228447365-3c3e183a-b58f-4fbe-89aa-dbdb0db597d2.gif" /> </a>
-
-</details>
-
 Once you have forked the repository, you will have a copy of the original repository in your own GitHub account that you can work on without affecting the original repository. You can now proceed to clone the repository to your local machine and make changes.
 
 ## Creating a new branch
@@ -83,15 +74,6 @@ git checkout -b RS-XX-description develop
 ```
 
 Where `XX` is the number of the issue you are working on and `description` is a brief summary of the changes you plan to make. This naming convention helps to keep track of which branch corresponds to which issue.
-
-<details>
-<summary style="color: #6366F1; font-weight:bold"> Example:
-</summary>
-<br/>
-<a href="https://user-images.githubusercontent.com/14036522/228454205-c76b4ead-51d0-43d9-bf27-4d3acbec26b8.gif">
-<img src="https://user-images.githubusercontent.com/14036522/228454205-c76b4ead-51d0-43d9-bf27-4d3acbec26b8.gif" alt="branch-flow gif">
-</a>
-</details>
 
 1. Once you have created your branch, you can make your changes and commit them as usual. Remember to regularly pull from the original develop branch to keep your code up to date.
 
@@ -165,14 +147,6 @@ Once you've made changes and committed them to your branch, it's time to create 
 4. Check that the changes you made are what you intended to do.
 5. Write a title and description for your pull request.
 
-<details>
-<summary style="color: #6366F1; font-weight:bold">
-How to create a PR
-</summary>
-<br/>
-<a href="https://user-images.githubusercontent.com/14036522/228457852-b4007e36-b4a1-4dc4-9b7f-b058c8012b19.gif"><img src="https://user-images.githubusercontent.com/14036522/228457852-b4007e36-b4a1-4dc4-9b7f-b058c8012b19.gif"> </a>
-</details>
-
 ### Title
 
 Don't worry if you get any of the below wrong, or if you don't know how. We'll gladly help out.
@@ -201,12 +175,6 @@ Also, describe how you tested your changes in detail. Include details of your te
 Finally, indicate the types of changes your code introduces by checking the relevant boxes. If you're unsure about any of these, don't hesitate to ask for help.
 
 ---
-
-<details>
-<summary style="color: #6366F1; font-weight:bold">PR Examples:</summary>
-<br/>
-<a href="https://user-images.githubusercontent.com/14036522/228446637-c092fe8c-0965-482e-8eb9-0eccc1b8075e.png"> <img src="https://user-images.githubusercontent.com/14036522/228446637-c092fe8c-0965-482e-8eb9-0eccc1b8075e.png" /> </a>
-</details>
 
 All pull requests will be reviewed by a project maintainer. The maintainer may ask for changes or suggest improvements. Once the pull request is approved, it will be merged into develop.
 Thank You!

@@ -46,15 +46,6 @@ Incluir estos detalles ayudará a los mantenedores del proyecto a entender el pr
 3. Selecciona tu perfil o la organización a la que deseas hacer el fork del repositorio.
 4. Espera a que el proceso de forkeo se complete.
 
-<details>
-<summary style="color: #6366F1; font-weight:bold">
-Ejemplo de Fork:
-</summary>
-<br/>
-<a href='https://user-images.githubusercontent.com/14036522/228447365-3c3e183a-b58f-4fbe-89aa-dbdb0db597d2.gif'> <img src="https://user-images.githubusercontent.com/14036522/228447365-3c3e183a-b58f-4fbe-89aa-dbdb0db597d2.gif" /> </a>
-
-</details>
-
 Una vez que hayas forkeado el repositorio, tendrás una copia del repositorio original en tu propia cuenta de GitHub en la que puedes trabajar sin afectar el repositorio original. Ahora puedes proceder a clonar el repositorio en tu máquina local y hacer cambios.
 
 ## Creando una nueva rama
@@ -81,17 +72,7 @@ git checkout develop
 ```
 git checkout -b RS-XX-description develop
 ```
-
 Donde `XX` es el número del problema en el que estás trabajando y `description` es un breve resumen de los cambios que planeas hacer. Esta convención de nomenclatura ayuda a realizar un seguimiento de qué rama corresponde a qué problema.
-
-<details>
-<summary style="color: #6366F1; font-weight:bold"> Example:
-</summary>
-<br/>
-<a href="https://user-images.githubusercontent.com/14036522/228454205-c76b4ead-51d0-43d9-bf27-4d3acbec26b8.gif">
-<img src="https://user-images.githubusercontent.com/14036522/228454205-c76b4ead-51d0-43d9-bf27-4d3acbec26b8.gif" alt="branch-flow gif">
-</a>
-</details>
 
 1. Una vez que hayas creado tu rama, puedes hacer tus cambios y confirmarlos como de costumbre. Recuerda actualizar regularmente tu rama de desarrollo original para mantener tu código actualizado.
 
@@ -164,14 +145,6 @@ Una vez que hayas hecho cambios y los hayas confirmado en tu rama, es hora de cr
 4. Verifica que los cambios que hiciste sean los que pretendías hacer.
 5. Escribe un título y una descripción para tu pull request.
 
-<details>
-<summary style="color: #6366F1; font-weight:bold">
-Cómo crear un PR
-</summary>
-<br/>
-<a href="https://user-images.githubusercontent.com/14036522/228457852-b4007e36-b4a1-4dc4-9b7f-b058c8012b19.gif"><img src="https://user-images.githubusercontent.com/14036522/228457852-b4007e36-b4a1-4dc4-9b7f-b058c8012b19.gif"> </a>
-</details>
-
 ### Título
 
 No te preocupes si te equivocas en alguno de los siguientes puntos o si no sabes cómo hacerlo. Estaremos encantados de ayudarte.
@@ -200,12 +173,6 @@ También, describa cómo probó sus cambios en detalle. Incluya detalles de su e
 Finalmente, indique los tipos de cambios que introduce su código marcando las casillas relevantes. Si no está seguro acerca de alguno de estos, no dude en pedir ayuda.
 
 ---
-
-<details>
-<summary style="color: #6366F1; font-weight:bold">Ejemplos de PR:</summary>
-<br/>
-<a href="https://user-images.githubusercontent.com/14036522/228446637-c092fe8c-0965-482e-8eb9-0eccc1b8075e.png"> <img src="https://user-images.githubusercontent.com/14036522/228446637-c092fe8c-0965-482e-8eb9-0eccc1b8075e.png" /> </a>
-</details>
 
 Todos los pull requests serán revisados por un mantenedor del proyecto. El mantenedor puede pedir cambios o sugerir mejoras. Una vez que el pull request es aprobado, será fusionado en la rama develop.
 **¡Gracias!**
