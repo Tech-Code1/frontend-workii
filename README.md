@@ -13,10 +13,9 @@
   - [Technologies used](#technologies-used)
   - [Table of Contents](#table-of-contents)
   - [Project objectives](#project-objectives)
-  - [Pre-requisites](#pre-requisites)
+  - [Installation and configuration](#installation-and-configuration)
   - [Project File Tree](#project-file-tree)
   - [Architecture](#architecture)
-- [Installation and configuration](#installation-and-configuration)
   - [Generate components with commands](#generate-components-with-commands)
   - [Production](#production)
   - [Unit testing](#unit-testing)
@@ -44,12 +43,16 @@
 - Maintain and constantly improve the platform based on user feedback and market trends, ensuring that Workii remains relevant and useful over time.
 - Promote ethical and responsible practices in the use of the platform, through the implementation of a code of conduct and clear policies for users.
 
-## Pre-requisites
+## Installation and configuration
 
-Before you start, make sure you have the following:
+***Note:** This project has been generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.5.*
 
-- [Node.js version 16 or higher](https://nodejs.org/en)
-- [npm package manager](https://www.npmjs.com/)
+- Run the following command to install all the project dependencies
+``` 
+npm i o yarn install (Depends on which package manager you use)
+```
+- Remember that you must run the backend of the project for the correct functioning of the frontend (the instructions for this are in its [respective repository](https://github.com/Tech-Code1/backend-workii))
+- Finally run the command `ng s -o` or `ng s` and navigate to the following link `http://localhost:4200/`. The application should load automatically, as well as correctly load the changes.
 
 
 ## Project File Tree
@@ -127,17 +130,6 @@ Here are some resources for understanding this architecture:
 [ [ ↑ to top ↑ ] ](#workii)
 
 </div>
-
-# Installation and configuration
-
-***Note:** This project has been generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.5.*
-
-- Run the following command to install all the project dependencies
-``` 
-npm i o yarn install (Depends on which package manager you use)
-```
-- Remember that you must run the backend of the project for the correct functioning of the frontend (the instructions for this are in its [respective repository](https://github.com/Tech-Code1/backend-workii))
-- Finally run the command `ng s -o` or `ng s` and navigate to the following link `http://localhost:4200/`. The application should load automatically, as well as correctly load the changes.
 
 ## Generate components with commands
 
