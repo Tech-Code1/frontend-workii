@@ -20,6 +20,7 @@
   - [Generate components with commands](#generate-components-with-commands)
   - [Production](#production)
   - [Unit testing](#unit-testing)
+- [VSCode Extensions and Tips](#vscode-extensions-and-tips)
 - [How can I contribute?](#how-can-i-contribute)
   - [Support](#support)
   - [Join Our Community](#join-our-community)
@@ -63,6 +64,11 @@ npm i o yarn install (Depends on which package manager you use)
 - Remember that you must run the backend of the project for the correct functioning of the frontend (the instructions for this are in its [respective repository](https://github.com/Tech-Code1/backend-workii))
 - Finally run the command `ng s -o` or `ng s` and navigate to the following link `http://localhost:4200/`. The application should load automatically, as well as correctly load the changes.
 
+**Installation EsLint Angular >= v12**
+This setting only applies if you use Angular version 12 or higher.
+``` 
+ng add @angular-eslint/schematics@14.0.2
+```
 
 ## Project File Tree
 
@@ -153,6 +159,46 @@ Run `ng build` to compile the project. The compilation files will be stored in t
 ## Unit testing
 
 The project does not yet have unit tests, as it is a project that is to be released quickly to the public we will omit this part for now.
+
+# VSCode Extensions and Tips
+
+We will add the ESLint, Prettier and Material Icon Theme extensions, then go to the VS Code settings and paste the following:
+
+![settings-vscode](https://github.com/Tech-Code1/frontend-workii/assets/61479618/ac1d546e-46dc-4da8-995f-bfc0318c0012)
+
+```json 
+  {
+    "editor.formatOnSave": true,
+    "prettier.requireConfig": true,
+    "editor.guides.bracketPairs": "active",
+    "workbench.iconTheme": "material-icon-theme",
+    "tabnine.experimentalAutoImports": true,
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[html]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[jsonc]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[scss]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+  "prettier.printWidth": 120,
+  "window.zoomLevel": 2
+  }
+```
 
 # How can I contribute?
 
