@@ -13,6 +13,7 @@
   - [Technologies used](#technologies-used)
   - [Table of Contents](#table-of-contents)
   - [Project objectives](#project-objectives)
+  - [Pre-requisites](#pre-requisites)
   - [Installation and configuration](#installation-and-configuration)
   - [Project File Tree](#project-file-tree)
   - [Architecture](#architecture)
@@ -42,6 +43,14 @@
 - Build a robust and modular code base that allows the open source community to easily contribute to the development and maintenance of the platform.
 - Maintain and constantly improve the platform based on user feedback and market trends, ensuring that Workii remains relevant and useful over time.
 - Promote ethical and responsible practices in the use of the platform, through the implementation of a code of conduct and clear policies for users.
+
+## Pre-requisites
+
+Before you start, make sure you have the following:
+
+- [git](https://git-scm.com/)
+- [node.js version 16 or higher](https://nodejs.org/en)
+- [npm package manager](https://www.npmjs.com/)
 
 ## Installation and configuration
 
