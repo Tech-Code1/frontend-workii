@@ -64,12 +64,6 @@ npm i o yarn install (Depends on which package manager you use)
 - Remember that you must run the backend of the project for the correct functioning of the frontend (the instructions for this are in its [respective repository](https://github.com/Tech-Code1/backend-workii))
 - Finally run the command `ng s -o` or `ng s` and navigate to the following link `http://localhost:4200/`. The application should load automatically, as well as correctly load the changes.
 
-**Installation EsLint Angular >= v12**
-This setting only applies if you use Angular version 12 or higher.
-``` 
-ng add @angular-eslint/schematics@14.0.2
-```
-
 ## Project File Tree
 
 ```
