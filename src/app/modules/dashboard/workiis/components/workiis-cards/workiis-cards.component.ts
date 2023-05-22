@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input, inject, Output, EventEmitter } from '@angular/core';
-import { SwitchService } from 'src/app/modules/auth/services/switch.service';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { IApplicationUser } from '../../interfaces/workii.interface';
 
-import { IWorkii } from 'src/app/core/models/workii.interface';
-import { WorkiiInfo } from '../../workiis.component';
 import { FormControl } from '@angular/forms';
+import { IWorkii } from 'src/app/core/models/workii.interface';
+import { IWorkiiInfo } from '../../workiis.component';
 
 @Component({
 	selector: 'workiis-cards',
@@ -13,8 +12,8 @@ import { FormControl } from '@angular/forms';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WorkiisCardsComponent {
-	@Input() workiis!: (IWorkii & WorkiiInfo)[];
-	@Input() searchWorkiis!: (IWorkii & WorkiiInfo)[];
+	@Input() workiis!: (IWorkii & IWorkiiInfo)[];
+	@Input() searchWorkiis!: (IWorkii & IWorkiiInfo)[];
 	@Input() applications!: readonly IApplicationUser[];
 	@Input() isFilterOpened!: boolean;
 	@Input() userCurrentId!: string;

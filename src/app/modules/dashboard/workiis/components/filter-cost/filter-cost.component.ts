@@ -1,4 +1,4 @@
-import { Component, inject, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChildren, inject } from '@angular/core';
 import { CostService } from '../../service/costService.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class FilterCostComponent {
 
 	costs: string[] = ['desc', 'asc'];
 
-	deleteCost() {
+	deleteCost(): void {
 		this.checkedInputsCost.forEach((checkedInput: ElementRef) => {
 			checkedInput.nativeElement.checked = false;
 		});

@@ -100,14 +100,14 @@ Cada mensaje de commit consta de un tipo, un ámbito y un asunto:
 
 - `feat:` A new feature
 - `fix:` A bug fix
+- `refactor:` A code change that neither fixes a bug nor adds a feature
+- `chore:` Other changes that don't modify src or test files
 - `docs:` Documentation only changes
 - `style:` Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
-- `refactor:` A code change that neither fixes a bug nor adds a feature
 - `perf:` A code change that improves performance
+- `build:` update version for dependencies, packages.
 - `test:` Adding missing tests or correcting existing tests
-- `build:` Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
 - `ci:` Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)
-- `chore:` Other changes that don't modify src or test files
 - `revert:` Reverts a previous commit
 
 El **scope** es opcional y debe ser una breve descripción del componente afectado.
@@ -120,16 +120,17 @@ El **subject** debe ser una breve descripción del cambio. Utilice el tiempo pre
 <summary style="color: #6366F1; font-weight:bold">Aquí hay algunos ejemplos de mensajes de confirmación válidos:</summary>
 <br/>
 
-- `feat:` Add new reward system API
+- `feat:` Add new workii API
 - `fix:` Fix login error when password is blank
-- `docs:` Update README with new installation instructions
-- `style(css):` Add margin to rewards page
-- `refactor:` Simplify rewards calculation function
-- `test:` Add tests for rewards calculation function
-- `build:` Upgrade to Django 3.0.0
-- `ci(travis):` Add build status badge to README
+- `refactor:` Simplify cost calculation function
 - `chore:` Remove unused dependencies
-- `revert:` Revert "feat: Add new reward system API"
+- `docs:` Update README with new installation instructions
+- `style:` Add margin to rewards page
+- `perf:` Fix subscription component
+- `build:` Upgrade to Django 3.0.0.
+- `test:` Add tests for rewards calculation function
+- `ci`: Remove unused dependencies
+- `revert:` Revert "feat: Add new workii"
 
 Si no estás seguro acerca del tipo o alcance de tu commit, no dudes en solicitar comentarios en la solicitud de extracción (pull request).
 

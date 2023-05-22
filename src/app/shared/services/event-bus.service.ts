@@ -9,9 +9,7 @@ import { EventData } from '../utils/event.class';
 export class EventBusService {
 	private subject$ = new Subject<EventData>();
 
-	constructor() {}
-
-	emit(event: EventData) {
+	emit(event: EventData): void {
 		this.subject$.next(event);
 	}
 

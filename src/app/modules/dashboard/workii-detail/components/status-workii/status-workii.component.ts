@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IWorkii } from 'src/app/core/models/workii.interface';
 import { UserService } from 'src/app/modules/auth/services/user.service';
 import { IApplicationUser } from '../../../workiis/interfaces/workii.interface';
@@ -8,7 +8,7 @@ import { IApplicationUser } from '../../../workiis/interfaces/workii.interface';
 	templateUrl: './status-workii.component.html',
 	styleUrls: ['./status-workii.component.scss']
 })
-export class StatusWorkiiComponent {
+export class StatusWorkiiComponent implements OnInit {
 	@Input()
 	workii!: IWorkii;
 

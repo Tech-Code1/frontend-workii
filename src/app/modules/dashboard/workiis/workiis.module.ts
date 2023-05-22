@@ -1,12 +1,14 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WorkiisComponent } from './workiis.component';
-import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { LottieModule } from 'ngx-lottie';
+import { PaginationModule } from 'src/app/shared/components/pagination/pagination.module';
+import { LottieSearchComponent } from 'src/app/shared/lottie/lottieSearch.component';
 import {
-	FilterTargetComponent,
 	FilterCostComponent,
-	FilterStatus,
+	FilterStatusComponent,
+	FilterTargetComponent,
 	FilterTimeComponent,
 	ModalCreateWorkiiComponent,
 	ModalInfoWorkiiComponent,
@@ -14,12 +16,10 @@ import {
 	SkeletonCardsComponent,
 	WorkiisCardsComponent
 } from './components';
-import { TimeFilterPipe, CostFilterPipe, SearchFilterPipe, StatusFilterPipe, TargetFilterPipe } from './pipes';
-import { LottieModule } from 'ngx-lottie';
-import { LottieSearchComponent } from 'src/app/shared/lottie/lottieSearch.component';
 import { CustomPaginatorComponent } from './components/custom-paginator/custom-paginator.component';
-import { PaginationModule } from 'src/app/shared/components/pagination/pagination.module';
 import { WorkiisContentComponent } from './components/workiis-content/workiis-content.component';
+import { CostFilterPipe, SearchFilterPipe, StatusFilterPipe, TargetFilterPipe, TimeFilterPipe } from './pipes';
+import { WorkiisComponent } from './workiis.component';
 
 const routes: Routes = [
 	{
@@ -45,7 +45,7 @@ const routes: Routes = [
 		FilterTargetComponent,
 		FilterTimeComponent,
 		FilterCostComponent,
-		FilterStatus,
+		FilterStatusComponent,
 		NotFoundComponent,
 		CustomPaginatorComponent
 	],

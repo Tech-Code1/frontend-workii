@@ -34,7 +34,7 @@ export class PaginationComponent implements OnInit {
 		return [...Array(end).keys()].map((el) => el + start);
 	}
 
-	changePage(newPage: number) {
+	changePage(newPage: number): void {
 		this.paginationService.changePage(newPage);
 
 		this.pageChanged.emit(newPage);

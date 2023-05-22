@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { IWorkii } from 'src/app/core/models/workii.interface';
 import { WorkiiActions } from '../../../workiis/state/actions/workii.actions';
 
@@ -18,13 +17,11 @@ export class InfoWorkiiWithoutApplyComponent {
 
 	constructor(private store: Store) {}
 
-	ngOnInit(): void {}
-
-	shareWorkii(event: Event) {
+	shareWorkii(event: Event): void {
 		event.stopPropagation();
 	}
 
-	async applyWorkii() {
+	async applyWorkii(): Promise<void> {
 		this.store.dispatch(WorkiiActions.applyWorkiiRequest(this.userCurrentId, this.workii?.id!));
 	}
 }

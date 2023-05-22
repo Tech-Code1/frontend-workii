@@ -36,7 +36,7 @@ export class CustomErrorsComponent {
 		);
 	}
 
-	private getMessage(errorName: string, booleanValue?: any, controlName?: string) {
+	private getMessage(errorName: string, booleanValue?: any, controlName?: string): string {
 		return CustomErrorsComponent.errorMessages[errorName](booleanValue, controlName);
 	}
 }

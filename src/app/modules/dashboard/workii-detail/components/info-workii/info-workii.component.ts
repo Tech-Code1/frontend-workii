@@ -1,7 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Observable } from 'rxjs';
 import { IWorkii } from 'src/app/core/models/workii.interface';
-import { IApplicationUser } from '../../../workiis/interfaces/workii.interface';
 
 @Component({
 	selector: 'info-workii',
@@ -14,15 +12,11 @@ export class InfoWorkiiComponent {
 
 	info: boolean = false;
 
-	constructor() {}
-
-	ngOnInit(): void {}
-
-	shareWorkii(event: Event) {
+	shareWorkii(event: Event): void {
 		event.stopPropagation();
 	}
 
-	infoOpen() {
+	infoOpen(): void {
 		this.info = !this.info;
 	}
 }

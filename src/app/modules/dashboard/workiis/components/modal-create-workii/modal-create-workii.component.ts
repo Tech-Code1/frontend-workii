@@ -1,11 +1,10 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { IAppState } from 'src/app/core/state/app.state';
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
 import { UserService } from 'src/app/modules/auth/services/user.service';
-import { Store } from '@ngrx/store';
-import { IWorkii } from 'src/app/core/models/workii.interface';
 import { WorkiiActions } from '../../state/actions/workii.actions';
-import { IAppState } from 'src/app/core/state/app.state';
 
 @Component({
 	selector: 'modal-create-workii',
@@ -50,15 +49,15 @@ export class ModalCreateWorkiiComponent implements OnInit {
 		});
 	}
 
-	get tasksArr() {
+	get tasksArr(): FormArray<any> {
 		return this.createWorkii.get('tasks') as FormArray;
 	}
 
-	closeModal() {
+	closeModal(): void {
 		this.modalService.$modal.emit(false);
 	}
 
-	stopPropagation(event: Event) {
+	stopPropagation(event: Event): void {
 		event.stopPropagation();
 	}
 
@@ -76,15 +75,15 @@ export class ModalCreateWorkiiComponent implements OnInit {
 		return true;
 	}
 
-	deleteInput(i: number) {
+	deleteInput(i: number): void {
 		this.tasksArr.removeAt(i);
 	}
 
-	addInput() {
+	addInput(): void {
 		this.tasksArr.push(this.formBuilder.control('', [Validators.required]));
 	}
 
-	async createNewWorkii() {
+	async createNewWorkii(): Promise<void> {
 		const userId = await this.userService.getCurrentUser();
 
 		const newWorkii = {

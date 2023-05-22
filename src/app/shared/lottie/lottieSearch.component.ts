@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AnimationItem, AnimationDirection } from 'lottie-web';
+import { AnimationDirection, AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
 
 @Component({
@@ -42,8 +42,8 @@ export class LottieSearchComponent {
 	animationCreated(animationItem: AnimationItem): void {
 		this.animationItem = animationItem;
 		animationItem.setSpeed(1);
-		animationItem.autoplay;
-		animationItem.setDirection;
+		/* animationItem.autoplay;
+		animationItem.playDirection; */
 		animationItem.addEventListener('enterFrame', () => {
 			this.checkAndToggleAnimationDirection();
 		});

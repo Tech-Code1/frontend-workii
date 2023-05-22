@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { IWorkii } from 'src/app/core/models/workii.interface';
@@ -12,7 +12,7 @@ import { selectUsersApplyToWorkii } from '../../../workiis/state/selectors/worki
 	templateUrl: './info-workii-owner.component.html',
 	styleUrls: ['./info-workii-owner.component.scss']
 })
-export class InfoWorkiiOwnerComponent {
+export class InfoWorkiiOwnerComponent implements OnInit {
 	@Input()
 	workii!: IWorkii;
 
@@ -30,11 +30,11 @@ export class InfoWorkiiOwnerComponent {
 		this.store.dispatch(WorkiiActions.loadUsersApply(this.workii.id, { limit: 10, offset: 0 }));
 	}
 
-	shareWorkii(event: Event) {
+	shareWorkii(event: Event): void {
 		event.stopPropagation();
 	}
 
-	async applyWorkii() {
+	async applyWorkii(): Promise<void> {
 		this.store.dispatch(WorkiiActions.applyWorkiiRequest(this.userCurrentId, this.workii.id!));
 	}
 }

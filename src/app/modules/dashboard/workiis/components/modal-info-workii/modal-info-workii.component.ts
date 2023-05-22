@@ -1,31 +1,21 @@
-import { HttpHeaders } from '@angular/common/http';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, map, Subscription, combineLatest, pipe } from 'rxjs';
-import { IResponseError } from 'src/app/core/interfaces/responseError.inteface';
+import { Observable, combineLatest, map } from 'rxjs';
 import { IWorkii } from 'src/app/core/models/workii.interface';
 import { IAppState } from 'src/app/core/state/app.state';
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
-import { UserService } from 'src/app/modules/auth/services/user.service';
-import Swal from 'sweetalert2';
-import { IApplication, IApplicationResponse, IApplicationUser, IWorkiiCreate } from '../../interfaces/workii.interface';
+import { IApplicationUser, IWorkiiCreate } from '../../interfaces/workii.interface';
 import { SharedWorkiiService } from '../../service/shareWorkii.service';
-import { WorkiisService } from '../../service/workiis.service';
 import { WorkiiActions } from '../../state/actions/workii.actions';
-import {
-	selectListApplications,
-	selectListWorkiis,
-	selectWorkiiId,
-	selectWorkiis
-} from '../../state/selectors/workii.selectors';
+import { selectListApplications, selectListWorkiis } from '../../state/selectors/workii.selectors';
 
 @Component({
 	selector: 'modal-info-workii',
 	templateUrl: './modal-info-workii.component.html',
 	styleUrls: ['./modal-info-workii.component.scss']
 })
-export class ModalInfoWorkiiComponent {
+export class ModalInfoWorkiiComponent implements OnInit {
 	@Input()
 	workii!: IWorkii;
 
@@ -48,7 +38,7 @@ export class ModalInfoWorkiiComponent {
 		private store: Store<IAppState>
 	) {}
 
-	ngOnInit() {
+	ngOnInit(): void {
 		console.log(this.workii, 'workii child');
 		console.log(this.applicationId, 'applicationId child');
 		console.log(this.index, 'index child');
@@ -67,15 +57,15 @@ export class ModalInfoWorkiiComponent {
 		);
 	}
 
-	closeModal() {
+	closeModal(): void {
 		this.modalService.$modal.emit(false);
 	}
 
-	stopPropagation(event: Event) {
+	stopPropagation(event: Event): void {
 		event.stopPropagation();
 	}
 
-	shareWorkii() {
+	shareWorkii(): void {
 		const workii: IWorkiiCreate = {
 			name: this.workii.name,
 			cost: this.workii.cost,
@@ -92,20 +82,20 @@ export class ModalInfoWorkiiComponent {
 		this.sharedWorkiiService.setWorkii(workii);
 	}
 
-	detailsWorkiiNavigate() {
+	detailsWorkiiNavigate(): void {
 		const ruta = `/dashboard/workiis/${this.workii?.slug}`;
 		this.router.navigate([ruta]);
 	}
 
-	async applyWorkii() {
+	async applyWorkii(): Promise<void> {
 		this.store.dispatch(WorkiiActions.applyWorkiiRequest(this.userCurrentId, this.workii.id!));
 	}
 
-	async removeApplication(workii: string) {
+	async removeApplication(workii: string): Promise<void> {
 		this.store.dispatch(WorkiiActions.deleteApplicationRequest(this.applicationId, workii));
 	}
 
-	deleteWorkii(id: string) {
+	deleteWorkii(id: string): void {
 		this.store.dispatch(WorkiiActions.deleteWorkiiRequest(id));
 	}
 }

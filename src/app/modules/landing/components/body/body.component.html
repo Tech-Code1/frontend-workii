@@ -9,7 +9,7 @@
 				class="col-span-1 flex flex-col gap-8 p-4 items-center cursor-pointer justify-center"
 				[ngClass]="{
 					'bg-primary-blueNeutral dark:bg-dark-prymaryColor text-white-principal h-[100px] sm:h-[150px] lg:h-[250px] rounded-l-[20px]':
-						id != 'create',
+						id !== 'create',
 					'bg-active-tab h-[150px] sm:h-[220px] lg:h-[315px] shadow-md text-black-principal rounded-t-[20px] rounded-bl-[20px]':
 						id === 'create'
 				}"
@@ -17,7 +17,7 @@
 				<div class="flex flex-col gap-4 items-center">
 					<svg
 						class="w-8 h-8 sm:w-12 sm:h-12"
-						[ngClass]="{ 'stroke-black-principal': id === 'create', 'stroke-white-principal': id != 'create' }"
+						[ngClass]="{ 'stroke-black-principal': id === 'create', 'stroke-white-principal': id !== 'create' }"
 						width="48"
 						height="48"
 						viewBox="0 0 48 48"
@@ -44,7 +44,7 @@
 				<p
 					[ngClass]="{
 						'font-bold text-[0] sm:text-[0] lg:text-base xl:text-xl': id === 'create',
-						'font-normal text-[0px] sm:text-[0px] lg:text-sm': id != 'create',
+						'font-normal text-[0px] sm:text-[0px] lg:text-sm': id !== 'create',
 						'font-body text-center w-0 lg:w-[230px] xl:w-[250px] hidden lg:flex': true
 					}"
 				>
@@ -57,7 +57,7 @@
 				class="col-span-1 flex flex-col gap-8 p-4 items-center cursor-pointer justify-center"
 				[ngClass]="{
 					'bg-primary-blueNeutral dark:bg-dark-prymaryColor text-white-principal h-[100px] sm:h-[150px] lg:h-[250px]':
-						id != 'apply',
+						id !== 'apply',
 					'bg-active-tab h-[150px] sm:h-[220px] lg:h-[315px] shadow-md text-black-principal rounded-t-[20px]':
 						id === 'apply'
 				}"
@@ -65,7 +65,7 @@
 				<div class="flex flex-col gap-4 items-center">
 					<svg
 						class="w-8 h-8 sm:w-12 sm:h-12"
-						[ngClass]="{ 'fill-black-principal': id === 'apply', 'fill-white-principal': id != 'apply' }"
+						[ngClass]="{ 'fill-black-principal': id === 'apply', 'fill-white-principal': id !== 'apply' }"
 						width="48"
 						height="48"
 						viewBox="0 0 48 48"
@@ -83,7 +83,7 @@
 				<p
 					[ngClass]="{
 						'font-bold text-[0] sm:text-[0] lg:text-base xl:text-xl': id === 'apply',
-						'font-normal text-[0px] sm:text-[0px] lg:text-sm': id != 'apply',
+						'font-normal text-[0px] sm:text-[0px] lg:text-sm': id !== 'apply',
 						'font-body text-center w-0 lg:w-[230px] xl:w-[250px] hidden lg:flex': true
 					}"
 				>
@@ -96,7 +96,7 @@
 				class="col-span-1 flex flex-col gap-8 p-4 items-center cursor-pointer justify-center"
 				[ngClass]="{
 					'bg-primary-blueNeutral dark:bg-dark-prymaryColor text-white-principal h-[100px] sm:h-[150px] lg:h-[250px]':
-						id != 'quality',
+						id !== 'quality',
 					'bg-active-tab h-[150px] sm:h-[220px] lg:h-[315px] shadow-md text-black-principal rounded-t-[20px]':
 						id === 'quality'
 				}"
@@ -104,7 +104,7 @@
 				<div class="flex flex-col gap-4 items-center">
 					<svg
 						class="w-8 h-8 sm:w-12 sm:h-12"
-						[ngClass]="{ 'fill-black-principal': id === 'quality', 'fill-white-principal': id != 'quality' }"
+						[ngClass]="{ 'fill-black-principal': id === 'quality', 'fill-white-principal': id !== 'quality' }"
 						width="48"
 						height="48"
 						viewBox="0 0 48 48"
@@ -125,7 +125,7 @@
 				<p
 					[ngClass]="{
 						'font-bold text-[0] sm:text-[0] lg:text-base xl:text-xl': id === 'quality',
-						'font-normal text-[0px] sm:text-[0px] lg:text-sm': id != 'quality',
+						'font-normal text-[0px] sm:text-[0px] lg:text-sm': id !== 'quality',
 						'font-body text-center w-0 lg:w-[230px] xl:w-[250px] hidden lg:flex': true
 					}"
 				>
@@ -138,7 +138,7 @@
 				class="col-span-1 flex flex-col gap-8 p-4 items-center cursor-pointer justify-center"
 				[ngClass]="{
 					'bg-primary-blueNeutral dark:bg-dark-prymaryColor text-white-principal h-[100px] sm:h-[150px] lg:h-[250px] rounded-r-[20px]':
-						id != 'reputation',
+						id !== 'reputation',
 					'bg-active-tab h-[150px] sm:h-[220px] lg:h-[315px] shadow-md text-black-principal rounded-t-[20px] rounded-br-[20px]':
 						id === 'reputation'
 				}"
@@ -146,7 +146,7 @@
 				<div class="flex flex-col gap-4 items-center">
 					<svg
 						class="w-8 h-8 sm:w-12 sm:h-12"
-						[ngClass]="{ 'stroke-black-principal': id === 'reputation', 'stroke-white-principal': id != 'reputation' }"
+						[ngClass]="{ 'stroke-black-principal': id === 'reputation', 'stroke-white-principal': id !== 'reputation' }"
 						width="48"
 						height="48"
 						viewBox="0 0 49 50"
@@ -165,7 +165,7 @@
 				<p
 					[ngClass]="{
 						'font-bold text-[0] sm:text-[0] lg:text-base xl:text-xl': id === 'reputation',
-						'font-normal text-[0px] sm:text-[0px] lg:text-sm': id != 'reputation',
+						'font-normal text-[0px] sm:text-[0px] lg:text-sm': id !== 'reputation',
 						'font-body text-center w-0 lg:w-[230px] xl:w-[250px] hidden lg:flex': true
 					}"
 				>

@@ -1,20 +1,20 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { supportLanguages } from './shared/utils/constLanguages';
-import { IAppState } from './core/state/app.state';
+import { Subscription } from 'rxjs';
 import { UserActions } from './core/state/actions/user.actions';
+import { IAppState } from './core/state/app.state';
 import { AuthService } from './modules/auth/services/auth.service';
 import { UserService } from './modules/auth/services/user.service';
 import { EventBusService } from './shared/services/event-bus.service';
-import { Subscription } from 'rxjs';
+import { supportLanguages } from './shared/utils/constLanguages';
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 	title = 'workii';
 	isLoggedIn = false;
 	eventBusSub?: Subscription;
@@ -36,7 +36,7 @@ export class AppComponent {
 	 this.translateService.use(browserlang); */
 	}
 
-	ngOnInit() {
+	ngOnInit(): void {
 		const token = localStorage.getItem('authToken');
 
 		this.eventBusSub = this.eventBusService.on('logout', () => {

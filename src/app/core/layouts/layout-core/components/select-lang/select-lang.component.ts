@@ -59,11 +59,11 @@ export class SelectLangComponent implements OnInit {
 		this.toggleLayout$ = this.toggleLayoutService.toggleLayout$;
 	}
 
-	selectLang(lang: any) {
+	selectLang(lang: any): void {
 		this.translateService.use(lang);
 	}
 
-	reciveData(e: any) {
+	reciveData(e: any): void {
 		e.preventDefault();
 		const contentSelect = this.contentSelect.nativeElement;
 		const arrow = this.arrow.nativeElement;
@@ -76,7 +76,7 @@ export class SelectLangComponent implements OnInit {
 	}
 
 	@HostListener('document:click', ['$event'])
-	outClickHandler(e: MouseEvent) {
+	outClickHandler(e: MouseEvent): void {
 		const optionsLang = this.optionsLang.nativeElement;
 		const navBarSelect = this.select.nativeElement;
 		const arrow = this.arrow.nativeElement;

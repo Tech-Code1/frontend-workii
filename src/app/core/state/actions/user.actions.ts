@@ -1,13 +1,13 @@
-import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { IAuthResponse, IOtp } from 'src/app/modules/auth/interfaces/auth.interface';
-import { IUserDTO } from '../../models/user.interface';
+import { createActionGroup, emptyProps } from '@ngrx/store';
+import { IOtp } from 'src/app/modules/auth/interfaces/auth.interface';
+import { IUserDto } from '../../models/user.interface';
 
 export const UserActions = createActionGroup({
 	source: 'Auth',
 	events: {
 		'Get User': (id: string) => ({ id }),
 		'Get User Error': (errorMessage: string) => ({ errorMessage }),
-		'Set User': (user: IUserDTO) => ({ user }),
+		'Set User': (user: IUserDto) => ({ user }),
 		'Unset User': emptyProps(),
 		'Login User': (email: string, password: string) => ({ email, password }),
 		'Login Success': (token: string) => ({ token }),

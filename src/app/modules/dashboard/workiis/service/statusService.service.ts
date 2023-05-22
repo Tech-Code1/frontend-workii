@@ -1,4 +1,4 @@
-import { Injectable, ElementRef, QueryList } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -16,11 +16,11 @@ export class StatusService {
 		return selectedStatus ? selectedStatus.length : 0;
 	}
 
-	updateSelectedStatus(status: string[]) {
+	updateSelectedStatus(status: string[]): void {
 		this.selectedStatus$.next(status);
 	}
 
-	clearSelectedStatus() {
+	clearSelectedStatus(): void {
 		this.selectedStatus$.next([]);
 	}
 }

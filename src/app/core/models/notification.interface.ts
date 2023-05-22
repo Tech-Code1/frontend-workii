@@ -3,7 +3,7 @@ export enum NotificationType {
 	error
 }
 
-export interface Notification {
+export interface INotification {
 	type: NotificationType;
 	message: string;
 }

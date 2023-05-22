@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, ValidationErrors } from '@angular/forms';
-import { Subscription } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -15,9 +14,7 @@ export class ValidatorsService {
 	facebook: string = '^https://www.facebook.com/.+/?$';
 	emailPattern: string = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
 
-	constructor() {}
-
-	similarInputs(input1: string, input2: string) {
+	similarInputs(input1: string, input2: string): (formGroup: AbstractControl) => ValidationErrors | null {
 		console.log(input1, input2);
 
 		return (formGroup: AbstractControl): ValidationErrors | null => {

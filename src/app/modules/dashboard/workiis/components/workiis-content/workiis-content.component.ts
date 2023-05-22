@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from '@angular/core';
+import { Observable } from 'rxjs';
 import { IWorkii } from 'src/app/core/models/workii.interface';
-import { WorkiiInfo } from '../../workiis.component';
+import { SwitchService } from 'src/app/modules/auth/services';
 import { IApplicationUser } from '../../interfaces/workii.interface';
 import { ToggleLayoutService } from '../../service/toggleLayoutService.service';
-import { Observable } from 'rxjs';
-import { SwitchService } from 'src/app/modules/auth/services';
+import { IWorkiiInfo } from '../../workiis.component';
 
 @Component({
 	selector: 'workiis-content',
@@ -12,11 +12,11 @@ import { SwitchService } from 'src/app/modules/auth/services';
 	styleUrls: ['./workiis-content.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class WorkiisContentComponent {
+export class WorkiisContentComponent implements OnInit {
 	private modalService = inject(SwitchService);
 	public toggleLayoutService = inject(ToggleLayoutService);
 
-	@Input() workiis!: (IWorkii & WorkiiInfo)[];
+	@Input() workiis!: (IWorkii & IWorkiiInfo)[];
 	@Input() applications!: readonly IApplicationUser[];
 	@Input() userCurrentId!: string;
 	@Input() isFilterOpened!: boolean;
@@ -45,7 +45,7 @@ export class WorkiisContentComponent {
 		});
 	}
 
-	ngDestroy() {
+	ngDestroy(): void {
 		this.modalService.$modal.unsubscribe();
 	}
 }

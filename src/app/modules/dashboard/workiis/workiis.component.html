@@ -121,7 +121,7 @@
 				></skeleton-cards>
 			</ng-container>
 
-			<ng-container *ngIf="this.searchControl.value !== '' && hasSearched && !(isFound$ | async)">
+			<ng-container *ngIf="this.searchControl.value !== '' && hasSearched && (isFound$ | async) !== true">
 				<search-lottie></search-lottie>
 			</ng-container>
 		</ng-container>
@@ -130,7 +130,7 @@
 			<not-found></not-found>
 		</ng-container>
 
-		<ng-container *ngIf="!(isFound$ | async) && !(loading$ | async)">
+		<ng-container *ngIf="(isFound$ | async) !== true && (loading$ | async) !== true">
 			<workiis-cards
 				[workiis]="
 					context.workiisInApplications!
@@ -154,14 +154,17 @@
 			</workiis-cards>
 		</ng-container>
 
-		<ng-container *ngIf="context.totalResults > 20 && searchControl.value === '' && !(loading$ | async)">
+		<ng-container *ngIf="context.totalResults > 20 && searchControl.value === '' && (loading$ | async) !== true">
 			<pagination (pageChanged)="onPageChangeWorkiis($event)" [limit]="limit" [totalResults]="context.totalResults">
 			</pagination>
 		</ng-container>
 
 		<ng-container
 			*ngIf="
-				context.totalSearchResults > 20 && searchControl.value !== '' && !(loading$ | async) && !(isFound$ | async)
+				context.totalSearchResults > 20 &&
+				searchControl.value !== '' &&
+				(loading$ | async) !== true &&
+				(isFound$ | async) !== true
 			"
 		>
 			<pagination

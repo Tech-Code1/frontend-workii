@@ -1,4 +1,4 @@
-export function buildFormData(DtoObj: any) {
+export function buildFormData(DtoObj: any): FormData {
 	let formData = new FormData();
 	let paramNames = Object.getOwnPropertyNames(DtoObj);
 

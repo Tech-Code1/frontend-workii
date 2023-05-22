@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { IWorkii } from 'src/app/core/models/workii.interface';
-import { WorkiiInfo } from '../workiis.component';
+import { IWorkiiInfo } from '../workiis.component';
 
 @Pipe({
 	name: 'costFilter'
 })
 export class CostFilterPipe implements PipeTransform {
-	transform(workiis: (IWorkii & WorkiiInfo)[], sortOrder: string): (IWorkii & WorkiiInfo)[] {
+	transform(workiis: (IWorkii & IWorkiiInfo)[], sortOrder: string): (IWorkii & IWorkiiInfo)[] {
 		if (!workiis || !sortOrder) {
 			return workiis;
 		}

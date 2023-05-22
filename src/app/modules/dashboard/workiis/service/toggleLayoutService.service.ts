@@ -8,7 +8,7 @@ export class ToggleLayoutService {
 	private _toggleLayout = new BehaviorSubject<boolean>(false);
 	toggleLayout$ = this._toggleLayout.asObservable();
 
-	toggleLayout() {
+	toggleLayout(): void {
 		this._toggleLayout.next(!this._toggleLayout.value);
 	}
 }

@@ -1,6 +1,4 @@
-import { IWorkii } from './workii.interface';
-import { IApplicationUser } from '../../modules/dashboard/workiis/interfaces/workii.interface';
-import { loginDTO } from 'src/app/modules/auth/DTOs/loginDTO';
+import { ILogin } from 'src/app/modules/auth/DTOs/ILogin';
 export interface ILoginState {
-	login: loginDTO;
+	login: ILogin;
 }

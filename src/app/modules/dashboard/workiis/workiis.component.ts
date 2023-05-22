@@ -1,36 +1,36 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import {
+	Observable,
+	Subject,
 	combineLatest,
 	debounceTime,
 	delay,
 	distinctUntilChanged,
 	map,
-	Observable,
-	Subject,
 	takeUntil,
 	tap
 } from 'rxjs';
+import { IWorkii } from 'src/app/core/models/workii.interface';
+import { IAppState } from 'src/app/core/state/app.state';
+import { UiActions } from 'src/app/shared/state/actions/ui.actions';
+import { selectLoadingUi } from 'src/app/shared/state/selectors/user.selectors';
 import { SwitchService, UserService } from '../../auth/services';
 import { IApplicationUser } from './interfaces/workii.interface';
-import { IWorkii } from 'src/app/core/models/workii.interface';
-import { Store } from '@ngrx/store';
-import { IAppState } from 'src/app/core/state/app.state';
+import { CostService, StatusService, TargetService, TimeService } from './service';
+import { WorkiiActions } from './state/actions/workii.actions';
 import {
 	selectListApplications,
 	selectListWorkiis,
-	selectSearchWorkiis,
 	selectNotFound,
 	selectSearchTerm,
+	selectSearchWorkiis,
 	selectTotalResults,
 	selectTotalSearchResults
 } from './state/selectors/workii.selectors';
-import { WorkiiActions } from './state/actions/workii.actions';
-import { TargetService, CostService, StatusService, TimeService } from './service';
-import { FormControl } from '@angular/forms';
-import { UiActions } from 'src/app/shared/state/actions/ui.actions';
-import { selectLoadingUi } from 'src/app/shared/state/selectors/user.selectors';
 
-export interface WorkiiInfo {
+export interface IWorkiiInfo {
 	isApplied: boolean;
 	isCreatedByCurrentUser: boolean;
 }
@@ -110,11 +110,11 @@ export class WorkiisComponent implements OnInit, OnDestroy {
 		this.destroy$.complete();
 	}
 
-	clearInput() {
+	clearInput(): void {
 		this.searchControl.setValue('');
 	}
 
-	workiisOrSearchInApplications(source$: Observable<readonly IWorkii[]>): Observable<(IWorkii & WorkiiInfo)[]> {
+	workiisOrSearchInApplications(source$: Observable<readonly IWorkii[]>): Observable<(IWorkii & IWorkiiInfo)[]> {
 		return combineLatest([source$, this.applications$]).pipe(
 			map(([workiis, applications]) => {
 				if (!workiis || workiis.length === 0) {
@@ -135,7 +135,7 @@ export class WorkiisComponent implements OnInit, OnDestroy {
 		this.modalSwitch = true;
 	}
 
-	closeModal() {
+	closeModal(): void {
 		this.modalService.$modal.emit(false);
 	}
 
@@ -150,18 +150,18 @@ export class WorkiisComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	searchWorkii() {
+	searchWorkii(): void {
 		const searchTerm = this.searchControl.value;
 		this.store.dispatch(WorkiiActions.updateSearchTerm({ searchTerm }));
 		this.store.dispatch(WorkiiActions.searchWorkii(searchTerm, { limit: this.limit, offset: this.offset }));
 	}
 
-	onPageChangeSearch(page: number) {
+	onPageChangeSearch(page: number): void {
 		this.offset = (page - 1) * this.limit;
 		this.searchWorkii();
 	}
 
-	onPageChangeWorkiis(page: number) {
+	onPageChangeWorkiis(page: number): void {
 		this.offset = (page - 1) * this.limit;
 		this.store.dispatch(WorkiiActions.loadWorkiis({ limit: this.limit, offset: this.offset }));
 	}

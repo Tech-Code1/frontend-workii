@@ -1,18 +1,18 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { IWorkii } from 'src/app/core/models/workii.interface';
-import { WorkiiInfo } from '../workiis.component';
 import { IApplicationUser } from '../interfaces/workii.interface';
+import { IWorkiiInfo } from '../workiis.component';
 
 @Pipe({
 	name: 'statusFilter'
 })
 export class StatusFilterPipe implements PipeTransform {
 	transform(
-		workiis: (IWorkii & WorkiiInfo)[],
+		workiis: (IWorkii & IWorkiiInfo)[],
 		selectedStatus: string[],
 		applications: readonly IApplicationUser[],
 		userCurrentId: string
-	): (IWorkii & WorkiiInfo)[] {
+	): (IWorkii & IWorkiiInfo)[] {
 		if (!workiis || !selectedStatus || selectedStatus.length === 0) {
 			return workiis;
 		}

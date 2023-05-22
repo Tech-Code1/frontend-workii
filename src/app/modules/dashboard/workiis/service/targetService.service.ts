@@ -1,4 +1,4 @@
-import { Injectable, ElementRef, QueryList } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -16,11 +16,11 @@ export class TargetService {
 		return selectedTargets ? selectedTargets.length : 0;
 	}
 
-	updateSelectedTargets(targets: string[]) {
+	updateSelectedTargets(targets: string[]): void {
 		this.selectedTargets$.next(targets);
 	}
 
-	clearSelectedTargets() {
+	clearSelectedTargets(): void {
 		this.selectedTargets$.next([]);
 	}
 }

@@ -8,7 +8,7 @@ export class PaginationService {
 	private _currentPage = new BehaviorSubject<number>(1);
 	currentPage$ = this._currentPage;
 
-	changePage(page: number) {
+	changePage(page: number): void {
 		this._currentPage.next(page);
 	}
 }

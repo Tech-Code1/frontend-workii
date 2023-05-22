@@ -98,7 +98,7 @@
 		</div>
 	</form>
 
-	<validate-otp *ngIf="!(userExists$ | async)" class="w-[450px]"></validate-otp>
+	<validate-otp *ngIf="(userExists$ | async) !== true" class="w-[450px]"></validate-otp>
 
 	<div class="flex font-title text-sm text-black-principal dark:text-white-principal gap-2 justify-center mt-9">
 		<a href="#" class="underline hover:text-primary-blueNeutral dark:hover:text-dark-prymaryColor">Terminos</a>

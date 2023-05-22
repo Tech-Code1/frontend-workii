@@ -1,19 +1,16 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { parseErrorsFromResponse } from 'src/app/shared/utils/parseErrorsFromResponse';
-import Swal from 'sweetalert2';
-import { RegisterService } from '../../services/register.service';
-import { IAppState } from '../../../../core/state/app.state';
 import { UserActions } from 'src/app/core/state/actions/user.actions';
+import { IAppState } from '../../../../core/state/app.state';
+import { RegisterService } from '../../services/register.service';
 
 @Component({
 	selector: 'app-step3',
 	templateUrl: './step3.component.html',
 	styleUrls: ['./step3.component.scss']
 })
-export class Step3Component implements OnInit {
+export class Step3Component {
 	private formBuilder = inject(FormBuilder);
 	private registerService = inject(RegisterService);
 	private store = inject(Store<IAppState>);
@@ -23,8 +20,6 @@ export class Step3Component implements OnInit {
 		profession: ['', [Validators.required]]
 	});
 
-	ngOnInit(): void {}
-
 	isValid(inputName: string): boolean | undefined | void {
 		if (this.registerStep3.get(inputName)?.touched) {
 			return this.registerStep3.get(inputName)?.valid;
@@ -32,7 +27,7 @@ export class Step3Component implements OnInit {
 		return true;
 	}
 
-	onSubmit() {
+	onSubmit(): void {
 		if (!this.registerStep3.valid) {
 			return;
 		}

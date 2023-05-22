@@ -22,7 +22,7 @@ export class FilterTargetComponent {
 		'Otro'
 	];
 
-	deleteTarget() {
+	deleteTarget(): void {
 		this.checkedInputsTarget.forEach((checkedInput: ElementRef) => {
 			checkedInput.nativeElement.checked = false;
 		});

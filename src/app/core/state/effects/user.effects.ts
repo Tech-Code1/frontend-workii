@@ -1,20 +1,16 @@
 import { inject, Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import Swal, { SweetAlertResult } from 'sweetalert2';
-import { SwitchService } from 'src/app/modules/auth/services/switch.service';
-import { UserService } from 'src/app/modules/auth/services/user.service';
-import { catchError, concat, concatMap, from, map, Observable, of, switchMap, tap } from 'rxjs';
-import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { UserActions } from '../actions/user.actions';
 import { Router } from '@angular/router';
-import { IUser } from 'src/app/modules/auth/interfaces/auth.interface';
-import { UiActions } from 'src/app/shared/state/actions/ui.actions';
-import { exhaustMap, mergeMap } from 'rxjs/operators';
-import { IAppState } from '../app.state';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { selectPassword } from '../selectors/user.selectors';
+import { catchError, concatMap, from, map, of, switchMap, tap } from 'rxjs';
+import { IUser } from 'src/app/modules/auth/interfaces/auth.interface';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { UserService } from 'src/app/modules/auth/services/user.service';
+import { UiActions } from 'src/app/shared/state/actions/ui.actions';
+import Swal from 'sweetalert2';
 import { RegisterService } from '../../../modules/auth/services/register.service';
-import { WorkiiActions } from 'src/app/modules/dashboard/workiis/state/actions/workii.actions';
+import { UserActions } from '../actions/user.actions';
+import { IAppState } from '../app.state';
 
 @Injectable()
 export class UserEffects {
@@ -29,7 +25,7 @@ export class UserEffects {
 	loginEmail!: string;
 	loginPassword!: string | undefined;
 
-	setUserData(token: string, id: string, email: string, refreshToken: string) {
+	setUserData(token: string, id: string, email: string, refreshToken: string): void {
 		localStorage.setItem('authToken', token!);
 		localStorage.setItem('refreshToken', refreshToken!);
 
@@ -37,15 +33,6 @@ export class UserEffects {
 			uiid: id!,
 			email: email!
 		};
-	}
-
-	removeUserData() {
-		//localStorage.removeItem('authToken');
-		//localStorage.removeItem('tokenExpiry');
-
-		//this.store.dispatch(UserActions.logOut());
-		//this.store.dispatch(WorkiiActions.logOut());
-		console.log('se removio la data');
 	}
 
 	loginUser$ = createEffect(() =>

@@ -1,23 +1,15 @@
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import {
-	HttpEvent,
-	HttpInterceptor,
-	HttpHandler,
-	HttpRequest,
-	HttpErrorResponse,
-	HTTP_INTERCEPTORS
-} from '@angular/common/http';
+import { Store } from '@ngrx/store';
 import { Observable, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
-import { IAppState } from '../state/app.state';
-import { UserActions } from '../state/actions/user.actions';
 import { AuthService } from 'src/app/modules/auth/services';
 import { EventBusService } from 'src/app/shared/services/event-bus.service';
+import { IAppState } from '../state/app.state';
 // import { StorageService } from 'src/app/modules/auth/services/storage.service';
-import { EventData } from 'src/app/shared/utils/event.class';
-import { IAuthResponse } from 'src/app/modules/auth/interfaces/auth.interface';
 import { Router } from '@angular/router';
+import { IAuthResponse } from 'src/app/modules/auth/interfaces/auth.interface';
+import { EventData } from 'src/app/shared/utils/event.class';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -47,7 +39,7 @@ export class AuthInterceptor implements HttpInterceptor {
 		);
 	}
 
-	private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
+	private handle401Error(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 		if (!this.isRefreshing) {
 			this.isRefreshing = true;
 

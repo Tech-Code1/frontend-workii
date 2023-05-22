@@ -1,14 +1,13 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { SwitchService } from '../../services/switch.service';
-import { AuthService } from '../../services/auth.service';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { SwitchService } from '../../services/switch.service';
 
 @Component({
 	selector: 'app-login',
 	templateUrl: './login.component.html',
 	styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 	private modalService = inject(SwitchService);
 	modalSwith: boolean = false;
 	modalSubscription!: Subscription;
@@ -19,7 +18,7 @@ export class LoginComponent implements OnInit {
 		});
 	}
 
-	ngOnDestroy() {
+	ngOnDestroy(): void {
 		this.modalSubscription.unsubscribe();
 	}
 
@@ -27,7 +26,7 @@ export class LoginComponent implements OnInit {
 		this.modalSwith = true;
 	}
 
-	closeModal() {
+	closeModal(): void {
 		this.modalService.$modal.emit(false);
 	}
 }

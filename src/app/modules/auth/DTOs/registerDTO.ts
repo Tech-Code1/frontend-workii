@@ -1,4 +1,4 @@
-export interface registerDTO {
+export interface IRegister {
 	avatar: string;
 	nick: string;
 	password: string;

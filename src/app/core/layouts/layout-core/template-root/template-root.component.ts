@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,8 +6,6 @@ import { Router } from '@angular/router';
 	templateUrl: './template-root.component.html',
 	styleUrls: ['./template-root.component.scss']
 })
-export class TemplateRootComponent implements OnInit {
+export class TemplateRootComponent {
 	constructor(public router: Router) {}
-
-	ngOnInit(): void {}
 }

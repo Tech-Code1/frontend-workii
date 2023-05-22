@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class NotificationsComponent {
 	isMenuOpened: boolean = false;
 
-	toggleMenu() {
+	toggleMenu(): void {
 		this.isMenuOpened = !this.isMenuOpened;
 	}
 

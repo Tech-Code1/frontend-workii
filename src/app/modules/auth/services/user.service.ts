@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import jwt_decode from 'jwt-decode';
-import { IUserDTO } from 'src/app/core/models/user.interface';
+import { Observable } from 'rxjs';
+import { IUserDto } from 'src/app/core/models/user.interface';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -11,8 +12,6 @@ export class UserService {
 	private http = inject(HttpClient);
 
 	private baseUrl: string = environment.baseUrl;
-
-	constructor() {}
 
 	public getCurrentUser(): any {
 		const token = localStorage.getItem('authToken');
@@ -24,9 +23,9 @@ export class UserService {
 		return null;
 	}
 
-	getUser(id: string) {
+	getUser(id: string): Observable<IUserDto> {
 		const url = `${this.baseUrl}/users/${id}`;
 
-		return this.http.get<IUserDTO>(url);
+		return this.http.get<IUserDto>(url);
 	}
 }

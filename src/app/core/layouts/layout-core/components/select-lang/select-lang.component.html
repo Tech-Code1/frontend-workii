@@ -13,7 +13,7 @@
 					<p
 						[ngClass]="{
 							hidden: toggleLayout$ | async,
-							flex: !(toggleLayout$ | async)
+							flex: (toggleLayout$ | async) !== true
 						}"
 					>
 						{{ titleLang }}
@@ -44,7 +44,7 @@
 				[ngClass]="{
 					'content-option flex flex-row gap-2': true,
 					'justify-center': toggleLayout$ | async,
-					'justify-start': !(toggleLayout$ | async)
+					'justify-start': (toggleLayout$ | async) !== true
 				}"
 				(click)="selectLang(languaje.languaje)"
 			>
@@ -53,7 +53,7 @@
 					[ngClass]="{
 						'text-sm font-bold font-title title-lang dark:text-white-principal': true,
 						hidden: toggleLayout$ | async,
-						flex: !(toggleLayout$ | async)
+						flex: (toggleLayout$ | async) !== true
 					}"
 				>
 					{{ languaje.languaje }}

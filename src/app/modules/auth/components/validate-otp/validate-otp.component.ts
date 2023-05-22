@@ -1,14 +1,8 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ValidatorsService } from 'src/app/shared/validators/validators.service';
-import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
-import Swal from 'sweetalert2';
 import { Store } from '@ngrx/store';
-import { IAppState } from '../../../../core/state/app.state';
 import { UserActions } from '../../../../core/state/actions/user.actions';
-import { selectOtp } from 'src/app/core/state/selectors/user.selectors';
-import { UiActions } from 'src/app/shared/state/actions/ui.actions';
+import { IAppState } from '../../../../core/state/app.state';
 
 @Component({
 	selector: 'validate-otp',
@@ -33,7 +27,7 @@ export class ValidateOtpComponent {
 		return true;
 	}
 
-	validateOtp() {
+	validateOtp(): void {
 		if (!this.otpForm.valid) {
 			this.otpForm.markAllAsTouched();
 		}
@@ -43,7 +37,7 @@ export class ValidateOtpComponent {
 		this.store.dispatch(UserActions.validateOtp({ otp }));
 	}
 
-	cancelOtp() {
+	cancelOtp(): void {
 		this.store.dispatch(UserActions.userFound());
 	}
 }

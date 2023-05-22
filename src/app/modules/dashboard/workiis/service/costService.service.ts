@@ -11,11 +11,11 @@ export class CostService {
 		return this.selectedCost$;
 	}
 
-	updateSelectedCost(cost: string) {
+	updateSelectedCost(cost: string): void {
 		this.selectedCost$.next(cost);
 	}
 
-	clearSelectedCost() {
+	clearSelectedCost(): void {
 		this.selectedCost$.next('');
 	}
 }

@@ -1,7 +1,10 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
-import { catchError, map, of, tap, Observable, Subject, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
+import { IWorkii } from 'src/app/core/models/workii.interface';
+import { environment } from 'src/environments/environment';
+import { UserService } from '../../../auth/services/user.service';
 import {
 	IApplication,
 	IApplicationResponse,
@@ -10,9 +13,6 @@ import {
 	IUsersApplicationResponse,
 	IWorkiiCreate
 } from '../interfaces/workii.interface';
-import { environment } from 'src/environments/environment';
-import { UserService } from '../../../auth/services/user.service';
-import { IWorkii } from 'src/app/core/models/workii.interface';
 
 @Injectable({
 	providedIn: 'root'
@@ -47,7 +47,7 @@ export class WorkiisService {
 		return this.http.get<IWorkii>(url, { headers: this.headers });
 	}
 
-	getUsersApplyWorkii(workii: string, { limit, offset }: IPagination) {
+	getUsersApplyWorkii(workii: string, { limit, offset }: IPagination): Observable<IUsersApplicationResponse[]> {
 		const url = `${this.baseUrl}/applications/users/${workii}`;
 		const params = {
 			limit: limit.toString(),
@@ -57,14 +57,23 @@ export class WorkiisService {
 		return this.http.get<IUsersApplicationResponse[]>(url, { params });
 	}
 
-	createWorkiis({ name, target, description, toDoList, cost, executionTime, userId, ...rest }: IWorkiiCreate) {
+	createWorkiis({
+		name,
+		target,
+		description,
+		toDoList,
+		cost,
+		executionTime,
+		userId,
+		...rest
+	}: IWorkiiCreate): Observable<IWorkii> {
 		const url = `${this.baseUrl}/workiis`;
 		const body = { name, target, description, toDoList, cost, executionTime, userId };
 
 		return this.http.post<IWorkii>(url, body, { headers: this.headers });
 	}
 
-	applyToWorkii({ user, workii }: IApplication) {
+	applyToWorkii({ user, workii }: IApplication): Observable<IApplication> {
 		const url = `${this.baseUrl}/workiis/application`;
 
 		console.log(user, workii);
@@ -97,7 +106,7 @@ export class WorkiisService {
 		return this.http.get<{ workiis: IWorkii[]; totalSearchResults: number }>(url, { params, headers: this.headers });
 	}
 
-	removeApplication(id: string, workii: string) {
+	removeApplication(id: string, workii: string): Observable<IApplicationResponse> {
 		const url = `${this.baseUrl}/workiis/apply/${id}`;
 
 		const body = {
@@ -107,7 +116,7 @@ export class WorkiisService {
 		return this.http.delete<IApplicationResponse>(url, { body, headers: this.headers });
 	}
 
-	deleteWorkii(id: string) {
+	deleteWorkii(id: string): Observable<IApplicationResponse> {
 		const url = `${this.baseUrl}/workiis/${id}`;
 
 		return this.http.delete<IApplicationResponse>(url, { headers: this.headers });

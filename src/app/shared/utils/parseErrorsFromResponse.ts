@@ -1,4 +1,4 @@
-export function parseErrorsFromResponse(responseObj: any) {
+export function parseErrorsFromResponse(responseObj: any): string[] {
 	let errors: string[] = [];
 
 	if (responseObj.error) {

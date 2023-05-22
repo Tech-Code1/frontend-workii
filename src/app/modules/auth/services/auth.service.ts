@@ -1,16 +1,15 @@
-import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 
-import { IAuthResponse, IOtp, IUser } from '../interfaces/auth.interface';
-import { catchError, map, of, tap, Observable, EMPTY, from } from 'rxjs';
 import { Router } from '@angular/router';
-import { loginDTO } from '../DTOs/loginDTO';
-import { IAppState } from '../../../core/state/app.state';
 import { Store } from '@ngrx/store';
+import { Observable, from, tap } from 'rxjs';
 import { UserActions } from '../../../core/state/actions/user.actions';
-import jwt_decode from 'jwt-decode';
+import { IAppState } from '../../../core/state/app.state';
 import { WorkiiActions } from '../../dashboard/workiis/state/actions/workii.actions';
+import { ILogin } from '../DTOs/loginDTO';
+import { IAuthResponse, IOtp, IUser } from '../interfaces/auth.interface';
 
 @Injectable({
 	providedIn: 'root'
@@ -34,18 +33,18 @@ export class AuthService {
 		});
 	}
 
-	get user() {
+	get user(): IUser {
 		return { ...this._user };
 	}
 
-	login({ email, password }: loginDTO) {
+	login({ email, password }: ILogin): Observable<IAuthResponse> {
 		const url = `${this.baseUrl}/auth/login`;
 		const body = { email, password };
 
 		return this.http.post<IAuthResponse>(url, body);
 	}
 
-	validateOtp(otp: string) {
+	validateOtp(otp: string): Observable<IOtp> {
 		const url = `${this.baseUrl}/auth/validate/otp`;
 		const body = { otp };
 

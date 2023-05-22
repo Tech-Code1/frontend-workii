@@ -16,7 +16,7 @@ export class ValdationTokenGuard implements CanActivate, CanLoad {
 		return this.validateAndNavigate();
 	}
 
-	private validateAndNavigate() {
+	private validateAndNavigate(): boolean {
 		const valid = Boolean(localStorage.getItem('authToken'));
 		if (!valid) {
 			this.router.navigateByUrl('/auth');

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 import { IWorkiiCreate } from '../interfaces/workii.interface';
 
 @Injectable({
@@ -8,9 +7,7 @@ import { IWorkiiCreate } from '../interfaces/workii.interface';
 export class SharedWorkiiService {
 	private workii: IWorkiiCreate | undefined;
 
-	constructor() {}
-
-	setWorkii(workii: IWorkiiCreate) {
+	setWorkii(workii: IWorkiiCreate): void {
 		this.workii = workii;
 		console.log(workii.name);
 	}

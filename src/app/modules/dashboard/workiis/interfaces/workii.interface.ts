@@ -39,7 +39,7 @@ export interface IApplicationCreateUser {
 	workii: IWorkiiApllication;
 }
 
-export interface IApplicationCreateUserDTO {
+export interface IApplicationCreateUserDto {
 	userId: string;
 	workiiId: string;
 }

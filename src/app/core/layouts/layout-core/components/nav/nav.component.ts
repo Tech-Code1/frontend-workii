@@ -1,5 +1,4 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, ElementRef, HostListener, Inject, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { supportLanguages } from 'src/app/shared/utils/constLanguages';
 
@@ -8,7 +7,7 @@ import { supportLanguages } from 'src/app/shared/utils/constLanguages';
 	templateUrl: './nav.component.html',
 	styleUrls: ['./nav.component.scss']
 })
-export class NavComponent implements OnInit {
+export class NavComponent {
 	langs = supportLanguages;
 	clickCount = 1;
 	clickCountTwo = 1;
@@ -20,16 +19,7 @@ export class NavComponent implements OnInit {
 
 	constructor(private renderer2: Renderer2, private translateService: TranslateService) {}
 
-	ngOnInit(): void {
-		// Whenever the user explicity chooses light mode
-		//localStorage.theme = 'light'
-		// Whenever the user explicity chooses dark mode
-		//localStorage.theme = 'dark'
-		// Whenever the user explicity chooses the respect the OS preference
-		//localStorage.removeItem('theme')
-	}
-
-	toggleMenu() {
+	toggleMenu(): void {
 		this.isMenuOpened = !this.isMenuOpened;
 	}
 

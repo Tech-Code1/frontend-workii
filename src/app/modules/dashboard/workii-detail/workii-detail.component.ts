@@ -1,15 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SharedWorkiiService } from '../workiis/service/shareWorkii.service';
-import { IApplicationUser } from '../workiis/interfaces/workii.interface';
-import { WorkiisService } from '../workiis/service/workiis.service';
-import { Observable, map, combineLatest, Subscription, startWith, defaultIfEmpty, filter } from 'rxjs';
-import { HttpHeaders } from '@angular/common/http';
-import { UserService } from '../../auth/services/user.service';
+import { Store } from '@ngrx/store';
+import { Observable, combineLatest, map } from 'rxjs';
 import { IWorkii } from 'src/app/core/models/workii.interface';
-import { select, Store } from '@ngrx/store';
-import { WorkiiActions } from '../workiis/state/actions/workii.actions';
 import { IAppState } from 'src/app/core/state/app.state';
+import { UserService } from '../../auth/services/user.service';
+import { IApplicationUser } from '../workiis/interfaces/workii.interface';
+import { WorkiiActions } from '../workiis/state/actions/workii.actions';
 import { selectCurrentWorkii, selectListApplications } from '../workiis/state/selectors/workii.selectors';
 
 @Component({
@@ -17,7 +14,7 @@ import { selectCurrentWorkii, selectListApplications } from '../workiis/state/se
 	templateUrl: './workii-detail.component.html',
 	styleUrls: ['./workii-detail.component.scss']
 })
-export class WorkiiDetailComponent {
+export class WorkiiDetailComponent implements OnInit {
 	userCurrentId!: string;
 	isOwner!: boolean;
 	applies!: IApplicationUser[];

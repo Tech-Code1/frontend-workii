@@ -16,11 +16,11 @@ export class TimeService {
 		return selectedTime ? selectedTime.length : 0;
 	}
 
-	updateSelectedTime(time: string[]) {
+	updateSelectedTime(time: string[]): void {
 		this.selectedTime$.next(time);
 	}
 
-	clearSelectedTime() {
+	clearSelectedTime(): void {
 		this.selectedTime$.next([]);
 	}
 }

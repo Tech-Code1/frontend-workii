@@ -1,8 +1,8 @@
-import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { buildFormData } from 'src/app/shared/utils/buildFormData';
 import { ICreateUser, ICreateUserResponse } from '../interfaces/createUser.interface';
 
@@ -15,14 +15,14 @@ export class RegisterService {
 	loginEmail!: string | undefined;
 	public userCreationDTO: ICreateUser = {};
 	public previewImages: any = {};
-	public AddInfoUser(data: any) {
+	public AddInfoUser(data: any): void {
 		this.userCreationDTO = {
 			...this.userCreationDTO,
 			...data
 		};
 	}
 
-	public finishUserCreation() {
+	public finishUserCreation(): Observable<ICreateUserResponse> {
 		const url = `${this.baseUrl}/users/register`;
 
 		const finalDTO = {

@@ -1,6 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, Input } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
+import { Component, Inject } from '@angular/core';
 @Component({
 	selector: 'dark-mode',
 	template: `
@@ -35,10 +34,8 @@ export class DarkModeComponent {
 		}
 	}
 
-	darkChange() {
+	darkChange(): void {
 		this.toggleDarkMode = this.document.documentElement.classList.toggle('dark');
 		this.mode = this.toggleDarkMode ? (localStorage['theme'] = 'dark') : (localStorage['theme'] = 'light');
-
-		console.log(this.mode);
 	}
 }

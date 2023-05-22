@@ -1,22 +1,20 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ValidatorsService } from 'src/app/shared/validators/validators.service';
-import { loginDTO } from '../../DTOs/loginDTO';
-import { AuthService } from '../../services/auth.service';
-import { RegisterService } from '../../services/register.service';
-import { IAppState } from 'src/app/core/state/app.state';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
+import { IAppState } from 'src/app/core/state/app.state';
 import { selectEmail } from 'src/app/core/state/selectors/user.selectors';
+import { ValidatorsService } from 'src/app/shared/validators/validators.service';
 import { selectPassword } from '../../../../core/state/selectors/user.selectors';
+import { RegisterService } from '../../services/register.service';
 
 @Component({
 	selector: 'app-step2',
 	templateUrl: './step2.component.html',
 	styleUrls: ['./step2.component.scss']
 })
-export class Step2Component implements OnInit {
+export class Step2Component implements OnInit, OnDestroy {
 	private formBuilder = inject(FormBuilder);
 	private registerService = inject(RegisterService);
 	private router = inject(Router);
@@ -51,7 +49,7 @@ export class Step2Component implements OnInit {
 		this.images = this.registerService.previewImages;
 	}
 
-	ngOnDestroy() {
+	ngOnDestroy(): void {
 		this.passwordSubscription.unsubscribe();
 	}
 
@@ -62,7 +60,7 @@ export class Step2Component implements OnInit {
 		return true;
 	}
 
-	onSubmit() {
+	onSubmit(): void {
 		if (!this.registerStep2.valid) {
 			return;
 		}
@@ -71,14 +69,14 @@ export class Step2Component implements OnInit {
 		this.router.navigate(['/auth/step3']);
 	}
 
-	showImgPreview(event: any, fieldName: string) {
+	showImgPreview(event: any, fieldName: string): void {
 		const input = event.target as HTMLInputElement;
 		if (input && input.files) {
 			let file = input.files[0];
 			this.registerStep2.get(fieldName)?.setValue(file);
 			// File Preview
 			const reader = new FileReader();
-			reader.onload = () => {
+			reader.onload = (): any | null => {
 				this.images[fieldName] = reader.result as string;
 				this.registerService.previewImages = this.images;
 			};

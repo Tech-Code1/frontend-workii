@@ -1,4 +1,4 @@
-import { Component, OnInit, QueryList, ElementRef, inject, ViewChildren } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChildren, inject } from '@angular/core';
 import { TimeService } from '../../service/timeService.service';
 
 @Component({
@@ -6,18 +6,14 @@ import { TimeService } from '../../service/timeService.service';
 	templateUrl: './filter-time.component.html',
 	styleUrls: ['./filter-time.component.scss']
 })
-export class FilterTimeComponent implements OnInit {
+export class FilterTimeComponent {
 	public timeService = inject(TimeService);
 
 	@ViewChildren('checkedTime') checkedInputsTime!: QueryList<ElementRef<HTMLInputElement>>;
 
 	times: string[] = ['3', '5', '7', '10', '15'];
 
-	constructor() {}
-
-	ngOnInit(): void {}
-
-	deleteTime() {
+	deleteTime(): void {
 		this.checkedInputsTime.forEach((checkedInput: ElementRef) => {
 			checkedInput.nativeElement.checked = false;
 		});

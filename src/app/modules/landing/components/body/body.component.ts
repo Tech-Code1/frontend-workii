@@ -1,17 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
 	selector: 'app-body',
 	templateUrl: './body.component.html',
 	styleUrls: ['./body.component.scss']
 })
-export class BodyComponent implements OnInit {
-	constructor() {}
-
-	ngOnInit(): void {}
-
+export class BodyComponent {
 	id: any = 'create';
-	tabChange(ids: any) {
+
+	tabChange(ids: any): void {
 		this.id = ids;
 	}
 }

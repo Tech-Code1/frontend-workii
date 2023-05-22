@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,8 +6,6 @@ import { Router } from '@angular/router';
 	templateUrl: './template-dashboard.component.html',
 	styleUrls: ['./template-dashboard.component.scss']
 })
-export class TemplateDashboardComponent implements OnInit {
+export class TemplateDashboardComponent {
 	constructor(public router: Router) {}
-
-	ngOnInit(): void {}
 }
