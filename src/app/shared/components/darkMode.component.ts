@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 @Component({
 	selector: 'dark-mode',
 	template: `
@@ -15,7 +15,7 @@ import { Component, Inject } from '@angular/core';
 		</div>
 	`
 })
-export class DarkModeComponent {
+export class DarkModeComponent implements OnInit {
 	sun: string = '../../../../assets/images/svg/icon-sun.svg';
 	moon: string = '../../../../assets/images/svg/icon-moon.svg';
 	toggleDarkMode: boolean = this.document.documentElement.classList.value === 'dark';
