@@ -1,6 +1,6 @@
 const czvinylConfig = {
-	headerFormat: '{type}: [{emoji} {ticket_id}] {subject}',
-	skipTicketId: true,
+	headerFormat: '{type}: [{emoji} W-#{ticket_id}] {subject}',
+	skipTicketId: false,
 	skipBody: true,
 	subjectMaxLength: 140,
 	subjectMinLength: 3,
