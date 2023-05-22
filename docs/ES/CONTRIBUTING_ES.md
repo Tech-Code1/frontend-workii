@@ -101,14 +101,13 @@ Cada mensaje de commit consta de un tipo, un ámbito y un asunto:
 - `feat:` A new feature
 - `fix:` A bug fix
 - `refactor:` A code change that neither fixes a bug nor adds a feature
-- `chore:` Other changes that don't modify src or test files
+- `chore:` Build process or auxiliary tool changes
 - `docs:` Documentation only changes
 - `style:` Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
 - `perf:` A code change that improves performance
-- `build:` update version for dependencies, packages.
 - `test:` Adding missing tests or correcting existing tests
 - `ci:` Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)
-- `revert:` Reverts a previous commit
+- `release:` Create a release commit
 
 El **scope** es opcional y debe ser una breve descripción del componente afectado.
 
@@ -127,10 +126,9 @@ El **subject** debe ser una breve descripción del cambio. Utilice el tiempo pre
 - `docs:` Update README with new installation instructions
 - `style:` Add margin to rewards page
 - `perf:` Fix subscription component
-- `build:` Upgrade to Django 3.0.0.
 - `test:` Add tests for rewards calculation function
 - `ci`: Remove unused dependencies
-- `revert:` Revert "feat: Add new workii"
+- `release:` New release version 2.5.0"
 
 Si no estás seguro acerca del tipo o alcance de tu commit, no dudes en solicitar comentarios en la solicitud de extracción (pull request).
 

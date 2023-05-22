@@ -102,14 +102,13 @@ Each commit message consists of a type, a scope, and a subject:
 - `feat:` A new feature
 - `fix:` A bug fix
 - `refactor:` A code change that neither fixes a bug nor adds a feature
-- `chore:` Other changes that don't modify src or test files
+- `chore:` Build process or auxiliary tool changes
 - `docs:` Documentation only changes
 - `style:` Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
 - `perf:` A code change that improves performance
-- `build:` update version for dependencies, packages.
 - `test:` Adding missing tests or correcting existing tests
 - `ci:` Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)
-- `revert:` Reverts a previous commit
+- `release:` Create a release commit
 
 The **scope** is optional and should be a brief description of the affected component.
 
@@ -128,10 +127,9 @@ The **subject** should be a short description of the change. Use the imperative,
 - `docs:` Update README with new installation instructions
 - `style:` Add margin to rewards page
 - `perf:` Fix subscription component
-- `build:` Upgrade to Django 3.0.0.
 - `test:` Add tests for rewards calculation function
 - `ci`: Remove unused dependencies
-- `revert:` Revert "feat: Add new workii"
+- `release:` New release version 2.5.0"
 
 If you're unsure about the type or scope of your commit, feel free to ask for feedback in the pull request.
 
