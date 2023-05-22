@@ -2,20 +2,20 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+	providedIn: 'root'
 })
 export class CostService {
-  private selectedCost$ = new BehaviorSubject<string>('');
+	private selectedCost$ = new BehaviorSubject<string>('');
 
-  getSelectedCost$(): BehaviorSubject<string> {
-    return this.selectedCost$;
-  }
+	getSelectedCost$(): BehaviorSubject<string> {
+		return this.selectedCost$;
+	}
 
-  updateSelectedCost(cost: string) {
-    this.selectedCost$.next(cost);
-  }
+	updateSelectedCost(cost: string) {
+		this.selectedCost$.next(cost);
+	}
 
-  clearSelectedCost() {
-    this.selectedCost$.next('');
-  }
+	clearSelectedCost() {
+		this.selectedCost$.next('');
+	}
 }

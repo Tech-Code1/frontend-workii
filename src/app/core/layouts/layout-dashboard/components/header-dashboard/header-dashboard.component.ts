@@ -10,31 +10,30 @@ import { WorkiiActions } from 'src/app/modules/dashboard/workiis/state/actions/w
 import { AuthService } from 'src/app/modules/auth/services';
 
 @Component({
-  selector: 'header-dashboard',
-  templateUrl: './header-dashboard.component.html',
-  styleUrls: ['./header-dashboard.component.scss']
+	selector: 'header-dashboard',
+	templateUrl: './header-dashboard.component.html',
+	styleUrls: ['./header-dashboard.component.scss']
 })
 export class HeaderDashboard implements OnInit {
+	private authService = inject(AuthService);
+	private store = inject(Store<IAppState>);
 
-  private authService = inject(AuthService)
-  private store = inject(Store<IAppState>)
+	user$!: Observable<IUserDTO | null>;
+	isMenuOpened: boolean = false;
 
-  user$!: Observable<IUserDTO | null>;
-  isMenuOpened: boolean = false;
+	ngOnInit(): void {
+		this.user$ = this.store.select(selectOneUser);
+	}
 
-  ngOnInit(): void {
-    this.user$ = this.store.select(selectOneUser)
-  }
+	toggleMenu() {
+		this.isMenuOpened = !this.isMenuOpened;
+	}
 
-  toggleMenu() {
-    this.isMenuOpened = !this.isMenuOpened
-  }
+	logout() {
+		this.authService.logout().subscribe();
+	}
 
-  logout() {
-    this.authService.logout().subscribe();
-  }
-
-  clickedOutside(): void {
-    this.isMenuOpened = false;
-  }
+	clickedOutside(): void {
+		this.isMenuOpened = false;
+	}
 }

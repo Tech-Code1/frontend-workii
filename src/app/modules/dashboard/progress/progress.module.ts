@@ -4,19 +4,14 @@ import { ProgressComponent } from './progress.component';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {
-    path: "",
-    component: ProgressComponent,
-  }
-]
+	{
+		path: '',
+		component: ProgressComponent
+	}
+];
 
 @NgModule({
-  declarations: [
-    ProgressComponent
-  ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes)
-  ]
+	declarations: [ProgressComponent],
+	imports: [CommonModule, RouterModule.forChild(routes)]
 })
-export class ProgressModule { }
+export class ProgressModule {}

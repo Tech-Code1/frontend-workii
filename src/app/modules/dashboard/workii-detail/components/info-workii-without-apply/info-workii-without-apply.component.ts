@@ -5,28 +5,26 @@ import { IWorkii } from 'src/app/core/models/workii.interface';
 import { WorkiiActions } from '../../../workiis/state/actions/workii.actions';
 
 @Component({
-  selector: 'info-workii-without-apply',
-  templateUrl: './info-workii-without-apply.component.html',
-  styleUrls: ['./info-workii-without-apply.component.scss']
+	selector: 'info-workii-without-apply',
+	templateUrl: './info-workii-without-apply.component.html',
+	styleUrls: ['./info-workii-without-apply.component.scss']
 })
 export class InfoWorkiiWithoutApplyComponent {
+	@Input()
+	workii!: IWorkii | null;
 
-  @Input()
-  workii!: IWorkii | null;
+	@Input()
+	userCurrentId!: string;
 
-  @Input()
-  userCurrentId!: string;
+	constructor(private store: Store) {}
 
-  constructor(private store: Store) {}
+	ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
+	shareWorkii(event: Event) {
+		event.stopPropagation();
+	}
 
-  shareWorkii(event: Event) {
-    event.stopPropagation()
-  }
-
-  async applyWorkii() {
-    this.store.dispatch(WorkiiActions.applyWorkiiRequest(this.userCurrentId,this.workii?.id!))
-  }
+	async applyWorkii() {
+		this.store.dispatch(WorkiiActions.applyWorkiiRequest(this.userCurrentId, this.workii?.id!));
+	}
 }

@@ -5,29 +5,28 @@ import { IUserDTO } from 'src/app/core/models/user.interface';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class UserService {
+	private http = inject(HttpClient);
 
-  private http = inject(HttpClient)
+	private baseUrl: string = environment.baseUrl;
 
-  private baseUrl: string = environment.baseUrl;
+	constructor() {}
 
-  constructor() { }
+	public getCurrentUser(): any {
+		const token = localStorage.getItem('authToken');
+		if (token) {
+			const decodedToken: { id: string } = jwt_decode(token);
 
-  public getCurrentUser(): any {
-    const token = localStorage.getItem('authToken');
-    if (token) {
-      const decodedToken: {id: string} = jwt_decode(token);
+			return decodedToken['id'];
+		}
+		return null;
+	}
 
-      return decodedToken['id'];
-    }
-    return null;
-  }
+	getUser(id: string) {
+		const url = `${this.baseUrl}/users/${id}`;
 
-  getUser(id: string) {
-    const url = `${this.baseUrl}/users/${id}`;
-
-    return this.http.get<IUserDTO>(url)
-  }
+		return this.http.get<IUserDTO>(url);
+	}
 }

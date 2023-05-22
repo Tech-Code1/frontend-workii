@@ -4,27 +4,25 @@ import { IWorkii } from 'src/app/core/models/workii.interface';
 import { IApplicationUser } from '../../../workiis/interfaces/workii.interface';
 
 @Component({
-  selector: 'info-workii',
-  templateUrl: './info-workii.component.html',
-  styleUrls: ['./info-workii.component.scss']
+	selector: 'info-workii',
+	templateUrl: './info-workii.component.html',
+	styleUrls: ['./info-workii.component.scss']
 })
 export class InfoWorkiiComponent {
+	@Input()
+	workii!: IWorkii;
 
-  @Input()
-  workii!: IWorkii;
+	info: boolean = false;
 
-  info: boolean = false;
+	constructor() {}
 
-  constructor() {}
+	ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
+	shareWorkii(event: Event) {
+		event.stopPropagation();
+	}
 
-  shareWorkii(event: Event) {
-    event.stopPropagation()
-  }
-
-  infoOpen() {
-    this.info = !this.info
-  }
+	infoOpen() {
+		this.info = !this.info;
+	}
 }

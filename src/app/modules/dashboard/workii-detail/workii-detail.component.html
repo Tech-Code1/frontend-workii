@@ -1,85 +1,57 @@
 <section class="mt-6">
-  <div
-    *ngIf="combined$ | async as combined"
-    class="pb-8 px-4 pt-4 w-full animate__animated animate__fadeIn animate__faster flex flex-col gap-4"
-  >
-    <div class="flex flex-row gap-1">
-      <p
-        routerLink="/dashboard/workiis"
-        class="body-base-black underline cursor-pointer"
-      >
-        workiis
-      </p>
-      <span>/</span>
+	<div
+		*ngIf="combined$ | async as combined"
+		class="pb-8 px-4 pt-4 w-full animate__animated animate__fadeIn animate__faster flex flex-col gap-4"
+	>
+		<div class="flex flex-row gap-1">
+			<p routerLink="/dashboard/workiis" class="body-base-black underline cursor-pointer">workiis</p>
+			<span>/</span>
 
-      <ng-container>
-        <p
-          [routerLink]="'/dashboard/workiis/' + combined.workii?.slug"
-          class="body-base-black cursor-pointer"
-        >
-          {{ "workii-" + combined.workii?.slug }}
-        </p>
-      </ng-container>
-    </div>
+			<ng-container>
+				<p [routerLink]="'/dashboard/workiis/' + combined.workii?.slug" class="body-base-black cursor-pointer">
+					{{ 'workii-' + combined.workii?.slug }}
+				</p>
+			</ng-container>
+		</div>
 
-    <div class="grid grid-cols-4">
-      <li
-        class="col-span-1 h-10 bg-primary-blueNeutral rounded-l-md list-none flex justify-center items-center border-r-2 border-black-principal border-dashed"
-      >
-        <p class="title-sm-white">1. Eperar selección</p>
-      </li>
-      <li
-        class="col-span-1 h-10 bg-gray-light list-none flex justify-center items-center border-r-2 border-black-principal border-dashed"
-      >
-        <p class="title-sm-black">2. Pagar servicio</p>
-      </li>
-      <li
-        class="col-span-1 h-10 bg-gray-light list-none flex justify-center items-center border-r-2 border-black-principal border-dashed"
-      >
-        <p class="title-sm-black">3. Aprobación</p>
-      </li>
-      <li
-        class="col-span-1 h-10 bg-gray-light rounded-r-md list-none flex justify-center items-center"
-      >
-        <p class="title-sm-black">4. Desbloqueo de activos</p>
-      </li>
-    </div>
+		<div class="grid grid-cols-4">
+			<li
+				class="col-span-1 h-10 bg-primary-blueNeutral rounded-l-md list-none flex justify-center items-center border-r-2 border-black-principal border-dashed"
+			>
+				<p class="title-sm-white">1. Eperar selección</p>
+			</li>
+			<li
+				class="col-span-1 h-10 bg-gray-light list-none flex justify-center items-center border-r-2 border-black-principal border-dashed"
+			>
+				<p class="title-sm-black">2. Pagar servicio</p>
+			</li>
+			<li
+				class="col-span-1 h-10 bg-gray-light list-none flex justify-center items-center border-r-2 border-black-principal border-dashed"
+			>
+				<p class="title-sm-black">3. Aprobación</p>
+			</li>
+			<li class="col-span-1 h-10 bg-gray-light rounded-r-md list-none flex justify-center items-center">
+				<p class="title-sm-black">4. Desbloqueo de activos</p>
+			</li>
+		</div>
 
-    <div
-      class="flex flex-col gap-6"
-      *ngIf="combined.workii && combined.applications"
-    >
-      <ng-container
-        *ngIf="
-          combined.workii?.user?.id !== userCurrentId && combined.index !== -1
-        "
-      >
-        <info-workii [workii]="combined.workii"></info-workii>
+		<div class="flex flex-col gap-6" *ngIf="combined.workii && combined.applications">
+			<ng-container *ngIf="combined.workii?.user?.id !== userCurrentId && combined.index !== -1">
+				<info-workii [workii]="combined.workii"></info-workii>
 
-        <status-workii
-          [workii]="combined.workii"
-          [applications]="combined.applications"
-        >
-        </status-workii>
-      </ng-container>
+				<status-workii [workii]="combined.workii" [applications]="combined.applications"> </status-workii>
+			</ng-container>
 
-      <ng-container
-        *ngIf="
-          combined.workii.user.id !== userCurrentId && combined.index === -1
-        "
-      >
-        <info-workii-without-apply
-          [workii]="combined.workii"
-          [userCurrentId]="userCurrentId"
-        ></info-workii-without-apply>
-      </ng-container>
+			<ng-container *ngIf="combined.workii.user.id !== userCurrentId && combined.index === -1">
+				<info-workii-without-apply
+					[workii]="combined.workii"
+					[userCurrentId]="userCurrentId"
+				></info-workii-without-apply>
+			</ng-container>
 
-      <ng-container *ngIf="combined.workii?.user?.id === userCurrentId">
-        <info-workii-owner
-          [workii]="combined.workii"
-          [userCurrentId]="userCurrentId"
-        ></info-workii-owner>
-      </ng-container>
-    </div>
-  </div>
+			<ng-container *ngIf="combined.workii?.user?.id === userCurrentId">
+				<info-workii-owner [workii]="combined.workii" [userCurrentId]="userCurrentId"></info-workii-owner>
+			</ng-container>
+		</div>
+	</div>
 </section>

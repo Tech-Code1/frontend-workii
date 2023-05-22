@@ -1,17 +1,17 @@
-import { IUser } from "./user.interface";
+import { IUser } from './user.interface';
 
 export interface IWorkii {
-  cost: number,
-  description: string,
-  executionTime: string | number,
-  id: string;
-  name: string,
-  slug?: string,
-  status?: string,
-  target: string,
-  timeOfCreation?: number;
-  timeOfFinished?: string;
-  toDoList: string[],
-  applications: number;
-  user: IUser,
+	cost: number;
+	description: string;
+	executionTime: string | number;
+	id: string;
+	name: string;
+	slug?: string;
+	status?: string;
+	target: string;
+	timeOfCreation?: number;
+	timeOfFinished?: string;
+	toDoList: string[];
+	applications: number;
+	user: IUser;
 }

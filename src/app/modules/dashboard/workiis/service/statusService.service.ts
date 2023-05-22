@@ -2,25 +2,25 @@ import { Injectable, ElementRef, QueryList } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+	providedIn: 'root'
 })
 export class StatusService {
-  private selectedStatus$ = new BehaviorSubject<string[]>([]);
+	private selectedStatus$ = new BehaviorSubject<string[]>([]);
 
-  getSelectedStatus$(): BehaviorSubject<string[]> {
-    return this.selectedStatus$;
-  }
+	getSelectedStatus$(): BehaviorSubject<string[]> {
+		return this.selectedStatus$;
+	}
 
-  getSelectedStatusLength(): number {
-    const selectedStatus = this.selectedStatus$.value;
-    return selectedStatus ? selectedStatus.length : 0;
-  }
+	getSelectedStatusLength(): number {
+		const selectedStatus = this.selectedStatus$.value;
+		return selectedStatus ? selectedStatus.length : 0;
+	}
 
-  updateSelectedStatus(status: string[]) {
-    this.selectedStatus$.next(status);
-  }
+	updateSelectedStatus(status: string[]) {
+		this.selectedStatus$.next(status);
+	}
 
-  clearSelectedStatus() {
-    this.selectedStatus$.next([]);
-  }
+	clearSelectedStatus() {
+		this.selectedStatus$.next([]);
+	}
 }

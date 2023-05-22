@@ -1,50 +1,49 @@
 <nav class="flex flex-row justify-between items-center h-16 border-b-2 border-gray-neutral">
-    <div routerLink="/" class="flex flex-row items-center gap-2 cursor-pointer">
-        <div class="rounded-full bg-gray-neutral h-12 w-12"></div>
-        <p class="font-bold font-title text-2xl text-black-principal dark:text-white-principal">Workii</p>
-    </div>
+	<div routerLink="/" class="flex flex-row items-center gap-2 cursor-pointer">
+		<div class="rounded-full bg-gray-neutral h-12 w-12"></div>
+		<p class="font-bold font-title text-2xl text-black-principal dark:text-white-principal">Workii</p>
+	</div>
 
-    <div class="flex flex-row">
+	<div class="flex flex-row">
+		<div class="flex flex-row gap-6">
+			<app-btn-login class="hidden lg:flex"></app-btn-login>
 
-      <div class="flex flex-row gap-6">
-        <app-btn-login class="hidden lg:flex"></app-btn-login>
+			<div class="border-2 border-gray-neutral h-12 lg:flex hidden"></div>
 
-        <div class="border-2 border-gray-neutral h-12 lg:flex hidden"></div>
+			<div class="flex gap-2 items-center">
+				<dark-mode></dark-mode>
 
-        <div class="flex gap-2 items-center">
+				<app-btn-support class="hidden lg:flex"></app-btn-support>
 
-            <dark-mode></dark-mode>
+				<app-select-lang class="hidden lg:flex w-fit"></app-select-lang>
+			</div>
+		</div>
 
-            <app-btn-support class="hidden lg:flex"></app-btn-support>
+		<!-- mobile options -->
+		<div clickOutside (clickOutside)="clickedOutside()">
+			<button
+				[ngClass]="{ 'parent-menu-hover': isMenuOpened === true }"
+				class="bg-white-principal dark:bg-black-alternative h-12 w-12 rounded-md outline-none border-2 border-transparent hover:border-primary-blueNeutral dark:hover:border-dark-prymaryColor lg:hidden gap-2 flex flex-col justify-center items-center relative px-2"
+				(click)="toggleMenu()"
+			>
+				<div class="bg-white-principal h-[2.5px] w-full rounded-md origin-center menu-hover"></div>
+				<div class="bg-white-principal h-[2.5px] w-full rounded-md origin-center menu-hover"></div>
+				<div class="bg-white-principal h-[2.5px] w-full rounded-md origin-center menu-hover"></div>
+			</button>
 
+			<nav *ngIf="isMenuOpened" class="absolute custom-size-nav flex-col top-24 left-[24px] h-auto lg:hidden">
+				<div
+					class="flex md:flex-row-reverse flex-col justify-between gap-2 items-center bg-black-alternative w-full mr-6 p-4 rounded-md"
+				>
+					<app-btn-login></app-btn-login>
 
-            <app-select-lang class="hidden lg:flex w-fit"></app-select-lang>
-        </div>
-      </div>
+					<div class="flex items-center gap-2">
+						<app-btn-support></app-btn-support>
 
-        <!-- mobile options -->
-          <div clickOutside (clickOutside)="clickedOutside()">
-            <button [ngClass]="{'parent-menu-hover' : isMenuOpened === true}" class="bg-white-principal dark:bg-black-alternative h-12 w-12 rounded-md outline-none border-2 border-transparent hover:border-primary-blueNeutral dark:hover:border-dark-prymaryColor lg:hidden gap-2 flex flex-col justify-center items-center relative px-2" (click)="toggleMenu()">
-                <div class="bg-white-principal h-[2.5px] w-full rounded-md origin-center menu-hover"></div>
-                <div class="bg-white-principal h-[2.5px] w-full rounded-md origin-center menu-hover"></div>
-                <div class="bg-white-principal h-[2.5px] w-full rounded-md origin-center menu-hover"></div>
-            </button>
-
-            <nav *ngIf="isMenuOpened" class="absolute custom-size-nav flex-col top-24 left-[24px] h-auto lg:hidden">
-                <div class="flex md:flex-row-reverse flex-col justify-between gap-2 items-center bg-black-alternative w-full mr-6 p-4 rounded-md">
-
-                    <app-btn-login></app-btn-login>
-
-                    <div class="flex items-center gap-2">
-                        <app-btn-support></app-btn-support>
-
-                        <app-select-lang></app-select-lang>
-                    </div>
-                </div>
-            </nav>
-          </div>
-
-
-    </div>
-
+						<app-select-lang></app-select-lang>
+					</div>
+				</div>
+			</nav>
+		</div>
+	</div>
 </nav>

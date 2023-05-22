@@ -8,92 +8,97 @@ import { WorkiiActions } from '../../state/actions/workii.actions';
 import { IAppState } from 'src/app/core/state/app.state';
 
 @Component({
-  selector: 'modal-create-workii',
-  templateUrl: './modal-create-workii.component.html',
-  styleUrls: ['./modal-create-workii.component.scss']
+	selector: 'modal-create-workii',
+	templateUrl: './modal-create-workii.component.html',
+	styleUrls: ['./modal-create-workii.component.scss']
 })
 export class ModalCreateWorkiiComponent implements OnInit {
+	@ViewChild('taskInput', { static: true }) taskInput!: ElementRef<HTMLInputElement>;
+	initialValue: string = '';
+	inputChanged = false;
+	targets = [
+		'Arte',
+		'Informatica',
+		'Humanidades',
+		'Ciencias',
+		'Ingenieria',
+		'Entretenimiento',
+		'Comunicaciones',
+		'Marketing',
+		'Otro'
+	];
+	executionTimes: number[] = [3, 5, 7, 10, 15];
+	createWorkii!: FormGroup;
+	changeEmail!: FormGroup;
 
-  @ViewChild('taskInput', {static: true}) taskInput!: ElementRef<HTMLInputElement>;
-  initialValue: string = "";
-  inputChanged = false;
-  targets = ['Arte', 'Informatica', 'Humanidades', 'Ciencias', 'Ingenieria', 'Entretenimiento', 'Comunicaciones', 'Marketing', 'Otro']
-  executionTimes: number[] = [3,5,7,10,15]
-  createWorkii!: FormGroup;
-  changeEmail!: FormGroup;
+	constructor(
+		private modalService: SwitchService,
+		private formBuilder: FormBuilder,
+		private userService: UserService,
+		private store: Store<IAppState>
+	) {}
 
-  constructor(
-    private modalService: SwitchService,
-    private formBuilder: FormBuilder,
-    private userService: UserService,
-    private store: Store<IAppState> ) {
-  }
+	ngOnInit(): void {
+		this.createWorkii = this.formBuilder.group({
+			name: ['', [Validators.required]],
+			cost: ['', [Validators.required]],
+			target: ['', [Validators.required]],
+			time: ['', [Validators.required]],
 
-  ngOnInit(): void {
-    this.createWorkii = this.formBuilder.group({
-      name: ["", [Validators.required]],
-      cost: ["", [Validators.required]],
-      target: ["", [Validators.required]],
-      time: [ "", [Validators.required]],
+			description: ['', [Validators.required]],
+			tasks: this.formBuilder.array([this.formBuilder.control('', Validators.required)], [Validators.required])
+		});
+	}
 
-      description: ["", [Validators.required]],
-      tasks: this.formBuilder.array([
-        this.formBuilder.control('', Validators.required),
-      ], [Validators.required]),
-    })
+	get tasksArr() {
+		return this.createWorkii.get('tasks') as FormArray;
+	}
 
-  }
+	closeModal() {
+		this.modalService.$modal.emit(false);
+	}
 
-  get tasksArr() {
-    return this.createWorkii.get("tasks") as FormArray;
-  }
+	stopPropagation(event: Event) {
+		event.stopPropagation();
+	}
 
-  closeModal() {
-    this.modalService.$modal.emit(false)
-  }
+	isValid(inputName: string): boolean | undefined | void {
+		if (this.createWorkii.get(inputName)?.touched) {
+			return this.createWorkii.get(inputName)?.valid;
+		}
+		return true;
+	}
 
-  stopPropagation (event: Event) {
-    event.stopPropagation();
-  }
+	isValidArray(i: number): boolean | undefined | void {
+		if (this.tasksArr.controls[i]?.touched) {
+			return this.tasksArr.controls[i].valid;
+		}
+		return true;
+	}
 
-  isValid(inputName: string): boolean | undefined | void {
-    if (this.createWorkii.get(inputName)?.touched) {
-      return this.createWorkii.get(inputName)?.valid
-    }
-    return true
-  }
+	deleteInput(i: number) {
+		this.tasksArr.removeAt(i);
+	}
 
-  isValidArray(i: number): boolean | undefined | void {
-    if (this.tasksArr.controls[i]?.touched) {
-      return this.tasksArr.controls[i].valid
-    }
-    return true
-  }
+	addInput() {
+		this.tasksArr.push(this.formBuilder.control('', [Validators.required]));
+	}
 
-  deleteInput(i: number) {
-      this.tasksArr.removeAt(i)
-  }
+	async createNewWorkii() {
+		const userId = await this.userService.getCurrentUser();
 
-  addInput() {
-    this.tasksArr.push( this.formBuilder.control('', [Validators.required]));
-  }
+		const newWorkii = {
+			name: this.createWorkii.get('name')?.value,
+			cost: parseInt(this.createWorkii.get('cost')?.value),
+			target: this.createWorkii.get('target')?.value,
+			executionTime: parseInt(this.createWorkii.get('time')?.value),
+			description: this.createWorkii.get('description')?.value,
+			toDoList: this.createWorkii.get('tasks')?.value,
+			userId: userId
+		};
 
-  async createNewWorkii() {
-    const userId = await this.userService.getCurrentUser()
+		console.log(newWorkii.executionTime);
 
-    const newWorkii = {
-      name: this.createWorkii.get('name')?.value,
-      cost: parseInt(this.createWorkii.get('cost')?.value),
-      target: this.createWorkii.get('target')?.value,
-      executionTime: parseInt(this.createWorkii.get('time')?.value),
-      description: this.createWorkii.get('description')?.value,
-      toDoList: this.createWorkii.get('tasks')?.value,
-      userId: userId
-    }
-
-    console.log(newWorkii.executionTime);
-
-    this.store.dispatch(WorkiiActions.createWorkiiSuccess(newWorkii))
-  }
-
+		this.store.dispatch(WorkiiActions.createWorkiiSuccess(newWorkii));
+	}
 }

@@ -11,41 +11,39 @@ import { selectOtp } from 'src/app/core/state/selectors/user.selectors';
 import { UiActions } from 'src/app/shared/state/actions/ui.actions';
 
 @Component({
-  selector: 'validate-otp',
-  templateUrl: './validate-otp.component.html',
-  styleUrls: ['./validate-otp.component.scss']
+	selector: 'validate-otp',
+	templateUrl: './validate-otp.component.html',
+	styleUrls: ['./validate-otp.component.scss']
 })
 export class ValidateOtpComponent {
+	private formBuilder = inject(FormBuilder);
+	private store = inject(Store<IAppState>);
 
-  private formBuilder = inject(FormBuilder)
-  private store = inject(Store<IAppState>)
-
- /*  @Output()
+	/*  @Output()
   cancel: EventEmitter<void> = new EventEmitter<void>(); */
 
-  otpForm:FormGroup  = this.formBuilder.group({
-    otp: ['', [Validators.required, Validators.maxLength(100)]],
-  })
+	otpForm: FormGroup = this.formBuilder.group({
+		otp: ['', [Validators.required, Validators.maxLength(100)]]
+	});
 
-  isValid(inputName: string): boolean | undefined | void {
-    if (this.otpForm.get(inputName)?.touched) {
+	isValid(inputName: string): boolean | undefined | void {
+		if (this.otpForm.get(inputName)?.touched) {
+			return this.otpForm.get(inputName)?.valid;
+		}
+		return true;
+	}
 
-      return this.otpForm.get(inputName)?.valid
-    }
-    return true
-  }
+	validateOtp() {
+		if (!this.otpForm.valid) {
+			this.otpForm.markAllAsTouched();
+		}
 
-  validateOtp() {
-    if(!this.otpForm.valid) {
-      this.otpForm.markAllAsTouched();
-    }
+		const { otp } = this.otpForm.value;
 
-    const {otp} = this.otpForm.value
+		this.store.dispatch(UserActions.validateOtp({ otp }));
+	}
 
-    this.store.dispatch(UserActions.validateOtp({otp}))
-  }
-
-  cancelOtp() {
-    this.store.dispatch(UserActions.userFound())
-  }
+	cancelOtp() {
+		this.store.dispatch(UserActions.userFound());
+	}
 }

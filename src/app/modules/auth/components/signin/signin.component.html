@@ -1,140 +1,108 @@
 <div class="w-[450px]">
-  <form
-    *ngIf="userExists$ | async"
-    (ngSubmit)="login()"
-    [formGroup]="loginForm"
-    action=""
-  >
-    <h2
-      class="font-bold text-3xl font-title dark:text-white-principal text-black-principal my-16 text-center"
-    >
-      Ingresar
-    </h2>
+	<form *ngIf="userExists$ | async" (ngSubmit)="login()" [formGroup]="loginForm" action="">
+		<h2 class="font-bold text-3xl font-title dark:text-white-principal text-black-principal my-16 text-center">
+			Ingresar
+		</h2>
 
-    <div class="flex flex-col gap-4">
-      <label for="email" class="flex flex-col gap-1">
-        <p
-          class="font-bold text-black-principal dark:text-white-principal text-base font-title"
-        >
-          Email
-        </p>
-        <input
-          formControlName="email"
-          [ngClass]="{
-            'input-standard h-10 w-full rounded-md': true,
-            'input-error': !isValid('email'),
-            'input-regular': isValid('email')
-          }"
-          type="email"
-          placeholder="example@example.com"
-          autocomplete="email"
-        />
+		<div class="flex flex-col gap-4">
+			<label for="email" class="flex flex-col gap-1">
+				<p class="font-bold text-black-principal dark:text-white-principal text-base font-title">Email</p>
+				<input
+					formControlName="email"
+					[ngClass]="{
+						'input-standard h-10 w-full rounded-md': true,
+						'input-error': !isValid('email'),
+						'input-regular': isValid('email')
+					}"
+					type="email"
+					placeholder="example@example.com"
+					autocomplete="email"
+				/>
 
-        <custom-errors-message
-          *ngIf="!isValid('email')"
-          [formGroup]="loginForm"
-          controlName="email"
-          class="title-error-small"
-        >
-        </custom-errors-message>
-      </label>
+				<custom-errors-message
+					*ngIf="!isValid('email')"
+					[formGroup]="loginForm"
+					controlName="email"
+					class="title-error-small"
+				>
+				</custom-errors-message>
+			</label>
 
-      <label for="password" class="flex flex-col gap-1">
-        <p
-          class="font-bold text-black-principal dark:text-white-principal text-base font-title"
-        >
-          Password
-        </p>
-        <input
-          formControlName="password"
-          [ngClass]="{
-            'input-standard h-10 w-full rounded-md': true,
-            'input-error': !isValid('password'),
-            'input-regular': isValid('password')
-          }"
-          type="password"
-          placeholder="******"
-          autocomplete="new-password"
-        />
+			<label for="password" class="flex flex-col gap-1">
+				<p class="font-bold text-black-principal dark:text-white-principal text-base font-title">Password</p>
+				<input
+					formControlName="password"
+					[ngClass]="{
+						'input-standard h-10 w-full rounded-md': true,
+						'input-error': !isValid('password'),
+						'input-regular': isValid('password')
+					}"
+					type="password"
+					placeholder="******"
+					autocomplete="new-password"
+				/>
 
-        <custom-errors-message
-          *ngIf="!isValid('password')"
-          [formGroup]="loginForm"
-          controlName="password"
-          class="title-error-small"
-        >
-        </custom-errors-message>
-      </label>
+				<custom-errors-message
+					*ngIf="!isValid('password')"
+					[formGroup]="loginForm"
+					controlName="password"
+					class="title-error-small"
+				>
+				</custom-errors-message>
+			</label>
 
-      <button
-        *ngIf="!loading"
-        [ngClass]="{
-          'btn-light-red hover:bg-error-redLight text-error-redDark border-error-redDark opacity-50':
-            !loginForm.valid,
-          'btn-ghost-solid-success': loginForm.valid
-        }"
-        class="h-10 w-full"
-        type="submit"
-        [disabled]="!loginForm.valid"
-      >
-        Ingresar
-      </button>
+			<button
+				*ngIf="!loading"
+				[ngClass]="{
+					'btn-light-red hover:bg-error-redLight text-error-redDark border-error-redDark opacity-50': !loginForm.valid,
+					'btn-ghost-solid-success': loginForm.valid
+				}"
+				class="h-10 w-full"
+				type="submit"
+				[disabled]="!loginForm.valid"
+			>
+				Ingresar
+			</button>
 
-      <button
-        *ngIf="loading"
-        class="h-10 w-full flex flex-row gap-4 btn-ghost-solid-success hover:bg-success-greenLight text-success-greenDark border-success-greenDark items-center justify-center"
-        type="button"
-        [disabled]="true"
-      >
-        <svg
-          class="h-6 w-auto fill-success-greenDark loading-animated-spinner"
-          viewBox="0 0 39 37"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M39 19.1159C38.9532 16.5454 38.3888 14.0093 37.3392 11.6531C36.2897 9.29697 34.7756 7.16722 32.884 5.38613C30.0983 2.74756 26.5759 0.979053 22.7635 0.304771C18.9511 -0.369511 15.0203 0.0807946 11.4693 1.59861C9.14719 2.59727 7.04647 4.04472 5.30803 5.82012C3.5696 7.59552 2.19595 9.70134 1.29026 11.9773C-0.525244 16.5491 -0.421233 21.6393 1.57958 26.1361C2.56578 28.3357 3.99729 30.3281 5.75082 31.9752C7.50435 33.6224 9.58242 34.9219 11.8291 35.78C14.0722 36.6344 16.4649 37.0474 18.8709 36.9957C22.4321 36.928 25.8929 35.8267 28.8154 33.8309C31.738 31.8351 33.9909 29.0345 35.2892 25.7835C35.7996 24.4962 36.1502 23.1534 36.3332 21.7839L36.4817 21.7889C36.8295 21.7887 37.1736 21.7178 37.4921 21.5807C37.8106 21.4435 38.0966 21.2432 38.3321 20.9922C38.5675 20.7413 38.7474 20.4452 38.8602 20.1226C38.973 19.8001 39.0163 19.4581 38.9874 19.1184H38.9975L39 19.1159ZM35.0024 25.6627C34.079 27.7118 32.7431 29.5686 31.1028 31.1023C29.4625 32.6361 27.5253 33.8443 25.4321 34.6383C23.3417 35.4317 21.1119 35.8122 18.8709 35.7578C16.661 35.711 14.4823 35.2371 12.4597 34.3633C10.4371 33.4895 8.61035 32.233 7.08421 30.6659C5.57917 29.1206 4.39944 27.2998 3.61237 25.3076C2.04869 21.341 2.15364 16.9285 3.9042 13.0376C4.76461 11.1389 6.00743 9.41777 7.52951 7.99745C9.05158 6.57713 10.8529 5.46011 12.7926 4.72775C14.7323 3.99294 16.8079 3.64772 18.8709 3.70197C20.9338 3.75622 22.9691 4.20007 24.8283 5.01379C26.6901 5.82505 28.3757 6.99879 29.7669 8.4339C31.1582 9.86902 32.2526 11.5655 32.967 13.3927C33.6808 15.2166 34.0202 17.1607 33.9658 19.1134H33.9759C33.9215 19.7542 34.1246 20.3904 34.542 20.8865C34.9593 21.3826 35.5578 21.6993 36.2099 21.7691C35.9675 23.1091 35.5612 24.4155 34.9998 25.6602L35.0024 25.6627Z"
-          />
-        </svg>
-        Espera...
-      </button>
-    </div>
+			<button
+				*ngIf="loading"
+				class="h-10 w-full flex flex-row gap-4 btn-ghost-solid-success hover:bg-success-greenLight text-success-greenDark border-success-greenDark items-center justify-center"
+				type="button"
+				[disabled]="true"
+			>
+				<svg
+					class="h-6 w-auto fill-success-greenDark loading-animated-spinner"
+					viewBox="0 0 39 37"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<path
+						d="M39 19.1159C38.9532 16.5454 38.3888 14.0093 37.3392 11.6531C36.2897 9.29697 34.7756 7.16722 32.884 5.38613C30.0983 2.74756 26.5759 0.979053 22.7635 0.304771C18.9511 -0.369511 15.0203 0.0807946 11.4693 1.59861C9.14719 2.59727 7.04647 4.04472 5.30803 5.82012C3.5696 7.59552 2.19595 9.70134 1.29026 11.9773C-0.525244 16.5491 -0.421233 21.6393 1.57958 26.1361C2.56578 28.3357 3.99729 30.3281 5.75082 31.9752C7.50435 33.6224 9.58242 34.9219 11.8291 35.78C14.0722 36.6344 16.4649 37.0474 18.8709 36.9957C22.4321 36.928 25.8929 35.8267 28.8154 33.8309C31.738 31.8351 33.9909 29.0345 35.2892 25.7835C35.7996 24.4962 36.1502 23.1534 36.3332 21.7839L36.4817 21.7889C36.8295 21.7887 37.1736 21.7178 37.4921 21.5807C37.8106 21.4435 38.0966 21.2432 38.3321 20.9922C38.5675 20.7413 38.7474 20.4452 38.8602 20.1226C38.973 19.8001 39.0163 19.4581 38.9874 19.1184H38.9975L39 19.1159ZM35.0024 25.6627C34.079 27.7118 32.7431 29.5686 31.1028 31.1023C29.4625 32.6361 27.5253 33.8443 25.4321 34.6383C23.3417 35.4317 21.1119 35.8122 18.8709 35.7578C16.661 35.711 14.4823 35.2371 12.4597 34.3633C10.4371 33.4895 8.61035 32.233 7.08421 30.6659C5.57917 29.1206 4.39944 27.2998 3.61237 25.3076C2.04869 21.341 2.15364 16.9285 3.9042 13.0376C4.76461 11.1389 6.00743 9.41777 7.52951 7.99745C9.05158 6.57713 10.8529 5.46011 12.7926 4.72775C14.7323 3.99294 16.8079 3.64772 18.8709 3.70197C20.9338 3.75622 22.9691 4.20007 24.8283 5.01379C26.6901 5.82505 28.3757 6.99879 29.7669 8.4339C31.1582 9.86902 32.2526 11.5655 32.967 13.3927C33.6808 15.2166 34.0202 17.1607 33.9658 19.1134H33.9759C33.9215 19.7542 34.1246 20.3904 34.542 20.8865C34.9593 21.3826 35.5578 21.6993 36.2099 21.7691C35.9675 23.1091 35.5612 24.4155 34.9998 25.6602L35.0024 25.6627Z"
+					/>
+				</svg>
+				Espera...
+			</button>
+		</div>
 
-    <div class="h-0.5 bg-gray-neutral w-full my-6"></div>
+		<div class="h-0.5 bg-gray-neutral w-full my-6"></div>
 
-    <div class="flex flex-col gap-4">
-      <button class="btn-ghost-neutral gap-2 h-10 w-full">
-        <img
-          src="../../../../../../assets/images/svg/icon-google.svg"
-          alt="icon google"
-        />
-        <p>Continuar con Google</p>
-      </button>
-      <button class="btn-ghost-neutral gap-2 h-10 w-full">
-        <img
-          src="../../../../../../assets/images/svg/icon-facebook.svg"
-          alt="icon facebook"
-        />
-        <p>Continuar con Facebook</p>
-      </button>
-    </div>
-  </form>
+		<div class="flex flex-col gap-4">
+			<button class="btn-ghost-neutral gap-2 h-10 w-full">
+				<img src="../../../../../../assets/images/svg/icon-google.svg" alt="icon google" />
+				<p>Continuar con Google</p>
+			</button>
+			<button class="btn-ghost-neutral gap-2 h-10 w-full">
+				<img src="../../../../../../assets/images/svg/icon-facebook.svg" alt="icon facebook" />
+				<p>Continuar con Facebook</p>
+			</button>
+		</div>
+	</form>
 
-  <validate-otp *ngIf="!(userExists$ | async)" class="w-[450px]"></validate-otp>
+	<validate-otp *ngIf="!(userExists$ | async)" class="w-[450px]"></validate-otp>
 
-  <div
-    class="flex font-title text-sm text-black-principal dark:text-white-principal gap-2 justify-center mt-9"
-  >
-    <a
-      href="#"
-      class="underline hover:text-primary-blueNeutral dark:hover:text-dark-prymaryColor"
-      >Terminos</a
-    >
-    <span>y</span>
-    <a
-      href="#"
-      class="underline hover:text-primary-blueNeutral dark:hover:text-dark-prymaryColor"
-      >Condiciones</a
-    >
-  </div>
+	<div class="flex font-title text-sm text-black-principal dark:text-white-principal gap-2 justify-center mt-9">
+		<a href="#" class="underline hover:text-primary-blueNeutral dark:hover:text-dark-prymaryColor">Terminos</a>
+		<span>y</span>
+		<a href="#" class="underline hover:text-primary-blueNeutral dark:hover:text-dark-prymaryColor">Condiciones</a>
+	</div>
 </div>

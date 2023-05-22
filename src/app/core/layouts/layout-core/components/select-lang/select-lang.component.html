@@ -1,74 +1,64 @@
 <div class="select-lang flex relative">
-  <div class="selectbox w-full">
+	<div class="selectbox w-full">
+		<div
+			[ngClass]="{
+				'select dark:bg-black-principal lg:dark:bg-black-alternative gap-2': true,
+				'px-2 flex justify-center items-center gap-0': toggleLayout$ | async
+			}"
+			#select
+		>
+			<div id="contentSelect" #contentSelect>
+				<span class="title-base-black flex gap-2">
+					<p class="text-[28px]">🌐</p>
+					<p
+						[ngClass]="{
+							hidden: toggleLayout$ | async,
+							flex: !(toggleLayout$ | async)
+						}"
+					>
+						{{ titleLang }}
+					</p>
+				</span>
+			</div>
 
-      <div
-        [ngClass]="{
-          'select dark:bg-black-principal lg:dark:bg-black-alternative gap-2': true,
-          'px-2 flex justify-center items-center gap-0': toggleLayout$ | async
-        }"
-        #select
-      >
-        <div id="contentSelect" #contentSelect>
-          <span class="title-base-black flex gap-2">
-            <p class="text-[28px]">🌐</p>
-            <p [ngClass]="{
-              'hidden': toggleLayout$ | async,
-              'flex': !(toggleLayout$ | async)}">{{ titleLang }}</p>
-          </span>
-        </div>
+			<svg
+				class="icon-rotate fill-primary-blueNeutral dark:fill-dark-prymaryColor"
+				width="14"
+				height="12"
+				viewBox="0 0 14 12"
+				fill="none"
+				xmlns="http://www.w3.org/2000/svg"
+				#arrow
+			>
+				<path
+					d="M8.71971 10.5773C7.94473 11.8825 6.05527 11.8825 5.28029 10.5773L0.793768 3.02103C0.00218971 1.68785 0.963001 -4.89109e-05 2.51348 -4.87753e-05L11.4865 -4.79909e-05C13.037 -4.78553e-05 13.9978 1.68785 13.2062 3.02103L8.71971 10.5773Z"
+				/>
+			</svg>
+		</div>
+	</div>
 
-        <svg
-          class="icon-rotate fill-primary-blueNeutral dark:fill-dark-prymaryColor"
-          width="14"
-          height="12"
-          viewBox="0 0 14 12"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          #arrow
-        >
-          <path
-            d="M8.71971 10.5773C7.94473 11.8825 6.05527 11.8825 5.28029 10.5773L0.793768 3.02103C0.00218971 1.68785 0.963001 -4.89109e-05 2.51348 -4.87753e-05L11.4865 -4.79909e-05C13.037 -4.78553e-05 13.9978 1.68785 13.2062 3.02103L8.71971 10.5773Z"
-          />
-        </svg>
-      </div>
-  </div>
-
-  <!-- opciones -->
-  <div
-    class="options bg-gray-neutral dark:bg-black-alternative top-[60px] w-full"
-    #optionsLang
-  >
-    <a
-      href="#"
-      class="option"
-      (click)="reciveData($event)"
-      *ngFor="let languaje of lang"
-    >
-      <div
-        [ngClass]="{
-          'content-option flex flex-row gap-2': true,
-          'justify-center': toggleLayout$ | async,
-          'justify-start': !(toggleLayout$ | async)
-        }"
-        (click)="selectLang(languaje.languaje)"
-      >
-        <img
-          class="icon-flag-translate me-2"
-          src="{{ languaje.img }}"
-          alt=" {{ languaje.description }}"
-        />
-        <h3
-          [ngClass]="{
-            'text-sm font-bold font-title title-lang dark:text-white-principal': true,
-            'hidden': toggleLayout$ | async,
-            'flex': !(toggleLayout$ | async)
-          }"
-        >
-          {{ languaje.languaje }}
-        </h3>
-      </div>
-    </a>
-  </div>
+	<!-- opciones -->
+	<div class="options bg-gray-neutral dark:bg-black-alternative top-[60px] w-full" #optionsLang>
+		<a href="#" class="option" (click)="reciveData($event)" *ngFor="let languaje of lang">
+			<div
+				[ngClass]="{
+					'content-option flex flex-row gap-2': true,
+					'justify-center': toggleLayout$ | async,
+					'justify-start': !(toggleLayout$ | async)
+				}"
+				(click)="selectLang(languaje.languaje)"
+			>
+				<img class="icon-flag-translate me-2" src="{{ languaje.img }}" alt=" {{ languaje.description }}" />
+				<h3
+					[ngClass]="{
+						'text-sm font-bold font-title title-lang dark:text-white-principal': true,
+						hidden: toggleLayout$ | async,
+						flex: !(toggleLayout$ | async)
+					}"
+				>
+					{{ languaje.languaje }}
+				</h3>
+			</div>
+		</a>
+	</div>
 </div>
-
-

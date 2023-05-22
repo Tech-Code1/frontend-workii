@@ -1,89 +1,89 @@
-import { IUser } from "src/app/core/models/user.interface";
+import { IUser } from 'src/app/core/models/user.interface';
 
 export interface IWorkiiCreate {
-    cost: number,
-    description: string,
-    executionTime: number | string,
-    id?: string;
-    name: string,
-    slug?: string,
-    status?: string,
-    target: string,
-    timeOfCreation?: number;
-    timeOfFinished?: string;
-    toDoList: string[],
-    applications?: number;
-    userId?: string,
+	cost: number;
+	description: string;
+	executionTime: number | string;
+	id?: string;
+	name: string;
+	slug?: string;
+	status?: string;
+	target: string;
+	timeOfCreation?: number;
+	timeOfFinished?: string;
+	toDoList: string[];
+	applications?: number;
+	userId?: string;
 }
 
 export interface IPagination {
-  limit: number;
-  offset: number;
+	limit: number;
+	offset: number;
 }
 
 export interface IStatus {
-  id: number,
-  status: string
+	id: number;
+	status: string;
 }
 
 export interface IApplicationUser {
-  id?: string;
-  user: IUser
-  workii: IWorkiiApllication
+	id?: string;
+	user: IUser;
+	workii: IWorkiiApllication;
 }
 
 export type TPartialApplication = Partial<IApplicationUser>;
 
 export interface IApplicationCreateUser {
-  user: IUser
-  workii: IWorkiiApllication
+	user: IUser;
+	workii: IWorkiiApllication;
 }
 
 export interface IApplicationCreateUserDTO {
-  userId: string;
-  workiiId: string;
+	userId: string;
+	workiiId: string;
 }
 
 export interface IWorkiiApllication {
-  id: string
+	id: string;
 }
 
 export interface IApplicationResponse {
-  id?: number,
-  ok?: boolean;
-  statusCode?: number;
-  message: string;
+	id?: number;
+	ok?: boolean;
+	statusCode?: number;
+	message: string;
 }
 export interface IApplication {
-  workii:          string;
-  user:            string;
+	workii: string;
+	user: string;
 }
 
 export interface IApplyResponse {
-  workii:          string;
-  user:            string;
-  message?:         string;
+	workii: string;
+	user: string;
+	message?: string;
 }
 
 export interface IResponseSuccess {
-  message:          string;
+	message: string;
 }
 
 export interface IUsersApplicationResponse {
-  id:   string;
-  user: IUsersApplication;
+	id: string;
+	user: IUsersApplication;
 }
 
 export interface IUsersApplication {
-  id:              string;
-  email:           string;
-  avatar:          string;
-  nick:            string;
-  areaOfExpertise: string[];
-  profession:      string[];
-  isActive:        boolean;
-  roles:           string[];
-  timeOfCreation:  string;
+	id: string;
+	email: string;
+	avatar: string;
+	nick: string;
+	areaOfExpertise: string[];
+	profession: string[];
+	isActive: boolean;
+	roles: string[];
+	timeOfCreation: string;
 }
 
 /* export interface ITime {
@@ -111,4 +111,3 @@ export interface IUsersApplication {
 ]; */
 
 /* const time: ITime[] = [3,5,7,10,15]; */
-

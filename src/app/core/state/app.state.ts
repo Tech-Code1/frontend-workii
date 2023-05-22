@@ -9,13 +9,13 @@ import { _uiReducer } from 'src/app/shared/state/reducers/ui.reducer';
 import { IUiState } from '../models/ui.state';
 
 export interface IAppState {
-  ui: IUiState,
-  workiis: IWorkiiState,
-  user: IUserState,
+	ui: IUiState;
+	workiis: IWorkiiState;
+	user: IUserState;
 }
 
 export const ROOT_REDUCERS: ActionReducerMap<IAppState> = {
-  ui: _uiReducer,
-  user: _userReducer,
-  workiis: _workiiReducer,
-}
+	ui: _uiReducer,
+	user: _userReducer,
+	workiis: _workiiReducer
+};

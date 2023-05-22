@@ -3,44 +3,37 @@ import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class ValidatorsService {
+	noSpecialCharacter: string = '^[a-zA-Z0-9]+$';
+	discord: string = '^https://discord.gg/.+/?$';
+	linkedIn: string = '^https://www.linkedin.com/in/.+/?$';
+	twitter: string = '^https://twitter.com/.+/?$';
+	instagram: string = '^https://www.instagram.com/.+/?$';
+	gitHub: string = '^https://github.com/.+/?$';
+	facebook: string = '^https://www.facebook.com/.+/?$';
+	emailPattern: string = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
 
-  noSpecialCharacter: string = '^[a-zA-Z0-9]+$'
-  discord: string = '^https:\/\/discord\.gg\/.+\/?$'
-  linkedIn: string = '^https:\/\/www\.linkedin\.com\/in\/.+\/?$'
-  twitter: string = '^https:\/\/twitter\.com\/.+\/?$'
-  instagram: string = '^https:\/\/www\.instagram\.com\/.+\/?$'
-  gitHub: string = '^https:\/\/github\.com\/.+\/?$'
-  facebook: string = '^https:\/\/www\.facebook\.com\/.+\/?$'
-  emailPattern: string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
+	constructor() {}
 
-  constructor() { }
+	similarInputs(input1: string, input2: string) {
+		console.log(input1, input2);
 
-  similarInputs(input1: string, input2: string) {
+		return (formGroup: AbstractControl): ValidationErrors | null => {
+			const pass1 = input1;
+			const pass2 = formGroup.get(input2)?.value;
 
-    console.log(input1, input2);
+			if (pass1 === pass2) {
+				if (formGroup.get(input2)?.hasError('noSimilar')) {
+					delete formGroup.get(input2)?.errors?.['noSimilar'];
+					formGroup.get(input2)?.updateValueAndValidity();
+				}
+				return null;
+			}
 
-
-    return (formGroup: AbstractControl): ValidationErrors | null => {
-
-      const pass1 = input1;
-      const pass2 = formGroup.get(input2)?.value;
-
-      if (pass1 === pass2) {
-
-          if(formGroup.get(input2)?.hasError('noSimilar')) {
-
-            delete formGroup.get(input2)?.errors?.['noSimilar'];
-            formGroup.get(input2)?.updateValueAndValidity();
-
-          }
-         return null
-      }
-
-      formGroup.get(input2)?.setErrors({noSimilar: true})
-      return {noSimilar: true}
-    }
-  }
+			formGroup.get(input2)?.setErrors({ noSimilar: true });
+			return { noSimilar: true };
+		};
+	}
 }

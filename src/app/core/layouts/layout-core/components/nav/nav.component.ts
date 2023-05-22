@@ -4,41 +4,36 @@ import { TranslateService } from '@ngx-translate/core';
 import { supportLanguages } from 'src/app/shared/utils/constLanguages';
 
 @Component({
-  selector: 'app-nav',
-  templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.scss']
+	selector: 'app-nav',
+	templateUrl: './nav.component.html',
+	styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
-
-  langs = supportLanguages;
+	langs = supportLanguages;
 	clickCount = 1;
 	clickCountTwo = 1;
 	clickCountThree = 1;
-  isMenuOpened: boolean = false;
+	isMenuOpened: boolean = false;
 
 	@ViewChild('inputSelect') inputSelect!: ElementRef;
 	@ViewChild('contentProfile') contentProfile!: ElementRef;
 
+	constructor(private renderer2: Renderer2, private translateService: TranslateService) {}
 
-  constructor(private renderer2: Renderer2,
-    private translateService: TranslateService) { }
+	ngOnInit(): void {
+		// Whenever the user explicity chooses light mode
+		//localStorage.theme = 'light'
+		// Whenever the user explicity chooses dark mode
+		//localStorage.theme = 'dark'
+		// Whenever the user explicity chooses the respect the OS preference
+		//localStorage.removeItem('theme')
+	}
 
-  ngOnInit(): void {
-    // Whenever the user explicity chooses light mode
-    //localStorage.theme = 'light'
+	toggleMenu() {
+		this.isMenuOpened = !this.isMenuOpened;
+	}
 
-    // Whenever the user explicity chooses dark mode
-    //localStorage.theme = 'dark'
-
-    // Whenever the user explicity chooses the respect the OS preference
-    //localStorage.removeItem('theme')
-  }
-
-  toggleMenu() {
-    this.isMenuOpened = !this.isMenuOpened
-  }
-
-  clickedOutside(): void {
-    this.isMenuOpened = false;
-  }
+	clickedOutside(): void {
+		this.isMenuOpened = false;
+	}
 }

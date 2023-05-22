@@ -1,99 +1,85 @@
 <div class="flex w-full custom-heigh justify-center items-center flex-grow">
-  <form
-    (ngSubmit)="onSubmit()"
-    [formGroup]="registerStep3"
-    action=""
-    class="w-[450px]"
-  >
-    <div class="flex flex-col gap-4 my-16">
-      <h1 class="title-3xl-black text-center">Conociendote un poco mas</h1>
-      <h2 class="body-base-black text-center">
-        Necesitamos saber mas sobre ti para que tu experiencia en la plataforma
-        sea la mejor.
-      </h2>
-    </div>
+	<form (ngSubmit)="onSubmit()" [formGroup]="registerStep3" action="" class="w-[450px]">
+		<div class="flex flex-col gap-4 my-16">
+			<h1 class="title-3xl-black text-center">Conociendote un poco mas</h1>
+			<h2 class="body-base-black text-center">
+				Necesitamos saber mas sobre ti para que tu experiencia en la plataforma sea la mejor.
+			</h2>
+		</div>
 
-    <div class="flex flex-col gap-4">
-      <label for="areaOfExpertise" class="flex flex-col gap-1">
-        <p
-          class="font-bold text-black-principal dark:text-white-principal text-base font-title"
-        >
-          Áreas de conocimiento
-        </p>
+		<div class="flex flex-col gap-4">
+			<label for="areaOfExpertise" class="flex flex-col gap-1">
+				<p class="font-bold text-black-principal dark:text-white-principal text-base font-title">
+					Áreas de conocimiento
+				</p>
 
-        <select
-          id="areaOfExpertise"
-          formControlName="areaOfExpertise"
-          [ngClass]="{
-            'input-standard h-10 w-full rounded-md cursor-pointer': true,
-            'input-error': !isValid('areaOfExpertise'),
-            'input-regular': isValid('areaOfExpertise')
-          }"
-        >
-          <option value="" selected disabled>
-            seleccionar una o varias áreas
-          </option>
-          <option value="Arte">Arte</option>
-          <option value="Informatica">Informatica</option>
-          <option value="Humanidades">Humanidades</option>
-          <option value="Ciencias">Ciencias</option>
-          <option value="Ingenieria">Ingenieria</option>
-          <option value="Entretenimiento">Entretenimiento</option>
-          <option value="Comunicaciones">Comunicaciones</option>
-          <option value="Marketing">Marketing</option>
-          <option value="Otro">Otro</option>
-        </select>
+				<select
+					id="areaOfExpertise"
+					formControlName="areaOfExpertise"
+					[ngClass]="{
+						'input-standard h-10 w-full rounded-md cursor-pointer': true,
+						'input-error': !isValid('areaOfExpertise'),
+						'input-regular': isValid('areaOfExpertise')
+					}"
+				>
+					<option value="" selected disabled>seleccionar una o varias áreas</option>
+					<option value="Arte">Arte</option>
+					<option value="Informatica">Informatica</option>
+					<option value="Humanidades">Humanidades</option>
+					<option value="Ciencias">Ciencias</option>
+					<option value="Ingenieria">Ingenieria</option>
+					<option value="Entretenimiento">Entretenimiento</option>
+					<option value="Comunicaciones">Comunicaciones</option>
+					<option value="Marketing">Marketing</option>
+					<option value="Otro">Otro</option>
+				</select>
 
-        <custom-errors-message
-          *ngIf="!isValid('areaOfExpertise')"
-          [formGroup]="registerStep3"
-          controlName="areaOfExpertise"
-          class="title-error-small"
-        >
-        </custom-errors-message>
-      </label>
+				<custom-errors-message
+					*ngIf="!isValid('areaOfExpertise')"
+					[formGroup]="registerStep3"
+					controlName="areaOfExpertise"
+					class="title-error-small"
+				>
+				</custom-errors-message>
+			</label>
 
-      <label for="profession" class="flex flex-col gap-1">
-        <p
-          class="font-bold text-black-principal dark:text-white-principal text-base font-title"
-        >
-          Profesión destacada
-        </p>
-        <select
-          formControlName="profession"
-          [ngClass]="{
-            'input-standard h-10 w-full rounded-md cursor-pointer': true,
-            'input-error': !isValid('profession'),
-            'input-regular': isValid('profession')
-          }"
-        >
-          <option value="" selected disabled>seleccionar tu profesión</option>
-          <option value="programador">programador</option>
-          <option value="Veterinario">Veterinario</option>
-          <option value="Bioquimico">Bioquimico</option>
-          <option value="Profesor/ra">Profesor/ra</option>
-        </select>
+			<label for="profession" class="flex flex-col gap-1">
+				<p class="font-bold text-black-principal dark:text-white-principal text-base font-title">Profesión destacada</p>
+				<select
+					formControlName="profession"
+					[ngClass]="{
+						'input-standard h-10 w-full rounded-md cursor-pointer': true,
+						'input-error': !isValid('profession'),
+						'input-regular': isValid('profession')
+					}"
+				>
+					<option value="" selected disabled>seleccionar tu profesión</option>
+					<option value="programador">programador</option>
+					<option value="Veterinario">Veterinario</option>
+					<option value="Bioquimico">Bioquimico</option>
+					<option value="Profesor/ra">Profesor/ra</option>
+				</select>
 
-        <custom-errors-message
-          *ngIf="!isValid('profession')"
-          [formGroup]="registerStep3"
-          controlName="profession"
-          class="title-error-small"
-        >
-        </custom-errors-message>
-      </label>
+				<custom-errors-message
+					*ngIf="!isValid('profession')"
+					[formGroup]="registerStep3"
+					controlName="profession"
+					class="title-error-small"
+				>
+				</custom-errors-message>
+			</label>
 
-      <button
-        [ngClass]="{
-          'btn-solid-blue rounded-md opacity-50': !registerStep3.valid,
-          'btn-ghost-solid-success': registerStep3.valid
-        }"
-        class="h-10 w-full"
-        type="submit"
-        [disabled]="!registerStep3.valid"
-      >
-        Finalizar
-      </button>
-    </div>
-  </form>
+			<button
+				[ngClass]="{
+					'btn-solid-blue rounded-md opacity-50': !registerStep3.valid,
+					'btn-ghost-solid-success': registerStep3.valid
+				}"
+				class="h-10 w-full"
+				type="submit"
+				[disabled]="!registerStep3.valid"
+			>
+				Finalizar
+			</button>
+		</div>
+	</form>
 </div>

@@ -8,35 +8,33 @@ import { WorkiiActions } from '../../../workiis/state/actions/workii.actions';
 import { selectUsersApplyToWorkii } from '../../../workiis/state/selectors/workii.selectors';
 
 @Component({
-  selector: 'info-workii-owner',
-  templateUrl: './info-workii-owner.component.html',
-  styleUrls: ['./info-workii-owner.component.scss']
+	selector: 'info-workii-owner',
+	templateUrl: './info-workii-owner.component.html',
+	styleUrls: ['./info-workii-owner.component.scss']
 })
 export class InfoWorkiiOwnerComponent {
+	@Input()
+	workii!: IWorkii;
 
-  @Input()
-  workii!: IWorkii;
+	@Input()
+	userCurrentId!: string;
 
-  @Input()
-  userCurrentId!: string;
+	applyUsersToWorkii$!: Observable<readonly IUsersApplicationResponse[]>;
 
-  applyUsersToWorkii$!: Observable<readonly IUsersApplicationResponse[]>
+	constructor(private store: Store<IAppState>) {}
 
-  constructor(private store: Store<IAppState>) {}
+	ngOnInit(): void {
+		console.log(this.workii.id);
 
-  ngOnInit(): void {
+		this.applyUsersToWorkii$ = this.store.select(selectUsersApplyToWorkii);
+		this.store.dispatch(WorkiiActions.loadUsersApply(this.workii.id, { limit: 10, offset: 0 }));
+	}
 
-    console.log(this.workii.id);
+	shareWorkii(event: Event) {
+		event.stopPropagation();
+	}
 
-    this.applyUsersToWorkii$ = this.store.select(selectUsersApplyToWorkii)
-    this.store.dispatch(WorkiiActions.loadUsersApply(this.workii.id, {limit: 10, offset: 0}))
-  }
-
-  shareWorkii(event: Event) {
-    event.stopPropagation()
-  }
-
-  async applyWorkii() {
-    this.store.dispatch(WorkiiActions.applyWorkiiRequest(this.userCurrentId,this.workii.id!))
-  }
+	async applyWorkii() {
+		this.store.dispatch(WorkiiActions.applyWorkiiRequest(this.userCurrentId, this.workii.id!));
+	}
 }

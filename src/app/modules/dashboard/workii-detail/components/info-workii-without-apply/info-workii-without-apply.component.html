@@ -1,140 +1,158 @@
 <div>
-  <div
-    class="flex flex-row justify-between w-full gap-4 px-4 p-4 bg-gray-lighter rounded-xl h-auto"
-  >
-    <div class="flex flex-col gap-4 h-auto w-full">
-      <div class="flex flex-row gap-4 items-start justify-between">
-        <div class="flex flex-row justify-between gap-2 items-center">
-          <div class="w-16 h-16 bg-white-principal dark:bg-black-principal rounded-full flex justify-center items-center shadow-sm shadow-slate-500 dark:shadow-slate-400">
-            <ng-container [ngSwitch]="workii?.target">
-              <img class="h-10 w-auto" *ngSwitchCase="'Arte'" src="../../../../../../assets/images/svg/icon-art.svg" alt="icon art">
-              <img class="h-10 w-auto" *ngSwitchCase="'Informatica'" src="../../../../../../assets/images/svg/icon-informatics.svg" alt="icon informatics">
-              <img class="h-10 w-auto" *ngSwitchCase="'Humanidades'" src="../../../../../../assets/images/svg/icon-humanities.svg" alt="icon humanities">
-              <img class="h-10 w-auto" *ngSwitchCase="'Ciencias'" src="../../../../../../assets/images/svg/icon-sciences.svg" alt="icon sciences">
-              <img class="h-10 w-auto" *ngSwitchCase="'Ingenieria'" src="../../../../../../assets/images/svg/icon-engineering.svg" alt="icon engineering">
-              <img class="h-10 w-auto" *ngSwitchCase="'Entretenimiento'" src="../../../../../../assets/images/svg/icon-entertainment.svg" alt="icon entertainment">
-              <img class="h-10 w-auto" *ngSwitchCase="'Comunicaciones'" src="../../../../../../assets/images/svg/icon-communications.svg" alt="icon communications">
-              <img class="h-10 w-auto" *ngSwitchCase="'Marketing'" src="../../../../../../assets/images/svg/icon-marketing.svg" alt="icon marketing">
-              <img class="h-10 w-auto" *ngSwitchCase="'Otros'" src="../../../../../../assets/images/svg/icon-others.svg" alt="icon others">
-            </ng-container>
-          </div>
+	<div class="flex flex-row justify-between w-full gap-4 px-4 p-4 bg-gray-lighter rounded-xl h-auto">
+		<div class="flex flex-col gap-4 h-auto w-full">
+			<div class="flex flex-row gap-4 items-start justify-between">
+				<div class="flex flex-row justify-between gap-2 items-center">
+					<div
+						class="w-16 h-16 bg-white-principal dark:bg-black-principal rounded-full flex justify-center items-center shadow-sm shadow-slate-500 dark:shadow-slate-400"
+					>
+						<ng-container [ngSwitch]="workii?.target">
+							<img
+								class="h-10 w-auto"
+								*ngSwitchCase="'Arte'"
+								src="../../../../../../assets/images/svg/icon-art.svg"
+								alt="icon art"
+							/>
+							<img
+								class="h-10 w-auto"
+								*ngSwitchCase="'Informatica'"
+								src="../../../../../../assets/images/svg/icon-informatics.svg"
+								alt="icon informatics"
+							/>
+							<img
+								class="h-10 w-auto"
+								*ngSwitchCase="'Humanidades'"
+								src="../../../../../../assets/images/svg/icon-humanities.svg"
+								alt="icon humanities"
+							/>
+							<img
+								class="h-10 w-auto"
+								*ngSwitchCase="'Ciencias'"
+								src="../../../../../../assets/images/svg/icon-sciences.svg"
+								alt="icon sciences"
+							/>
+							<img
+								class="h-10 w-auto"
+								*ngSwitchCase="'Ingenieria'"
+								src="../../../../../../assets/images/svg/icon-engineering.svg"
+								alt="icon engineering"
+							/>
+							<img
+								class="h-10 w-auto"
+								*ngSwitchCase="'Entretenimiento'"
+								src="../../../../../../assets/images/svg/icon-entertainment.svg"
+								alt="icon entertainment"
+							/>
+							<img
+								class="h-10 w-auto"
+								*ngSwitchCase="'Comunicaciones'"
+								src="../../../../../../assets/images/svg/icon-communications.svg"
+								alt="icon communications"
+							/>
+							<img
+								class="h-10 w-auto"
+								*ngSwitchCase="'Marketing'"
+								src="../../../../../../assets/images/svg/icon-marketing.svg"
+								alt="icon marketing"
+							/>
+							<img
+								class="h-10 w-auto"
+								*ngSwitchCase="'Otros'"
+								src="../../../../../../assets/images/svg/icon-others.svg"
+								alt="icon others"
+							/>
+						</ng-container>
+					</div>
 
-          <div class="flex flex-col">
-            <p class="title-lg-black">
-              {{ workii?.name }}
-            </p>
-            <div class="flex flex-row gap-2">
-              <div class="flex flex-row gap-1 items-center">
-                <img
-                  class="w-4 h-4"
-                  src="../../../../../../assets/images/svg/icon-target.svg"
-                  alt="icon target"
-                />
-                <p>{{ workii?.target }}</p>
-              </div>
-              <div class="flex flex-row gap-1 items-center">
-                <img
-                  class="w-4 h-4"
-                  src="../../../../../../assets/images/svg/icon-time.svg"
-                  alt="icon time"
-                />
-                <p>{{ workii?.executionTime }} días</p>
-              </div>
-              <div class="flex flex-row gap-1 items-center">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M9.13179 0.470073C8.98337 0.321079 8.80699 0.202858 8.61277 0.122191C8.41854 0.0415245 8.21031 0 8 0C7.78969 0 7.58146 0.0415245 7.38723 0.122191C7.19301 0.202858 7.01663 0.321079 6.86821 0.470073L0.470073 6.86821C0.321079 7.01663 0.202858 7.19301 0.122191 7.38723C0.0415245 7.58146 0 7.78969 0 8C0 8.21031 0.0415245 8.41854 0.122191 8.61277C0.202858 8.80699 0.321079 8.98337 0.470073 9.13179L6.86821 15.5299C7.01663 15.6789 7.19301 15.7971 7.38723 15.8778C7.58146 15.9585 7.78969 16 8 16C8.21031 16 8.41854 15.9585 8.61277 15.8778C8.80699 15.7971 8.98337 15.6789 9.13179 15.5299L15.5299 9.13179C15.6789 8.98337 15.7971 8.80699 15.8778 8.61277C15.9585 8.41854 16 8.21031 16 8C16 7.78969 15.9585 7.58146 15.8778 7.38723C15.7971 7.19301 15.6789 7.01663 15.5299 6.86821L9.13179 0.470073Z"
-                    fill="#2FA725"
-                  />
-                </svg>
+					<div class="flex flex-col">
+						<p class="title-lg-black">
+							{{ workii?.name }}
+						</p>
+						<div class="flex flex-row gap-2">
+							<div class="flex flex-row gap-1 items-center">
+								<img class="w-4 h-4" src="../../../../../../assets/images/svg/icon-target.svg" alt="icon target" />
+								<p>{{ workii?.target }}</p>
+							</div>
+							<div class="flex flex-row gap-1 items-center">
+								<img class="w-4 h-4" src="../../../../../../assets/images/svg/icon-time.svg" alt="icon time" />
+								<p>{{ workii?.executionTime }} días</p>
+							</div>
+							<div class="flex flex-row gap-1 items-center">
+								<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path
+										fill-rule="evenodd"
+										clip-rule="evenodd"
+										d="M9.13179 0.470073C8.98337 0.321079 8.80699 0.202858 8.61277 0.122191C8.41854 0.0415245 8.21031 0 8 0C7.78969 0 7.58146 0.0415245 7.38723 0.122191C7.19301 0.202858 7.01663 0.321079 6.86821 0.470073L0.470073 6.86821C0.321079 7.01663 0.202858 7.19301 0.122191 7.38723C0.0415245 7.58146 0 7.78969 0 8C0 8.21031 0.0415245 8.41854 0.122191 8.61277C0.202858 8.80699 0.321079 8.98337 0.470073 9.13179L6.86821 15.5299C7.01663 15.6789 7.19301 15.7971 7.38723 15.8778C7.58146 15.9585 7.78969 16 8 16C8.21031 16 8.41854 15.9585 8.61277 15.8778C8.80699 15.7971 8.98337 15.6789 9.13179 15.5299L15.5299 9.13179C15.6789 8.98337 15.7971 8.80699 15.8778 8.61277C15.9585 8.41854 16 8.21031 16 8C16 7.78969 15.9585 7.58146 15.8778 7.38723C15.7971 7.19301 15.6789 7.01663 15.5299 6.86821L9.13179 0.470073Z"
+										fill="#2FA725"
+									/>
+								</svg>
 
-                <p>{{ workii?.status }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
+								<p>{{ workii?.status }}</p>
+							</div>
+						</div>
+					</div>
+				</div>
 
-        <button
-          (click)="shareWorkii($event)"
-          class="btn-ghost-neutral-blue-light h-10 w-10 parent-hover"
-        >
-          <svg
-            class="child-hover"
-            width="24"
-            height="27"
-            viewBox="0 0 24 27"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M20 18.1333C19.05 18.1333 18.1733 18.4667 17.4867 19.0233L10.58 14.0267C10.6956 13.3919 10.6956 12.7414 10.58 12.1067L17.4867 7.11C18.1733 7.66667 19.05 8 20 8C22.2067 8 24 6.20667 24 4C24 1.79333 22.2067 0 20 0C17.7933 0 16 1.79333 16 4C16 4.38667 16.0533 4.75667 16.1567 5.11L9.59667 9.86C8.62333 8.57 7.07667 7.73333 5.33333 7.73333C2.38667 7.73333 0 10.12 0 13.0667C0 16.0133 2.38667 18.4 5.33333 18.4C7.07667 18.4 8.62333 17.5633 9.59667 16.2733L16.1567 21.0233C16.0533 21.3767 16 21.75 16 22.1333C16 24.34 17.7933 26.1333 20 26.1333C22.2067 26.1333 24 24.34 24 22.1333C24 19.9267 22.2067 18.1333 20 18.1333ZM20 2.26667C20.9567 2.26667 21.7333 3.04333 21.7333 4C21.7333 4.95667 20.9567 5.73333 20 5.73333C19.0433 5.73333 18.2667 4.95667 18.2667 4C18.2667 3.04333 19.0433 2.26667 20 2.26667ZM5.33333 16C3.71667 16 2.4 14.6833 2.4 13.0667C2.4 11.45 3.71667 10.1333 5.33333 10.1333C6.95 10.1333 8.26667 11.45 8.26667 13.0667C8.26667 14.6833 6.95 16 5.33333 16ZM20 23.8667C19.0433 23.8667 18.2667 23.09 18.2667 22.1333C18.2667 21.1767 19.0433 20.4 20 20.4C20.9567 20.4 21.7333 21.1767 21.7333 22.1333C21.7333 23.09 20.9567 23.8667 20 23.8667Z"
-            />
-          </svg>
-        </button>
-      </div>
+				<button (click)="shareWorkii($event)" class="btn-ghost-neutral-blue-light h-10 w-10 parent-hover">
+					<svg
+						class="child-hover"
+						width="24"
+						height="27"
+						viewBox="0 0 24 27"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M20 18.1333C19.05 18.1333 18.1733 18.4667 17.4867 19.0233L10.58 14.0267C10.6956 13.3919 10.6956 12.7414 10.58 12.1067L17.4867 7.11C18.1733 7.66667 19.05 8 20 8C22.2067 8 24 6.20667 24 4C24 1.79333 22.2067 0 20 0C17.7933 0 16 1.79333 16 4C16 4.38667 16.0533 4.75667 16.1567 5.11L9.59667 9.86C8.62333 8.57 7.07667 7.73333 5.33333 7.73333C2.38667 7.73333 0 10.12 0 13.0667C0 16.0133 2.38667 18.4 5.33333 18.4C7.07667 18.4 8.62333 17.5633 9.59667 16.2733L16.1567 21.0233C16.0533 21.3767 16 21.75 16 22.1333C16 24.34 17.7933 26.1333 20 26.1333C22.2067 26.1333 24 24.34 24 22.1333C24 19.9267 22.2067 18.1333 20 18.1333ZM20 2.26667C20.9567 2.26667 21.7333 3.04333 21.7333 4C21.7333 4.95667 20.9567 5.73333 20 5.73333C19.0433 5.73333 18.2667 4.95667 18.2667 4C18.2667 3.04333 19.0433 2.26667 20 2.26667ZM5.33333 16C3.71667 16 2.4 14.6833 2.4 13.0667C2.4 11.45 3.71667 10.1333 5.33333 10.1333C6.95 10.1333 8.26667 11.45 8.26667 13.0667C8.26667 14.6833 6.95 16 5.33333 16ZM20 23.8667C19.0433 23.8667 18.2667 23.09 18.2667 22.1333C18.2667 21.1767 19.0433 20.4 20 20.4C20.9567 20.4 21.7333 21.1767 21.7333 22.1333C21.7333 23.09 20.9567 23.8667 20 23.8667Z"
+						/>
+					</svg>
+				</button>
+			</div>
 
-      <div class="w-full animate__animated animate__fadeIn animate__faster">
-        <div class="flex flex-col gap-4 mt-4">
-          <p class="title-base-black">Descripción</p>
-          <p class="body-base-black">
-            {{ workii?.description }}
-          </p>
-        </div>
+			<div class="w-full animate__animated animate__fadeIn animate__faster">
+				<div class="flex flex-col gap-4 mt-4">
+					<p class="title-base-black">Descripción</p>
+					<p class="body-base-black">
+						{{ workii?.description }}
+					</p>
+				</div>
 
-        <div class="flex flex-col gap-4 mt-6">
-          <p class="title-base-black">Tareas especificas</p>
+				<div class="flex flex-col gap-4 mt-6">
+					<p class="title-base-black">Tareas especificas</p>
 
-          <div class="flex flex-col gap-4 overflow-auto h-auto">
-            <ng-container *ngFor="let task of workii?.toDoList">
-              <label
-                class="flex flex-row gap-2 items-center cursor-pointer w-full p-2 h-auto hover:bg-gray-neutral rounded-md"
-                for="check"
-              >
-                <input
-                  disabled
-                  id="check"
-                  type="checkbox"
-                  class="border-[2px] rounded-md h-6 w-6 ring-0 cursor-pointer"
-                />
-                <p class="body-base-black">
-                  {{ task }}
-                </p>
-              </label>
-            </ng-container>
-          </div>
+					<div class="flex flex-col gap-4 overflow-auto h-auto">
+						<ng-container *ngFor="let task of workii?.toDoList">
+							<label
+								class="flex flex-row gap-2 items-center cursor-pointer w-full p-2 h-auto hover:bg-gray-neutral rounded-md"
+								for="check"
+							>
+								<input
+									disabled
+									id="check"
+									type="checkbox"
+									class="border-[2px] rounded-md h-6 w-6 ring-0 cursor-pointer"
+								/>
+								<p class="body-base-black">
+									{{ task }}
+								</p>
+							</label>
+						</ng-container>
+					</div>
 
-          <div class="flex flex-row justify-between">
-            <div
-              class="h-10 w-10 hover:bg-gray-neutral rounded-md flex flex-row gap-2 justify-center items-center cursor-pointer"
-            >
-              <img
-                class="h-6 w-auto"
-                src="../../../../../../assets/images/svg/icon-person.svg"
-                alt="icon person"
-              />
-              <p class="title-base-black">
-                {{ workii?.applications }}
-              </p>
-            </div>
+					<div class="flex flex-row justify-between">
+						<div
+							class="h-10 w-10 hover:bg-gray-neutral rounded-md flex flex-row gap-2 justify-center items-center cursor-pointer"
+						>
+							<img class="h-6 w-auto" src="../../../../../../assets/images/svg/icon-person.svg" alt="icon person" />
+							<p class="title-base-black">
+								{{ workii?.applications }}
+							</p>
+						</div>
 
-            <button
-              type="button"
-              (click)="applyWorkii()"
-              class="btn-solid-blue p-4 h-12 rounded-md"
-            >
-              Aplicar
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+						<button type="button" (click)="applyWorkii()" class="btn-solid-blue p-4 h-12 rounded-md">Aplicar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

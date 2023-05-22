@@ -1,32 +1,32 @@
 {
-    "nav": {
-        "lang": "Idioma",
-        "titleOne": "Ingresar",
-        "btnOne": "Crear un worki"
-    },
+	"nav": {
+		"lang": "Idioma",
+		"titleOne": "Ingresar",
+		"btnOne": "Crear un worki"
+	},
 
-    "header": {
-      "titleParagraph": "Crea tu worki y ofrece una recompensa justa para quien pueda realizarlo",
-      "btnTwo": "Crear un worki"
-  },
+	"header": {
+		"titleParagraph": "Crea tu worki y ofrece una recompensa justa para quien pueda realizarlo",
+		"btnTwo": "Crear un worki"
+	},
 
-  "body":{
-    "titleText1":"Crea",
-    "titleParagraph1": "Crea tu workie y empieza a buscar tu talento ideal.",
-    "titleText2":"Aplica",
-    "titleParagraph2":"Aplica a un workie y espera ha ser elegido.",
-    "titleText3":"Calidad",
-    "titleParagraph3": "Depende de tu calidad en cada entrega para seguir consiguiendo workies facilmente.",
-    "titleText4":"Reputación",
-    "titleParagraph4": "Tu reputación también será decisivo para poder ser elegido mas facilmente a la hora de hacer un workie.",
-    "btnThree": "Empezar",
-    "title1": "Crea tu worki ",
-    "paragraph1": "Registrate y empeza a crear tu workie en unos cuantos clicks, buscar un talento nunca había sido tan facil!",
-    "title2":"Aplica a un worki ",
-    "paragraph2":"Si cuentas con el talento que requiere el worki, no dudes en aplicar. Recuerda llenar bien tu perfil para que sea mas facil ser aceptado.",
-    "title3":"Calidad en la ejeción",
-    "paragraph3":"Haz un buen trabajo en la entrega de cada uno de tus workies así aseguraras que te recomienden para un próximo worki.",
-    "title4":"Cuida tu reputación",
-    "paragraph4":"Otras personas podrán ver los comentarios y el promedio de calificaciones que tienes, asegurate de dejar la mejor impresión."
-  }
+	"body": {
+		"titleText1": "Crea",
+		"titleParagraph1": "Crea tu workie y empieza a buscar tu talento ideal.",
+		"titleText2": "Aplica",
+		"titleParagraph2": "Aplica a un workie y espera ha ser elegido.",
+		"titleText3": "Calidad",
+		"titleParagraph3": "Depende de tu calidad en cada entrega para seguir consiguiendo workies facilmente.",
+		"titleText4": "Reputación",
+		"titleParagraph4": "Tu reputación también será decisivo para poder ser elegido mas facilmente a la hora de hacer un workie.",
+		"btnThree": "Empezar",
+		"title1": "Crea tu worki ",
+		"paragraph1": "Registrate y empeza a crear tu workie en unos cuantos clicks, buscar un talento nunca había sido tan facil!",
+		"title2": "Aplica a un worki ",
+		"paragraph2": "Si cuentas con el talento que requiere el worki, no dudes en aplicar. Recuerda llenar bien tu perfil para que sea mas facil ser aceptado.",
+		"title3": "Calidad en la ejeción",
+		"paragraph3": "Haz un buen trabajo en la entrega de cada uno de tus workies así aseguraras que te recomienden para un próximo worki.",
+		"title4": "Cuida tu reputación",
+		"paragraph4": "Otras personas podrán ver los comentarios y el promedio de calificaciones que tienes, asegurate de dejar la mejor impresión."
+	}
 }

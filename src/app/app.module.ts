@@ -23,51 +23,49 @@ import player from 'lottie-web';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
 export function playerFactory() {
-  return player;
+	return player;
 }
 
 export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+	return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
-  return localStorageSync({ keys: ['token', 'access_token_expiration', 'code_verifier', 'theme'], rehydrate: true })(reducer);
+	return localStorageSync({ keys: ['token', 'access_token_expiration', 'code_verifier', 'theme'], rehydrate: true })(
+		reducer
+	);
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
-  imports: [
-    BrowserModule,
-    LayoutCoreModule,
-    RouterModule,
-    AppRoutingModule,
-    DashboardModule,
-    HttpClientModule,
-    StoreModule.forRoot(ROOT_REDUCERS, {
-      metaReducers: [localStorageSyncReducer],
-      runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true,
-        strictStateSerializability: true,
-        strictActionSerializability: true,
-      },
-    }),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    EffectsModule.forRoot([WorkiiEffects, UserEffects]),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
-        deps: [HttpClient]
-      }
-    }),
-    [NgxLottieModule.forRoot({ player: playerFactory })],
-  ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
-  ],
-  bootstrap: [AppComponent]
+	declarations: [AppComponent],
+	imports: [
+		BrowserModule,
+		LayoutCoreModule,
+		RouterModule,
+		AppRoutingModule,
+		DashboardModule,
+		HttpClientModule,
+		StoreModule.forRoot(ROOT_REDUCERS, {
+			metaReducers: [localStorageSyncReducer],
+			runtimeChecks: {
+				strictStateImmutability: true,
+				strictActionImmutability: true,
+				strictStateSerializability: true,
+				strictActionSerializability: true
+			}
+		}),
+		StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+		EffectsModule.forRoot([WorkiiEffects, UserEffects]),
+		TranslateModule.forRoot({
+			loader: {
+				provide: TranslateLoader,
+				useFactory: createTranslateLoader,
+				deps: [HttpClient]
+			}
+		}),
+		[NgxLottieModule.forRoot({ player: playerFactory })]
+	],
+	providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+	bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

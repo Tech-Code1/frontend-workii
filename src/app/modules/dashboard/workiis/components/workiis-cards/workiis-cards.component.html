@@ -1,22 +1,17 @@
+<ng-container *ngIf="shouldDisplayContent()">
+	<workiis-content
+		[workiis]="searchWorkiis"
+		[applications]="applications"
+		[userCurrentId]="userCurrentId"
+		[isFilterOpened]="isFilterOpened"
+	></workiis-content>
+</ng-container>
 
-  <ng-container *ngIf="shouldDisplayContent()">
-
-    <workiis-content
-    [workiis]="searchWorkiis"
-    [applications]="applications"
-    [userCurrentId]="userCurrentId"
-    [isFilterOpened]="isFilterOpened"
-    ></workiis-content>
-
-  </ng-container>
-
-  <ng-container *ngIf="notDisplayContent()">
-
-    <workiis-content
-    [workiis]="workiis"
-    [applications]="applications"
-    [userCurrentId]="userCurrentId"
-    [isFilterOpened]="isFilterOpened"
-    ></workiis-content>
-
-  </ng-container>
+<ng-container *ngIf="notDisplayContent()">
+	<workiis-content
+		[workiis]="workiis"
+		[applications]="applications"
+		[userCurrentId]="userCurrentId"
+		[isFilterOpened]="isFilterOpened"
+	></workiis-content>
+</ng-container>

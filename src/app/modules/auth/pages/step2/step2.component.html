@@ -1,138 +1,112 @@
 <div class="flex w-full custom-heigh justify-center items-center flex-grow">
-  <form
-    (ngSubmit)="onSubmit()"
-    [formGroup]="registerStep2"
-    action=""
-    class="w-[450px]"
-  >
-    <div class="flex flex-col gap-4 mt-16">
-      <h1 class="title-3xl-black text-center">Bienvenido a Worki</h1>
-      <h2 class="title-base-black text-center">Queremos conocerte</h2>
-    </div>
+	<form (ngSubmit)="onSubmit()" [formGroup]="registerStep2" action="" class="w-[450px]">
+		<div class="flex flex-col gap-4 mt-16">
+			<h1 class="title-3xl-black text-center">Bienvenido a Worki</h1>
+			<h2 class="title-base-black text-center">Queremos conocerte</h2>
+		</div>
 
-    <div class="flex flex-col gap-4 my-8 items-center">
-      <div
-        class="h-24 w-24 bg-gray-neutral rounded-full flex justify-center items-center cursor-pointer"
-        (click)="avatarInput.click()"
-      >
-        <div *ngIf="images['avatar']" class="h-24 w-24">
-          <img
-            loading="lazy"
-            class="h-full w-full rounded-full object-cover"
-            [src]="images['avatar']"
-          />
-        </div>
+		<div class="flex flex-col gap-4 my-8 items-center">
+			<div
+				class="h-24 w-24 bg-gray-neutral rounded-full flex justify-center items-center cursor-pointer"
+				(click)="avatarInput.click()"
+			>
+				<div *ngIf="images['avatar']" class="h-24 w-24">
+					<img loading="lazy" class="h-full w-full rounded-full object-cover" [src]="images['avatar']" />
+				</div>
 
-        <input
-          #avatarInput
-          hidden
-          (change)="showImgPreview($event, 'avatar')"
-          type="file"
-        />
+				<input #avatarInput hidden (change)="showImgPreview($event, 'avatar')" type="file" />
 
-        <img
-          *ngIf="!images['avatar']"
-          src="../../../../../assets/images/svg/icon-avatar.svg"
-          alt="icon avatar"
-        />
-      </div>
+				<img *ngIf="!images['avatar']" src="../../../../../assets/images/svg/icon-avatar.svg" alt="icon avatar" />
+			</div>
 
-      <custom-errors-message
-        *ngIf="!isValid('avatar')"
-        [formGroup]="registerStep2"
-        controlName="avatar"
-        class="title-error-small"
-      >
-      </custom-errors-message>
+			<custom-errors-message
+				*ngIf="!isValid('avatar')"
+				[formGroup]="registerStep2"
+				controlName="avatar"
+				class="title-error-small"
+			>
+			</custom-errors-message>
 
-      <button
-        type="button"
-        (click)="avatarInput.click()"
-        for="upload"
-        class="title-base-black underline flex relative w-fit cursor-pointer"
-      >
-        Subir foto
-        <input type="file" id="upload" class="absolute hidden" />
-      </button>
-    </div>
+			<button
+				type="button"
+				(click)="avatarInput.click()"
+				for="upload"
+				class="title-base-black underline flex relative w-fit cursor-pointer"
+			>
+				Subir foto
+				<input type="file" id="upload" class="absolute hidden" />
+			</button>
+		</div>
 
-    <div class="flex flex-col gap-4">
-      <label for="nick" class="flex flex-col gap-1">
-        <p
-          class="font-bold text-black-principal dark:text-white-principal text-base font-title"
-        >
-          Nick
-        </p>
-        <input
-          formControlName="nick"
-          [ngClass]="{
-            'input-standard h-10 w-full rounded-md': true,
-            'input-error': !isValid('nick'),
-            'input-regular': isValid('nick')
-          }"
-          type="text"
-          placeholder="John Doe"
-          autocomplete="nickname"
-        />
+		<div class="flex flex-col gap-4">
+			<label for="nick" class="flex flex-col gap-1">
+				<p class="font-bold text-black-principal dark:text-white-principal text-base font-title">Nick</p>
+				<input
+					formControlName="nick"
+					[ngClass]="{
+						'input-standard h-10 w-full rounded-md': true,
+						'input-error': !isValid('nick'),
+						'input-regular': isValid('nick')
+					}"
+					type="text"
+					placeholder="John Doe"
+					autocomplete="nickname"
+				/>
 
-        <custom-errors-message
-          *ngIf="!isValid('email')"
-          [formGroup]="registerStep2"
-          controlName="email"
-          class="title-error-small"
-        >
-        </custom-errors-message>
-      </label>
+				<custom-errors-message
+					*ngIf="!isValid('email')"
+					[formGroup]="registerStep2"
+					controlName="email"
+					class="title-error-small"
+				>
+				</custom-errors-message>
+			</label>
 
-      <label for="password" class="flex flex-col gap-1">
-        <p
-          class="font-bold text-black-principal dark:text-white-principal text-base font-title"
-        >
-          Repetir contraseña
-        </p>
-        <input
-          formControlName="password"
-          [ngClass]="{
-            'input-standard h-10 w-full rounded-md': true,
-            'input-error': !isValid('password'),
-            'input-regular': isValid('password')
-          }"
-          type="password"
-          placeholder="******"
-          autocomplete="new-password"
-        />
+			<label for="password" class="flex flex-col gap-1">
+				<p class="font-bold text-black-principal dark:text-white-principal text-base font-title">Repetir contraseña</p>
+				<input
+					formControlName="password"
+					[ngClass]="{
+						'input-standard h-10 w-full rounded-md': true,
+						'input-error': !isValid('password'),
+						'input-regular': isValid('password')
+					}"
+					type="password"
+					placeholder="******"
+					autocomplete="new-password"
+				/>
 
-        <custom-errors-message
-          *ngIf="!isValid('password')"
-          [formGroup]="registerStep2"
-          controlName="password"
-          class="title-error-small"
-        >
-        </custom-errors-message>
-      </label>
+				<custom-errors-message
+					*ngIf="!isValid('password')"
+					[formGroup]="registerStep2"
+					controlName="password"
+					class="title-error-small"
+				>
+				</custom-errors-message>
+			</label>
 
-      <button
-        [ngClass]="{
-          'btn-solid-blue rounded-md opacity-50': !registerStep2.valid,
-          'btn-ghost-solid-success': registerStep2.valid
-        }"
-        class="h-10 w-full"
-        type="submit"
-        [disabled]="!registerStep2.valid"
-      >
-        Continuar
-      </button>
-    </div>
+			<button
+				[ngClass]="{
+					'btn-solid-blue rounded-md opacity-50': !registerStep2.valid,
+					'btn-ghost-solid-success': registerStep2.valid
+				}"
+				class="h-10 w-full"
+				type="submit"
+				[disabled]="!registerStep2.valid"
+			>
+				Continuar
+			</button>
+		</div>
 
-    <div class="h-0.5 bg-gray-neutral w-full my-6"></div>
+		<div class="h-0.5 bg-gray-neutral w-full my-6"></div>
 
-    <div class="flex gap-2 justify-center mt-9">
-      <p class="body-sm-black text-center">
-        Estas creando una cuenta con el correo
-        <span class="text-primary-blueNeutral">{{ email$ | async }}</span>
-        Si quieres crearla con otro,
-        <a href="/auth" class="underline"> ingresa con otro correo.</a>
-      </p>
-    </div>
-  </form>
+		<div class="flex gap-2 justify-center mt-9">
+			<p class="body-sm-black text-center">
+				Estas creando una cuenta con el correo
+				<span class="text-primary-blueNeutral">{{ email$ | async }}</span>
+				Si quieres crearla con otro,
+				<a href="/auth" class="underline"> ingresa con otro correo.</a>
+			</p>
+		</div>
+	</form>
 </div>

@@ -13,24 +13,8 @@ import { SelectLangComponent } from './components/select-lang/select-lang.compon
 import { TemplateRootComponent } from './template-root/template-root.component';
 
 @NgModule({
-  declarations: [
-    SelectLangComponent,
-    BtnLoginComponent,
-    BtnSupportComponent,
-    NavComponent,
-    TemplateRootComponent,
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    TranslateModule,
-    SharedModule,
-    ShareDirectiveModule
-  ],
-  exports: [
-    TemplateRootComponent,
-    BtnSupportComponent,
-    SelectLangComponent,
-  ]
+	declarations: [SelectLangComponent, BtnLoginComponent, BtnSupportComponent, NavComponent, TemplateRootComponent],
+	imports: [CommonModule, RouterModule, TranslateModule, SharedModule, ShareDirectiveModule],
+	exports: [TemplateRootComponent, BtnSupportComponent, SelectLangComponent]
 })
-export class LayoutCoreModule { }
+export class LayoutCoreModule {}

@@ -14,21 +14,14 @@ import { Step3Component } from './pages/step3/step3.component';
 import { ValidateOtpComponent } from './components/validate-otp/validate-otp.component';
 
 @NgModule({
-  declarations: [
-    LoginComponent,
-    SigninComponent,
-    ModalTutorialWorkiisComponent,
-    Step2Component,
-    Step3Component,
-    ValidateOtpComponent
-  ],
-  imports: [
-    CommonModule,
-    AuthRoutingModule,
-    TranslateModule,
-    RouterModule,
-    ReactiveFormsModule,
-    SharedModule
-  ],
+	declarations: [
+		LoginComponent,
+		SigninComponent,
+		ModalTutorialWorkiisComponent,
+		Step2Component,
+		Step3Component,
+		ValidateOtpComponent
+	],
+	imports: [CommonModule, AuthRoutingModule, TranslateModule, RouterModule, ReactiveFormsModule, SharedModule]
 })
-export class AuthModule { }
+export class AuthModule {}

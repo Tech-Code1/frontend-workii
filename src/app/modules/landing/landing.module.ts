@@ -9,16 +9,7 @@ import { LandingRoutingModule } from './landing-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-  declarations: [
-    HeaderComponent,
-    BodyComponent,
-    HomeComponent,
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    LandingRoutingModule,
-    TranslateModule,
-  ],
+	declarations: [HeaderComponent, BodyComponent, HomeComponent],
+	imports: [CommonModule, RouterModule, LandingRoutingModule, TranslateModule]
 })
-export class LandingModule { }
+export class LandingModule {}

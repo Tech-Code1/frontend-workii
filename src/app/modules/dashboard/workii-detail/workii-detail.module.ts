@@ -8,23 +8,20 @@ import { InfoWorkiiWithoutApplyComponent } from './components/info-workii-withou
 import { InfoWorkiiOwnerComponent } from './components/info-workii-owner/info-workii-owner.component';
 
 const routes: Routes = [
-  {
-    path: "",
-    component: WorkiiDetailComponent,
-  }
-]
+	{
+		path: '',
+		component: WorkiiDetailComponent
+	}
+];
 
 @NgModule({
-  declarations: [
-    WorkiiDetailComponent,
-    InfoWorkiiComponent,
-    StatusWorkiiComponent,
-    InfoWorkiiWithoutApplyComponent,
-    InfoWorkiiOwnerComponent
-  ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-  ],
+	declarations: [
+		WorkiiDetailComponent,
+		InfoWorkiiComponent,
+		StatusWorkiiComponent,
+		InfoWorkiiWithoutApplyComponent,
+		InfoWorkiiOwnerComponent
+	],
+	imports: [CommonModule, RouterModule.forChild(routes)]
 })
-export class WorkiDetailModule { }
+export class WorkiDetailModule {}

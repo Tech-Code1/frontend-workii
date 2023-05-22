@@ -4,20 +4,14 @@ import { SettingComponent } from './setting.component';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {
-    path: "",
-    component: SettingComponent,
-  }
-]
-
+	{
+		path: '',
+		component: SettingComponent
+	}
+];
 
 @NgModule({
-  declarations: [
-    SettingComponent
-  ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes)
-  ]
+	declarations: [SettingComponent],
+	imports: [CommonModule, RouterModule.forChild(routes)]
 })
-export class SettingModule { }
+export class SettingModule {}

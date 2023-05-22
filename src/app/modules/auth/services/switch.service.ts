@@ -1,11 +1,10 @@
 import { EventEmitter, Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class SwitchService {
+	constructor() {}
 
-  constructor() { }
-
-  $modal = new EventEmitter<boolean>();
+	$modal = new EventEmitter<boolean>();
 }

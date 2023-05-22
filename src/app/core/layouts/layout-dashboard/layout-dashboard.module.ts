@@ -10,25 +10,9 @@ import { ShareDirectiveModule } from 'src/app/shared/directives/shareDirectives.
 import { SharedModule } from 'src/app/shared/components/shared.module';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 
-
-
 @NgModule({
-  declarations: [
-    TemplateDashboardComponent,
-    MenuComponent,
-    HeaderDashboard,
-    NotificationsComponent,
-
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    LayoutCoreModule,
-    ShareDirectiveModule,
-    SharedModule
-  ],
-  exports: [
-    TemplateDashboardComponent,
-  ]
+	declarations: [TemplateDashboardComponent, MenuComponent, HeaderDashboard, NotificationsComponent],
+	imports: [CommonModule, RouterModule, LayoutCoreModule, ShareDirectiveModule, SharedModule],
+	exports: [TemplateDashboardComponent]
 })
-export class LayoutDashboardModule { }
+export class LayoutDashboardModule {}

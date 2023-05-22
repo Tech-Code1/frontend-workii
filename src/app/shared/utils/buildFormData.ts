@@ -1,13 +1,15 @@
-export function buildFormData(DtoObj:any){
-  let formData = new FormData();
-  let paramNames  = Object.getOwnPropertyNames(DtoObj);
+export function buildFormData(DtoObj: any) {
+	let formData = new FormData();
+	let paramNames = Object.getOwnPropertyNames(DtoObj);
 
-  for(let i=0;i<paramNames.length;i++){
-    if(!paramNames || !DtoObj[paramNames[i]]){continue}
-    formData.append(paramNames[i],DtoObj[paramNames[i]]);
-  }
+	for (let i = 0; i < paramNames.length; i++) {
+		if (!paramNames || !DtoObj[paramNames[i]]) {
+			continue;
+		}
+		formData.append(paramNames[i], DtoObj[paramNames[i]]);
+	}
 
-  console.log(formData);
+	console.log(formData);
 
-  return formData;
+	return formData;
 }

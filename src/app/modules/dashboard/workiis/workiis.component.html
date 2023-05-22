@@ -1,197 +1,175 @@
 <div
-  class="flex flex-col gap-2 mt-16 items-start mb-2"
-  [ngClass]="{
-    'bg-white-principal dark:bg-black-alternative shadow-md rounded-b-md p-2': isFilterOpened,
-    'shadow-none': !isFilterOpened
-  }"
+	class="flex flex-col gap-2 mt-16 items-start mb-2"
+	[ngClass]="{
+		'bg-white-principal dark:bg-black-alternative shadow-md rounded-b-md p-2': isFilterOpened,
+		'shadow-none': !isFilterOpened
+	}"
 >
-  <div class="flex flex-row justify-between gap-2 items-end w-full">
-    <div class="flex flex-row gap-2 flex-grow-[1]">
-      <div
-      [ngClass]="{
-        'bg-gray-light dark:bg-black-principal': isFilterOpened,
-        'bg-gray-lighter dark:bg-black-alternative': !isFilterOpened,
-        'h-12 flex flex-grow rounded-md pr-4 items-center': true
-      }"
-        class=""
-      >
-        <input
-          [formControl]="searchControl"
-          placeholder="Buscar Workiis"
-          #search
-          type="text"
-          class="flex w-full bg-transparent input-standard ring-0 body-base-black"
-        />
+	<div class="flex flex-row justify-between gap-2 items-end w-full">
+		<div class="flex flex-row gap-2 flex-grow-[1]">
+			<div
+				[ngClass]="{
+					'bg-gray-light dark:bg-black-principal': isFilterOpened,
+					'bg-gray-lighter dark:bg-black-alternative': !isFilterOpened,
+					'h-12 flex flex-grow rounded-md pr-4 items-center': true
+				}"
+				class=""
+			>
+				<input
+					[formControl]="searchControl"
+					placeholder="Buscar Workiis"
+					#search
+					type="text"
+					class="flex w-full bg-transparent input-standard ring-0 body-base-black"
+				/>
 
-        <div class="flex flex-row gap-4 items-center">
-          <div>
-            <ng-container *ngIf="this.searchControl.value">
-              <div
-                class="w-8 h-8 bg-error-redLight hover:bg-error-redDark justify-center items-center flex rounded-full cursor-pointer hover-parent-five"
-                (click)="clearInput()"
-              >
-                <svg
-                  class="h-4 w-4 hover-child-five"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M15.6456 0.366529C15.5333 0.254025 15.4 0.164768 15.2532 0.103869C15.1064 0.0429689 14.949 0.0116217 14.79 0.0116217C14.6311 0.0116217 14.4737 0.0429689 14.3269 0.103869C14.1801 0.164768 14.0467 0.254025 13.9344 0.366529L8 6.28884L2.06555 0.354393C1.9532 0.242036 1.81981 0.15291 1.67301 0.0921034C1.52621 0.0312965 1.36887 1.18387e-09 1.20997 0C1.05108 -1.18387e-09 0.893737 0.0312965 0.746936 0.0921034C0.600135 0.15291 0.466749 0.242036 0.354393 0.354393C0.242036 0.466749 0.15291 0.600135 0.0921034 0.746936C0.0312965 0.893737 -1.18387e-09 1.05108 0 1.20997C1.18387e-09 1.36887 0.0312965 1.52621 0.0921034 1.67301C0.15291 1.81981 0.242036 1.9532 0.354393 2.06555L6.28884 8L0.354393 13.9344C0.242036 14.0468 0.15291 14.1802 0.0921034 14.327C0.0312965 14.4738 0 14.6311 0 14.79C0 14.9489 0.0312965 15.1063 0.0921034 15.2531C0.15291 15.3999 0.242036 15.5333 0.354393 15.6456C0.466749 15.758 0.600135 15.8471 0.746936 15.9079C0.893737 15.9687 1.05108 16 1.20997 16C1.36887 16 1.52621 15.9687 1.67301 15.9079C1.81981 15.8471 1.9532 15.758 2.06555 15.6456L8 9.71116L13.9344 15.6456C14.0468 15.758 14.1802 15.8471 14.327 15.9079C14.4738 15.9687 14.6311 16 14.79 16C14.9489 16 15.1063 15.9687 15.2531 15.9079C15.3999 15.8471 15.5333 15.758 15.6456 15.6456C15.758 15.5333 15.8471 15.3999 15.9079 15.2531C15.9687 15.1063 16 14.9489 16 14.79C16 14.6311 15.9687 14.4738 15.9079 14.327C15.8471 14.1802 15.758 14.0468 15.6456 13.9344L9.71116 8L15.6456 2.06555C16.1068 1.60439 16.1068 0.827692 15.6456 0.366529V0.366529Z"
-                  />
-                </svg>
-              </div>
-            </ng-container>
-          </div>
-          <svg class="h-6 w-6 fill-primary-blueNeutral dark:fill-dark-prymaryColor" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M17.1901 15.4782L23.6458 21.934C23.8727 22.1611 24.0001 22.469 24 22.79C23.9999 23.111 23.8723 23.4189 23.6452 23.6458C23.4181 23.8727 23.1102 24.0001 22.7892 24C22.4682 23.9999 22.1604 23.8723 21.9335 23.6452L15.4778 17.1893C13.5479 18.6841 11.1211 19.3875 8.69104 19.1565C6.26097 18.9255 4.01018 17.7773 2.39656 15.9457C0.782936 14.114 -0.0723147 11.7364 0.00479537 9.29655C0.0819054 6.85668 1.08558 4.53783 2.81165 2.81172C4.53771 1.08561 6.85651 0.0819075 9.29632 0.00479549C11.7361 -0.0723165 14.1137 0.782955 15.9453 2.39662C17.7769 4.01028 18.925 6.26113 19.156 8.69126C19.387 11.1214 18.6836 13.5483 17.1889 15.4782H17.1901ZM9.60045 16.7993C11.5099 16.7993 13.3412 16.0408 14.6914 14.6905C16.0416 13.3403 16.8001 11.509 16.8001 9.59949C16.8001 7.68997 16.0416 5.85866 14.6914 4.50843C13.3412 3.15819 11.5099 2.39964 9.60045 2.39964C7.69098 2.39964 5.85971 3.15819 4.50951 4.50843C3.15932 5.85866 2.40078 7.68997 2.40078 9.59949C2.40078 11.509 3.15932 13.3403 4.50951 14.6905C5.85971 16.0408 7.69098 16.7993 9.60045 16.7993V16.7993Z"/>
-          </svg>
-        </div>
-      </div>
-      <button
-        [ngClass]="{
-          'bg-error-redDark': isFilterOpened,
-          'bg-primary-blueNeutral dark:bg-dark-prymaryColor': !isFilterOpened
-        }"
-        (click)="toggleFilter()"
-        class="w-12 h-12 btn-solid-blue rounded-md"
-      >
-        <ng-container *ngIf="!isFilterOpened">
-          <img
-            src="../../../../../../assets/images/svg/icon-filter.svg"
-            alt="icon filter"
-          />
-        </ng-container>
-        <ng-container *ngIf="isFilterOpened">
-          <img
-            src="../../../../../../assets/images/svg/icon-filter-clear.svg"
-            alt="icon filter"
-          />
-        </ng-container>
-      </button>
-    </div>
+				<div class="flex flex-row gap-4 items-center">
+					<div>
+						<ng-container *ngIf="this.searchControl.value">
+							<div
+								class="w-8 h-8 bg-error-redLight hover:bg-error-redDark justify-center items-center flex rounded-full cursor-pointer hover-parent-five"
+								(click)="clearInput()"
+							>
+								<svg
+									class="h-4 w-4 hover-child-five"
+									width="16"
+									height="16"
+									viewBox="0 0 16 16"
+									fill="none"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										d="M15.6456 0.366529C15.5333 0.254025 15.4 0.164768 15.2532 0.103869C15.1064 0.0429689 14.949 0.0116217 14.79 0.0116217C14.6311 0.0116217 14.4737 0.0429689 14.3269 0.103869C14.1801 0.164768 14.0467 0.254025 13.9344 0.366529L8 6.28884L2.06555 0.354393C1.9532 0.242036 1.81981 0.15291 1.67301 0.0921034C1.52621 0.0312965 1.36887 1.18387e-09 1.20997 0C1.05108 -1.18387e-09 0.893737 0.0312965 0.746936 0.0921034C0.600135 0.15291 0.466749 0.242036 0.354393 0.354393C0.242036 0.466749 0.15291 0.600135 0.0921034 0.746936C0.0312965 0.893737 -1.18387e-09 1.05108 0 1.20997C1.18387e-09 1.36887 0.0312965 1.52621 0.0921034 1.67301C0.15291 1.81981 0.242036 1.9532 0.354393 2.06555L6.28884 8L0.354393 13.9344C0.242036 14.0468 0.15291 14.1802 0.0921034 14.327C0.0312965 14.4738 0 14.6311 0 14.79C0 14.9489 0.0312965 15.1063 0.0921034 15.2531C0.15291 15.3999 0.242036 15.5333 0.354393 15.6456C0.466749 15.758 0.600135 15.8471 0.746936 15.9079C0.893737 15.9687 1.05108 16 1.20997 16C1.36887 16 1.52621 15.9687 1.67301 15.9079C1.81981 15.8471 1.9532 15.758 2.06555 15.6456L8 9.71116L13.9344 15.6456C14.0468 15.758 14.1802 15.8471 14.327 15.9079C14.4738 15.9687 14.6311 16 14.79 16C14.9489 16 15.1063 15.9687 15.2531 15.9079C15.3999 15.8471 15.5333 15.758 15.6456 15.6456C15.758 15.5333 15.8471 15.3999 15.9079 15.2531C15.9687 15.1063 16 14.9489 16 14.79C16 14.6311 15.9687 14.4738 15.9079 14.327C15.8471 14.1802 15.758 14.0468 15.6456 13.9344L9.71116 8L15.6456 2.06555C16.1068 1.60439 16.1068 0.827692 15.6456 0.366529V0.366529Z"
+									/>
+								</svg>
+							</div>
+						</ng-container>
+					</div>
+					<svg
+						class="h-6 w-6 fill-primary-blueNeutral dark:fill-dark-prymaryColor"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							fill-rule="evenodd"
+							clip-rule="evenodd"
+							d="M17.1901 15.4782L23.6458 21.934C23.8727 22.1611 24.0001 22.469 24 22.79C23.9999 23.111 23.8723 23.4189 23.6452 23.6458C23.4181 23.8727 23.1102 24.0001 22.7892 24C22.4682 23.9999 22.1604 23.8723 21.9335 23.6452L15.4778 17.1893C13.5479 18.6841 11.1211 19.3875 8.69104 19.1565C6.26097 18.9255 4.01018 17.7773 2.39656 15.9457C0.782936 14.114 -0.0723147 11.7364 0.00479537 9.29655C0.0819054 6.85668 1.08558 4.53783 2.81165 2.81172C4.53771 1.08561 6.85651 0.0819075 9.29632 0.00479549C11.7361 -0.0723165 14.1137 0.782955 15.9453 2.39662C17.7769 4.01028 18.925 6.26113 19.156 8.69126C19.387 11.1214 18.6836 13.5483 17.1889 15.4782H17.1901ZM9.60045 16.7993C11.5099 16.7993 13.3412 16.0408 14.6914 14.6905C16.0416 13.3403 16.8001 11.509 16.8001 9.59949C16.8001 7.68997 16.0416 5.85866 14.6914 4.50843C13.3412 3.15819 11.5099 2.39964 9.60045 2.39964C7.69098 2.39964 5.85971 3.15819 4.50951 4.50843C3.15932 5.85866 2.40078 7.68997 2.40078 9.59949C2.40078 11.509 3.15932 13.3403 4.50951 14.6905C5.85971 16.0408 7.69098 16.7993 9.60045 16.7993V16.7993Z"
+						/>
+					</svg>
+				</div>
+			</div>
+			<button
+				[ngClass]="{
+					'bg-error-redDark': isFilterOpened,
+					'bg-primary-blueNeutral dark:bg-dark-prymaryColor': !isFilterOpened
+				}"
+				(click)="toggleFilter()"
+				class="w-12 h-12 btn-solid-blue rounded-md"
+			>
+				<ng-container *ngIf="!isFilterOpened">
+					<img src="../../../../../../assets/images/svg/icon-filter.svg" alt="icon filter" />
+				</ng-container>
+				<ng-container *ngIf="isFilterOpened">
+					<img src="../../../../../../assets/images/svg/icon-filter-clear.svg" alt="icon filter" />
+				</ng-container>
+			</button>
+		</div>
 
-    <div class="flex-grow-[1] flex justify-end">
-      <button (click)="openModal()" class="btn-solid-blue rounded-md px-4 h-12">
-        Crear Workii
-      </button>
-    </div>
-  </div>
+		<div class="flex-grow-[1] flex justify-end">
+			<button (click)="openModal()" class="btn-solid-blue rounded-md px-4 h-12">Crear Workii</button>
+		</div>
+	</div>
 
-  <div
-    *ngIf="isFilterOpened"
-    class="flex flex-row gap-4 w-full animate__animated animate__faster animate__fadeInDown z-10"
-  >
-    <filter-target></filter-target>
-    <filter-time> </filter-time>
-    <filter-cost></filter-cost>
-    <filter-status></filter-status>
-  </div>
+	<div
+		*ngIf="isFilterOpened"
+		class="flex flex-row gap-4 w-full animate__animated animate__faster animate__fadeInDown z-10"
+	>
+		<filter-target></filter-target>
+		<filter-time> </filter-time>
+		<filter-cost></filter-cost>
+		<filter-status></filter-status>
+	</div>
 </div>
 
 <div *ngIf="modalSwitch">
-  <modal-create-workii></modal-create-workii>
+	<modal-create-workii></modal-create-workii>
 </div>
 
 <div class="flex w-full pb-8">
-  <div class="h-[1px] w-full bg-black-principal opacity-20"></div>
+	<div class="h-[1px] w-full bg-black-principal opacity-20"></div>
 </div>
 
 <ng-container
-  *ngIf="{
-    applications: (applications$ | async) || [],
-    searchInApplications:
-      (workiisOrSearchInApplications(searchWorkiis$) | async) || [],
-    workiisInApplications:
-      (workiisOrSearchInApplications(workiis$) | async) || [],
-      totalResults: (totalResultsWorkiis$ | async) || 0,
-      totalSearchResults: (totalSearchResults$ | async) || 0
-  } as context"
+	*ngIf="{
+		applications: (applications$ | async) || [],
+		searchInApplications: (workiisOrSearchInApplications(searchWorkiis$) | async) || [],
+		workiisInApplications: (workiisOrSearchInApplications(workiis$) | async) || [],
+		totalResults: (totalResultsWorkiis$ | async) || 0,
+		totalSearchResults: (totalSearchResults$ | async) || 0
+	} as context"
 >
-  <ng-container
-    *ngIf="
-      context.applications.length ||
-      context.searchInApplications.length ||
-      context.workiisInApplications.length
-    "
-  >
-    <ng-container *ngIf="loading$ | async">
-      <ng-container
-        *ngIf="
-          this.searchControl.value === null || this.searchControl.value === ''
-        "
-      >
-        <skeleton-cards
-          class="col-span-5 grid grid-flow-row 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 gap-x-4 gap-y-16 overflow-hidden pt-10 pr-1"
-        ></skeleton-cards>
-      </ng-container>
+	<ng-container
+		*ngIf="context.applications.length || context.searchInApplications.length || context.workiisInApplications.length"
+	>
+		<ng-container *ngIf="loading$ | async">
+			<ng-container *ngIf="this.searchControl.value === null || this.searchControl.value === ''">
+				<skeleton-cards
+					class="col-span-5 grid grid-flow-row 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 gap-x-4 gap-y-16 overflow-hidden pt-10 pr-1"
+				></skeleton-cards>
+			</ng-container>
 
-      <ng-container
-        *ngIf="
-          this.searchControl.value !== '' && hasSearched && !(isFound$ | async)
-        "
-      >
-        <search-lottie></search-lottie>
-      </ng-container>
-    </ng-container>
+			<ng-container *ngIf="this.searchControl.value !== '' && hasSearched && !(isFound$ | async)">
+				<search-lottie></search-lottie>
+			</ng-container>
+		</ng-container>
 
-    <ng-container *ngIf="isFound$ | async">
-      <not-found></not-found>
-    </ng-container>
+		<ng-container *ngIf="isFound$ | async">
+			<not-found></not-found>
+		</ng-container>
 
-    <ng-container *ngIf="!(isFound$ | async) && !(loading$ | async)">
-      <workiis-cards
-        [workiis]="
-          context.workiisInApplications!
-            | targetFilter : (targetService.getSelectedTargets$() | async)
-            | timeFilter : (timeService.getSelectedTimes$() | async) || []
-            | costFilter : (costService.getSelectedCost$() | async) || ''
-            | statusFilter
-              : (statusService.getSelectedStatus$() | async) || []
-              : context.applications
-              : userCurrentId
-        "
-        [searchWorkiis]="
-          context.searchInApplications!
-            | targetFilter : (targetService.getSelectedTargets$() | async)
-            | timeFilter : (timeService.getSelectedTimes$() | async) || []
-            | costFilter : (costService.getSelectedCost$() | async) || ''
-            | statusFilter
-              : (statusService.getSelectedStatus$() | async) || []
-              : context.applications
-              : userCurrentId
-        "
-        [applications]="(applications$ | async) || []"
-        [userCurrentId]="userCurrentId"
-        [isFilterOpened]="isFilterOpened"
-        [searchControl]="searchControl"
-      >
-      </workiis-cards>
-    </ng-container>
+		<ng-container *ngIf="!(isFound$ | async) && !(loading$ | async)">
+			<workiis-cards
+				[workiis]="
+					context.workiisInApplications!
+						| targetFilter : (targetService.getSelectedTargets$() | async)
+						| timeFilter : (timeService.getSelectedTimes$() | async) || []
+						| costFilter : (costService.getSelectedCost$() | async) || ''
+						| statusFilter : (statusService.getSelectedStatus$() | async) || [] : context.applications : userCurrentId
+				"
+				[searchWorkiis]="
+					context.searchInApplications!
+						| targetFilter : (targetService.getSelectedTargets$() | async)
+						| timeFilter : (timeService.getSelectedTimes$() | async) || []
+						| costFilter : (costService.getSelectedCost$() | async) || ''
+						| statusFilter : (statusService.getSelectedStatus$() | async) || [] : context.applications : userCurrentId
+				"
+				[applications]="(applications$ | async) || []"
+				[userCurrentId]="userCurrentId"
+				[isFilterOpened]="isFilterOpened"
+				[searchControl]="searchControl"
+			>
+			</workiis-cards>
+		</ng-container>
 
-      <ng-container *ngIf="context.totalResults > 20 && searchControl.value === '' && !(loading$ | async)">
+		<ng-container *ngIf="context.totalResults > 20 && searchControl.value === '' && !(loading$ | async)">
+			<pagination (pageChanged)="onPageChangeWorkiis($event)" [limit]="limit" [totalResults]="context.totalResults">
+			</pagination>
+		</ng-container>
 
-        <pagination
-        (pageChanged)="onPageChangeWorkiis($event)"
-        [limit]="limit"
-        [totalResults]="context.totalResults"
-        >
-        </pagination>
-
-      </ng-container>
-
-      <ng-container *ngIf="context.totalSearchResults > 20 && searchControl.value !== '' && !(loading$ | async) && !(isFound$ | async)">
-
-        <pagination
-        (pageChanged)="onPageChangeSearch($event)"
-        [limit]="limit"
-        [totalResults]="context.totalSearchResults"
-        >
-        </pagination>
-
-      </ng-container>
-
-  </ng-container>
+		<ng-container
+			*ngIf="
+				context.totalSearchResults > 20 && searchControl.value !== '' && !(loading$ | async) && !(isFound$ | async)
+			"
+		>
+			<pagination
+				(pageChanged)="onPageChangeSearch($event)"
+				[limit]="limit"
+				[totalResults]="context.totalSearchResults"
+			>
+			</pagination>
+		</ng-container>
+	</ng-container>
 </ng-container>

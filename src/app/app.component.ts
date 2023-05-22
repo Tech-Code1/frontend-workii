@@ -9,25 +9,25 @@ import { UserService } from './modules/auth/services/user.service';
 import { EventBusService } from './shared/services/event-bus.service';
 import { Subscription } from 'rxjs';
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+	selector: 'app-root',
+	templateUrl: './app.component.html',
+	styleUrls: ['./app.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  title = 'workii';
-  isLoggedIn = false;
-  eventBusSub?: Subscription;
+	title = 'workii';
+	isLoggedIn = false;
+	eventBusSub?: Subscription;
 
-  private translateService = inject(TranslateService);
-  private store = inject(Store<IAppState>);
-  private authService = inject(AuthService);
-  private userService = inject(UserService);
-  private eventBusService = inject(EventBusService);
+	private translateService = inject(TranslateService);
+	private store = inject(Store<IAppState>);
+	private authService = inject(AuthService);
+	private userService = inject(UserService);
+	private eventBusService = inject(EventBusService);
 
-  userCurrentId: string = this.userService.getCurrentUser();
+	userCurrentId: string = this.userService.getCurrentUser();
 
-  constructor() {
+	constructor() {
 		this.translateService.addLangs(supportLanguages);
 		this.translateService.setDefaultLang('en');
 		this.translateService.use('en');
@@ -36,22 +36,21 @@ export class AppComponent {
 	 this.translateService.use(browserlang); */
 	}
 
-  ngOnInit() {
-    const token = localStorage.getItem('authToken');
+	ngOnInit() {
+		const token = localStorage.getItem('authToken');
 
-    this.eventBusSub = this.eventBusService.on('logout', () => {
-      this.logout();
-    });
+		this.eventBusSub = this.eventBusService.on('logout', () => {
+			this.logout();
+		});
 
+		if (token) {
+			//this.store.dispatch(UserActions.validateToken());
 
-    if(token) {
-      //this.store.dispatch(UserActions.validateToken());
+			this.store.dispatch(UserActions.getUser(this.userCurrentId));
+		}
+	}
 
-      this.store.dispatch(UserActions.getUser(this.userCurrentId))
-    }
-  }
-
-  logout(): void {
-    this.authService.logout().subscribe();
-  }
+	logout(): void {
+		this.authService.logout().subscribe();
+	}
 }

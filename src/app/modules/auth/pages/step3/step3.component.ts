@@ -9,40 +9,36 @@ import { IAppState } from '../../../../core/state/app.state';
 import { UserActions } from 'src/app/core/state/actions/user.actions';
 
 @Component({
-  selector: 'app-step3',
-  templateUrl: './step3.component.html',
-  styleUrls: ['./step3.component.scss']
+	selector: 'app-step3',
+	templateUrl: './step3.component.html',
+	styleUrls: ['./step3.component.scss']
 })
 export class Step3Component implements OnInit {
+	private formBuilder = inject(FormBuilder);
+	private registerService = inject(RegisterService);
+	private store = inject(Store<IAppState>);
 
-  private formBuilder = inject(FormBuilder)
-  private registerService = inject(RegisterService)
-  private store = inject(Store<IAppState>)
+	registerStep3: FormGroup = this.formBuilder.group({
+		areaOfExpertise: ['', [Validators.required]],
+		profession: ['', [Validators.required]]
+	});
 
-  registerStep3:FormGroup  = this.formBuilder.group({
-    areaOfExpertise: ["", [Validators.required]],
-    profession: ["", [Validators.required]],
-  })
+	ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
+	isValid(inputName: string): boolean | undefined | void {
+		if (this.registerStep3.get(inputName)?.touched) {
+			return this.registerStep3.get(inputName)?.valid;
+		}
+		return true;
+	}
 
+	onSubmit() {
+		if (!this.registerStep3.valid) {
+			return;
+		}
 
-  isValid(inputName: string): boolean | undefined | void {
-    if (this.registerStep3.get(inputName)?.touched) {
+		this.registerService.AddInfoUser(this.registerStep3.value);
 
-      return this.registerStep3.get(inputName)?.valid
-    }
-    return true
-  }
-
-  onSubmit() {
-    if (!this.registerStep3.valid) {
-      return;
-    }
-
-    this.registerService.AddInfoUser(this.registerStep3.value);
-
-    this.store.dispatch(UserActions.registerUser());
-  }
+		this.store.dispatch(UserActions.registerUser());
+	}
 }

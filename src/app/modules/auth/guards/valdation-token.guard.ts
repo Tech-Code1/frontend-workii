@@ -3,27 +3,25 @@ import { CanActivate, CanLoad, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class ValdationTokenGuard implements CanActivate, CanLoad {
+	private router = inject(Router);
 
-  private router = inject(Router)
+	canActivate(): Observable<boolean> | boolean {
+		return this.validateAndNavigate();
+	}
 
-  canActivate(): Observable<boolean> | boolean {
-    return this.validateAndNavigate();
-  }
+	canLoad(): Observable<boolean> | boolean {
+		return this.validateAndNavigate();
+	}
 
-  canLoad(): Observable<boolean> | boolean {
-    return this.validateAndNavigate();
-  }
+	private validateAndNavigate() {
+		const valid = Boolean(localStorage.getItem('authToken'));
+		if (!valid) {
+			this.router.navigateByUrl('/auth');
+		}
 
-  private validateAndNavigate() {
-    const valid = Boolean(localStorage.getItem('authToken'));
-    if (!valid) {
-      this.router.navigateByUrl('/auth');
-    }
-
-    return valid;
-  }
+		return valid;
+	}
 }
-

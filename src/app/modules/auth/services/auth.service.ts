@@ -13,75 +13,73 @@ import jwt_decode from 'jwt-decode';
 import { WorkiiActions } from '../../dashboard/workiis/state/actions/workii.actions';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class AuthService {
+	private store = inject(Store<IAppState>);
+	private http = inject(HttpClient);
+	private router = inject(Router);
 
-    private store = inject(Store<IAppState>)
-    private http = inject(HttpClient);
-    private router = inject(Router);
+	headers: HttpHeaders;
+	private baseUrl: string = environment.baseUrl;
+	private _user!: IUser;
 
-    headers: HttpHeaders;
-    private baseUrl: string = environment.baseUrl;
-    private _user!: IUser;
+	constructor() {
+		// Obtener el token de autorización
+		const token = localStorage.getItem('authToken');
 
-    constructor() {
-      // Obtener el token de autorización
-      const token = localStorage.getItem('authToken');
+		// Crear el encabezado de la solicitud HTTP
+		this.headers = new HttpHeaders({
+			Authorization: `${token}`
+		});
+	}
 
-      // Crear el encabezado de la solicitud HTTP
-      this.headers = new HttpHeaders({
-        'Authorization': `${token}`
-      });
-    }
+	get user() {
+		return { ...this._user };
+	}
 
-    get user() {
-      return { ...this._user }
-    }
+	login({ email, password }: loginDTO) {
+		const url = `${this.baseUrl}/auth/login`;
+		const body = { email, password };
 
-    login({email, password} : loginDTO) {
+		return this.http.post<IAuthResponse>(url, body);
+	}
 
-      const url = `${this.baseUrl}/auth/login`;
-      const body = { email, password };
+	validateOtp(otp: string) {
+		const url = `${this.baseUrl}/auth/validate/otp`;
+		const body = { otp };
 
-      return this.http.post<IAuthResponse>(url, body)
-    }
+		return this.http.post<IOtp>(url, body);
+	}
 
-    validateOtp(otp: string) {
-      const url = `${this.baseUrl}/auth/validate/otp`;
-      const body = { otp };
-
-      return this.http.post<IOtp>(url, body)
-    }
-
-    /* validateToken(): Observable<IAuthResponse> {
+	/* validateToken(): Observable<IAuthResponse> {
       const url = `${this.baseUrl}/auth/revalidate`;
 
       return this.http.get<IAuthResponse>(url, { headers: this.headers });
     } */
 
-    getRefreshToken(): string | null {
-      console.log(localStorage.getItem('refreshToken'));
+	getRefreshToken(): string | null {
+		console.log(localStorage.getItem('refreshToken'));
 
-      return localStorage.getItem('refreshToken');
-    }
+		return localStorage.getItem('refreshToken');
+	}
 
-    refreshToken(): Observable<any> {
-      const refreshToken = this.getRefreshToken();
-      const url = `${this.baseUrl}/auth/refresh-token`;
-      const body = { refreshToken };
+	refreshToken(): Observable<any> {
+		const refreshToken = this.getRefreshToken();
+		const url = `${this.baseUrl}/auth/refresh-token`;
+		const body = { refreshToken };
 
-      return this.http.post(url, body);
-    }
+		return this.http.post(url, body);
+	}
 
-    logout(): Observable<any> {
-      return from(this.router.navigateByUrl('/auth')).pipe(
-        tap(() => {
-          localStorage.removeItem('authToken');
-          localStorage.removeItem('refreshToken');
-          this.store.dispatch(UserActions.logOut());
-          this.store.dispatch(WorkiiActions.logOut());
-        })
-      );
-    }
-  }
+	logout(): Observable<any> {
+		return from(this.router.navigateByUrl('/auth')).pipe(
+			tap(() => {
+				localStorage.removeItem('authToken');
+				localStorage.removeItem('refreshToken');
+				this.store.dispatch(UserActions.logOut());
+				this.store.dispatch(WorkiiActions.logOut());
+			})
+		);
+	}
+}
