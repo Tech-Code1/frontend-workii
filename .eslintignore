@@ -1,4 +1,5 @@
 .eslintrc.cjs
-cz.config.cjs
+czvinyl.config.cjs
+release.config.cjs
 commitlint.config.cjs
 dist
