@@ -1,4 +1,4 @@
-import { ILogin } from 'src/app/modules/auth/DTOs/ILogin';
+import { ILogin } from '../../modules/auth/DTOs/loginDTO';
 export interface ILoginState {
 	login: ILogin;
 }

@@ -1,4 +1,4 @@
-import { ILogin } from '../../modules/auth/DTOs/ILogin';
+import { ILogin } from '../../modules/auth/DTOs/loginDTO';
 import { IOtp } from '../../modules/auth/interfaces/auth.interface';
 import { IUserDto } from './user.interface';
 

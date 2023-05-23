@@ -1,7 +1,6 @@
 {
 	"name": "workii-app",
 	"version": "2.5.0",
-	"type": "module",
 	"license": "MIT",
 	"homepage": "https://github.com/Tech-Code1/frontend-workii/blob/main/README.md",
 	"bugs": {

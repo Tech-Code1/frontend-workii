@@ -1,8 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/modules/auth/services';
+import { AuthService, UserService } from 'src/app/modules/auth/services';
 import { IUserDto } from '../../../../models/user.interface';
+import { UserActions } from '../../../../state/actions/user.actions';
 import { IAppState } from '../../../../state/app.state';
 import { selectOneUser } from '../../../../state/selectors/user.selectors';
 
@@ -14,11 +15,16 @@ import { selectOneUser } from '../../../../state/selectors/user.selectors';
 export class HeaderDashboardComponent implements OnInit {
 	private authService = inject(AuthService);
 	private store = inject(Store<IAppState>);
+	private userService = inject(UserService);
 
+	userCurrentId!: string;
 	user$!: Observable<IUserDto | null>;
 	isMenuOpened: boolean = false;
 
 	ngOnInit(): void {
+		this.userCurrentId = this.userService.getCurrentUser();
+
+		this.store.dispatch(UserActions.getUser(this.userCurrentId));
 		this.user$ = this.store.select(selectOneUser);
 	}
 

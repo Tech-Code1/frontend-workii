@@ -67,15 +67,12 @@ export class WorkiisComponent implements OnInit, OnDestroy {
 	applications$: Observable<readonly IApplicationUser[]> = new Observable<readonly IApplicationUser[]>();
 
 	ngOnInit(): void {
-		this.loading$ = this.store.select(selectLoadingUi);
-		this.isFound$ = this.store.select(selectNotFound);
-		this.searchTerm$ = this.store.select(selectSearchTerm);
-		this.workiis$ = this.store.select(selectListWorkiis);
-		this.applications$ = this.store.select(selectListApplications);
-		this.searchWorkiis$ = this.store.select(selectSearchWorkiis);
-		this.totalResultsWorkiis$ = this.store.select(selectTotalResults);
-		this.totalSearchResults$ = this.store.select(selectTotalSearchResults);
 		this.userCurrentId = this.userService.getCurrentUser();
+		this.isFound$ = this.store.select(selectNotFound);
+		this.loading$ = this.store.select(selectLoadingUi);
+		this.searchTerm$ = this.store.select(selectSearchTerm);
+		this.searchWorkiis$ = this.store.select(selectSearchWorkiis);
+		this.totalSearchResults$ = this.store.select(selectTotalSearchResults);
 
 		this.modalService.$modal.subscribe((valor) => {
 			this.modalSwitch = valor;
@@ -83,6 +80,10 @@ export class WorkiisComponent implements OnInit, OnDestroy {
 
 		this.store.dispatch(WorkiiActions.loadWorkiis({ limit: this.limit, offset: this.offset }));
 		this.store.dispatch(WorkiiActions.loadApplications());
+
+		this.workiis$ = this.store.select(selectListWorkiis);
+		this.applications$ = this.store.select(selectListApplications);
+		this.totalResultsWorkiis$ = this.store.select(selectTotalResults);
 
 		this.searchTerm$.pipe(takeUntil(this.destroy$)).subscribe((searchTerm) => {
 			this.searchControl.setValue(searchTerm, { emitEvent: false });

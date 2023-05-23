@@ -108,6 +108,8 @@ export class UserEffects {
 			concatMap((action) =>
 				this.userService.getUser(action.id).pipe(
 					map((user) => {
+						console.log(user);
+
 						return UserActions.setUser(user);
 					}),
 					catchError((error) => of(UserActions.getUserError('No se pudo encontrar el usuario')))
