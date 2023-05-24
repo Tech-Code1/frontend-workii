@@ -1,10 +1,9 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { IWorkii } from 'src/app/core/models/workii.interface';
 import { environment } from 'src/environments/environment';
-import { UserService } from '../../../auth/services/user.service';
 import {
 	IApplication,
 	IApplicationResponse,
@@ -18,33 +17,30 @@ import {
 	providedIn: 'root'
 })
 export class WorkiisService {
-	headers: HttpHeaders;
+	private http = inject(HttpClient);
 	userCurrentId!: string;
 	private baseUrl: string = environment.baseUrl;
 	private searchCache: { [key: string]: IWorkii[] } = {};
 
-	constructor(private http: HttpClient, private userService: UserService) {
-		// Obtener el token de autorización
+	createAuthorizationHeader(): HttpHeaders {
 		const token = localStorage.getItem('authToken');
-
-		// Crear el encabezado de la solicitud HTTP
-		this.headers = new HttpHeaders({
-			Authorization: `Bearer ${token}`
-		});
+		return new HttpHeaders({ Authorization: `Bearer ${token}` });
 	}
 
 	getWorkiis({ limit, offset }: IPagination): Observable<{ workiis: IWorkii[]; totalResults: number }> {
 		const url = `${this.baseUrl}/workiis`;
+		const headers = this.createAuthorizationHeader();
 
 		const params = new HttpParams().set('limit', limit.toString()).set('offset', offset.toString());
 
-		return this.http.get<{ workiis: IWorkii[]; totalResults: number }>(url, { headers: this.headers, params });
+		return this.http.get<{ workiis: IWorkii[]; totalResults: number }>(url, { headers: headers, params });
 	}
 
 	getWorkii(slug: string): Observable<IWorkii> {
 		const url = `${this.baseUrl}/workiis/${slug}`;
+		const headers = this.createAuthorizationHeader();
 
-		return this.http.get<IWorkii>(url, { headers: this.headers });
+		return this.http.get<IWorkii>(url, { headers: headers });
 	}
 
 	getUsersApplyWorkii(workii: string, { limit, offset }: IPagination): Observable<IUsersApplicationResponse[]> {
@@ -68,17 +64,19 @@ export class WorkiisService {
 		...rest
 	}: IWorkiiCreate): Observable<IWorkii> {
 		const url = `${this.baseUrl}/workiis`;
+		const headers = this.createAuthorizationHeader();
 		const body = { name, target, description, toDoList, cost, executionTime, userId };
 
-		return this.http.post<IWorkii>(url, body, { headers: this.headers });
+		return this.http.post<IWorkii>(url, body, { headers });
 	}
 
 	applyToWorkii({ user, workii }: IApplication): Observable<IApplication> {
 		const url = `${this.baseUrl}/workiis/application`;
+		const headers = this.createAuthorizationHeader();
 
 		console.log(user, workii);
 
-		return this.http.post<IApplication>(url, { user, workii }, { headers: this.headers });
+		return this.http.post<IApplication>(url, { user, workii }, { headers });
 	}
 
 	getAllApplicationsWorkiiByUser(id: string, { limit, offset }: IPagination): Observable<IApplicationUser[]> {
@@ -98,27 +96,30 @@ export class WorkiisService {
 		offset: number
 	): Observable<{ workiis: IWorkii[]; totalSearchResults: number }> {
 		const url = `${this.baseUrl}/workiis/search`;
+		const headers = this.createAuthorizationHeader();
 		const params = new HttpParams()
 			.set('searchTerm', searchTerm)
 			.set('limit', limit.toString())
 			.set('offset', offset.toString());
 
-		return this.http.get<{ workiis: IWorkii[]; totalSearchResults: number }>(url, { params, headers: this.headers });
+		return this.http.get<{ workiis: IWorkii[]; totalSearchResults: number }>(url, { params, headers });
 	}
 
 	removeApplication(id: string, workii: string): Observable<IApplicationResponse> {
 		const url = `${this.baseUrl}/workiis/apply/${id}`;
+		const headers = this.createAuthorizationHeader();
 
 		const body = {
 			workii
 		};
 
-		return this.http.delete<IApplicationResponse>(url, { body, headers: this.headers });
+		return this.http.delete<IApplicationResponse>(url, { body, headers });
 	}
 
 	deleteWorkii(id: string): Observable<IApplicationResponse> {
 		const url = `${this.baseUrl}/workiis/${id}`;
+		const headers = this.createAuthorizationHeader();
 
-		return this.http.delete<IApplicationResponse>(url, { headers: this.headers });
+		return this.http.delete<IApplicationResponse>(url, { headers });
 	}
 }

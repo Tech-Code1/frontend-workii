@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 
@@ -19,19 +19,8 @@ export class AuthService {
 	private http = inject(HttpClient);
 	private router = inject(Router);
 
-	headers: HttpHeaders;
 	private baseUrl: string = environment.baseUrl;
 	private _user!: IUser;
-
-	constructor() {
-		// Obtener el token de autorización
-		const token = localStorage.getItem('authToken');
-
-		// Crear el encabezado de la solicitud HTTP
-		this.headers = new HttpHeaders({
-			Authorization: `${token}`
-		});
-	}
 
 	get user(): IUser {
 		return { ...this._user };
@@ -50,12 +39,6 @@ export class AuthService {
 
 		return this.http.post<IOtp>(url, body);
 	}
-
-	/* validateToken(): Observable<IAuthResponse> {
-      const url = `${this.baseUrl}/auth/revalidate`;
-
-      return this.http.get<IAuthResponse>(url, { headers: this.headers });
-    } */
 
 	getRefreshToken(): string | null {
 		console.log(localStorage.getItem('refreshToken'));

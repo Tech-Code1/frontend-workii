@@ -19,16 +19,6 @@ const czvinylConfig = {
 			value: 'fix'
 		},
 		{
-			description: 'A code change that neither fixes a bug or adds a feature',
-			emoji: '💡',
-			value: 'refactor'
-		},
-		{
-			description: 'Build process or auxiliary tool changes',
-			emoji: '🤖',
-			value: 'chore'
-		},
-		{
 			description: 'Documentation only changes',
 			emoji: '📘',
 			value: 'docs'
@@ -39,14 +29,14 @@ const czvinylConfig = {
 			value: 'style'
 		},
 		{
+			description: 'A code change that neither fixes a bug or adds a feature',
+			emoji: '💡',
+			value: 'refactor'
+		},
+		{
 			description: 'A code change that improves performance',
 			emoji: '⚡',
 			value: 'perf'
-		},
-		{
-			description: 'Adding missing tests or correcting existing tests',
-			emoji: '✅',
-			value: 'test'
 		},
 		{
 			description: 'CI related changes',
@@ -54,9 +44,19 @@ const czvinylConfig = {
 			value: 'ci'
 		},
 		{
+			description: 'Build process or auxiliary tool changes',
+			emoji: '🤖',
+			value: 'chore'
+		},
+		{
 			description: 'Create a release commit',
 			emoji: '🔖',
 			value: 'release'
+		},
+		{
+			description: 'Adding missing tests or correcting existing tests',
+			emoji: '✅',
+			value: 'test'
 		}
 	]
 };

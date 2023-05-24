@@ -40,7 +40,7 @@ export class UserEffects {
 			ofType(UserActions.loginUser),
 			concatMap((action) =>
 				this.authServices.login({ email: action.email, password: action.password }).pipe(
-					switchMap((resp) => {
+					concatMap((resp) => {
 						if (resp.ok === true) {
 							this.setUserData(resp.token!, resp.id!, resp.email!, resp.refreshToken!);
 

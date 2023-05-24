@@ -8,9 +8,11 @@ export interface IUserDto {
 	avatar?: string;
 	nick?: string;
 	areaOfExpertise?: string[];
-	profession: string[];
+	profession?: string[];
 	isActive?: boolean;
 	roles?: string[];
-	timeOfCreation: number;
+	timeOfCreation?: number;
 	workiis?: string[];
+	token?: string;
+	refreshToken?: string;
 }
