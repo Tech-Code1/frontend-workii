@@ -108,8 +108,6 @@ export class UserEffects {
 			concatMap((action) =>
 				this.userService.getUser(action.id).pipe(
 					map((user) => {
-						console.log(user);
-
 						return UserActions.setUser(user);
 					}),
 					catchError((error) => of(UserActions.getUserError('No se pudo encontrar el usuario')))
@@ -117,6 +115,20 @@ export class UserEffects {
 			)
 		)
 	);
+
+	/* loadCurrentUser$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(UserActions.loadCurrentUser),
+			concatMap(() => {
+				const token = localStorage.getItem('authToken');
+				if (token) {
+					const decodedToken: { id: string } = jwt_decode(token);
+					return of(UserActions.currentUserLoaded(decodedToken['id']));
+				}
+				return of(UserActions.currentUserLoadError('Error al cargar el usuario actual'));
+			})
+		)
+	); */
 
 	registerUserNavigateToDashboard$ = createEffect(
 		() =>

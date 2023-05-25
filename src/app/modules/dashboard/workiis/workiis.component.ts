@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { AfterContentInit, Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import {
@@ -40,7 +40,7 @@ export interface IWorkiiInfo {
 	templateUrl: './workiis.component.html',
 	styleUrls: ['./workiis.component.scss']
 })
-export class WorkiisComponent implements OnInit, OnDestroy {
+export class WorkiisComponent implements OnInit, OnDestroy, AfterContentInit {
 	private store = inject(Store<IAppState>);
 	private modalService = inject(SwitchService);
 	private userService = inject(UserService);
@@ -66,8 +66,16 @@ export class WorkiisComponent implements OnInit, OnDestroy {
 	searchWorkiis$: Observable<readonly IWorkii[]> = new Observable<readonly IWorkii[]>();
 	applications$: Observable<readonly IApplicationUser[]> = new Observable<readonly IApplicationUser[]>();
 
-	ngOnInit(): void {
+	ngAfterContentInit(): void {
 		this.userCurrentId = this.userService.getCurrentUser();
+	}
+
+	ngOnInit(): void {
+		this.store.dispatch(WorkiiActions.loadWorkiis({ limit: this.limit, offset: this.offset }));
+		if (this.userCurrentId) {
+			this.store.dispatch(WorkiiActions.loadApplications(this.userCurrentId));
+		}
+
 		this.isFound$ = this.store.select(selectNotFound);
 		this.loading$ = this.store.select(selectLoadingUi);
 		this.searchTerm$ = this.store.select(selectSearchTerm);
@@ -77,9 +85,6 @@ export class WorkiisComponent implements OnInit, OnDestroy {
 		this.modalService.$modal.subscribe((valor) => {
 			this.modalSwitch = valor;
 		});
-
-		this.store.dispatch(WorkiiActions.loadWorkiis({ limit: this.limit, offset: this.offset }));
-		this.store.dispatch(WorkiiActions.loadApplications());
 
 		this.workiis$ = this.store.select(selectListWorkiis);
 		this.applications$ = this.store.select(selectListApplications);

@@ -1,22 +1,20 @@
 import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EMPTY, firstValueFrom, from, lastValueFrom, Observable, of, tap } from 'rxjs';
-import { map, exhaustMap, catchError, concatMap, mergeMap, switchMap, takeUntil } from 'rxjs/operators';
-import { IWorkii } from 'src/app/core/models/workii.interface';
-import { WorkiisService } from '../../service/workiis.service';
-import { WorkiiActions } from '../actions/workii.actions';
-import Swal, { SweetAlertResult } from 'sweetalert2';
-import { IApplicationResponse, IApplicationUser, IWorkiiCreate, IApplication } from '../../interfaces/workii.interface';
+import { Action, Store } from '@ngrx/store';
+import { Observable, from, of, tap } from 'rxjs';
+import { catchError, concatMap, exhaustMap, map, mergeMap, switchMap } from 'rxjs/operators';
 import { SwitchService } from 'src/app/modules/auth/services/switch.service';
 import { UserService } from 'src/app/modules/auth/services/user.service';
-import { IAppState } from '../../../../../core/state/app.state';
-import { Action, Store } from '@ngrx/store';
 import { UiActions } from 'src/app/shared/state/actions/ui.actions';
+import Swal from 'sweetalert2';
+import { IAppState } from '../../../../../core/state/app.state';
+import { IApplicationResponse, IApplicationUser, IWorkiiCreate } from '../../interfaces/workii.interface';
+import { WorkiisService } from '../../service/workiis.service';
+import { WorkiiActions } from '../actions/workii.actions';
 
 @Injectable()
 export class WorkiiEffects {
 	private store = inject(Store<IAppState>);
-	userCurrentId: string = this.userService.getCurrentUser();
 
 	loadWorkiis$: Observable<Action> = createEffect(() =>
 		this.actions$.pipe(
@@ -83,8 +81,8 @@ export class WorkiiEffects {
 		createEffect(() =>
 			this.actions$.pipe(
 				ofType(WorkiiActions.loadApplications),
-				exhaustMap(() =>
-					this.workiisService.getAllApplicationsWorkiiByUser(this.userCurrentId, { limit: 10, offset: 0 }).pipe(
+				exhaustMap((action) =>
+					this.workiisService.getAllApplicationsWorkiiByUser(action.id, { limit: 10, offset: 0 }).pipe(
 						map((applications) => {
 							return { type: WorkiiActions.listApplicationsWorkiis.type, applications };
 						}),

@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { IWorkiiState } from 'src/app/core/models/workii.state';
-import { WorkiiActions } from '../actions/workii.actions';
 import { IApplicationUser } from '../../interfaces/workii.interface';
+import { WorkiiActions } from '../actions/workii.actions';
 
 export const initialState: IWorkiiState = {
 	workiis: [],
@@ -19,7 +19,7 @@ export const _workiiReducer = createReducer(
 	initialState,
 	on(WorkiiActions.logOut, () => initialState),
 	on(WorkiiActions.loadWorkiis, (state, { type }) => ({ ...state, type })),
-	on(WorkiiActions.loadApplications, (state, { type }) => ({ ...state, type })),
+	on(WorkiiActions.loadApplications, (state, { type, id }) => ({ ...state, type, id })),
 	on(WorkiiActions.listWorkiis, (state, { workiis, totalResults }) => ({
 		...state,
 		loading: false,

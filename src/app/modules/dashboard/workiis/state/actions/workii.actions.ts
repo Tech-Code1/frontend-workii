@@ -1,12 +1,12 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { IWorkii } from 'src/app/core/models/workii.interface';
 import {
-	IWorkiiCreate,
+	IApplicationCreateUser,
 	IApplicationResponse,
 	IApplicationUser,
-	IApplicationCreateUser,
 	IPagination,
-	IUsersApplicationResponse
+	IUsersApplicationResponse,
+	IWorkiiCreate
 } from '../../interfaces/workii.interface';
 
 export const WorkiiActions = createActionGroup({
@@ -14,7 +14,7 @@ export const WorkiiActions = createActionGroup({
 	events: {
 		'Log Out': emptyProps(),
 		'Load workiis': ({ limit, offset }: IPagination) => ({ limit, offset }),
-		'Load Applications': emptyProps(),
+		'Load Applications': (id: string) => ({ id }),
 		'List workiis': (workiis: readonly IWorkii[], totalResults: number) => ({ workiis, totalResults }),
 		'List Applications Workiis': (applications: readonly IApplicationUser[]) => ({ applications }),
 		'Load Error': props<{ errorMessage: string }>(),

@@ -33,7 +33,7 @@ export class WorkiiDetailComponent implements OnInit {
 
 		this.workii$ = this.store.select(selectCurrentWorkii);
 
-		this.store.dispatch(WorkiiActions.loadApplications());
+		this.store.dispatch(WorkiiActions.loadApplications(this.userCurrentId));
 		this.applications$ = this.store.select(selectListApplications);
 
 		this.combined$ = combineLatest([this.applications$, this.workii$]).pipe(
