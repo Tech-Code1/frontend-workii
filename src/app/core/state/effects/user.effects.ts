@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { catchError, concatMap, from, map, of, switchMap, tap } from 'rxjs';
+import { catchError, concatMap, exhaustMap, from, map, of, switchMap, tap } from 'rxjs';
 import { IUser } from 'src/app/modules/auth/interfaces/auth.interface';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { UserService } from 'src/app/modules/auth/services/user.service';
@@ -38,18 +38,19 @@ export class UserEffects {
 	loginUser$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(UserActions.loginUser),
-			concatMap((action) =>
+			exhaustMap((action) =>
 				this.authServices.login({ email: action.email, password: action.password }).pipe(
 					concatMap((resp) => {
 						if (resp.ok === true) {
-							this.setUserData(resp.token!, resp.id!, resp.email!, resp.refreshToken!);
+							//this.setUserData(resp.token!, resp.id!, resp.email!, resp.refreshToken!);
+							localStorage.setItem('authToken', resp.token!);
+							localStorage.setItem('refreshToken', resp.refreshToken!);
 
 							return from([
 								UserActions.userFound(),
 								UserActions.loginSuccess(resp.token!),
 								//UserActions.getUser(resp.id!),
-								UiActions.stopLoading(),
-								UserActions.navigateAfterLogin()
+								UiActions.stopLoading()
 							]);
 						} else {
 							return from([UserActions.userNotFound(), UiActions.stopLoading()]);
@@ -69,7 +70,7 @@ export class UserEffects {
 	navigateAfterLogin$ = createEffect(
 		() =>
 			this.actions$.pipe(
-				ofType(UserActions.navigateAfterLogin),
+				ofType(UserActions.loginSuccess),
 				tap(() => this.router.navigate(['/dashboard/workiis']))
 			),
 		{ dispatch: false }
@@ -87,11 +88,7 @@ export class UserEffects {
 						localStorage.setItem('authToken', token);
 						localStorage.setItem('refreshToken', refreshToken);
 
-						return [
-							UserActions.registerUserSuccess(),
-							UserActions.registerUserNavigateToDashboard(),
-							UserActions.registerUserShowMessage()
-						];
+						return [UserActions.registerUserSuccess(), UserActions.registerUserShowMessage()];
 					}),
 					catchError((err) => {
 						this.router.navigate(['/auth']);
@@ -133,7 +130,7 @@ export class UserEffects {
 	registerUserNavigateToDashboard$ = createEffect(
 		() =>
 			this.actions$.pipe(
-				ofType(UserActions.registerUserNavigateToDashboard),
+				ofType(UserActions.registerUserSuccess),
 				tap(() => {
 					this.router.navigate(['/dashboard/workiis']);
 				})

@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { environment } from '../../../../environments/environment';
 
 import { Observable, tap } from 'rxjs';
 import { buildFormData } from 'src/app/shared/utils/buildFormData';
@@ -11,7 +10,6 @@ import { ICreateUser, ICreateUserResponse } from '../interfaces/createUser.inter
 })
 export class RegisterService {
 	private http = inject(HttpClient);
-	private baseUrl: string = environment.baseUrl;
 	loginEmail!: string | undefined;
 	public userCreationDTO: ICreateUser = {};
 	public previewImages: any = {};
@@ -23,7 +21,7 @@ export class RegisterService {
 	}
 
 	public finishUserCreation(): Observable<ICreateUserResponse> {
-		const url = `${this.baseUrl}/users/register`;
+		const url = `/users/register`;
 
 		const finalDTO = {
 			avatar: this.userCreationDTO.avatar,

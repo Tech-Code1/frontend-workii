@@ -17,6 +17,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import player, { LottiePlayer } from 'lottie-web';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { LottieModule as NgxLottieModule } from 'ngx-lottie';
+import { AppInterceptor } from './core/interceptors/app.interceptor';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { ROOT_REDUCERS } from './core/state/app.state';
 import { UserEffects } from './core/state/effects/user.effects';
@@ -65,7 +66,10 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
 		}),
 		[NgxLottieModule.forRoot({ player: playerFactory })]
 	],
-	providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+	providers: [
+		{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+		{ provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true }
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule {}

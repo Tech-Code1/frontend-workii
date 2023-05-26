@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { environment } from '../../../../environments/environment';
 
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -19,7 +18,6 @@ export class AuthService {
 	private http = inject(HttpClient);
 	private router = inject(Router);
 
-	private baseUrl: string = environment.baseUrl;
 	private _user!: IUser;
 
 	get user(): IUser {
@@ -27,14 +25,14 @@ export class AuthService {
 	}
 
 	login({ email, password }: ILogin): Observable<IAuthResponse> {
-		const url = `${this.baseUrl}/auth/login`;
+		const url = `/auth/login`;
 		const body = { email, password };
 
 		return this.http.post<IAuthResponse>(url, body);
 	}
 
 	validateOtp(otp: string): Observable<IOtp> {
-		const url = `${this.baseUrl}/auth/validate/otp`;
+		const url = `/auth/validate/otp`;
 		const body = { otp };
 
 		return this.http.post<IOtp>(url, body);
@@ -48,7 +46,7 @@ export class AuthService {
 
 	refreshToken(): Observable<any> {
 		const refreshToken = this.getRefreshToken();
-		const url = `${this.baseUrl}/auth/refresh-token`;
+		const url = `/auth/refresh-token`;
 		const body = { refreshToken };
 
 		return this.http.post(url, body);
