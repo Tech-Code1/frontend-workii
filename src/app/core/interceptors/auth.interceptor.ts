@@ -74,7 +74,3 @@ export class AuthInterceptor implements HttpInterceptor {
 		return next.handle(request);
 	}
 }
-
-/* export const httpInterceptorProviders = [
-  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-]; */

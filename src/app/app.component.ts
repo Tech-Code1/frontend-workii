@@ -1,8 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { UserActions } from './core/state/actions/user.actions';
 import { IAppState } from './core/state/app.state';
 import { AuthService } from './modules/auth/services/auth.service';
 import { UserService } from './modules/auth/services/user.service';
@@ -14,9 +13,8 @@ import { supportLanguages } from './shared/utils/constLanguages';
 	styleUrls: ['./app.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 	title = 'workii';
-	isLoggedIn = false;
 	eventBusSub?: Subscription;
 
 	private translateService = inject(TranslateService);
@@ -25,7 +23,7 @@ export class AppComponent implements OnInit {
 	private userService = inject(UserService);
 	private eventBusService = inject(EventBusService);
 
-	userCurrentId: string = this.userService.getCurrentUser();
+	//userCurrentId: string = this.userService.getCurrentUser();
 
 	constructor() {
 		this.translateService.addLangs(supportLanguages);
@@ -36,7 +34,7 @@ export class AppComponent implements OnInit {
 	 this.translateService.use(browserlang); */
 	}
 
-	ngOnInit(): void {
+	/* ngOnInit(): void {
 		const token = localStorage.getItem('authToken');
 
 		this.eventBusSub = this.eventBusService.on('logout', () => {
@@ -44,13 +42,12 @@ export class AppComponent implements OnInit {
 		});
 
 		if (token) {
-			//this.store.dispatch(UserActions.validateToken());
-
+			this.store.dispatch(UserActions.validateToken());
 			this.store.dispatch(UserActions.getUser(this.userCurrentId));
 		}
 	}
 
 	logout(): void {
 		this.authService.logout().subscribe();
-	}
+	} */
 }

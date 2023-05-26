@@ -9,7 +9,10 @@ const routes: Routes = [
 		component: TemplateDashboardComponent,
 		children: [
 			{ path: '', component: DashboardComponent },
-			{ path: 'workiis', loadChildren: () => import('./workiis/workiis.module').then((m) => m.WorkiisModule) },
+			{
+				path: 'workiis',
+				loadChildren: () => import('./workiis/workiis.module').then((m) => m.WorkiisModule)
+			},
 			{ path: 'messages', loadChildren: () => import('./messages/messages.module').then((m) => m.MessagesModule) },
 			{ path: 'progress', loadChildren: () => import('./progress/progress.module').then((m) => m.ProgressModule) },
 			{ path: 'settings', loadChildren: () => import('./setting/setting.module').then((m) => m.SettingModule) },
